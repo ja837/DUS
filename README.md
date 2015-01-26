@@ -1,7 +1,4 @@
-FVS2
-====
-
-Assessment 2 Project Code
+DUS' extension of FVS' game.
 
 Project Set-up Instructions
 ===========================
