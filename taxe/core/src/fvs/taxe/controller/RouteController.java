@@ -57,7 +57,7 @@ public class RouteController {
         Station lastStation = context.getGameLogic().getMap().getStationFromPosition(lastPosition);
 
         boolean hasConnection = context.getGameLogic().getMap().doesConnectionExist(station.getName(), lastStation.getName());
-
+        //Check whether a connection exists
         if(!hasConnection) {
             context.getTopBarController().displayFlashMessage("This connection doesn't exist", Color.RED);
         } else {

@@ -7,7 +7,7 @@ import gameLogic.resource.Train;
 public class Goal {
 	private Station origin;
 	private Station destination;
-	private int turnIssued;
+	private int turnIssued;  //Use this value to check quantifiable goals
 	private boolean complete = false;
 	//constraints
 	private String trainName = null;

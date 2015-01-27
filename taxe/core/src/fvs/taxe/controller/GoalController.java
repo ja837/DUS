@@ -20,6 +20,7 @@ public class GoalController {
     }
 
     private List<String> playerGoalStrings() {
+        //Returns player goals so that they can displayed on screen
         ArrayList<String> strings = new ArrayList<String>();
         PlayerManager pm = context.getGameLogic().getPlayerManager();
         Player currentPlayer = pm.getCurrentPlayer();
@@ -37,7 +38,7 @@ public class GoalController {
 
     public void showCurrentPlayerGoals() {
         TaxeGame game = context.getTaxeGame();
-        
+        //Displays the player's current goals
         goalButtons.remove();
         goalButtons.clear();
 

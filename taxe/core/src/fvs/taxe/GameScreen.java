@@ -42,7 +42,7 @@ public class GameScreen extends ScreenAdapter {
         gameLogic = Game.getInstance();
         context = new Context(stage, skin, game, gameLogic);
         Gdx.input.setInputProcessor(stage);
-
+        //Draw background
         mapTexture = new Texture(Gdx.files.internal("gamemap.png"));
         map = gameLogic.getMap();
 
@@ -90,19 +90,19 @@ public class GameScreen extends ScreenAdapter {
         topBarController.drawBackground();
 
         stationController.renderConnections(map.getConnections(), Color.GRAY);
-
+        //Draw routing
         if(gameLogic.getState() == GameState.ROUTING) {
             routeController.drawRoute(Color.BLACK);
-        }
-
+        } else
+        //Draw train moving
         if(gameLogic.getState() == GameState.ANIMATING) {
             timeAnimated += delta;
             if (timeAnimated >= ANIMATION_TIME) {
                 gameLogic.setState(GameState.NORMAL);
                 timeAnimated = 0;
             }
-        }
-        
+        } else
+        //Draw the number of trains at each station
         if(gameLogic.getState() == GameState.NORMAL || gameLogic.getState() == GameState.PLACING){
         	stationController.displayNumberOfTrainsAtStations();
         }

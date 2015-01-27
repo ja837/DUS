@@ -25,7 +25,9 @@ public class PlayerManager {
 	}
 	
 	public void turnOver() {
+		//Swaps current player
 		currentTurn = currentTurn == 1 ? 0 : 1;
+		//Calls turn listeners
 		turnChanged();
 		playerChanged();
 	}
@@ -37,6 +39,7 @@ public class PlayerManager {
 
 	private void turnChanged() {
 		turnNumber++;
+		//Iterates through list of turnListeners and tells them that the turn has changed
 		for(TurnListener listener : turnListeners) {
 			listener.changed();
 		}

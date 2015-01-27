@@ -28,12 +28,12 @@ public class GoalManager {
 		Station destination;
 		do {
 			destination = map.getRandomStation();
-			// always true, really?
 		} while (destination == origin || destination instanceof CollisionStation);
 		
 		Goal goal = new Goal(origin, destination, turn);
 
 		// Goal with a specific train
+		// TODO: THIS IS WHERE WE CHANGE GOALS
 		Random random = new Random();
 		if(random.nextInt(2) == 1) {
 			goal.addConstraint("train", resourceManager.getTrainNames().get(random.nextInt(resourceManager.getTrainNames().size())));

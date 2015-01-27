@@ -48,7 +48,7 @@ public class ResourceController {
             if (resource instanceof Train) {
                 Train train = (Train) resource;
 
-                // don't show a button for trains that have been placed
+                // don't show a button for trains that have been placed, trains placed are still part of the 7 total upgrades
                 if (train.getPosition() != null) {
                     continue;
                 }

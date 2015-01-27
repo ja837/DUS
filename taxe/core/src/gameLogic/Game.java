@@ -20,9 +20,11 @@ public class Game {
 	public final int TOTAL_TURNS = 30;
 
 	private Game() {
+		//Creates players
 		playerManager = new PlayerManager();
 		playerManager.createPlayers(CONFIG_PLAYERS);
 
+		//Give them starting resources and goals
 		resourceManager = new ResourceManager();
 		goalManager = new GoalManager(resourceManager);
 		

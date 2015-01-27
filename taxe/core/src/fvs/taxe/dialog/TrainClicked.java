@@ -8,7 +8,7 @@ import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.Player;
 import gameLogic.resource.Train;
-
+//Responsible for checking whether the train is clicked
 public class TrainClicked extends ClickListener {
     private Context context;
     private Train train;
