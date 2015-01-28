@@ -16,29 +16,20 @@ public class DialogEndGame extends Dialog{
 	public DialogEndGame(TaxeGame game, PlayerManager pm, Skin skin) {
 		super("GAME OVER", skin);
 		this.game = game;
-		
-		int highscore = 0;
-		int playernum = 0;
+
+		int highScore = 0;
+		int playerNum = 0;
 		for(Player player : pm.getAllPlayers()) {
-			int goalsComplete = 0;
-			for(Goal goal : player.getGoals()) {
-				if(goal.getComplete()){
-					goalsComplete++;
-				}
-			}
-			
-			text("Player " + player.getPlayerNumber() + " completed " + goalsComplete + " goals");
-			getContentTable().row();
-			
-			if(goalsComplete > highscore) {
-				highscore = goalsComplete;
-				playernum = player.getPlayerNumber();
+			if (player.getScore()>highScore){
+				highScore = player.getScore();
+				playerNum = player.getPlayerNumber();
 			}
 		}
-		if(playernum != 0) {
-			text("PLAYER " + playernum + " WINS!");
+
+		if(playerNum != 0) {
+			text("PLAYER " + playerNum + " WINS!");
 		} else {
-			text("NO WINNER");
+			text("IT'S A TIE!");
 		}
 		
 		//button("Main Menu","MENU");
