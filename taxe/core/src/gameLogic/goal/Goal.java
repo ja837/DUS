@@ -4,7 +4,7 @@ import Util.Tuple;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
 
-public class Goal {
+public class Goal {//hobitses
 	private Station origin;
 	private Station destination;
 	private int turnIssued;  //Use this value to check quantifiable goals
