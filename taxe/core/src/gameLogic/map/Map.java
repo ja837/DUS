@@ -182,6 +182,7 @@ public class Map {
         if (rand > 0) { //50% chance of connection being blocked
             Connection toBlock = getRandomConnection();
             toBlock.setBlocked(4);
+            System.out.println("Connection blocked: " + toBlock.getStation1().getName() + " to " + toBlock.getStation2().getName());
         }
     }
 }
