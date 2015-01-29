@@ -40,6 +40,7 @@ public class Game {
 				resourceManager.addRandomResourceToPlayer(currentPlayer);
 				resourceManager.addRandomResourceToPlayer(currentPlayer);
 				map.decrementBlockedConnections();
+				map.blockRandomConnection();
 			}
 		});
 	}
