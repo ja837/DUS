@@ -39,8 +39,6 @@ public class Game {
 				goalManager.addRandomGoalToPlayer(currentPlayer);
 				resourceManager.addRandomResourceToPlayer(currentPlayer);
 				resourceManager.addRandomResourceToPlayer(currentPlayer);
-				map.decrementBlockedConnections();
-				map.blockRandomConnection();
 			}
 		});
 	}
