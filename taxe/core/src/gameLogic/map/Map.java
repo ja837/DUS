@@ -165,4 +165,10 @@ public class Map {
 
         return route;
     }
+
+    public void decrementBlockedConnections() {
+        for (Connection connection : connections) {
+            connection.decrementBlocked();
+        }
+    }
 }
