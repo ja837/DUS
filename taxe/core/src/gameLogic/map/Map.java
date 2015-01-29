@@ -171,4 +171,9 @@ public class Map {
             connection.decrementBlocked();
         }
     }
+
+    public Connection getRandomConnection(){
+        int index = random.nextInt(connections.size());
+        return connections.get(index);
+    }
 }
