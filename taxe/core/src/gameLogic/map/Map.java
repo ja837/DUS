@@ -176,4 +176,12 @@ public class Map {
         int index = random.nextInt(connections.size());
         return connections.get(index);
     }
+
+    public void blockRandomConnection(){
+        int rand = random.nextInt(2);
+        if (rand > 0) { //50% chance of connection being blocked
+            Connection toBlock = getRandomConnection();
+            toBlock.setBlocked(4);
+        }
+    }
 }
