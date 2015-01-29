@@ -14,6 +14,7 @@ public class Goal {//hobitses
 	private boolean inTurns = false;
 	private int turnsTime;
 	private int score;
+	private int bonus;
 	private Station intermediary;
 	//constraints
 	private String trainName = null;
@@ -25,10 +26,18 @@ public class Goal {//hobitses
 	public int getScore(){
 		return this.score;
 	}
+
+	public int getBonus(){
+		return this.bonus;
+	}
 	
-	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime) {
+	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime, int bonus) {
 		this.origin = origin;
 		this.destination = destination;
+		//set the amount of extra points to give if a bonus goal is completed
+		this.bonus = bonus;
+		//the amount of points give is equal to the distance
+		this.score = (int) fvs.taxe.controller.TrainMoveController.getDistanceStatic(origin.getLocation(), destination.getLocation());
 		if (this.intermediary != destination && this.intermediary != origin) {
 			goingThrough = true;
 			this.intermediary = intermediary;
