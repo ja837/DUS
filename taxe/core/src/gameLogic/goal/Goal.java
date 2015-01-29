@@ -1,6 +1,7 @@
 package gameLogic.goal;
 
 import Util.Tuple;
+import com.badlogic.gdx.Game;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
 
@@ -12,9 +13,18 @@ public class Goal {//hobitses
 	private boolean goingThrough = false;
 	private boolean inTurns = false;
 	private int turnsTime;
+	private int score;
 	private Station intermediary;
 	//constraints
 	private String trainName = null;
+
+	public void setScore(int score){
+		this.score = score;
+	}
+
+	public int getScore(){
+		return this.score;
+	}
 	
 	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime) {
 		this.origin = origin;
@@ -75,7 +85,7 @@ public class Goal {//hobitses
 	public boolean completedWithinMaxTurns(Train train) {
 		boolean completed = false;
 		if (this.isComplete(train) && this.inTurns)
-			if (turnsTime + this.turnIssued <= resource.PlayerManager().getTurnNumber()) // dunno how to retrieve current turn number
+			if (turnsTime + this.turnIssued <= gameLogic.Game.getInstance().getPlayerManager().getTurnNumber())
 				completed=true;
 		return completed;
 
