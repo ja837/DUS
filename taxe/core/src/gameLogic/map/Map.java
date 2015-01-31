@@ -185,4 +185,30 @@ public class Map {
             System.out.println("Connection blocked: " + toBlock.getStation1().getName() + " to " + toBlock.getStation2().getName());
         }
     }
+
+    public boolean isConnectionBlocked(Station station1, Station station2) {
+        for (Connection connection : this.getConnections()){
+            if ((connection.getStation1().equals(station1) && connection.getStation2().equals(station2))
+                    || (connection.getStation1().equals(station2) && connection.getStation2().equals(station1))){
+                return connection.isBlocked();
+            }
+        }
+        //Reaching here means a connection has been added to the route where a connection doesn't exist
+        return true;
+    }
+
+    public ArrayList<Connection> getBlockedConnections(){
+        ArrayList<Connection> blockedConnections = new ArrayList<Connection>();
+        for (Connection connection : this.getConnections()){
+            if (connection.isBlocked()){
+                blockedConnections.add(connection);
+            }
+        }
+        return blockedConnections;
+    }
+
+
+
+
+
 }
