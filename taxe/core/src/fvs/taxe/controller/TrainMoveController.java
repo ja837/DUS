@@ -94,6 +94,10 @@ public class TrainMoveController {
         return Vector2.dst(a.getX(), a.getY(), b.getX(), b.getY());
     }
 
+    public static float getDistanceStatic (IPositionable a, IPositionable b) {
+        return Vector2.dst(a.getX(), a.getY(), b.getX(), b.getY());
+    }
+
     private void collisions(Station station) {
         //test for train collisions at Junction point
         //TODO: ADD BETTER COLLISIONS HERE

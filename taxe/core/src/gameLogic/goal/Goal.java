@@ -1,6 +1,7 @@
 package gameLogic.goal;
 
 import Util.Tuple;
+import com.badlogic.gdx.Game;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
 
@@ -12,13 +13,31 @@ public class Goal {//hobitses
 	private boolean goingThrough = false;
 	private boolean inTurns = false;
 	private int turnsTime;
+	private int score;
+	private int bonus;
 	private Station intermediary;
 	//constraints
 	private String trainName = null;
+
+	public void setScore(int score){
+		this.score = score;
+	}
+
+	public int getScore(){
+		return this.score;
+	}
+
+	public int getBonus(){
+		return this.bonus;
+	}
 	
-	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime) {
+	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime, int bonus) {
 		this.origin = origin;
 		this.destination = destination;
+		//set the amount of extra points to give if a bonus goal is completed
+		this.bonus = bonus;
+		//the amount of points give is equal to the distance
+		this.score = (int) fvs.taxe.controller.TrainMoveController.getDistanceStatic(origin.getLocation(), destination.getLocation());
 		if (this.intermediary != destination && this.intermediary != origin) {
 			goingThrough = true;
 			this.intermediary = intermediary;
@@ -75,7 +94,7 @@ public class Goal {//hobitses
 	public boolean completedWithinMaxTurns(Train train) {
 		boolean completed = false;
 		if (this.isComplete(train) && this.inTurns)
-			if (turnsTime + this.turnIssued <= gameLogic.Game.getInstance().getPlayerManager().getTurnNumber()) // dunno how to retrieve current turn number
+			if (turnsTime + this.turnIssued <= gameLogic.Game.getInstance().getPlayerManager().getTurnNumber())
 				completed=true;
 		return completed;
 
