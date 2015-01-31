@@ -29,6 +29,10 @@ public class Connection {
 		}
 	}
 
+	public int getTurnsBlocked() {
+		return blocked;
+	}
+
 	public void setBlocked(int turns) {
 		this.blocked = turns;
 	}
