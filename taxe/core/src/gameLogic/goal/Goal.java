@@ -75,7 +75,7 @@ public class Goal {//hobitses
 	public boolean completedWithinMaxTurns(Train train) {
 		boolean completed = false;
 		if (this.isComplete(train) && this.inTurns)
-			if (turnsTime + this.turnIssued <= resource.PlayerManager().getTurnNumber()) // dunno how to retrieve current turn number
+			if (turnsTime + this.turnIssued <= gameLogic.Game.getInstance().getPlayerManager().getTurnNumber()) // dunno how to retrieve current turn number
 				completed=true;
 		return completed;
 
