@@ -29,6 +29,7 @@ public class GoalManager {
 		do {
 			origin = map.getRandomStation();
 		} while (origin instanceof CollisionStation);
+		
 		Station destination;
 		do {
 			destination = map.getRandomStation();
