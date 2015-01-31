@@ -20,11 +20,7 @@ public class Connection {
 	}
 
 	public boolean isBlocked() {
-		if (this.blocked > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return this.blocked > 0;
 	}
 
 	public void decrementBlocked() {

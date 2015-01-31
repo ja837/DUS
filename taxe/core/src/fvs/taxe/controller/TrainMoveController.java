@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import fvs.taxe.actor.TrainActor;
+import gameLogic.Game;
 import gameLogic.Player;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.IPositionable;
@@ -50,6 +51,26 @@ public class TrainMoveController {
                 // train.setPosition(station.getLocation());
 
                 collisions(station);
+
+                int stationIndex = train.getRoute().indexOf(station); //find this station in route
+                int nextIndex = stationIndex + 1;
+
+
+                if (nextIndex < train.getRoute().size()) //is next index still in route?
+                {
+                    //JOptionPane.showMessageDialog(null, "INSIDE IF", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
+                    Station nextStation = train.getRoute().get(nextIndex);
+
+                    if (Game.getInstance().getMap().isConnectionBlocked(station, nextStation)) {
+                        train.getActor().setPaused(true);
+                    } else {
+                        train.getActor().setPaused(false);
+                    }
+                } else {
+                    train.getActor().setPaused(false);
+                }
+
+
             }
         };
     }
@@ -66,6 +87,15 @@ public class TrainMoveController {
                 train.setPosition(train.getFinalDestination().getLocation());
                 train.getActor().setVisible(false);
                 train.setFinalDestination(null);
+            }
+        };
+    }
+
+    // an action for the train to run when it is stopped at an obstacle
+    private RunnableAction pauseAction() {
+        return new RunnableAction() {
+            public void run() {
+                //
             }
         };
     }

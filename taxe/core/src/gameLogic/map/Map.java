@@ -180,18 +180,24 @@ public class Map {
     public void blockRandomConnection(){
         int rand = random.nextInt(2);
         if (rand > 0) { //50% chance of connection being blocked
+
             Connection toBlock = getRandomConnection();
             toBlock.setBlocked(4);
             System.out.println("Connection blocked: " + toBlock.getStation1().getName() + " to " + toBlock.getStation2().getName());
+
+            //connections.get(0).setBlocked(1); //UNCOMMENT FOR TEST OF 50% CHANCE TO BLOCK PARIS-MADRID CONNECTION
         }
+
     }
 
     public boolean isConnectionBlocked(Station station1, Station station2) {
-        for (Connection connection : this.getConnections()){
-            if ((connection.getStation1().equals(station1) && connection.getStation2().equals(station2))
-                    || (connection.getStation1().equals(station2) && connection.getStation2().equals(station1))){
-                return connection.isBlocked();
-            }
+        for (Connection connection : connections){
+            if(connection.getStation1() == station1)
+                if(connection.getStation2() == station2)
+                    return connection.isBlocked();
+            if(connection.getStation1() == station2)
+                if(connection.getStation2() == station1)
+                    return connection.isBlocked();
         }
         //Reaching here means a connection has been added to the route where a connection doesn't exist
         return true;
