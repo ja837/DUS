@@ -37,8 +37,8 @@ public class GoalManager {
 		} while (destination == origin || destination instanceof CollisionStation);
 
 		Random random = new Random();
-		int rand = random.nextInt(3);
-		if (rand == 1){//decide if goal has intermediary station; if not, initiate  the intermediary station as origin
+		int rand = random.nextInt(2);
+		if (rand == 0){//decide if goal has intermediary station; if not, initiate  the intermediary station as origin
 			do {
 				intermediary = map.getRandomStation();
 			} while (intermediary == origin || intermediary == destination || intermediary instanceof CollisionStation);
@@ -46,13 +46,13 @@ public class GoalManager {
 		}
 		else intermediary = origin;
 
-		if (rand==2){ //decides if goal can be competed in a number of turns for bonus;
+		if (rand==1){ //decides if goal can be competed in a number of turns for bonus;
 			forTurns = random.nextInt(30); //TODO: change this so that it is based on the distance between origin and dest
 			bonus = 100; //bonus to be awarded if the train completes the goal in a number of turn <= the given constraint
 		}
 		else forTurns=0;
 
-		if (rand==3) {
+		if (rand==2) {
 			train = resourceManager.getRandomTrain();
 		}else{
 			train = null;
