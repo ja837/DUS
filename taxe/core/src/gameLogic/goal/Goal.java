@@ -129,17 +129,19 @@ public class Goal {//hobitses
 
 	public String toString() { // based on the type of goal
 		String trainString = "train";
-		if(trainName != null) {
+		if (trainName != null) {
 			trainString = trainName.getName();
 		}
-		if (!goingThrough && !inTurns)
+		if (withTrain) {
 			return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName();
-		else if (!goingThrough && inTurns)
-					return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName() + " in " + this.turnsTime;
-			 else if (goingThrough && !inTurns)
-					return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName() + " through " + intermediary.getName();
-				  else
-						return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName() + " through " + intermediary.getName()  + " in " + this.turnsTime + " turns";
+		}
+		if (inTurns){
+			return "Send a train from " + origin.getName() + " to " + destination.getName() + " in " + this.turnsTime + "turns";
+		}
+		if (goingThrough) {
+			return "Send a train from " + origin.getName() + " to " + destination.getName() + " through " + intermediary.getName();
+		}
+		return "Send a train from " + origin.getName() + " to " + destination.getName();
 	}
 
 	public void setComplete() {
