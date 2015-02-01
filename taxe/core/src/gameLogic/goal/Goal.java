@@ -57,7 +57,6 @@ public class Goal {//hobitses
 		if (turnsTime!=0)
 		{
 			this.inTurns=true;
-		}else{
 			this.turnsTime=turnsTime;
 		}
 
@@ -136,7 +135,7 @@ public class Goal {//hobitses
 			return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName();
 		}
 		if (inTurns){
-			return "Send a train from " + origin.getName() + " to " + destination.getName() + " in " + this.turnsTime + "turns";
+			return "Send a train from " + origin.getName() + " to " + destination.getName() + " in " + this.turnsTime + " turns";
 		}
 		if (goingThrough) {
 			return "Send a train from " + origin.getName() + " to " + destination.getName() + " through " + intermediary.getName();
