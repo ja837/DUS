@@ -25,6 +25,7 @@ public class GoalManager {
 		Station intermediary;
 		int forTurns;
 		int bonus = 0;
+		Train train = null;
 
 		do {
 			origin = map.getRandomStation();
@@ -36,8 +37,8 @@ public class GoalManager {
 		} while (destination == origin || destination instanceof CollisionStation);
 
 		Random random = new Random();
-
-		if (random.nextInt(5) ==1){//decide if goal has intermediary station; if not, initiate  the intermediary station as origin
+		int rand = random.nextInt(3);
+		if (rand == 1){//decide if goal has intermediary station; if not, initiate  the intermediary station as origin
 			do {
 				intermediary = map.getRandomStation();
 			} while (intermediary == origin || intermediary == destination || intermediary instanceof CollisionStation);
@@ -45,19 +46,26 @@ public class GoalManager {
 		}
 		else intermediary = origin;
 
-		if (random.nextInt(4)==1){ //decides if goal can be competed in a number of turns for bonus;
+		if (rand==2){ //decides if goal can be competed in a number of turns for bonus;
 			forTurns = random.nextInt(30); //TODO: change this so that it is based on the distance between origin and dest
 			bonus = 100; //bonus to be awarded if the train completes the goal in a number of turn <= the given constraint
 		}
 		else forTurns=0;
+
+		if (rand==3) {
+			train = resourceManager.getRandomTrain();
+		}else{
+			train = null;
+		}
 		
-		Goal goal = new Goal(origin, destination, intermediary, turn, forTurns, bonus);
+		Goal goal = new Goal(origin, destination, intermediary, turn, forTurns, bonus, train);
+
 
 		// Goal with a specific train
 		// TODO: THIS IS WHERE WE CHANGE GOALS
-		if(random.nextInt(2) == 1) {
+		/*if(random.nextInt(2) == 1) {
 			goal.addConstraint("train", resourceManager.getTrainNames().get(random.nextInt(resourceManager.getTrainNames().size())));
-		}
+		}*/
 
 		return goal;
 	}
@@ -70,6 +78,9 @@ public class GoalManager {
 		ArrayList<String> completedString = new ArrayList<String>();
 		for(Goal goal:player.getGoals()) {
 			if(goal.isComplete(train)) {
+				if (goal.isBonusCompleted(train)){
+					player.updateScore(goal);
+				}
 				player.completeGoal(goal);
 				player.removeResource(train);
 				completedString.add("Player " + player.getPlayerNumber() + " completed a goal to " + goal.toString() + "!");

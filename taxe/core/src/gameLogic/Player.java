@@ -54,9 +54,10 @@ public class Player {
     }
     
     public void completeGoal(Goal goal) {
-    	this.score = this.score + goal.getScore()+goal.getBonus();
+    	this.score = this.score + goal.getScore();
         goal.setComplete();
         changed();
+
     }
 
     /**
@@ -79,4 +80,9 @@ public class Player {
     }
 
     public int getScore(){ return score;}
+
+    public void updateScore(Goal goal){
+        this.score = this.score + goal.getBonus();
+    }
+
 }

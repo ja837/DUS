@@ -15,9 +15,10 @@ public class Goal {//hobitses
 	private int turnsTime;
 	private int score;
 	private int bonus;
+	private boolean withTrain;
 	private Station intermediary;
 	//constraints
-	private String trainName = null;
+	private Train trainName = null;
 
 	public void setScore(int score){
 		this.score = score;
@@ -31,9 +32,11 @@ public class Goal {//hobitses
 		return this.bonus;
 	}
 	
-	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime, int bonus) {
-		this.goingThrough = false;
-		this.inTurns = false;
+	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime, int bonus, Train train) {
+		if (train != null){
+			trainName = train;
+			withTrain = true;
+		}
 		this.origin = origin;
 		this.destination = destination;
 		//set the amount of extra points to give if a bonus goal is completed
@@ -54,21 +57,22 @@ public class Goal {//hobitses
 		if (turnsTime!=0)
 		{
 			this.inTurns=true;
+		}else{
 			this.turnsTime=turnsTime;
 		}
-		else this.turnsTime=turnsTime;
+
 
 	}
 
 
 	
-	public void addConstraint(String name, String value) {
+	/*public void addConstraint(String name, String value) {
 		if(name.equals("train")) {
 			trainName = value;
 		} else {
 			throw new RuntimeException(name + " is not a valid goal constraint");
 		}
-	}
+	}*/
 
 	public boolean isComplete(Train train) {
 		boolean passedOrigin = false;
@@ -78,10 +82,23 @@ public class Goal {//hobitses
 			}
 		}
 		if(train.getFinalDestination() == destination && passedOrigin) {
-			return trainName == null || trainName.equals(train.getName());
+			return true;
 		} else {
 			return false;
 		}
+	}
+
+	public boolean isBonusCompleted(Train train){
+		if(withTrain == true) {
+			 return wentThroughStation(train);
+		}
+		if(inTurns == true){
+			return completedWithinMaxTurns(train);
+		}
+		if(goingThrough == true){
+			return completedWithTrain(train);
+		}
+		return false;
 	}
 
 	public boolean wentThroughStation(Train train) { //checks if a train has passed through the intermediary station if it exists
@@ -102,10 +119,18 @@ public class Goal {//hobitses
 
 	}
 
+	public boolean completedWithTrain(Train train){
+		if(this.trainName.getName() == train.getName()){
+			return true;
+		}
+		return false;
+	}
+
+
 	public String toString() { // based on the type of goal
 		String trainString = "train";
 		if(trainName != null) {
-			trainString = trainName;
+			trainString = trainName.getName();
 		}
 		if (!goingThrough && !inTurns)
 			return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName();
@@ -114,7 +139,7 @@ public class Goal {//hobitses
 			 else if (goingThrough && !inTurns)
 					return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName() + " through " + intermediary.getName();
 				  else
-						return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName() + " through " + intermediary.getName()  + " in " + this.turnsTime + "turns";
+						return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName() + " through " + intermediary.getName()  + " in " + this.turnsTime + " turns";
 	}
 
 	public void setComplete() {
