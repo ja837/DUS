@@ -54,8 +54,8 @@ public class Player {
     }
     
     public void completeGoal(Goal goal) {
-    	goal.setComplete();
-        score += 1;
+    	this.score = this.score + goal.getScore()+goal.getBonus();
+        goal.setComplete();
         changed();
     }
 

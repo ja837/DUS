@@ -22,19 +22,39 @@ public class GoalManager {
 	private Goal generateRandom(int turn) {
 		Map map = Game.getInstance().getMap();
 		Station origin;
+		Station intermediary;
+		int forTurns;
+		int bonus = 0;
+
 		do {
 			origin = map.getRandomStation();
 		} while (origin instanceof CollisionStation);
+		
 		Station destination;
 		do {
 			destination = map.getRandomStation();
 		} while (destination == origin || destination instanceof CollisionStation);
+
+		Random random = new Random();
+
+		if (random.nextInt(5) ==1){//decide if goal has intermediary station; if not, initiate  the intermediary station as origin
+			do {
+				intermediary = map.getRandomStation();
+			} while (intermediary == origin || intermediary == destination || intermediary instanceof CollisionStation);
+			bonus = 100; //bonus to be awarded if the train completes the goal passing through the intermediary station
+		}
+		else intermediary = origin;
+
+		if (random.nextInt(4)==1){ //decides if goal can be competed in a number of turns for bonus;
+			forTurns = random.nextInt(30); //TODO: change this so that it is based on the distance between origin and dest
+			bonus = 100; //bonus to be awarded if the train completes the goal in a number of turn <= the given constraint
+		}
+		else forTurns=0;
 		
-		Goal goal = new Goal(origin, destination, turn);
+		Goal goal = new Goal(origin, destination, intermediary, turn, forTurns, bonus);
 
 		// Goal with a specific train
 		// TODO: THIS IS WHERE WE CHANGE GOALS
-		Random random = new Random();
 		if(random.nextInt(2) == 1) {
 			goal.addConstraint("train", resourceManager.getTrainNames().get(random.nextInt(resourceManager.getTrainNames().size())));
 		}

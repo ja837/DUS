@@ -54,6 +54,11 @@ public class Train extends Resource {
         changed();
     }
 
+    public boolean routeContains (Station station){
+        if (this.route.contains(station)) return true;
+        return false;
+    }
+
     public IPositionable getPosition() {
         return position;
     }
