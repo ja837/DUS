@@ -18,7 +18,7 @@ public class Game {
 
 	private final int CONFIG_PLAYERS = 2;
 	public final int TOTAL_TURNS = 30;
-	public final int MAX_POINTS = 5;
+
 	private Game() {
 		//Creates players
 		playerManager = new PlayerManager();
@@ -39,6 +39,8 @@ public class Game {
 				goalManager.addRandomGoalToPlayer(currentPlayer);
 				resourceManager.addRandomResourceToPlayer(currentPlayer);
 				resourceManager.addRandomResourceToPlayer(currentPlayer);
+				map.decrementBlockedConnections();
+				map.blockRandomConnection();
 			}
 		});
 	}
