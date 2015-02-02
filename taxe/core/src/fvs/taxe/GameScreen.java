@@ -68,7 +68,7 @@ public class GameScreen extends ScreenAdapter {
         gameLogic.subscribeStateChanged(new GameStateListener() {
         	@Override
         	public void changed(GameState state){
-        		if(gameLogic.getPlayerManager().getTurnNumber() == gameLogic.TOTAL_TURNS && state == GameState.NORMAL) {
+        		if((gameLogic.getPlayerManager().getTurnNumber() == gameLogic.TOTAL_TURNS||gameLogic.getPlayerManager().getCurrentPlayer().getScore()>=gameLogic.MAX_POINTS) && state == GameState.NORMAL) {
         			DialogEndGame dia = new DialogEndGame(GameScreen.this.game, gameLogic.getPlayerManager(), skin);
         			dia.show(stage);
         		}
@@ -111,7 +111,8 @@ public class GameScreen extends ScreenAdapter {
         stage.draw();
         
         game.batch.begin();
-        game.fontSmall.draw(game.batch, "Turn " + (gameLogic.getPlayerManager().getTurnNumber() + 1) + "/" + gameLogic.TOTAL_TURNS, (float) TaxeGame.WIDTH - 90.0f, 20.0f);
+        //If statement checks whether the turn is above 30, if it is then display 30 anyway
+        game.fontSmall.draw(game.batch, "Turn " + ((gameLogic.getPlayerManager().getTurnNumber() + 1 < 30) ? gameLogic.getPlayerManager().getTurnNumber() + 1 :30) + "/" + gameLogic.TOTAL_TURNS, (float) TaxeGame.WIDTH - 90.0f, 20.0f);
         game.batch.end();
 
         resourceController.drawHeaderText();

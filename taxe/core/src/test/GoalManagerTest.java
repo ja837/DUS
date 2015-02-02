@@ -37,8 +37,9 @@ public class GoalManagerTest extends LibGdxTest {
 
         Station station1 = new Station("station1", new Position(5, 5));
         Station station2 = new Station("station2", new Position(2, 2));
+        Station station3 = new Station("station3", new Position(6, 2));
 
-        Goal goal = new Goal(station1, station2, 0);
+        Goal goal = new Goal(station1, station2, station3, 0,0, 0, train);
         player1.addGoal(goal);
         player1.addResource(train);
 

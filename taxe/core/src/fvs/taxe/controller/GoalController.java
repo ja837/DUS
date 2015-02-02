@@ -3,6 +3,7 @@ package fvs.taxe.controller;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import fvs.taxe.TaxeGame;
 import gameLogic.Player;
 import gameLogic.PlayerManager;
@@ -48,7 +49,11 @@ public class GoalController {
 
         game.batch.begin();
         game.fontSmall.setColor(Color.BLACK);
-        game.fontSmall.draw(game.batch, playerGoalHeader(), x, y);
+        //Draws the player's name and their score
+        game.fontSmall.draw(game.batch, playerHeader(), x, y);
+        y -= 30;
+        //Draws "Goals:"
+        game.fontSmall.draw(game.batch, "Goals:", x, y);
         game.batch.end();
         
         y -= 15;
@@ -64,7 +69,7 @@ public class GoalController {
         context.getStage().addActor(goalButtons);
     }
 
-    private String playerGoalHeader() {
-        return "Player " + context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber() + " Goals:";
+    private String playerHeader() {
+        return "Player " + context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber() + ": " + context.getGameLogic().getPlayerManager().getCurrentPlayer().getScore();
     }
 }

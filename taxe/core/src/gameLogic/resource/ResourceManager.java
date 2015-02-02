@@ -57,6 +57,13 @@ public class ResourceManager {
     	
     }
 
+	public Train getRandomTrain(){
+		int index = random.nextInt(trains.size());
+		Tuple<String, Integer> train = trains.get(index);
+		return new Train(train.getFirst(), train.getFirst().replaceAll(" ", "") + ".png", train.getFirst().replaceAll(" ", "") + "Right.png",train.getSecond());
+	}
+
+
     public void addRandomResourceToPlayer(Player player) {
         addResourceToPlayer(player, getRandomResource());
     }
