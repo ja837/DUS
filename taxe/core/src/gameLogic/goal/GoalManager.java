@@ -37,7 +37,7 @@ public class GoalManager {
 		} while (destination == origin || destination instanceof CollisionStation);
 
 		Random random = new Random();
-		int rand = random.nextInt(2);
+		int rand = random.nextInt(3);
 		if (rand == 0){//decide if goal has intermediary station; if not, initiate  the intermediary station as origin
 			do {
 				intermediary = map.getRandomStation();
