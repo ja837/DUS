@@ -7,9 +7,9 @@ import gameLogic.map.Map;
 import gameLogic.map.Station;
 import gameLogic.resource.ResourceManager;
 import gameLogic.resource.Train;
-
 import java.util.ArrayList;
 import java.util.Random;
+import java.lang.Math;
 
 public class GoalManager {
 	public final static int CONFIG_MAX_PLAYER_GOALS = 3;
@@ -47,7 +47,9 @@ public class GoalManager {
 		else intermediary = origin;
 
 		if (rand==1){ //decides if goal can be competed in a number of turns for bonus;
-			forTurns = random.nextInt(30); //TODO: change this so that it is based on the distance between origin and dest
+			do {
+				forTurns = random.nextInt(30); //TODO: change this so that it is based on the distance between origin and dest
+			}while (forTurns < Math.floor(2));
 			bonus = 100; //bonus to be awarded if the train completes the goal in a number of turn <= the given constraint
 		}
 		else forTurns=0;
