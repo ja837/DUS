@@ -45,7 +45,6 @@ public class GoalController {
 
         PlayerManager pm = context.getGameLogic().getPlayerManager();
         Player currentPlayer = pm.getCurrentPlayer();
-        List<Goal> goals = currentPlayer.getGoals();
 
         float top = (float) TaxeGame.HEIGHT;
         float x = 10.0f;
@@ -63,10 +62,10 @@ public class GoalController {
             y -= 30;
             
             TextButton button  = new TextButton(goalString, context.getSkin());
-
+            GoalClickListener listener = new GoalClickListener(context, goal);
 
             button.setPosition(x,y);
-            button.addListener(new GoalClickListener(context, goal));
+            button.addListener(listener);
             goalButtons.addActor(button);
         }
 

@@ -59,4 +59,8 @@ public class Goal {
 	public boolean getComplete() {
 		return complete;
 	}
+
+	public Station getOrigin() { return this.origin; }
+
+	public Station getDestination() { return this.destination; }
 }

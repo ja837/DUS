@@ -74,4 +74,9 @@ public class Player {
     public int getPlayerNumber() {
     	return number;
     }
+
+    public void removeGoal(Goal goal) {
+        if (goals.contains(goal))
+            goals.remove(goal);
+    }
 }
