@@ -12,7 +12,7 @@ public class Player {
     private List<Resource> resources;
     private List<Goal> goals;
     private int number;
-    private int score;
+    private double score;
 
     public Player(PlayerManager pm, int playerNumber) {
         goals = new ArrayList<Goal>();
@@ -79,7 +79,7 @@ public class Player {
     	return number;
     }
 
-    public int getScore(){ return score;}
+    public double getScore(){ return score;}
 
     public void updateScore(Goal goal){
         this.score = this.score + goal.getBonus();

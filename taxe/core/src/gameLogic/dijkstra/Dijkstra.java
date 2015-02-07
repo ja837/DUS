@@ -9,9 +9,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 public class Dijkstra
 {
-    public static void computePaths(Vertex source)
+    ArrayList<Vertex> vertices;
+    ArrayList<DijkstraData> dijkstras = new ArrayList<DijkstraData>();
+
+    public void computePaths(Vertex source)
     {
-        source.minDistance = 0.;
+        for (Vertex v: vertices){
+            v.setMinDistance(Double.POSITIVE_INFINITY);
+        }
+        source.setMinDistance(0.);
         PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
         vertexQueue.add(source);
 
@@ -19,89 +25,66 @@ public class Dijkstra
             Vertex u = vertexQueue.poll();
 
             // Visit each edge exiting u
-            for (Edge e : u.adjacencies)
+            for (Edge e : u.getAdjacencies())
             {
                 Vertex v = e.target;
                 double weight = e.weight;
-                double distanceThroughU = u.minDistance + weight;
-                if (distanceThroughU < v.minDistance) {
+                double distanceThroughU = u.getMinDistance() + weight;
+                if (distanceThroughU < v.getMinDistance()) {
                     vertexQueue.remove(v);
-                    v.minDistance = distanceThroughU ;
-                    v.previous = u;
+                    v.setMinDistance(distanceThroughU);
                     vertexQueue.add(v);
                 }
             }
         }
     }
 
-    public static List<Vertex> getShortestPathTo(Vertex target)
-    {
-        List<Vertex> path = new ArrayList<Vertex>();
-        for (Vertex vertex = target; vertex != null; vertex = vertex.previous)
-            path.add(vertex);
-        Collections.reverse(path);
-        return path;
-    }
 
-    public static void main(String[] args)
-    {
-        Vertex v0 = new Vertex("Redvile");
-        Vertex v1 = new Vertex("Blueville");
-        Vertex v2 = new Vertex("Greenville");
-        Vertex v3 = new Vertex("Orangeville");
-        Vertex v4 = new Vertex("Purpleville");
-
-        v0.adjacencies = new Edge[]{ new Edge(v1, 5),
-                new Edge(v2, 10),
-                new Edge(v3, 8) };
-        v1.adjacencies = new Edge[]{ new Edge(v0, 5),
-                new Edge(v2, 3),
-                new Edge(v4, 7) };
-        v2.adjacencies = new Edge[]{ new Edge(v0, 10),
-                new Edge(v1, 3) };
-        v3.adjacencies = new Edge[]{ new Edge(v0, 8),
-                new Edge(v4, 2) };
-        v4.adjacencies = new Edge[]{ new Edge(v1, 7),
-                new Edge(v3, 2) };
-        Vertex[] vertices = { v0, v1, v2, v3, v4 };
-        computePaths(v0);
-        for (Vertex v : vertices)
-        {
-            System.out.println("Distance to " + v + ": " + v.minDistance);
-            List<Vertex> path = getShortestPathTo(v);
-            System.out.println("Path: " + path);
+    public Dijkstra(Map map) {
+        convertToVertices(map);
+        for (Station s : map.getStations()) {
+            addEdges(map, s);
         }
-    }
-    private static void convertToVertices(Map map){
-        ArrayList<Vertex> vertices = new ArrayList<Vertex>();
-        for (Station s: map.getStations()){
-            Vertex v = new Vertex(s.getName());
-        }
-        for (Vertex v1:vertices){
-            for (Connection c: map.getConnectionsFromStation(s)){
-                Edge e;
-                if (v1.name==c.getStation1().getName()){
-                        int vIndex=0;
-                        for (Vertex v2: vertices){
-                            if (v2.name == c.getStation2().getName()){
-                                vIndex = vertices.indexOf(v2);
-                                break;
-                            }
-                        }
-                        e = new Edge(vertices.get(vIndex),0);
-                }else{
-                    int vIndex=0;
-                    for (Vertex v2: vertices){
-                        if (v2.name == c.getStation1().getName()){
-                            vIndex = vertices.indexOf(v2);
-                            break;
-                        }
-                    }
-                    e = new Edge(vertices.get(vIndex),0);
-                }
 
+        for (Vertex vSource : vertices) {
+            computePaths(vSource);
+            for (Vertex vDestination : vertices) {
+                DijkstraData tempDijkstra = new DijkstraData(vSource,vDestination,vDestination.getMinDistance());
+                dijkstras.add(tempDijkstra);
+                System.out.println(tempDijkstra);
             }
         }
     }
+    private void convertToVertices(Map map){
+        vertices = new ArrayList<Vertex>();
+        for (Station s: map.getStations()){
+            Vertex v = new Vertex(s.getName());
+            vertices.add(v);
+        }
+    }
+    private void addEdges(Map map,Station s1){
+        for (Station s2: map.getStations()){
+            if (map.doesConnectionExist(s1.getName(),s2.getName())){
+                Edge edge = new Edge(findVertex(s2),map.getDistance(s1,s2));
+                findVertex(s1).addAdjacency(edge);
+            }
+        }
 
+    }
+    private Vertex findVertex(Station s){
+        for (Vertex v: vertices){
+            if (v.getName()==s.getName()){
+                return v;
+            }
+        }
+        return null;
+    }
+    public double findMinDistance(Station s1,Station s2){
+        for (DijkstraData d:dijkstras){
+            if (d.getSource().getName().equals(s1.getName()) || d.getTarget().getName().equals(s2.getName())){
+                return d.getDistance();
+            }
+        }
+        return -1;
+    }
 }

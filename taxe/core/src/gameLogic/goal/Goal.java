@@ -1,7 +1,7 @@
 package gameLogic.goal;
 
 import Util.Tuple;
-import com.badlogic.gdx.Game;
+import gameLogic.Game;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
 
@@ -13,7 +13,7 @@ public class Goal {//hobitses
 	private boolean goingThrough = false;
 	private boolean inTurns = false;
 	private int turnsTime;
-	private int score;
+	private double score;
 	private int bonus;
 	private boolean withTrain;
 	private Station intermediary;
@@ -24,7 +24,7 @@ public class Goal {//hobitses
 		this.score = score;
 	}
 
-	public int getScore(){
+	public double getScore(){
 		return this.score;
 	}
 
@@ -42,7 +42,8 @@ public class Goal {//hobitses
 		//set the amount of extra points to give if a bonus goal is completed
 		this.bonus = bonus;
 		//the amount of points give is equal to the distance
-		this.score = (int) fvs.taxe.controller.TrainMoveController.getDistanceStatic(origin.getLocation(), destination.getLocation());
+		double shortestDist = Game.getInstance().getMap().getShortestDistance(this.origin,this.destination);
+		this.score = shortestDist * (Math.pow(1.01,shortestDist));
 		if (intermediary != destination && intermediary != origin) {
 			goingThrough = true;
 			this.intermediary = intermediary;

@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 class Vertex implements Comparable<Vertex>
 {
-    public final String name;
-    private ArrayList<Edge> adjacencies;
-    public double minDistance = Double.POSITIVE_INFINITY;
-    public Vertex previous;
+    private final String name;
+    private ArrayList<Edge> adjacencies = new ArrayList<Edge>();
+    private double minDistance = Double.POSITIVE_INFINITY;
     public Vertex(String argName) { name = argName; }
     public String toString() { return name; }
     public int compareTo(Vertex other) {
@@ -16,7 +15,18 @@ class Vertex implements Comparable<Vertex>
     public ArrayList<Edge> getAdjacencies(){
         return adjacencies;
     }
-    public ArrayList<Edge> addAdjacency(Edge edge){
+    public void addAdjacency(Edge edge){
         this.adjacencies.add(edge);
+    }
+    public String getName(){
+        return this.name;
+    }
+
+    public double getMinDistance() {
+        return minDistance;
+    }
+
+    public void setMinDistance(double minDistance) {
+        this.minDistance = minDistance;
     }
 }
