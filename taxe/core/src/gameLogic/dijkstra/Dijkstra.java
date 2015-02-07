@@ -51,7 +51,6 @@ public class Dijkstra
             for (Vertex vDestination : vertices) {
                 DijkstraData tempDijkstra = new DijkstraData(vSource,vDestination,vDestination.getMinDistance());
                 dijkstras.add(tempDijkstra);
-                System.out.println(tempDijkstra);
             }
         }
     }

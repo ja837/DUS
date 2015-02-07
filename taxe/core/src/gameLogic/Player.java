@@ -54,7 +54,7 @@ public class Player {
     }
     
     public void completeGoal(Goal goal) {
-    	this.score = this.score + goal.getScore();
+        //This sets the goal to complete and hence removes it from being displayed on the GUI
         goal.setComplete();
         changed();
 
@@ -81,8 +81,8 @@ public class Player {
 
     public double getScore(){ return score;}
 
-    public void updateScore(Goal goal){
-        this.score = this.score + goal.getBonus();
+    public void updateScore(int Score){
+        this.score = this.score + score;
     }
 
 }

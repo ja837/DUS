@@ -13,7 +13,7 @@ public class Goal {//hobitses
 	private boolean goingThrough = false;
 	private boolean inTurns = false;
 	private int turnsTime;
-	private double score;
+	private int score;
 	private int bonus;
 	private boolean withTrain;
 	private Station intermediary;
@@ -24,7 +24,7 @@ public class Goal {//hobitses
 		this.score = score;
 	}
 
-	public double getScore(){
+	public int getScore(){
 		return this.score;
 	}
 
@@ -43,7 +43,8 @@ public class Goal {//hobitses
 		this.bonus = bonus;
 		//the amount of points give is equal to the distance
 		double shortestDist = Game.getInstance().getMap().getShortestDistance(this.origin,this.destination);
-		this.score = shortestDist * (Math.pow(1.01,shortestDist));
+		this.score = (int)(shortestDist * (Math.pow(1.0003,shortestDist)));
+
 		if (intermediary != destination && intermediary != origin) {
 			goingThrough = true;
 			this.intermediary = intermediary;
@@ -60,7 +61,7 @@ public class Goal {//hobitses
 			this.inTurns=true;
 			this.turnsTime=turnsTime;
 		}
-
+		System.out.println(this.toString() + " for " + this.score + " points");
 
 	}
 
