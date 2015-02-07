@@ -54,7 +54,7 @@ public class GoalManager {
 			int lowerBound = (int) Math.floor(expectedTurns - 0.5*expectedTurns);
 			int upperBound = (int) Math.ceil(expectedTurns + 0.5*expectedTurns);
 			do {
-				forTurns = random.nextInt(upperBound);
+				forTurns = random.nextInt(upperBound+1);
 			}while (forTurns < lowerBound);
 			//TODO: Calculate a suitable bonus
 			bonus = (forTurns - lowerBound);
@@ -64,7 +64,7 @@ public class GoalManager {
 		if (rand==2) {
 			train = resourceManager.getRandomTrain();
 			int shortestDist = (int) map.getShortestDistance(origin,destination);
-			bonus = ((100-train.getSpeed())/100) * shortestDist + shortestDist;
+			bonus = (int) (((((100-train.getSpeed())/100) * shortestDist) + shortestDist)*Math.pow(1.001,shortestDist));
 		}else{
 			train = null;
 		}

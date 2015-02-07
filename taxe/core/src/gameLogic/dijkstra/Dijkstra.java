@@ -80,7 +80,7 @@ public class Dijkstra
     }
     public double findMinDistance(Station s1,Station s2){
         for (DijkstraData d:dijkstras){
-            if (d.getSource().getName().equals(s1.getName()) || d.getTarget().getName().equals(s2.getName())){
+            if (d.getSource().getName().equals(s1.getName()) && d.getTarget().getName().equals(s2.getName())){
                 return d.getDistance();
             }
         }

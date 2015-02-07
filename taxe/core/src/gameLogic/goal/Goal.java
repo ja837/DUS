@@ -5,6 +5,8 @@ import gameLogic.Game;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
 
+import java.util.ArrayList;
+
 public class Goal {//hobitses
 	private Station origin;
 	private Station destination;
@@ -43,7 +45,7 @@ public class Goal {//hobitses
 		this.bonus = bonus;
 		//the amount of points give is equal to the distance
 		double shortestDist = Game.getInstance().getMap().getShortestDistance(this.origin,this.destination);
-		this.score = (int)(shortestDist * (Math.pow(1.0003,shortestDist)));
+		this.score = (int)(shortestDist * (Math.pow(1.0001,shortestDist)));
 
 		if (intermediary != destination && intermediary != origin) {
 			goingThrough = true;
@@ -61,7 +63,7 @@ public class Goal {//hobitses
 			this.inTurns=true;
 			this.turnsTime=turnsTime;
 		}
-		System.out.println(this.toString() + " for " + this.score + " points");
+		System.out.println(this.toString() + " for " + this.score + "/" + this.bonus + " points");
 
 	}
 
@@ -130,11 +132,22 @@ public class Goal {//hobitses
 
 	public String toString() { // based on the type of goal
 		String trainString = "train";
+		ArrayList<String> vowels=new ArrayList<String>();
+		vowels.add("A");
+		vowels.add("E");
+		vowels.add("I");
+		vowels.add("O");
+		vowels.add("U");
+
 		if (trainName != null) {
 			trainString = trainName.getName();
 		}
 		if (withTrain) {
-			return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName();
+			if (vowels.contains(trainString.substring(0, 1))){
+				return "Send an " + trainString + " from " + origin.getName() + " to " + destination.getName();
+			} else {
+				return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName();
+			}
 		}
 		if (inTurns){
 			return "Send a train from " + origin.getName() + " to " + destination.getName() + " in " + this.turnsTime + " turns";
