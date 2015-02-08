@@ -6,6 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import fvs.taxe.StationClickListener;
 import fvs.taxe.TaxeGame;
 import gameLogic.GameState;
@@ -13,9 +17,6 @@ import gameLogic.map.CollisionStation;
 import gameLogic.map.IPositionable;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RouteController {
     private Context context;

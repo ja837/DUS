@@ -49,8 +49,8 @@ public class TrainActor extends Image {
         } else if (this.paused){
 
             //find station train most recently passed
-            String stationName = train.getHistory().get(train.getHistory().size()-1).getFirst();
-            Station station = Game.getInstance().getMap().getStationByName(stationName);
+            Station station = train.getHistory().get(train.getHistory().size()-1).getFirst();
+//            Station station = Game.getInstance().getMap().getStationByName(stationName);
 
             // find index of this within route
             int index = train.getRoute().indexOf(station);

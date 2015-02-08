@@ -28,8 +28,9 @@ public class Goal {
 
 	public boolean isComplete(Train train) {
 		boolean passedOrigin = false;
-		for(Tuple<String, Integer> history: train.getHistory()) {
-			if(history.getFirst().equals(origin.getName()) && history.getSecond() >= turnIssued) {
+		for(Tuple<Station, Integer> history: train.getHistory()) {
+			if(history.getFirst().getName().equals(origin.getName()) && history.getSecond() >=
+					turnIssued) {
 				passedOrigin = true;
 			}
 		}
