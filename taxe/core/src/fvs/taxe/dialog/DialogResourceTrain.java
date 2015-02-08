@@ -20,10 +20,13 @@ public class DialogResourceTrain extends Dialog {
         button("Cancel", "CLOSE");
         button("Drop", "DROP");
 
+
         if (!trainPlaced) {
             button("Place at a station", "PLACE");
         } else if(!train.isMoving()) {
             button("Choose a route", "ROUTE");
+        } else {
+            button("View Route", "VIEWROUTE");
         }
     }
 
@@ -59,6 +62,8 @@ public class DialogResourceTrain extends Dialog {
             clicked(Button.TRAIN_PLACE);
         } else if(obj == "ROUTE") {
             clicked(Button.TRAIN_ROUTE);
+        } else if(obj == "VIEWROUTE") {
+            clicked(Button.VIEW_ROUTE);
         }
     }
 }
