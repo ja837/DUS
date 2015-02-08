@@ -24,7 +24,6 @@ public class GoalClickListener extends ClickListener {
     @Override
     public void clicked(InputEvent event, float x, float y) {
         if (Game.getInstance().getState() != GameState.NORMAL) return;
-        JOptionPane.showMessageDialog(null, "Goal clicked", "InfoBox: " + "Message", JOptionPane.INFORMATION_MESSAGE);
         Player currentPlayer = Game.getInstance().getPlayerManager().getCurrentPlayer();
 
         DialogGoalButtonClicked listener = new DialogGoalButtonClicked(context, currentPlayer, goal);

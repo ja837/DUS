@@ -10,6 +10,8 @@ import gameLogic.PlayerChangedListener;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
+import javax.swing.*;
+
 public class ResourceController {
     private Context context;
     private Group resourceButtons = new Group();
@@ -58,7 +60,6 @@ public class ResourceController {
                 TextButton button = new TextButton(resource.toString(), context.getSkin());
                 button.setPosition(x, y);
                 button.addListener(listener);
-
                 resourceButtons.addActor(button);
 
                 y -= 30;

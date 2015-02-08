@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import fvs.taxe.Button;
+import fvs.taxe.GameScreen;
 import fvs.taxe.StationClickListener;
 import fvs.taxe.actor.TrainActor;
 import fvs.taxe.controller.Context;
@@ -33,6 +34,7 @@ public class DialogGoalButtonClicked implements ResourceDialogClickListener {
         switch (button) {
             case GOAL_DROP:
                 currentPlayer.removeGoal(goal);
+
                 break;
             case GOAL_VIEW:
                 //highlight goals

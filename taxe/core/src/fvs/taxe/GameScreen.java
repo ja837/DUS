@@ -115,7 +115,7 @@ public class GameScreen extends ScreenAdapter {
         game.batch.end();
 
         resourceController.drawHeaderText();
-        goalController.showCurrentPlayerGoals();
+        //goalController.showCurrentPlayerGoals();
     }
 
     @Override
@@ -124,6 +124,7 @@ public class GameScreen extends ScreenAdapter {
         stationController.renderStations();
         topBarController.addEndTurnButton();
         resourceController.drawPlayerResources(gameLogic.getPlayerManager().getCurrentPlayer());
+        goalController.showCurrentPlayerGoals();
     }
 
 
