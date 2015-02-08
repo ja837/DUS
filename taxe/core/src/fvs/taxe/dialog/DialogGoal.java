@@ -22,7 +22,6 @@ public class DialogGoal extends Dialog{
 
         button("Cancel", "CLOSE");
         button("Drop", "DROP");
-        button("View Locations", "VIEW");
 
     }
 
@@ -55,8 +54,6 @@ public class DialogGoal extends Dialog{
             this.remove();
         } else if (obj == "DROP") {
             clicked(Button.GOAL_DROP);
-        } else if(obj == "VIEW") {
-            clicked(Button.GOAL_VIEW);
         }
     }
 }
