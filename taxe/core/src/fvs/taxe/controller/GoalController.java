@@ -46,6 +46,22 @@ public class GoalController {
 
         return strings;
     }
+    public void drawHeaderText(){
+        TaxeGame game = context.getTaxeGame();
+        PlayerManager pm = context.getGameLogic().getPlayerManager();
+        Player currentPlayer = pm.getCurrentPlayer();
+        float top = (float) TaxeGame.HEIGHT;
+        float x = 10.0f;
+        float y = top - 10.0f - TopBarController.CONTROLS_HEIGHT;
+        game.batch.begin();
+        game.fontSmall.setColor(Color.BLACK);
+        //Draws the player's name and their score
+        game.fontSmall.draw(game.batch, playerHeader(), x, y);
+        y -= 30;
+        //Draws "Goals:"
+        game.fontSmall.draw(game.batch, "Goals:", x, y);
+        game.batch.end();
+    }
 
     public void showCurrentPlayerGoals() {
         TaxeGame game = context.getTaxeGame();
@@ -58,18 +74,8 @@ public class GoalController {
 
         float top = (float) TaxeGame.HEIGHT;
         float x = 10.0f;
-        float y = top - 10.0f - TopBarController.CONTROLS_HEIGHT;
+        float y = top - 55.0f - TopBarController.CONTROLS_HEIGHT;
 
-        game.batch.begin();
-        game.fontSmall.setColor(Color.BLACK);
-        //Draws the player's name and their score
-        game.fontSmall.draw(game.batch, playerHeader(), x, y);
-        y -= 30;
-        //Draws "Goals:"
-        game.fontSmall.draw(game.batch, "Goals:", x, y);
-        game.batch.end();
-        
-        y -= 15;
         for (Goal goal : currentPlayer.getGoals()) {
             if (!goal.getComplete()) {
                 String goalString = goal.toString();
