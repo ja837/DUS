@@ -80,12 +80,17 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
             case VIEW_ROUTE:
                 context.getRouteController().viewRoute(train);
                 break;
+<<<<<<< Updated upstream
             case OBSTACLE_DROP:
                 currentPlayer.removeResource(obstacle);
                 break;
                 case OBSTACLE_USE:
                     //Enter how to use the obstacle here
                     break;
+=======
+            case TRAIN_CHANGE_ROUTE:
+                context.getRouteController().begin2(train);
+>>>>>>> Stashed changes
         }
     }
 }

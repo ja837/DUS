@@ -7,6 +7,10 @@ public enum Button {
     VIEW_ROUTE,
     GOAL_DROP,
     GOAL_VIEW,
+<<<<<<< Updated upstream
     OBSTACLE_DROP,
     OBSTACLE_USE,
+=======
+    TRAIN_CHANGE_ROUTE
+>>>>>>> Stashed changes
 }
