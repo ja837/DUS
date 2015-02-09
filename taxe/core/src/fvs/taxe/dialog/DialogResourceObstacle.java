@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import fvs.taxe.Button;
 import gameLogic.resource.Obstacle;
-import gameLogic.resource.Train;
 
 import java.util.ArrayList;
 import java.util.List;

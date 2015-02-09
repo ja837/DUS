@@ -35,6 +35,11 @@ public class Goal {//hobitses
 	}
 	
 	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime, int bonus, Train train) {
+		//IDEA:
+		//Calculate score outside of constructor or bonus inside constructor
+		//Bonus for train = score + ((100-speed)/100)*score
+		//Bonus for distance: Need to find a case for if the intermediary is along the optimal route, otherwise happy with it
+		//Bonus for turns = score + (proportion of forturns compared to expected turns) * score
 		if (train != null){
 			trainName = train;
 			withTrain = true;
