@@ -7,11 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import fvs.taxe.TaxeGame;
 import fvs.taxe.dialog.GoalClickListener;
 import gameLogic.Player;
-import gameLogic.PlayerChangedListener;
 import gameLogic.PlayerManager;
 import gameLogic.goal.Goal;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +19,6 @@ public class GoalController {
 
     public GoalController(Context context) {
         this.context = context;
-
-        context.getGameLogic().getPlayerManager().subscribePlayerChanged(new PlayerChangedListener() {
-            @Override
-            public void changed() {
-                showCurrentPlayerGoals();
-            }
-        });
     }
 
     private List<String> playerGoalStrings() {
@@ -75,19 +66,16 @@ public class GoalController {
         float y = top - 55.0f - TopBarController.CONTROLS_HEIGHT;
 
         for (Goal goal : currentPlayer.getGoals()) {
-            if (!goal.getComplete()) {
-                String goalString = goal.toString();
+            String goalString = goal.toString();
 
-                y -= 30;
+            y -= 30;
+            
+            TextButton button  = new TextButton(goalString, context.getSkin());
+            GoalClickListener listener = new GoalClickListener(context, goal);
 
-                TextButton button = new TextButton(goalString, context.getSkin());
-                GoalClickListener listener = new GoalClickListener(context, goal);
-
-                button.setPosition(x, y);
-                button.addListener(listener);
-                button.getClickListener();
-                goalButtons.addActor(button);
-            }
+            button.setPosition(x,y);
+            button.addListener(listener);
+            goalButtons.addActor(button);
         }
 
         

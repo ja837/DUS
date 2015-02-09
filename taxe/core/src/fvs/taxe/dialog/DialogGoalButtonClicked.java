@@ -1,6 +1,11 @@
 package fvs.taxe.dialog;
 
 import fvs.taxe.Button;
+<<<<<<< HEAD
+=======
+import fvs.taxe.StationClickListener;
+import fvs.taxe.actor.TrainActor;
+>>>>>>> parent of 82dc00e... Added ability to drop goals
 import fvs.taxe.controller.Context;
 import gameLogic.Player;
 import gameLogic.goal.Goal;
@@ -16,6 +21,7 @@ public class DialogGoalButtonClicked implements ResourceDialogClickListener {
 		this.context = context;
 	}
 
+<<<<<<< HEAD
 	@Override
 	public void clicked(Button button) {
 		switch (button) {
@@ -26,4 +32,17 @@ public class DialogGoalButtonClicked implements ResourceDialogClickListener {
 				break;
 		}
 	}
+=======
+    @Override
+    public void clicked(Button button) {
+        switch (button) {
+            case GOAL_DROP:
+                currentPlayer.removeGoal(goal);
+                break;
+            case GOAL_VIEW:
+                //highlight goals
+                break;
+        }
+    }
+>>>>>>> parent of 82dc00e... Added ability to drop goals
 }
