@@ -19,7 +19,9 @@ public class GoalClickListener extends ClickListener {
 	private Goal goal;
 	private Tooltip tooltip1;
 	private Tooltip tooltip2;
+	private Tooltip tooltip3;
 	private boolean showingTooltips;
+	private boolean showingTooltip3;
 	public GoalClickListener(Context context, Goal goal) {
 		this.goal = goal;
 		this.context = context;
@@ -32,6 +34,9 @@ public class GoalClickListener extends ClickListener {
 			//This hides the currently shown tooltips as otherwise they get stuck
 			tooltip1.hide();
 			tooltip2.hide();
+			try {
+				tooltip3.hide();
+			}catch (Exception e){}
 			showingTooltips = false;
 		}
 		if (Game.getInstance().getState() != GameState.NORMAL) return;
@@ -62,10 +67,18 @@ public class GoalClickListener extends ClickListener {
 			Station destination = goal.getDestination();
 			StationActor destinationActor = destination.getActor();
 			context.getStage().addActor(tooltip2);
-
-
 			tooltip2.setPosition(destinationActor.getX() + 20, destinationActor.getY() + 20);
 			tooltip2.show(destination.getName());
+
+			Station intermediary = goal.getIntermediary();
+			if (!intermediary.getName().equals(origin.getName())){
+				tooltip3 = new Tooltip(context.getSkin());
+				StationActor intermediaryActor = intermediary.getActor();
+				context.getStage().addActor(tooltip3);
+				tooltip3.setPosition(intermediaryActor.getX()+20,intermediaryActor.getY()+20);
+				tooltip3.show(intermediary.getName());
+			}
+
 			showingTooltips = true;
 		}
 	}
@@ -75,6 +88,9 @@ public class GoalClickListener extends ClickListener {
 		if (showingTooltips) {
 			tooltip1.hide();
 			tooltip2.hide();
+			try {
+				tooltip3.hide();
+			}catch(Exception e){}
 			showingTooltips = false;
 		}
 	}

@@ -163,4 +163,8 @@ public class Goal {//hobitses
 	public Station getOrigin() { return this.origin; }
 
 	public Station getDestination() { return this.destination; }
+
+	public Station getIntermediary(){
+		return this.intermediary;
+	}
 }
