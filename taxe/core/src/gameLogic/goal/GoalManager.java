@@ -64,7 +64,8 @@ public class GoalManager {
 		if (rand==2) {
 			train = resourceManager.getRandomTrain();
 			int shortestDist = (int) map.getShortestDistance(origin,destination);
-			bonus = (int) (((((100-train.getSpeed())/100) * shortestDist) + shortestDist)*Math.pow(1.001,shortestDist));
+			//For very fast trains this scales badly.
+			bonus = ((int)(((((100-train.getSpeed())/100) * shortestDist) + shortestDist)*Math.pow(1.001,shortestDist)));
 		}else{
 			train = null;
 		}
@@ -77,6 +78,9 @@ public class GoalManager {
 	
 	public void addRandomGoalToPlayer(Player player) {
 		player.addGoal(generateRandom(player.getPlayerManager().getTurnNumber()));
+		for (int i = 0; i<20;i++){
+			generateRandom(player.getPlayerManager().getTurnNumber());
+		}
 	}
 
 	public ArrayList<String> trainArrived(Train train, Player player) {

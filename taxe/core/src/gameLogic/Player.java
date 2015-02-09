@@ -81,7 +81,7 @@ public class Player {
 
     public double getScore(){ return score;}
 
-    public void updateScore(int Score){
+    public void updateScore(int score){
         this.score = this.score + score;
     }
 
