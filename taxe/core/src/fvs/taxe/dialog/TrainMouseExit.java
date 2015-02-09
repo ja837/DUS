@@ -10,7 +10,7 @@ import gameLogic.GameState;
 import gameLogic.Player;
 import gameLogic.resource.Train;
 
-//Responsible for checking whether the train is mouse entered
+//Responsible for checking whether the mouse leaes the train
 public class TrainMouseExit extends ClickListener {
     private Context context;
     private Train train;

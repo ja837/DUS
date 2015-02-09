@@ -21,6 +21,8 @@ public class TrainController {
     public TrainActor renderTrain(Train train) {
         TrainActor trainActor = new TrainActor(train);
         trainActor.addListener(new TrainClicked(context, train));
+
+        //new listeners for mouse enter and exit
         trainActor.addListener(new TrainMouseEnter(context,train));
         trainActor.addListener(new TrainMouseExit(context,train));
 
