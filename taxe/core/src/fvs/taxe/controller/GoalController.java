@@ -49,7 +49,6 @@ public class GoalController {
     public void drawHeaderText(){
         TaxeGame game = context.getTaxeGame();
         PlayerManager pm = context.getGameLogic().getPlayerManager();
-        Player currentPlayer = pm.getCurrentPlayer();
         float top = (float) TaxeGame.HEIGHT;
         float x = 10.0f;
         float y = top - 10.0f - TopBarController.CONTROLS_HEIGHT;
@@ -64,7 +63,6 @@ public class GoalController {
     }
 
     public void showCurrentPlayerGoals() {
-        TaxeGame game = context.getTaxeGame();
         //Displays the player's current goals
         goalButtons.remove();
         goalButtons.clear();

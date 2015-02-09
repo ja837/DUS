@@ -19,14 +19,20 @@ public class GoalClickListener extends ClickListener {
 	private Goal goal;
 	private Tooltip tooltip1;
 	private Tooltip tooltip2;
-
+	private boolean showingTooltips;
 	public GoalClickListener(Context context, Goal goal) {
 		this.goal = goal;
 		this.context = context;
+		this.showingTooltips = false;
 	}
 
 	@Override
 	public void clicked(InputEvent event, float x, float y) {
+		if (showingTooltips) {
+			tooltip1.hide();
+			tooltip2.hide();
+			showingTooltips = false;
+		}
 		if (Game.getInstance().getState() != GameState.NORMAL) return;
 
 		//hide tooltips otherwise they will stay onscreen after dialog box is closed
@@ -42,29 +48,34 @@ public class GoalClickListener extends ClickListener {
 
 	@Override
 	public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-		tooltip1 = new Tooltip(context.getSkin());
-		Station origin = goal.getOrigin();
-		StationActor originActor = origin.getActor();
+		if (!showingTooltips) {
+			tooltip1 = new Tooltip(context.getSkin());
+			Station origin = goal.getOrigin();
+			StationActor originActor = origin.getActor();
 
-		tooltip1.setPosition(originActor.getX() + 20, originActor.getY() + 20);
-		tooltip1.show(origin.getName());
-		context.getStage().addActor(tooltip1);
+			tooltip1.setPosition(originActor.getX() + 20, originActor.getY() + 20);
+			tooltip1.show(origin.getName());
+			context.getStage().addActor(tooltip1);
 
-		tooltip2 = new Tooltip(context.getSkin());
-		Station destination = goal.getDestination();
-		StationActor destinationActor = destination.getActor();
-		context.getStage().addActor(tooltip2);
+			tooltip2 = new Tooltip(context.getSkin());
+			Station destination = goal.getDestination();
+			StationActor destinationActor = destination.getActor();
+			context.getStage().addActor(tooltip2);
 
 
-		tooltip2.setPosition(destinationActor.getX() + 20, destinationActor.getY() + 20);
-		tooltip2.show(destination.getName());
+			tooltip2.setPosition(destinationActor.getX() + 20, destinationActor.getY() + 20);
+			tooltip2.show(destination.getName());
+			showingTooltips = true;
+		}
 	}
 
 	@Override
 	public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-		tooltip1.hide();
-		tooltip2.hide();
+		if (showingTooltips) {
+			tooltip1.hide();
+			tooltip2.hide();
+			showingTooltips = false;
+		}
 	}
-
 
 }
