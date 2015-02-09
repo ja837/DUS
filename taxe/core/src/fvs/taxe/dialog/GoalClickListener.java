@@ -29,13 +29,13 @@ public class GoalClickListener extends ClickListener {
 	@Override
 	public void clicked(InputEvent event, float x, float y) {
 		if (showingTooltips) {
+			//This hides the currently shown tooltips as otherwise they get stuck
 			tooltip1.hide();
 			tooltip2.hide();
 			showingTooltips = false;
 		}
 		if (Game.getInstance().getState() != GameState.NORMAL) return;
 
-		//hide tooltips otherwise they will stay onscreen after dialog box is closed
 
 		Player currentPlayer = Game.getInstance().getPlayerManager().getCurrentPlayer();
 
@@ -49,6 +49,7 @@ public class GoalClickListener extends ClickListener {
 	@Override
 	public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 		if (!showingTooltips) {
+			//Need to check whether tooltips are currently being shown as otherwise it redraws them instantly after the clicked routine has ended
 			tooltip1 = new Tooltip(context.getSkin());
 			Station origin = goal.getOrigin();
 			StationActor originActor = origin.getActor();
