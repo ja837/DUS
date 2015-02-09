@@ -7,10 +7,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import fvs.taxe.StationClickListener;
 import fvs.taxe.TaxeGame;
 import fvs.taxe.Tooltip;
@@ -26,6 +22,9 @@ import gameLogic.map.IPositionable;
 import gameLogic.map.Station;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class StationController {
 	public final static int CONNECTION_LINE_WIDTH = 5;
@@ -58,6 +57,7 @@ public class StationController {
 			listener.clicked(station);
 		}
 	}
+
 
 	private void renderStation(final Station station) {
 		final StationActor stationActor = new StationActor(station.getLocation());
