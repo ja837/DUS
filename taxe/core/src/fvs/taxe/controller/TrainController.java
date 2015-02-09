@@ -2,8 +2,6 @@ package fvs.taxe.controller;
 
 import fvs.taxe.actor.TrainActor;
 import fvs.taxe.dialog.TrainClicked;
-import fvs.taxe.dialog.TrainMouseEnter;
-import fvs.taxe.dialog.TrainMouseExit;
 import gameLogic.Player;
 import gameLogic.map.Station;
 import gameLogic.resource.Resource;
@@ -22,9 +20,6 @@ public class TrainController {
         TrainActor trainActor = new TrainActor(train);
         trainActor.addListener(new TrainClicked(context, train));
 
-        //new listeners for mouse enter and exit
-        trainActor.addListener(new TrainMouseEnter(context,train));
-        trainActor.addListener(new TrainMouseExit(context,train));
 
         trainActor.setVisible(false);
         context.getStage().addActor(trainActor);
