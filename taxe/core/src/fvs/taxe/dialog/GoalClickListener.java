@@ -21,7 +21,6 @@ public class GoalClickListener extends ClickListener {
 	private Tooltip tooltip2;
 	private Tooltip tooltip3;
 	private boolean showingTooltips;
-	private boolean showingTooltip3;
 	public GoalClickListener(Context context, Goal goal) {
 		this.goal = goal;
 		this.context = context;
