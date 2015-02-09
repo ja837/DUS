@@ -104,11 +104,15 @@ public class TrainMoveController {
     public void addMoveActions() {
         SequenceAction action = Actions.sequence();
         IPositionable current = train.getPosition();
+        if (train.getPosition().getX() == -1){
+           current = new Position ((int) train.getActor().getBounds().getX(),(int) train.getActor().getBounds().getY());
+        }
         action.addAction(beforeAction());
 
         for (final Station station : train.getRoute()) {
             IPositionable next = station.getLocation();
             float duration = getDistance(current, next) / train.getSpeed();
+            //Current is -1,-1 need to fix
             action.addAction(moveTo(next.getX() - TrainActor.width / 2, next.getY() - TrainActor.height / 2, duration));
             action.addAction(perStationAction(station));
             current = next;
