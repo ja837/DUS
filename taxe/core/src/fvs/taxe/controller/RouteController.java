@@ -134,4 +134,40 @@ public class RouteController {
 
         game.shapeRenderer.end();
     }
+
+    public void viewRoute(Train train) {
+        routingButtons.clear();
+
+        train.getRoute();
+
+        //isRouting = true;
+        positions = new ArrayList<IPositionable>();
+
+        for (Station station : train.getRoute()){
+            positions.add(station.getLocation());
+
+        }
+
+        context.getGameLogic().setState(GameState.ROUTING);
+
+
+        TextButton back = new TextButton("Return", context.getSkin());
+
+        back.setPosition(TaxeGame.WIDTH - 100, TaxeGame.HEIGHT - 33);
+
+        back.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                context.getGameLogic().setState(GameState.NORMAL);
+                context.getGameLogic().setState(GameState.NORMAL);
+                routingButtons.remove();
+
+            }
+        });
+
+        routingButtons.addActor(back);
+
+        context.getStage().addActor(routingButtons);
+    }
+
 }
