@@ -14,17 +14,25 @@ import gameLogic.GameState;
 import gameLogic.Player;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.Station;
+import gameLogic.resource.Obstacle;
 import gameLogic.resource.Train;
 
 public class DialogButtonClicked implements ResourceDialogClickListener {
     private Context context;
     private Player currentPlayer;
     private Train train;
-
+    private Obstacle obstacle;
     public DialogButtonClicked(Context context, Player player, Train train) {
         this.currentPlayer = player;
         this.train = train;
         this.context = context;
+        this.obstacle = null;
+    }
+    public DialogButtonClicked(Context context, Player player, Obstacle obstacle){
+        this.currentPlayer = player;
+        this.train = null;
+        this.context = context;
+        this.obstacle = obstacle;
     }
 
     @Override
@@ -72,6 +80,12 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
             case VIEW_ROUTE:
                 context.getRouteController().viewRoute(train);
                 break;
+            case OBSTACLE_DROP:
+                currentPlayer.removeResource(obstacle);
+                break;
+                case OBSTACLE_USE:
+                    //Enter how to use the obstacle here
+                    break;
         }
     }
 }
