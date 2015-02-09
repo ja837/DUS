@@ -1,8 +1,10 @@
 package gameLogic.map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import gameLogic.dijkstra.Dijkstra;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +14,14 @@ public class Map {
     private List<Station> stations;
     private List<Connection> connections;
     private Random random = new Random();
+    private Dijkstra dijkstra;
 
     public Map() {
         stations = new ArrayList<Station>();
         connections = new ArrayList<Connection>();
 
         initialise();
+        dijkstra = new Dijkstra(this);
     }
 
     private void initialise() {
@@ -213,4 +217,10 @@ public class Map {
         return blockedConnections;
     }
 
+    public float getDistance (Station s1, Station s2) {
+        return Vector2.dst(s1.getLocation().getX(), s1.getLocation().getY(), s2.getLocation().getX(), s2.getLocation().getY());
+    }
+    public double getShortestDistance(Station s1, Station s2){
+        return dijkstra.findMinDistance(s1, s2);
+    }
 }

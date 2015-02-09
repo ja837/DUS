@@ -8,7 +8,6 @@ import fvs.taxe.MainMenuScreen;
 import fvs.taxe.TaxeGame;
 import gameLogic.Player;
 import gameLogic.PlayerManager;
-import gameLogic.goal.Goal;
 
 public class DialogEndGame extends Dialog{
 	private TaxeGame game;
@@ -17,7 +16,7 @@ public class DialogEndGame extends Dialog{
 		super("GAME OVER", skin);
 		this.game = game;
 
-		int highScore = 0;
+		double highScore = 0;
 		int playerNum = 0;
 		for(Player player : pm.getAllPlayers()) {
 			if (player.getScore()>highScore){

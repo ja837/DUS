@@ -13,7 +13,7 @@ public class Player {
     private List<Resource> resources;
     private List<Goal> goals;
     private int number;
-    private int score;
+    private double score;
 
     public Player(PlayerManager pm, int playerNumber) {
         goals = new ArrayList<Goal>();
@@ -66,7 +66,7 @@ public class Player {
     }
     
     public void completeGoal(Goal goal) {
-    	this.score = this.score + goal.getScore();
+        //This sets the goal to complete and hence removes it from being displayed on the GUI
         goal.setComplete();
         changed();
 
@@ -91,10 +91,10 @@ public class Player {
     	return number;
     }
 
-    public int getScore(){ return score;}
+    public double getScore(){ return score;}
 
-    public void updateScore(Goal goal){
-        this.score = this.score + goal.getBonus();
+    public void updateScore(int score){
+        this.score = this.score + score;
     }
 
     public void removeGoal(Goal goal) {
