@@ -78,9 +78,10 @@ public class GoalManager {
 	
 	public void addRandomGoalToPlayer(Player player) {
 		player.addGoal(generateRandom(player.getPlayerManager().getTurnNumber()));
+		/* Uncomment to test the appropriateness of the generated points
 		for (int i = 0; i<20;i++){
 			generateRandom(player.getPlayerManager().getTurnNumber());
-		}
+		}*/
 	}
 
 	public ArrayList<String> trainArrived(Train train, Player player) {
