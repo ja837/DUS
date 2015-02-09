@@ -1,8 +1,5 @@
 package Util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Tuple<T,U> {
     private T val1;
     private U val2;
@@ -12,23 +9,7 @@ public class Tuple<T,U> {
         this.val2 = val2;
     }
 
-	public static <T, U> ArrayList<T> getFirstsFromList(List<Tuple<T, U>> list) {
-		ArrayList<T> al = new ArrayList<T>();
-		for (Tuple<T, U> t : list) {
-			al.add(t.getFirst());
-		}
-		return al;
-	}
-
-	public static <T, U> ArrayList<U> getSecondsFromList(List<Tuple<T, U>> list) {
-		ArrayList<U> al = new ArrayList<U>();
-		for (Tuple<T, U> t : list) {
-			al.add(t.getSecond());
-		}
-		return al;
-	}
-
-	public T getFirst() {
+    public T getFirst() {
         return val1;
     }
 

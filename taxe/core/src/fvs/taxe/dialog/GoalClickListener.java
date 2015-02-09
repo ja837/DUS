@@ -15,7 +15,6 @@ import gameLogic.map.Station;
 
 //Responsible for checking whether the goal is clicked
 public class GoalClickListener extends ClickListener {
-<<<<<<< HEAD
 	private Context context;
 	private Goal goal;
 	private Tooltip tooltip1;
@@ -96,29 +95,4 @@ public class GoalClickListener extends ClickListener {
 		}
 	}
 
-<<<<<<< Updated upstream
-=======
-=======
-    private Context context;
-    private Goal goal;
-
-    public GoalClickListener(Context context, Goal goal) {
-        this.goal = goal;
-        this.context = context;
-    }
-
-    @Override
-    public void clicked(InputEvent event, float x, float y) {
-        if (Game.getInstance().getState() != GameState.NORMAL) return;
-        JOptionPane.showMessageDialog(null, "Goal clicked", "InfoBox: " + "Message", JOptionPane.INFORMATION_MESSAGE);
-        Player currentPlayer = Game.getInstance().getPlayerManager().getCurrentPlayer();
-
-        DialogGoalButtonClicked listener = new DialogGoalButtonClicked(context, currentPlayer, goal);
-        DialogGoal dia = new DialogGoal(goal, context.getSkin());
-        dia.show(context.getStage());
-        dia.subscribeClick(listener);
-    }
->>>>>>> parent of 82dc00e... Added ability to drop goals
-
->>>>>>> Stashed changes
 }

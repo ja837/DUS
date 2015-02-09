@@ -116,11 +116,7 @@ public class GameScreen extends ScreenAdapter {
         game.batch.end();
 
         resourceController.drawHeaderText();
-<<<<<<< Updated upstream
         goalController.drawHeaderText();
-=======
-        goalController.showCurrentPlayerGoals();
->>>>>>> Stashed changes
     }
 
     @Override
@@ -128,10 +124,7 @@ public class GameScreen extends ScreenAdapter {
     public void show() {
         stationController.renderStations();
         topBarController.addEndTurnButton();
-<<<<<<< Updated upstream
         goalController.showCurrentPlayerGoals();
-=======
->>>>>>> Stashed changes
         resourceController.drawPlayerResources(gameLogic.getPlayerManager().getCurrentPlayer());
     }
 
