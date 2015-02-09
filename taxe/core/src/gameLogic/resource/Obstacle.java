@@ -7,35 +7,18 @@ import gameLogic.map.Map;
 
 public class Obstacle extends Resource {
 
-
-    private Map map = new Map();
-    private Connection affectedConnection = map.getRandomConnection();
     private int forTurns;
 
-    public Obstacle(int forTurns)
+    public Obstacle()
     {
         this.name="Roadblock";
-        this.forTurns=forTurns;
-        this.affectedConnection.setBlocked(forTurns);
-
+        this.forTurns=5;
     }
 
-    private int getForTurns()
+    public void use(Connection connection)
     {
-        return this.forTurns;
+        connection.setBlocked(this.forTurns);
     }
-
-    private void setForTurns(int turns)
-    {
-        this.forTurns=turns;
-    }
-
-    private Connection getAffectedConnection()
-    {
-        return affectedConnection;
-    }
-
-
 
 
 

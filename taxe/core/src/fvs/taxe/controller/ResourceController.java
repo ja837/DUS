@@ -64,10 +64,14 @@ public class ResourceController {
                 resourceButtons.addActor(button);
 
                 y -= 30;
-            }
+            }else
 
             if(resource instanceof Obstacle) {
-                Obstacle obstacle = (Obstacle) resource;
+                TextButton button = new TextButton("Obstacle", context.getSkin());
+                button.setPosition(x, y);
+                resourceButtons.addActor(button);
+
+                y -= 30;
 
             }
         }
