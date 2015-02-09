@@ -2,6 +2,7 @@ package gameLogic;
 
 import gameLogic.goal.Goal;
 import gameLogic.goal.GoalManager;
+import gameLogic.map.Connection;
 import gameLogic.resource.Resource;
 
 import java.util.ArrayList;
@@ -19,6 +20,17 @@ public class Player {
         this.pm = pm;
         number = playerNumber;
     }
+
+    public void setObstacle (Connection connection)
+    {
+        connection.setBlocked(4);
+    }
+
+    public void unsetObstacle (Connection connection)
+    {
+        connection.setBlocked(0);
+    }
+
 
     public List<Resource> getResources() {
         return resources;

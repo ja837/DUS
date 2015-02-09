@@ -7,6 +7,7 @@ import fvs.taxe.TaxeGame;
 import fvs.taxe.dialog.TrainClicked;
 import gameLogic.Player;
 import gameLogic.PlayerChangedListener;
+import gameLogic.resource.Obstacle;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
@@ -63,6 +64,11 @@ public class ResourceController {
                 resourceButtons.addActor(button);
 
                 y -= 30;
+            }
+
+            if(resource instanceof Obstacle) {
+                Obstacle obstacle = (Obstacle) resource;
+
             }
         }
 
