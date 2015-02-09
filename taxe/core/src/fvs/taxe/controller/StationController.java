@@ -3,10 +3,13 @@ package fvs.taxe.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -144,9 +147,8 @@ public class StationController {
 			game.shapeRenderer.rectLine(start.getX(), start.getY(), end.getX(), end.getY(),
 					CONNECTION_LINE_WIDTH);
 			if (connection.isBlocked()) {
-				game.shapeRenderer.setColor(translucentBlack);
 				IPositionable midpoint = connection.getMidpoint();
-				game.shapeRenderer.circle(midpoint.getX(), midpoint.getY(), 10);
+				context.getStage().addActor(new BlockedImage(midpoint.getX(), midpoint.getY()));
 			}
 		}
 		game.shapeRenderer.end();
@@ -156,7 +158,7 @@ public class StationController {
 			if (connection.isBlocked()) {
 				IPositionable midpoint = connection.getMidpoint();
 				game.batch.begin();
-				game.fontSmall.setColor(Color.WHITE);
+				game.fontSmall.setColor(Color.BLUE);
 				game.fontSmall.draw(game.batch, String.valueOf(connection.getTurnsBlocked()),
 						midpoint.getX() - 5, midpoint.getY() + 7);
 				game.batch.end();
@@ -195,5 +197,17 @@ public class StationController {
 			}
 		}
 		return count;
+	}
+
+	class BlockedImage extends Image {
+		private static final int WIDTH = 32;
+		private static final int HEIGHT = 32;
+		private final Drawable image;
+
+		BlockedImage(int xPos, int yPos) {
+			image = new Image(new Texture(Gdx.files.internal("blocked.png"))).getDrawable();
+			setBounds(xPos - WIDTH / 2, yPos - HEIGHT / 2, WIDTH, HEIGHT);
+			setDrawable(image);
+		}
 	}
 }
