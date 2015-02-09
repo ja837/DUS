@@ -6,6 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import fvs.taxe.StationClickListener;
 import fvs.taxe.TaxeGame;
 import gameLogic.GameState;
@@ -13,9 +17,6 @@ import gameLogic.map.CollisionStation;
 import gameLogic.map.IPositionable;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RouteController {
     private Context context;
@@ -133,4 +134,40 @@ public class RouteController {
 
         game.shapeRenderer.end();
     }
+
+    public void viewRoute(Train train) {
+        routingButtons.clear();
+
+        train.getRoute();
+
+        //isRouting = true;
+        positions = new ArrayList<IPositionable>();
+
+        for (Station station : train.getRoute()){
+            positions.add(station.getLocation());
+
+        }
+
+        context.getGameLogic().setState(GameState.ROUTING);
+
+
+        TextButton back = new TextButton("Return", context.getSkin());
+
+        back.setPosition(TaxeGame.WIDTH - 100, TaxeGame.HEIGHT - 33);
+
+        back.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                context.getGameLogic().setState(GameState.NORMAL);
+                context.getGameLogic().setState(GameState.NORMAL);
+                routingButtons.remove();
+
+            }
+        });
+
+        routingButtons.addActor(back);
+
+        context.getStage().addActor(routingButtons);
+    }
+
 }

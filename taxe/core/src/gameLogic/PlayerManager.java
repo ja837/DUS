@@ -59,4 +59,5 @@ public class PlayerManager {
 	public int getTurnNumber() {
 		return turnNumber;
 	}
+
 }

@@ -7,8 +7,11 @@ import fvs.taxe.TaxeGame;
 import fvs.taxe.dialog.TrainClicked;
 import gameLogic.Player;
 import gameLogic.PlayerChangedListener;
+import gameLogic.resource.Obstacle;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
+
+import javax.swing.*;
 
 public class ResourceController {
     private Context context;
@@ -58,10 +61,14 @@ public class ResourceController {
                 TextButton button = new TextButton(resource.toString(), context.getSkin());
                 button.setPosition(x, y);
                 button.addListener(listener);
-
                 resourceButtons.addActor(button);
 
                 y -= 30;
+            }
+
+            if(resource instanceof Obstacle) {
+                Obstacle obstacle = (Obstacle) resource;
+
             }
         }
 

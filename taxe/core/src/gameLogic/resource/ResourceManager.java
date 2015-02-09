@@ -50,11 +50,17 @@ public class ResourceManager {
 	}
 
     private Resource getRandomResource() {
-            	
-    	int index = random.nextInt(trains.size());
-    	Tuple<String, Integer> train = trains.get(index);
-    	return new Train(train.getFirst(), train.getFirst().replaceAll(" ", "") + ".png", train.getFirst().replaceAll(" ", "") + "Right.png",train.getSecond());
-    	
+
+		int idx= random.nextInt(7);
+		if (idx==1)
+			return new Obstacle(3);
+		else
+
+		{
+			int index = random.nextInt(trains.size());
+			Tuple<String, Integer> train = trains.get(index);
+			return new Train(train.getFirst(), train.getFirst().replaceAll(" ", "") + ".png", train.getFirst().replaceAll(" ", "") + "Right.png", train.getSecond());
+		}
     }
 
 	public Train getRandomTrain(){

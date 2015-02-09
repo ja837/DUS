@@ -75,8 +75,9 @@ public class Goal {//hobitses
 
 	public boolean isComplete(Train train) {
 		boolean passedOrigin = false;
-		for(Tuple<String, Integer> history: train.getHistory()) {
-			if(history.getFirst().equals(origin.getName()) && history.getSecond() >= turnIssued) {
+		for(Tuple<Station, Integer> history: train.getHistory()) {
+			if(history.getFirst().getName().equals(origin.getName()) && history.getSecond() >=
+					turnIssued) {
 				passedOrigin = true;
 			}
 		}
@@ -158,4 +159,8 @@ public class Goal {//hobitses
 	public boolean isGoingThrough(){
 		return goingThrough;
 	}
+
+	public Station getOrigin() { return this.origin; }
+
+	public Station getDestination() { return this.destination; }
 }

@@ -1,12 +1,12 @@
 package gameLogic.resource;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Util.Tuple;
 import fvs.taxe.actor.TrainActor;
 import gameLogic.map.IPositionable;
 import gameLogic.map.Station;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Train extends Resource {
     private String leftImage;
@@ -21,7 +21,7 @@ public class Train extends Resource {
     private List<Station> route;
 
     //Station name and turn number
-    private List<Tuple<String, Integer>> history;
+    private List<Tuple<Station, Integer>> history;
 
 
     public Train(String name, String leftImage, String rightImage, int speed) {
@@ -29,7 +29,7 @@ public class Train extends Resource {
         this.leftImage = leftImage;
         this.rightImage = rightImage;
         this.speed = speed;
-        history = new ArrayList<Tuple<String, Integer>>();
+        history = new ArrayList<Tuple<Station, Integer>>();
         route =  new ArrayList<Station>();
     }
     
@@ -99,13 +99,13 @@ public class Train extends Resource {
     }
 
     //Station name and turn number
-    public List<Tuple<String, Integer>> getHistory() {
+    public List<Tuple<Station, Integer>> getHistory() {
         return history;
     }
 
     //Station name and turn number
-    public void addHistory(String stationName, int turn) {
-        history.add(new Tuple<String, Integer>(stationName, turn));
+    public void addHistory(Station station, int turn) {
+        history.add(new Tuple<Station, Integer>(station, turn));
     }
 
     @Override
