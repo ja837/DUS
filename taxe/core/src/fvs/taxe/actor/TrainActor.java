@@ -60,6 +60,7 @@ public class TrainActor extends Image {
             //JOptionPane.showMessageDialog(null, collided(),"message", JOptionPane.INFORMATION_MESSAGE);
             if (collision != null){
                 context.getTopBarController().displayFlashMessage("Two trains collided.  They were both destroyed.", Color.RED, 2);
+                Game.getInstance().getMap().blockConnection(train.getLastStation(), train.getNextStation(), 5);
                 collision.getActor().remove();
                 collision.getPlayer().removeResource(collision);
                 train.getPlayer().removeResource(train);

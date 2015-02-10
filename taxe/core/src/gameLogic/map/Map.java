@@ -82,13 +82,31 @@ public class Map {
             String s2 = connection.getStation2().getName();
 
             if (s1.equals(stationName) && s2.equals(anotherStationName)
-                || s1.equals(anotherStationName) && s2.equals(stationName)) {
+                    || s1.equals(anotherStationName) && s2.equals(stationName)) {
                 return true;
             }
         }
 
         return false;
     }
+
+    public Connection getConnection(Station station1, Station station2) {
+        String stationName = station1.getName();
+        String anotherStationName = station2.getName();
+
+        for (Connection connection : connections) {
+            String s1 = connection.getStation1().getName();
+            String s2 = connection.getStation2().getName();
+
+            if (s1.equals(stationName) && s2.equals(anotherStationName)
+                    || s1.equals(anotherStationName) && s2.equals(stationName)) {
+                return connection;
+            }
+        }
+
+        return null;
+    }
+
 
     public Station getRandomStation() {
         return stations.get(random.nextInt(stations.size()));
@@ -192,6 +210,13 @@ public class Map {
             //connections.get(0).setBlocked(1); //UNCOMMENT FOR TEST OF 50% CHANCE TO BLOCK PARIS-MADRID CONNECTION
         }
 
+    }
+
+    public void blockConnection(Station station1, Station station2, int turnsBlocked){
+        if (doesConnectionExist(station1.getName(),station2.getName())){
+            Connection connection = getConnection(station1, station2);
+            connection.setBlocked(turnsBlocked);
+        }
     }
 
     public boolean isConnectionBlocked(Station station1, Station station2) {
