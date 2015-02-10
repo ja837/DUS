@@ -12,6 +12,7 @@ import fvs.taxe.controller.TrainController;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.Player;
+import gameLogic.PlayerManager;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.Station;
 import gameLogic.resource.Obstacle;
@@ -83,9 +84,12 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
             case OBSTACLE_DROP:
                 currentPlayer.removeResource(obstacle);
                 break;
-                case OBSTACLE_USE:
-                    //Enter how to use the obstacle here
-                    break;
+            case OBSTACLE_USE:
+                //Enter how to use the obstacle here
+                break;
+            case SKIP_RESOURCE:
+                context.getGameLogic().getPlayerManager().skipTurnResource();
+                break;
 
             case TRAIN_CHANGE_ROUTE:
                 context.getRouteController().begin2(train);

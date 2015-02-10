@@ -32,6 +32,16 @@ public class PlayerManager {
 		playerChanged();
 	}
 
+	public void skipTurnResource() {
+		//Swaps current player
+		currentTurn = currentTurn == 1 ? 0 : 1;
+		//Calls turn listeners
+		turnChanged();
+		playerChanged();
+
+		//TODO ADD SCREEN TO PLAYER
+	}
+
 
 	public void subscribeTurnChanged(TurnListener listener) {
 		turnListeners.add(listener);

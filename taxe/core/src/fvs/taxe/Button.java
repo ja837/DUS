@@ -9,5 +9,6 @@ public enum Button {
     GOAL_VIEW,
     OBSTACLE_DROP,
     OBSTACLE_USE,
-    TRAIN_CHANGE_ROUTE
+    TRAIN_CHANGE_ROUTE,
+    SKIP_RESOURCE
 }
