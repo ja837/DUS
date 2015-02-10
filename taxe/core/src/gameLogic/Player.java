@@ -4,6 +4,7 @@ import gameLogic.goal.Goal;
 import gameLogic.goal.GoalManager;
 import gameLogic.map.Connection;
 import gameLogic.resource.Resource;
+import gameLogic.resource.Train;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,17 @@ public class Player {
 
     public List<Resource> getResources() {
         return resources;
+    }
+
+    public List<Train> getTrains() {
+        ArrayList<Train> trains = new ArrayList<Train>();
+        for (Resource resource : resources) {
+            if (resource instanceof Train) {
+                Train train = (Train) resource;
+                trains.add(train);
+            }
+        }
+        return trains;
     }
 
     public void addResource(Resource resource) {
