@@ -12,9 +12,11 @@ import fvs.taxe.controller.TrainController;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.Player;
+import gameLogic.PlayerManager;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.Station;
 import gameLogic.resource.Obstacle;
+import gameLogic.resource.Skip;
 import gameLogic.resource.Train;
 
 public class DialogButtonClicked implements ResourceDialogClickListener {
@@ -22,17 +24,27 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
     private Player currentPlayer;
     private Train train;
     private Obstacle obstacle;
+    private Skip skip;
     public DialogButtonClicked(Context context, Player player, Train train) {
         this.currentPlayer = player;
         this.train = train;
         this.context = context;
         this.obstacle = null;
+        this.skip=null;
     }
     public DialogButtonClicked(Context context, Player player, Obstacle obstacle){
         this.currentPlayer = player;
         this.train = null;
+        this.skip = null;
         this.context = context;
         this.obstacle = obstacle;
+    }
+    public DialogButtonClicked(Context context, Player player, Skip skip){
+        this.currentPlayer = player;
+        this.train = null;
+        this.skip = skip;
+        this.context = context;
+        this.obstacle = null;
     }
 
     @Override
@@ -83,9 +95,22 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
             case OBSTACLE_DROP:
                 currentPlayer.removeResource(obstacle);
                 break;
-                case OBSTACLE_USE:
-                    //Enter how to use the obstacle here
-                    break;
+            case OBSTACLE_USE:
+                //Enter how to use the obstacle here
+                break;
+            case SKIP_RESOURCE:
+                int p = context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber() - 1;
+                if (p == 0){
+                    p = 1;
+                }else {
+                    p = 0;
+                }
+                context.getGameLogic().getPlayerManager().getAllPlayers().get(p).setSkip(1);
+                currentPlayer.removeResource(skip);
+                break;
+            case SKIP_DROP:
+                currentPlayer.removeResource(skip);
+                break;
 
             case TRAIN_CHANGE_ROUTE:
                 context.getRouteController().begin2(train);

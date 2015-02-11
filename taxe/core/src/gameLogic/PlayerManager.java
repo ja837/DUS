@@ -3,6 +3,14 @@ package gameLogic;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import fvs.taxe.TaxeGame;
+import fvs.taxe.controller.Context;
+import fvs.taxe.dialog.DialogResourceSkip;
+
+
 public class PlayerManager {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private int currentTurn = 0;
@@ -24,13 +32,31 @@ public class PlayerManager {
 		return players;
 	}
 	
-	public void turnOver() {
+	public void turnOver(Context context) {
 		//Swaps current player
 		currentTurn = currentTurn == 1 ? 0 : 1;
 		//Calls turn listeners
 		turnChanged();
 		playerChanged();
+		if (this.getCurrentPlayer().getSkip() == 1){
+			DialogResourceSkip dia = new DialogResourceSkip(context.getSkin());
+			dia.show(context.getStage());
+			this.getCurrentPlayer().setSkip(0);
+		}
 	}
+
+	public void skipTurnResource(Context context) {
+
+
+
+		//TODO ADD SCREEN TO PLAYER
+		DialogResourceSkip dia = new DialogResourceSkip(context.getSkin());
+		dia.show(context.getStage());
+
+
+
+	}
+
 
 
 	public void subscribeTurnChanged(TurnListener listener) {

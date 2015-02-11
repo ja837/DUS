@@ -51,9 +51,14 @@ public class ResourceManager {
 
     private Resource getRandomResource() {
 
-		int idx= random.nextInt(10);
-		if (idx==1)
+		int idx= random.nextInt(11);
+		if (idx==1){
 			return new Obstacle();
+		}
+		if(idx==2){
+			return new Skip();
+		}
+
 		else
 
 		{
@@ -71,7 +76,10 @@ public class ResourceManager {
 
 
     public void addRandomResourceToPlayer(Player player) {
-        addResourceToPlayer(player, getRandomResource());
+		if (player.getSkip() == 1){
+			return;
+		}
+		addResourceToPlayer(player, getRandomResource());
     }
 
     private void addResourceToPlayer(Player player, Resource resource) {

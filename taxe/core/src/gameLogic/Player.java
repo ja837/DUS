@@ -15,6 +15,7 @@ public class Player {
     private List<Goal> goals;
     private int number;
     private double score;
+    private int skip;
 
     public Player(PlayerManager pm, int playerNumber) {
         goals = new ArrayList<Goal>();
@@ -23,6 +24,15 @@ public class Player {
         number = playerNumber;
         score = 0;
     }
+
+    public void setSkip(int skip){
+        this.skip = skip;
+    }
+
+    public int getSkip(){
+        return skip;
+    }
+
 
     public void setObstacle (Connection connection)
     {
