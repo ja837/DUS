@@ -7,26 +7,29 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import fvs.taxe.Button;
 import fvs.taxe.MainMenuScreen;
 import fvs.taxe.TaxeGame;
+import fvs.taxe.controller.Context;
 import gameLogic.Player;
-import gameLogic.PlayerManager;
-import gameLogic.goal.Goal;
+import gameLogic.resource.Skip;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DialogResourceSkipped extends Dialog {
     private List<ResourceDialogClickListener> clickListeners = new ArrayList<ResourceDialogClickListener>();
-    private TaxeGame game;
 
-    public DialogResourceSkipped(TaxeGame game, PlayerManager pm, Skin skin) {
-        super("Skip", skin);
-        this.game = game;
+    private Skip skip;
 
+    public DialogResourceSkipped(Skin skin, Skip skip) {
+        super("Skip Turn", skin);
         text("What do you want to do with this resource?");
 
         button("Cancel", "CLOSE");
         button("Drop", "DROP");
         button("Use", "USE");
+    }
+
+    public void subscribeClick(ResourceDialogClickListener listener) {
+        clickListeners.add(listener);
     }
 
     @Override
@@ -56,8 +59,6 @@ public class DialogResourceSkipped extends Dialog {
             clicked(Button.SKIP_DROP);
         }else if (obj == "USE") {
             clicked(Button.SKIP_RESOURCE);
-        }else {
-            game.setScreen(new MainMenuScreen(game));
         }
     }
 
