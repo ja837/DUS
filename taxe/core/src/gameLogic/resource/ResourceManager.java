@@ -76,7 +76,10 @@ public class ResourceManager {
 
 
     public void addRandomResourceToPlayer(Player player) {
-        addResourceToPlayer(player, getRandomResource());
+		if (player.getSkip() == 1){
+			return;
+		}
+		addResourceToPlayer(player, getRandomResource());
     }
 
     private void addResourceToPlayer(Player player, Resource resource) {

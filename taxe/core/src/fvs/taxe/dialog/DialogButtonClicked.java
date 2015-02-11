@@ -99,7 +99,14 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 //Enter how to use the obstacle here
                 break;
             case SKIP_RESOURCE:
-                context.getGameLogic().getPlayerManager().skipTurnResource(context);
+                int p = context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber();
+                if (p == 0){
+                    p = 1;
+                }else {
+                    p = 0;
+                }
+                context.getGameLogic().getPlayerManager().getAllPlayers().get(p).setSkip(1);
+                currentPlayer.removeResource(skip);
                 break;
             case SKIP_DROP:
                 currentPlayer.removeResource(skip);

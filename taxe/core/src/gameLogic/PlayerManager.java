@@ -32,23 +32,28 @@ public class PlayerManager {
 		return players;
 	}
 	
-	public void turnOver() {
+	public void turnOver(Context context) {
 		//Swaps current player
 		currentTurn = currentTurn == 1 ? 0 : 1;
 		//Calls turn listeners
 		turnChanged();
 		playerChanged();
+		if (this.getCurrentPlayer().getSkip() == 1){
+			DialogResourceSkip dia = new DialogResourceSkip(context.getSkin());
+			dia.show(context.getStage());
+			this.getCurrentPlayer().setSkip(0);
+		}
 	}
 
 	public void skipTurnResource(Context context) {
 
-		turnNumber++;
+
 
 		//TODO ADD SCREEN TO PLAYER
 		DialogResourceSkip dia = new DialogResourceSkip(context.getSkin());
 		dia.show(context.getStage());
 
-		turnChanged();
+
 
 	}
 

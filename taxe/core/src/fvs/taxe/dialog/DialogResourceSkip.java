@@ -6,17 +6,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import fvs.taxe.MainMenuScreen;
 import fvs.taxe.TaxeGame;
+import gameLogic.Game;
 import gameLogic.Player;
 import gameLogic.PlayerManager;
 import gameLogic.goal.Goal;
 
 public class DialogResourceSkip extends Dialog {
 
-    public int cont;
     public DialogResourceSkip(Skin skin) {
-        super("Opponent's turn has been skipped", skin);
+        super("Your Turn is skipped.", skin);
 
-        button("Okay!","EXIT");
+        button("Okay :( ","EXIT");
     }
 
     @Override
@@ -34,7 +34,7 @@ public class DialogResourceSkip extends Dialog {
     @Override
     protected void result(Object obj) {
         if(obj == "EXIT"){
-            this.remove();
+            Game.getInstance().getPlayerManager().turnOver(null);
         }
     }
 

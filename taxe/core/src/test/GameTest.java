@@ -33,8 +33,8 @@ public class GameTest extends LibGdxTest {
         int resourceCount = p1.getResources().size();
         int goalCount = p1.getGoals().size();
 
-        pm.turnOver();
-        pm.turnOver();
+        pm.turnOver(null);
+        pm.turnOver(null);
 
         // resource count should increase when p1 has another turn
         assertTrue(p1.getResources().size() > resourceCount);

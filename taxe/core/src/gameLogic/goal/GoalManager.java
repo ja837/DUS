@@ -77,6 +77,9 @@ public class GoalManager {
 	}
 	
 	public void addRandomGoalToPlayer(Player player) {
+		if (player.getSkip() == 1){
+			return;
+		}
 		player.addGoal(generateRandom(player.getPlayerManager().getTurnNumber()));
 		/* Uncomment to test the appropriateness of the generated points
 		for (int i = 0; i<20;i++){
