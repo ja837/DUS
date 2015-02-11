@@ -99,7 +99,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 //Enter how to use the obstacle here
                 break;
             case SKIP_RESOURCE:
-                int p = context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber();
+                int p = context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber() - 1;
                 if (p == 0){
                     p = 1;
                 }else {
