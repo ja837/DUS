@@ -114,4 +114,20 @@ public class Train extends Resource {
             actor.remove();
         }
     }
+
+    public Station getLastStation(){
+        return this.history.get(history.size()-1).getFirst();
+    }
+
+    public Station getNextStation(){
+        Station last = getLastStation();
+        for (int i = 0; i < history.size() -1; i++) {
+            Station station = route.get(i);
+            if (last.getName() == station.getName()){
+                return route.get(i+1);
+            }
+        }
+        return null;
+    }
+
 }
