@@ -11,13 +11,12 @@ import gameLogic.PlayerManager;
 import gameLogic.goal.Goal;
 
 public class DialogResourceSkip extends Dialog {
-    private TaxeGame game;
 
-    public DialogResourceSkip(TaxeGame game, PlayerManager pm, Skin skin) {
-        super("Stolen turn", skin);
-        this.game = game;
+    public int cont;
+    public DialogResourceSkip(Skin skin) {
+        super("Opponent's turn has been skipped", skin);
 
-        button("Okay :(","EXIT");
+        button("Okay!","EXIT");
     }
 
     @Override
@@ -35,9 +34,7 @@ public class DialogResourceSkip extends Dialog {
     @Override
     protected void result(Object obj) {
         if(obj == "EXIT"){
-            Gdx.app.exit();
-        } else {
-            game.setScreen(new MainMenuScreen(game));
+            this.remove();
         }
     }
 

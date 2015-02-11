@@ -3,6 +3,9 @@ package gameLogic;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import fvs.taxe.TaxeGame;
 import fvs.taxe.controller.Context;
 import fvs.taxe.dialog.DialogResourceSkip;
@@ -37,16 +40,18 @@ public class PlayerManager {
 		playerChanged();
 	}
 
-	public void skipTurnResource() {
-		//Swaps current player
-		currentTurn = currentTurn == 1 ? 0 : 1;
-		//Calls turn listeners
-		turnChanged();
-		playerChanged();
+	public void skipTurnResource(Context context) {
+
+		turnNumber++;
 
 		//TODO ADD SCREEN TO PLAYER
-		DialogResourceSkip dia = new DialogResourceSkip(Game.getInstance(), Game.getInstance().getPlayerManager(), Context)
+		DialogResourceSkip dia = new DialogResourceSkip(context.getSkin());
+		dia.show(context.getStage());
+
+		turnChanged();
+
 	}
+
 
 
 	public void subscribeTurnChanged(TurnListener listener) {
