@@ -52,27 +52,30 @@ public class GoalManager {
 				intermediary = map.getRandomStation();
 			} while (intermediary == origin || intermediary == destination || intermediary instanceof CollisionStation|| map.inShortestPath(origin,destination,intermediary));
 			bonus = (int) (map.getShortestDistance(origin, intermediary) + map.getShortestDistance(intermediary, destination));
+			if (bonus <(score + (50*Math.pow(0.001,shortestDist)))){
+				bonus = (int)(score + (50*Math.pow(0.001,shortestDist)));
+			}
 		}
 		else intermediary = origin;
 
 		if (rand==1){
 		//decides if goal can be competed in a number of turns for bonus;
-			int expectedTurns;
-			expectedTurns = (int) shortestDist/45;
-			int lowerBound = (int) Math.floor(expectedTurns - 0.5*expectedTurns);
-			int upperBound = (int) Math.ceil(expectedTurns + 0.5*expectedTurns);
+			double expectedTurns;
+			expectedTurns = Math.round(shortestDist/50.0);
+			double lowerBound =  Math.floor(expectedTurns - 0.5*expectedTurns);
+			double upperBound =  Math.ceil(expectedTurns + 0.5*expectedTurns);
 			do {
-				forTurns = random.nextInt(upperBound+1);
+				forTurns = random.nextInt((int) upperBound+1);
 			}while (forTurns < lowerBound);
-			int diffFromExpected = forTurns - expectedTurns;
-			bonus = score + (int) (1/2+(diffFromExpected/(upperBound-lowerBound))*shortestDist);
+			double diffFromExpected = forTurns - expectedTurns;
+			bonus = score + (int) ((0.5+(diffFromExpected/(2.0*(upperBound-lowerBound))))*score);
 		}
 		else forTurns=0;
 
 		if (rand==2) {
 			train = resourceManager.getRandomTrain();
 			//This will now never be less than the base score as it includes it in the calculation
-			bonus =(int) ((((100-train.getSpeed())/100) * shortestDist)+score);
+			bonus =(int) ((((100-(float) train.getSpeed())/100) * shortestDist)+score);
 		}
 		
 		Goal goal = new Goal(origin, destination, intermediary, turn, forTurns,score, bonus, train);
