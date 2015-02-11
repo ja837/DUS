@@ -22,10 +22,6 @@ public class Goal {//hobitses
 	//constraints
 	private Train trainName = null;
 
-	public void setScore(int score){
-		this.score = score;
-	}
-
 	public int getScore(){
 		return this.score;
 	}
@@ -33,30 +29,22 @@ public class Goal {//hobitses
 	public int getBonus(){
 		return this.bonus;
 	}
-	
-	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime, int bonus, Train train) {
-		//IDEA:
-		//Calculate score outside of constructor or bonus inside constructor
-		//Bonus for train = score + ((100-speed)/100)*score
-		//Bonus for distance: Need to find a case for if the intermediary is along the optimal route, otherwise happy with it
-		//Bonus for turns = score + (proportion of forturns compared to expected turns) * score
+
+	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime,int score, int bonus, Train train) {
 		if (train != null){
 			trainName = train;
 			withTrain = true;
 		}
 		this.origin = origin;
 		this.destination = destination;
-		//set the amount of extra points to give if a bonus goal is completed
+		this.score = score;
+		//set the amount of points to give if a bonus goal is completed
 		this.bonus = bonus;
-		//the amount of points give is equal to the distance
-		double shortestDist = Game.getInstance().getMap().getShortestDistance(this.origin,this.destination);
-		this.score = (int)(shortestDist * (Math.pow(1.0001,shortestDist)));
 
 		if (intermediary != destination && intermediary != origin) {
 			goingThrough = true;
 			this.intermediary = intermediary;
 		}
-
 		else {
 			this.intermediary = intermediary;
 		}
@@ -72,21 +60,10 @@ public class Goal {//hobitses
 
 	}
 
-
-	
-	/*public void addConstraint(String name, String value) {
-		if(name.equals("train")) {
-			trainName = value;
-		} else {
-			throw new RuntimeException(name + " is not a valid goal constraint");
-		}
-	}*/
-
 	public boolean isComplete(Train train) {
 		boolean passedOrigin = false;
-		for(Tuple<Station, Integer> history: train.getHistory()) {
-			if(history.getFirst().getName().equals(origin.getName()) && history.getSecond() >=
-					turnIssued) {
+		for(Tuple<String, Integer> history: train.getHistory()) {
+			if(history.getFirst().equals(origin.getName()) && history.getSecond() >= turnIssued) {
 				passedOrigin = true;
 			}
 		}
@@ -99,7 +76,7 @@ public class Goal {//hobitses
 
 	public boolean isBonusCompleted(Train train){
 		if(withTrain == true) {
-			 return wentThroughStation(train);
+			return wentThroughStation(train);
 		}
 		if(inTurns == true){
 			return completedWithinMaxTurns(train);
@@ -178,13 +155,5 @@ public class Goal {//hobitses
 
 	public boolean isGoingThrough(){
 		return goingThrough;
-	}
-
-	public Station getOrigin() { return this.origin; }
-
-	public Station getDestination() { return this.destination; }
-
-	public Station getIntermediary(){
-		return this.intermediary;
 	}
 }
