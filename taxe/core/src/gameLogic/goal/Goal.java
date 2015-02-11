@@ -123,11 +123,11 @@ public class Goal {//hobitses
 			output = output.concat("Using " + train.getName());
 		}
 		if (inTurns){
-			output = output.concat("In " + turnsTime);
+			output = output.concat("Within " + turnsTime);
 			if (turnsTime > 1){
-				output = output.concat(" turns");
+				output = output.concat(" turns (" + String.valueOf(turnIssued + turnsTime)+")");
 			}else{
-				output = output.concat(" turn");
+				output = output.concat(" turn (" + String.valueOf(turnIssued + turnsTime)+")");
 			}
 		}
 		if (goingThrough) {
