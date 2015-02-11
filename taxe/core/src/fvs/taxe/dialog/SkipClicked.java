@@ -9,14 +9,22 @@ import gameLogic.GameState;
 import gameLogic.Player;
 import gameLogic.resource.Skip;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SkipClicked extends ClickListener{
 
+    private List<ResourceDialogClickListener> clickListeners = new ArrayList<ResourceDialogClickListener>();
     Context context;
     Skip skip;
 
     public SkipClicked(Context context, Skip skip){
         this.context = context;
         this.skip = skip;
+    }
+
+    public void subscribeClick(ResourceDialogClickListener listener) {
+        clickListeners.add(listener);
     }
 
     public void clicked(InputEvent event, float x, float y) {
@@ -26,7 +34,7 @@ public class SkipClicked extends ClickListener{
         Player currentPlayer = Game.getInstance().getPlayerManager().getCurrentPlayer();
 
         DialogButtonClicked listener = new DialogButtonClicked(context, currentPlayer, skip);
-        DialogResourceSkipped dia = new DialogResourceSkipped(context.getSkin(), skip);
+        DialogResourceSkipped dia = new DialogResourceSkipped(context, skip);
         dia.show(context.getStage());
         dia.subscribeClick(listener);
     }

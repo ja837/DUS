@@ -3,6 +3,11 @@ package gameLogic;
 import java.util.ArrayList;
 import java.util.List;
 
+import fvs.taxe.TaxeGame;
+import fvs.taxe.controller.Context;
+import fvs.taxe.dialog.DialogResourceSkip;
+
+
 public class PlayerManager {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private int currentTurn = 0;
@@ -40,6 +45,7 @@ public class PlayerManager {
 		playerChanged();
 
 		//TODO ADD SCREEN TO PLAYER
+		DialogResourceSkip dia = new DialogResourceSkip(Game.getInstance(), Game.getInstance().getPlayerManager(), Context)
 	}
 
 

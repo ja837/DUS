@@ -19,17 +19,15 @@ public class DialogResourceSkipped extends Dialog {
 
     private Skip skip;
 
-    public DialogResourceSkipped(Skin skin, Skip skip) {
-        super("Skip Turn", skin);
+
+    public DialogResourceSkipped(Context context, Skip skip) {
+        super("Skip", context.getSkin());
+
         text("What do you want to do with this resource?");
 
         button("Cancel", "CLOSE");
         button("Drop", "DROP");
         button("Use", "USE");
-    }
-
-    public void subscribeClick(ResourceDialogClickListener listener) {
-        clickListeners.add(listener);
     }
 
     @Override
@@ -42,6 +40,10 @@ public class DialogResourceSkipped extends Dialog {
     @Override
     public void hide() {
         hide(null);
+    }
+
+    public void subscribeClick(ResourceDialogClickListener listener) {
+        clickListeners.add(listener);
     }
 
     private void clicked(Button button) {
