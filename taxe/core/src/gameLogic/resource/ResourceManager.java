@@ -54,7 +54,8 @@ public class ResourceManager {
 		int idx= random.nextInt(11);
 		if (idx==1){
 			return new Obstacle();
-		}else if(idx==2){
+		}
+		if(idx==2){
 			return new Skip();
 		}
 
