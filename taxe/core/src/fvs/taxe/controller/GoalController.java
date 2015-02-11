@@ -72,7 +72,7 @@ public class GoalController {
 
         float top = (float) TaxeGame.HEIGHT;
         float x = 10.0f;
-        float y = top - 55.0f - TopBarController.CONTROLS_HEIGHT;
+        float y = top - 60.0f - TopBarController.CONTROLS_HEIGHT;
 
         for (Goal goal : currentPlayer.getGoals()) {
             if (!goal.getComplete()) {
