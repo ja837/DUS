@@ -16,6 +16,7 @@ import gameLogic.PlayerManager;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.Station;
 import gameLogic.resource.Obstacle;
+import gameLogic.resource.Skip;
 import gameLogic.resource.Train;
 
 public class DialogButtonClicked implements ResourceDialogClickListener {
@@ -23,17 +24,27 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
     private Player currentPlayer;
     private Train train;
     private Obstacle obstacle;
+    private Skip skip;
     public DialogButtonClicked(Context context, Player player, Train train) {
         this.currentPlayer = player;
         this.train = train;
         this.context = context;
         this.obstacle = null;
+        this.skip=null;
     }
     public DialogButtonClicked(Context context, Player player, Obstacle obstacle){
         this.currentPlayer = player;
         this.train = null;
+        this.skip = null;
         this.context = context;
         this.obstacle = obstacle;
+    }
+    public DialogButtonClicked(Context context, Player player, Skip skip){
+        this.currentPlayer = player;
+        this.train = null;
+        this.skip = skip;
+        this.context = context;
+        this.obstacle = null;
     }
 
     @Override
@@ -89,6 +100,9 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 break;
             case SKIP_RESOURCE:
                 context.getGameLogic().getPlayerManager().skipTurnResource();
+                break;
+            case SKIP_DROP:
+                currentPlayer.removeResource(skip);
                 break;
 
             case TRAIN_CHANGE_ROUTE:
