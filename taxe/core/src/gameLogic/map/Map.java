@@ -1,8 +1,11 @@
 package gameLogic.map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import gameLogic.dijkstra.Dijkstra;
+import gameLogic.dijkstra.Vertex;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +15,14 @@ public class Map {
     private List<Station> stations;
     private List<Connection> connections;
     private Random random = new Random();
+    private Dijkstra dijkstra;
 
     public Map() {
         stations = new ArrayList<Station>();
         connections = new ArrayList<Connection>();
 
         initialise();
+        dijkstra = new Dijkstra(this);
     }
 
     private void initialise() {
@@ -164,5 +169,63 @@ public class Map {
         }
 
         return route;
+    }
+
+    public void decrementBlockedConnections() {
+        for (Connection connection : connections) {
+            connection.decrementBlocked();
+        }
+    }
+
+    public Connection getRandomConnection(){
+        int index = random.nextInt(connections.size());
+        return connections.get(index);
+    }
+
+    public void blockRandomConnection(){
+        int rand = random.nextInt(2);
+        if (rand > 0) { //50% chance of connection being blocked
+
+            Connection toBlock = getRandomConnection();
+            toBlock.setBlocked(4);
+            System.out.println("Connection blocked: " + toBlock.getStation1().getName() + " to " + toBlock.getStation2().getName());
+
+            //connections.get(0).setBlocked(1); //UNCOMMENT FOR TEST OF 50% CHANCE TO BLOCK PARIS-MADRID CONNECTION
+        }
+
+    }
+
+    public boolean isConnectionBlocked(Station station1, Station station2) {
+        for (Connection connection : connections){
+            if(connection.getStation1() == station1)
+                if(connection.getStation2() == station2)
+                    return connection.isBlocked();
+            if(connection.getStation1() == station2)
+                if(connection.getStation2() == station1)
+                    return connection.isBlocked();
+        }
+        //Reaching here means a connection has been added to the route where a connection doesn't exist
+        return true;
+    }
+
+    public ArrayList<Connection> getBlockedConnections(){
+        ArrayList<Connection> blockedConnections = new ArrayList<Connection>();
+        for (Connection connection : this.getConnections()){
+            if (connection.isBlocked()){
+                blockedConnections.add(connection);
+            }
+        }
+        return blockedConnections;
+    }
+
+    public float getDistance (Station s1, Station s2) {
+        return Vector2.dst(s1.getLocation().getX(), s1.getLocation().getY(), s2.getLocation().getX(), s2.getLocation().getY());
+    }
+    public double getShortestDistance(Station s1, Station s2){
+        return dijkstra.findMinDistance(s1, s2);
+    }
+
+    public boolean inShortestPath(Station s1, Station s2,Station s3){
+        return dijkstra.inShortestPath(s1,s2,s3);
     }
 }

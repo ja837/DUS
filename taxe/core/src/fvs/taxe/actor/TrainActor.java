@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.map.IPositionable;
+import gameLogic.map.Station;
 import gameLogic.resource.Train;
 
 public class TrainActor extends Image {
@@ -20,6 +21,7 @@ public class TrainActor extends Image {
     private float previousX;
     private Drawable leftDrawable;
     private Drawable rightDrawable;
+    private boolean paused;
 
     public TrainActor(Train train) {
         super(new Texture(Gdx.files.internal(train.getLeftImage())));
@@ -35,14 +37,30 @@ public class TrainActor extends Image {
         setPosition(position.getX() - width / 2, position.getY() - height / 2);
         previousX = getX();
         facingLeft = true;
+        paused = false;
     }
 
     @Override
     public void act (float delta) {
-        if (Game.getInstance().getState() == GameState.ANIMATING) {
+        if ((Game.getInstance().getState() == GameState.ANIMATING) && (! this.paused)) {
             super.act(delta);
             updateBounds();
             updateFacingDirection();
+        } else if (this.paused){
+
+            //find station train most recently passed
+            String stationName = train.getHistory().get(train.getHistory().size()-1).getFirst();
+            Station station = Game.getInstance().getMap().getStationByName(stationName);
+
+            // find index of this within route
+            int index = train.getRoute().indexOf(station);
+
+            // find next station
+            Station nextStation = train.getRoute().get(index+1);
+
+            // check if connection is blocked, if no unpause
+            if (! Game.getInstance().getMap().isConnectionBlocked(station, nextStation))
+                this.paused = false;
         }
     }
 
@@ -66,5 +84,9 @@ public class TrainActor extends Image {
 
     public Rectangle getBounds() {
         return bounds;
+    }
+
+    public void setPaused(boolean paused){
+        this.paused = paused;
     }
 }

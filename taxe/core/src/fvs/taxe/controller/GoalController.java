@@ -9,6 +9,7 @@ import gameLogic.Player;
 import gameLogic.PlayerManager;
 import gameLogic.goal.Goal;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +71,7 @@ public class GoalController {
     }
 
     private String playerHeader() {
-        return "Player " + context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber() + ": " + context.getGameLogic().getPlayerManager().getCurrentPlayer().getScore();
+        DecimalFormat integer = new DecimalFormat("0");
+        return "Player " + context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber() + ": " + integer.format(context.getGameLogic().getPlayerManager().getCurrentPlayer().getScore());
     }
 }

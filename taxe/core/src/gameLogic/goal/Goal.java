@@ -1,9 +1,11 @@
 package gameLogic.goal;
 
 import Util.Tuple;
-import com.badlogic.gdx.Game;
+import gameLogic.Game;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
+
+import java.util.ArrayList;
 
 public class Goal {//hobitses
 	private Station origin;
@@ -20,10 +22,6 @@ public class Goal {//hobitses
 	//constraints
 	private Train trainName = null;
 
-	public void setScore(int score){
-		this.score = score;
-	}
-
 	public int getScore(){
 		return this.score;
 	}
@@ -32,22 +30,21 @@ public class Goal {//hobitses
 		return this.bonus;
 	}
 	
-	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime, int bonus, Train train) {
+	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime,int score, int bonus, Train train) {
 		if (train != null){
 			trainName = train;
 			withTrain = true;
 		}
 		this.origin = origin;
 		this.destination = destination;
-		//set the amount of extra points to give if a bonus goal is completed
+		this.score = score;
+		//set the amount of points to give if a bonus goal is completed
 		this.bonus = bonus;
-		//the amount of points give is equal to the distance
-		this.score = (int) fvs.taxe.controller.TrainMoveController.getDistanceStatic(origin.getLocation(), destination.getLocation());
+
 		if (intermediary != destination && intermediary != origin) {
 			goingThrough = true;
 			this.intermediary = intermediary;
 		}
-
 		else {
 			this.intermediary = intermediary;
 		}
@@ -59,19 +56,9 @@ public class Goal {//hobitses
 			this.inTurns=true;
 			this.turnsTime=turnsTime;
 		}
-
+		System.out.println(this.toString() + " for " + this.score + "/" + this.bonus + " points");
 
 	}
-
-
-	
-	/*public void addConstraint(String name, String value) {
-		if(name.equals("train")) {
-			trainName = value;
-		} else {
-			throw new RuntimeException(name + " is not a valid goal constraint");
-		}
-	}*/
 
 	public boolean isComplete(Train train) {
 		boolean passedOrigin = false;
@@ -128,11 +115,22 @@ public class Goal {//hobitses
 
 	public String toString() { // based on the type of goal
 		String trainString = "train";
+		ArrayList<String> vowels=new ArrayList<String>();
+		vowels.add("A");
+		vowels.add("E");
+		vowels.add("I");
+		vowels.add("O");
+		vowels.add("U");
+
 		if (trainName != null) {
 			trainString = trainName.getName();
 		}
 		if (withTrain) {
-			return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName();
+			if (vowels.contains(trainString.substring(0, 1))){
+				return "Send an " + trainString + " from " + origin.getName() + " to " + destination.getName();
+			} else {
+				return "Send a " + trainString + " from " + origin.getName() + " to " + destination.getName();
+			}
 		}
 		if (inTurns){
 			return "Send a train from " + origin.getName() + " to " + destination.getName() + " in " + this.turnsTime + " turns";
