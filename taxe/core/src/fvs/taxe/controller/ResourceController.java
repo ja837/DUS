@@ -4,15 +4,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import fvs.taxe.TaxeGame;
+import fvs.taxe.dialog.EngineerClicked;
 import fvs.taxe.dialog.SkipClicked;
 import fvs.taxe.dialog.ObstacleClicked;
 import fvs.taxe.dialog.TrainClicked;
 import gameLogic.Player;
 import gameLogic.PlayerChangedListener;
-import gameLogic.resource.Obstacle;
-import gameLogic.resource.Resource;
-import gameLogic.resource.Train;
-import gameLogic.resource.Skip;
+import gameLogic.resource.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -90,6 +88,15 @@ public class ResourceController {
 
                 y -= 30;
 
+            } else if(resource instanceof Engineer){
+                Engineer engineer = (Engineer) resource;
+                EngineerClicked listener = new EngineerClicked(context,engineer);
+                TextButton button = new TextButton("Engineer", context.getSkin());
+                button.setPosition(x, y);
+                button.addListener(listener);
+                resourceButtons.addActor(button);
+
+                y -= 30;
             }
 
         }

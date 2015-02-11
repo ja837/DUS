@@ -1,20 +1,17 @@
 package gameLogic.resource;
 
+
 import gameLogic.map.Connection;
 import gameLogic.map.Station;
 
-
-public class Obstacle extends Resource {
-
-    private int forTurns;
+public class Engineer extends Resource{
     private Station station1;
     private Station station2;
     private boolean placing;
 
-    public Obstacle()
+    public Engineer()
     {
-        this.name="Roadblock";
-        this.forTurns=5;
+        this.name="Engineer";
         this.station1 = null;
         this.station2 = null;
         this.placing = false;
@@ -22,7 +19,7 @@ public class Obstacle extends Resource {
 
     public void use(Connection connection)
     {
-        connection.setBlocked(this.forTurns);
+        connection.setBlocked(0);
     }
 
     public Station getStation1() {
@@ -45,8 +42,8 @@ public class Obstacle extends Resource {
         return placing;
     }
 
-    public void setPlacing(boolean placing) {
-        this.placing = placing;
+    public void setPlacing(boolean isPlacing) {
+        this.placing = isPlacing;
     }
 
     @Override

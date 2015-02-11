@@ -3,6 +3,8 @@ package gameLogic;
 import gameLogic.goal.Goal;
 import gameLogic.goal.GoalManager;
 import gameLogic.map.Connection;
+import gameLogic.resource.Engineer;
+import gameLogic.resource.Obstacle;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
@@ -124,5 +126,21 @@ public class Player {
             goals.remove(goal);
         changed();
     }
-
+    public boolean isPlacing(){
+        if (Game.getInstance().getState()==GameState.PLACING_TRAIN){
+            return true;
+        }
+        for (Resource resource:resources){
+            if (resource instanceof Obstacle){
+                if (((Obstacle) resource).isPlacing()){
+                    return true;
+                }
+            }else if(resource instanceof Engineer){
+                if (((Engineer)resource).isPlacing()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

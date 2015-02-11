@@ -55,12 +55,16 @@ public class ResourceManager {
 		if (idx==1){
 			return new Obstacle();
 		}
+
 		if(idx==2){
 			return new Skip();
 		}
 
-		else
+		if (idx==3){
+			return new Engineer();
+		}
 
+		else
 		{
 			int index = random.nextInt(trains.size());
 			Tuple<String, Integer> train = trains.get(index);

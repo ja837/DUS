@@ -11,5 +11,7 @@ public enum Button {
     OBSTACLE_USE,
     TRAIN_CHANGE_ROUTE,
     SKIP_RESOURCE,
-    SKIP_DROP
+    SKIP_DROP,
+    ENGINEER_DROP,
+    ENGINEER_USE
 }

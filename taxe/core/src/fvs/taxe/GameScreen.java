@@ -103,7 +103,7 @@ public class GameScreen extends ScreenAdapter {
             }
         } else
         //Draw the number of trains at each station
-        if(gameLogic.getState() == GameState.NORMAL || gameLogic.getState() == GameState.PLACING){
+        if(gameLogic.getState() == GameState.NORMAL || gameLogic.getState() == GameState.PLACING_TRAIN){
         	stationController.displayNumberOfTrainsAtStations();
         }
 

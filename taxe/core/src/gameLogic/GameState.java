@@ -2,7 +2,7 @@ package gameLogic;
 
 public enum GameState {
     NORMAL,
-    PLACING,
+    PLACING_TRAIN,
     ROUTING,
     ANIMATING
 }
