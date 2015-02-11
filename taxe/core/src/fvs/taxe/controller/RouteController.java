@@ -6,6 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import fvs.taxe.StationClickListener;
 import fvs.taxe.TaxeGame;
 import gameLogic.GameState;
@@ -13,9 +17,6 @@ import gameLogic.map.CollisionStation;
 import gameLogic.map.IPositionable;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RouteController {
     private Context context;
@@ -51,19 +52,48 @@ public class RouteController {
         train.getActor().setVisible(true);
     }
 
+    public void begin2(Train train) {
+        this.train = train;
+        isRouting = true;
+        positions = new ArrayList<IPositionable>();
+        /*String previousStationName = train.getHistory().get(train.getHistory().size()-1).getFirst();
+        Station previousStation = context.getGameLogic().getMap().getStationByName(previousStationName);
+        positions.add(previousStation.getLocation());*/
+        context.getGameLogic().setState(GameState.ROUTING);
+        addRoutingButtons();
+
+        TrainController trainController = new TrainController(context);
+        trainController.setTrainsVisible(train, false);
+        train.getActor().setVisible(true);
+    }
+
     private void addStationToRoute(Station station) {
         // the latest position chosen in the positions so far
-        IPositionable lastPosition =  positions.get(positions.size() - 1);
-        Station lastStation = context.getGameLogic().getMap().getStationFromPosition(lastPosition);
-
-        boolean hasConnection = context.getGameLogic().getMap().doesConnectionExist(station.getName(), lastStation.getName());
-        //Check whether a connection exists
-        if(!hasConnection) {
-            context.getTopBarController().displayFlashMessage("This connection doesn't exist", Color.RED);
-        } else {
-            positions.add(station.getLocation());
-            canEndRouting = !(station instanceof CollisionStation);
+        IPositionable lastPosition = null;
+        int proceed = 0;
+        try{
+            lastPosition =  positions.get(positions.size() - 1);
+            proceed = 1;
         }
+        catch(Exception e){}
+        if (proceed==1) {
+
+            Station lastStation = context.getGameLogic().getMap().getStationFromPosition(lastPosition);
+
+            boolean hasConnection = context.getGameLogic().getMap().doesConnectionExist(station.getName(), lastStation.getName());
+            //Check whether a connection exists
+            if (!hasConnection) {
+                context.getTopBarController().displayFlashMessage("This connection doesn't exist", Color.RED);
+            } else {
+                positions.add(station.getLocation());
+                canEndRouting = !(station instanceof CollisionStation);
+            }
+
+        }
+        if (positions.size() == 0) {
+            positions.add(station.getLocation());
+        }
+        return;
     }
 
     private void addRoutingButtons() {
@@ -133,4 +163,40 @@ public class RouteController {
 
         game.shapeRenderer.end();
     }
+
+    public void viewRoute(Train train) {
+        routingButtons.clear();
+
+        train.getRoute();
+
+        //isRouting = true;
+        positions = new ArrayList<IPositionable>();
+
+        for (Station station : train.getRoute()){
+            positions.add(station.getLocation());
+
+        }
+
+        context.getGameLogic().setState(GameState.ROUTING);
+
+
+        TextButton back = new TextButton("Return", context.getSkin());
+
+        back.setPosition(TaxeGame.WIDTH - 100, TaxeGame.HEIGHT - 33);
+
+        back.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                context.getGameLogic().setState(GameState.NORMAL);
+                context.getGameLogic().setState(GameState.NORMAL);
+                routingButtons.remove();
+
+            }
+        });
+
+        routingButtons.addActor(back);
+
+        context.getStage().addActor(routingButtons);
+    }
+
 }

@@ -4,32 +4,22 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import fvs.taxe.Button;
-import gameLogic.resource.Train;
+import gameLogic.resource.Obstacle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DialogResourceTrain extends Dialog {
+public class DialogResourceObstacle extends Dialog {
     private List<ResourceDialogClickListener> clickListeners = new ArrayList<ResourceDialogClickListener>();
 
-    public DialogResourceTrain(Train train, Skin skin, boolean trainPlaced) {
-        super(train.toString(), skin);
+    public DialogResourceObstacle(Obstacle obstacle, Skin skin) {
+        super(obstacle.toString(), skin);
 
-        text("What do you want to do with this train?");
+        text("What do you want to do with this obstacle?");
 
         button("Cancel", "CLOSE");
         button("Drop", "DROP");
-
-
-        if (!trainPlaced) {
-            button("Place at a station", "PLACE");
-        } else if(!train.isMoving()) {
-            button("Choose a route", "ROUTE");
-        }  else if(train.getRoute() != null){
-            button("Change route", "CHANGE_ROUTE");
-        } else {
-            button("View Route", "VIEWROUTE");
-        }
+        button("Place on a connection", "PLACE");
     }
 
     @Override
@@ -59,15 +49,9 @@ public class DialogResourceTrain extends Dialog {
         if (obj == "CLOSE") {
             this.remove();
         } else if (obj == "DROP") {
-            clicked(Button.TRAIN_DROP);
+            clicked(Button.OBSTACLE_DROP);
         } else if(obj == "PLACE") {
-            clicked(Button.TRAIN_PLACE);
-        } else if(obj == "ROUTE") {
-            clicked(Button.TRAIN_ROUTE);
-        } else if(obj == "VIEWROUTE") {
-            clicked(Button.VIEW_ROUTE);
-        } else if(obj == "CHANGE_ROUTE") {
-            clicked(Button.TRAIN_CHANGE_ROUTE);
+            clicked(Button.OBSTACLE_USE);
         }
     }
 }

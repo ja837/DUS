@@ -7,8 +7,10 @@ import gameLogic.map.Station;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
+
 public class TrainController {
     private Context context;
+
 
     public TrainController(Context context) {
         this.context = context;
@@ -17,12 +19,15 @@ public class TrainController {
     public TrainActor renderTrain(Train train) {
         TrainActor trainActor = new TrainActor(train);
         trainActor.addListener(new TrainClicked(context, train));
+
+
         trainActor.setVisible(false);
         context.getStage().addActor(trainActor);
 
-        return trainActor;
-    }
 
+        return trainActor;
+
+    }
 
 
     // Sets all trains on the map visible or invisible except one that we are routing for

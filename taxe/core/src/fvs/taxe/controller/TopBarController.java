@@ -46,6 +46,7 @@ public class TopBarController {
         context.getStage().addActor(flashMessage);
     }
 
+
     public void displayFlashMessage(String message, Color color) {
         displayFlashMessage(message, color, 1.75f);
     }
@@ -56,6 +57,8 @@ public class TopBarController {
         flashMessage.addAction(sequence(delay(time), fadeOut(0.25f)));
 
     }
+
+
 
     public void drawBackground() {
         TaxeGame game = context.getTaxeGame();

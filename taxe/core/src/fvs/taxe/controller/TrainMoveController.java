@@ -5,6 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import fvs.taxe.actor.TrainActor;
 import gameLogic.Game;
 import gameLogic.Player;
@@ -14,9 +18,6 @@ import gameLogic.map.Position;
 import gameLogic.map.Station;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
 
@@ -45,7 +46,7 @@ public class TrainMoveController {
     private RunnableAction perStationAction(final Station station) {
         return new RunnableAction() {
             public void run() {
-                train.addHistory(station.getName(), context.getGameLogic().getPlayerManager().getTurnNumber());
+                train.addHistory(station, context.getGameLogic().getPlayerManager().getTurnNumber());
                 System.out.println("Added to history: passed " + station.getName() + " on turn "
                         + context.getGameLogic().getPlayerManager().getTurnNumber());
                 // train.setPosition(station.getLocation());
@@ -103,11 +104,15 @@ public class TrainMoveController {
     public void addMoveActions() {
         SequenceAction action = Actions.sequence();
         IPositionable current = train.getPosition();
+        if (train.getPosition().getX() == -1){
+           current = new Position ((int) train.getActor().getBounds().getX(),(int) train.getActor().getBounds().getY());
+        }
         action.addAction(beforeAction());
 
         for (final Station station : train.getRoute()) {
             IPositionable next = station.getLocation();
             float duration = getDistance(current, next) / train.getSpeed();
+            //Current is -1,-1 need to fix
             action.addAction(moveTo(next.getX() - TrainActor.width / 2, next.getY() - TrainActor.height / 2, duration));
             action.addAction(perStationAction(station));
             current = next;
@@ -130,6 +135,8 @@ public class TrainMoveController {
 
     private void collisions(Station station) {
         //test for train collisions at Junction point
+
+
         //TODO: ADD BETTER COLLISIONS HERE
         if(!(station instanceof CollisionStation)) {
             return;

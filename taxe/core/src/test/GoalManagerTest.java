@@ -1,6 +1,11 @@
 package test;
 
 
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+
 import gameLogic.Player;
 import gameLogic.PlayerManager;
 import gameLogic.goal.Goal;
@@ -9,10 +14,6 @@ import gameLogic.map.Position;
 import gameLogic.map.Station;
 import gameLogic.resource.ResourceManager;
 import gameLogic.resource.Train;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertTrue;
 
@@ -48,11 +49,11 @@ public class GoalManagerTest extends LibGdxTest {
         route.add(station2);
         train.setRoute(route);
 
-        train.addHistory("station1", 0);
+//        train.addHistory("station1", 0);
 
         pm.turnOver();
         pm.turnOver();
-        train.addHistory("station2", 1);
+//        train.addHistory("station2", 1);
 
         ArrayList<String> completedStrings = gm.trainArrived(train, player1);
         assertTrue("Goal wasn't completed", goal.isComplete(train));

@@ -15,4 +15,6 @@ public class StationActor extends Image {
         setSize(width, height);
         setPosition(location.getX() - width / 2, location.getY() - height / 2);
     }
+
+
 }
