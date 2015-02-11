@@ -1,7 +1,6 @@
 package gameLogic.goal;
 
 import Util.Tuple;
-import gameLogic.Game;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
 
@@ -20,7 +19,7 @@ public class Goal {//hobitses
 	private boolean withTrain;
 	private Station intermediary;
 	//constraints
-	private Train trainName = null;
+	private Train train = null;
 
 	public int getScore(){
 		return this.score;
@@ -32,7 +31,7 @@ public class Goal {//hobitses
 
 	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime,int score, int bonus, Train train) {
 		if (train != null){
-			trainName = train;
+			this.train = train;
 			withTrain = true;
 		}
 		this.origin = origin;
@@ -107,12 +106,36 @@ public class Goal {//hobitses
 	}
 
 	public boolean completedWithTrain(Train train){
-		if(this.trainName.getName() == train.getName()){
+		if(this.train.getName() == train.getName()){
 			return true;
 		}
 		return false;
 	}
 
+	public String baseGoalString(){
+		return origin.getName() + " to " + destination.getName() + ": " + this.score + " points";
+	}
+
+	public String bonusString(){
+		//This builds the string to return by concatenating the relevant information to the string. The string is then returned.
+		String output = "Bonus - ";
+		if (withTrain) {
+			output = output.concat("Using " + train.getName());
+		}
+		if (inTurns){
+			output = output.concat("In " + turnsTime);
+			if (turnsTime > 1){
+				output = output.concat(" turns");
+			}else{
+				output = output.concat(" turn");
+			}
+		}
+		if (goingThrough) {
+			output = output.concat("Via " + intermediary.getName());
+		}
+		output = output.concat(": " + this.bonus + " points");
+		return output;
+	}
 
 	public String toString() { // based on the type of goal
 		String trainString = "train";
@@ -123,8 +146,8 @@ public class Goal {//hobitses
 		vowels.add("O");
 		vowels.add("U");
 
-		if (trainName != null) {
-			trainString = trainName.getName();
+		if (train != null) {
+			trainString = train.getName();
 		}
 		if (withTrain) {
 			if (vowels.contains(trainString.substring(0, 1))){

@@ -3,6 +3,7 @@ package fvs.taxe.controller;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import fvs.taxe.TaxeGame;
 import fvs.taxe.dialog.GoalClickListener;
@@ -75,11 +76,16 @@ public class GoalController {
 
         for (Goal goal : currentPlayer.getGoals()) {
             if (!goal.getComplete()) {
-                String goalString = goal.toString();
 
-                y -= 30;
 
-                TextButton button = new TextButton(goalString, context.getSkin());
+                y -= 40;
+
+                TextButton button = new TextButton(goal.baseGoalString() + "\n" + goal.bonusString(), context.getSkin());
+                button.getLabel().setAlignment(Align.left);
+                float scaleFactor = 0.8f;
+                button.getLabel().setFontScale(scaleFactor, scaleFactor);
+                button.setWidth(scaleFactor*button.getWidth());
+                button.setHeight(scaleFactor*button.getHeight());
                 GoalClickListener listener = new GoalClickListener(context, goal);
 
                 button.setPosition(x, y);
