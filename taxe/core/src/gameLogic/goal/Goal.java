@@ -38,9 +38,8 @@ public class Goal {//hobitses
 		this.origin = origin;
 		this.destination = destination;
 		this.score = score;
-		//set the amount of extra points to give if a bonus goal is completed
+		//set the amount of points to give if a bonus goal is completed
 		this.bonus = bonus;
-		//the amount of points give is equal to the distance
 
 		if (intermediary != destination && intermediary != origin) {
 			goingThrough = true;
@@ -60,16 +59,6 @@ public class Goal {//hobitses
 		System.out.println(this.toString() + " for " + this.score + "/" + this.bonus + " points");
 
 	}
-
-
-	
-	/*public void addConstraint(String name, String value) {
-		if(name.equals("train")) {
-			trainName = value;
-		} else {
-			throw new RuntimeException(name + " is not a valid goal constraint");
-		}
-	}*/
 
 	public boolean isComplete(Train train) {
 		boolean passedOrigin = false;
