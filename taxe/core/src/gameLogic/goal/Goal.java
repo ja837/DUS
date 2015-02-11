@@ -156,4 +156,12 @@ public class Goal {//hobitses
 	public boolean isGoingThrough(){
 		return goingThrough;
 	}
+
+	public Station getOrigin() { return this.origin; }
+
+	public Station getDestination() { return this.destination; }
+
+	public Station getIntermediary(){
+		return this.intermediary;
+	}
 }
