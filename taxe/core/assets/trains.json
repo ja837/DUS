@@ -2,15 +2,11 @@
     "trains": [
         {
             "name": "Bullet Train",
-            "speed": 50
+            "speed": 90
         },
         {
             "name": "Diesel Train",
             "speed": 30
-        },
-        {
-            "name": "Electric Train",
-            "speed": 40
         },
         {
             "name": "MagLev Train",
@@ -18,27 +14,19 @@
         },
         {
             "name": "Nuclear Train",
-            "speed": 100
-        },
-        {
-            "name": "Petrol Train",
-            "speed": 60
-        },
-        {
-            "name": "Solar Train",
             "speed": 70
         },
         {
-            "name": "Steam Train",
-            "speed": 10
+            "name": "Petrol Train",
+            "speed": 50
         },
-		{
-			"name": "Green Train",
+        {
+			"name": "Steam Train",
 			"speed": 20
 		},
 		{
 			"name": "Hydrogen Train",
-			"speed": 90
+			"speed": 60
 		}
     ]
 }

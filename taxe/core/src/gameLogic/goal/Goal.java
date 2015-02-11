@@ -22,10 +22,6 @@ public class Goal {//hobitses
 	//constraints
 	private Train trainName = null;
 
-	public void setScore(int score){
-		this.score = score;
-	}
-
 	public int getScore(){
 		return this.score;
 	}
@@ -34,24 +30,22 @@ public class Goal {//hobitses
 		return this.bonus;
 	}
 	
-	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime, int bonus, Train train) {
+	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime,int score, int bonus, Train train) {
 		if (train != null){
 			trainName = train;
 			withTrain = true;
 		}
 		this.origin = origin;
 		this.destination = destination;
+		this.score = score;
 		//set the amount of extra points to give if a bonus goal is completed
 		this.bonus = bonus;
 		//the amount of points give is equal to the distance
-		double shortestDist = Game.getInstance().getMap().getShortestDistance(this.origin,this.destination);
-		this.score = (int)(shortestDist * (Math.pow(1.0001,shortestDist)));
 
 		if (intermediary != destination && intermediary != origin) {
 			goingThrough = true;
 			this.intermediary = intermediary;
 		}
-
 		else {
 			this.intermediary = intermediary;
 		}

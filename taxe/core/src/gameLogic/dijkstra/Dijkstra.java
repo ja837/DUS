@@ -4,7 +4,6 @@ import gameLogic.map.Map;
 import gameLogic.map.Station;
 
 import java.util.PriorityQueue;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 public class Dijkstra
@@ -33,10 +32,23 @@ public class Dijkstra
                 if (distanceThroughU < v.getMinDistance()) {
                     vertexQueue.remove(v);
                     v.setMinDistance(distanceThroughU);
+                    v.setPrevious(u);
                     vertexQueue.add(v);
                 }
             }
         }
+    }
+    public static ArrayList<Vertex> getShortestPathTo(Vertex target,Vertex source)
+    {
+        ArrayList<Vertex> path = new ArrayList<Vertex>();
+        for (Vertex vertex = target; vertex != null; vertex = vertex.getPrevious()) {
+            path.add(vertex);
+            if (path.size()>40){
+                System.out.println(target.getName() + vertex.getName());
+            }
+        }
+        Collections.reverse(path);
+        return path;
     }
 
 
@@ -49,8 +61,12 @@ public class Dijkstra
         for (Vertex vSource : vertices) {
             computePaths(vSource);
             for (Vertex vDestination : vertices) {
-                DijkstraData tempDijkstra = new DijkstraData(vSource,vDestination,vDestination.getMinDistance());
-                dijkstras.add(tempDijkstra);
+                if (!vSource.getName().equals(vDestination.getName())) {
+                    if (!vSource.getName().equals("Paris")) {
+                        DijkstraData tempDijkstra = new DijkstraData(vSource, vDestination, vDestination.getMinDistance(), getShortestPathTo(vDestination, vSource));
+                        dijkstras.add(tempDijkstra);
+                    }
+                }
             }
         }
     }
@@ -85,5 +101,14 @@ public class Dijkstra
             }
         }
         return -1;
+    }
+
+    public boolean inShortestPath(Station s1, Station s2, Station s3){
+        for (DijkstraData d:dijkstras){
+            if (d.getSource().getName().equals(s1.getName()) && d.getTarget().getName().equals(s2.getName())){
+                return d.inShortestPath(s3.getName());
+            }
+        }
+        return false;
     }
 }

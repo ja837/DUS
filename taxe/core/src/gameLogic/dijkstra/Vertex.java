@@ -2,11 +2,12 @@ package gameLogic.dijkstra;
 
 import java.util.ArrayList;
 
-class Vertex implements Comparable<Vertex>
+public class Vertex implements Comparable<Vertex>
 {
     private final String name;
     private ArrayList<Edge> adjacencies = new ArrayList<Edge>();
     private double minDistance = Double.POSITIVE_INFINITY;
+    private Vertex previous=null;
     public Vertex(String argName) { name = argName; }
     public String toString() { return name; }
     public int compareTo(Vertex other) {
@@ -20,6 +21,14 @@ class Vertex implements Comparable<Vertex>
     }
     public String getName(){
         return this.name;
+    }
+
+    public void setPrevious(Vertex previous) {
+        this.previous = previous;
+    }
+
+    public Vertex getPrevious() {
+        return previous;
     }
 
     public double getMinDistance() {

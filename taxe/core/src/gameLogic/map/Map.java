@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import gameLogic.dijkstra.Dijkstra;
+import gameLogic.dijkstra.Vertex;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -222,5 +223,9 @@ public class Map {
     }
     public double getShortestDistance(Station s1, Station s2){
         return dijkstra.findMinDistance(s1, s2);
+    }
+
+    public boolean inShortestPath(Station s1, Station s2,Station s3){
+        return dijkstra.inShortestPath(s1,s2,s3);
     }
 }
