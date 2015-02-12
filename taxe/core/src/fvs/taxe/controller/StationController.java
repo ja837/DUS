@@ -4,9 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import fvs.taxe.StationClickListener;
 import fvs.taxe.TaxeGame;
 import fvs.taxe.Tooltip;
@@ -16,15 +24,13 @@ import fvs.taxe.dialog.DialogStationMultitrain;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.Player;
+import gameLogic.goal.Goal;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.Connection;
 import gameLogic.map.IPositionable;
 import gameLogic.map.Station;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
-
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class StationController {
 	public final static int CONNECTION_LINE_WIDTH = 5;
@@ -119,6 +125,75 @@ public class StationController {
 		context.getStage().addActor(collisionStationActor);
 	}
 
+	public static Color[] colours = {Color.ORANGE, Color.GREEN, Color.PURPLE};
+
+	public void renderStationGoalHighlights() {
+		List<Station> stations = context.getGameLogic().getMap().getStations();
+		ArrayList<StationHighlight> list = new ArrayList<StationHighlight>();
+		for (Station station : stations) {
+			if (Game.getInstance().getState() == GameState.PLACING_TRAIN ||
+					Game.getInstance().getState() == GameState.ROUTING) {
+				int index = 0;
+				HashMap<String, Integer> map = new HashMap<String, Integer>();
+				for (Goal goal : Game.getInstance().getPlayerManager().getCurrentPlayer()
+									 .getGoals()) {
+					if (goal.getOrigin().equals(station) || goal.getDestination().equals(station)
+							|| goal.getIntermediary().equals(station)) {
+						int radius;
+						if (map.containsKey(station.getName())) {
+							radius = map.get(station.getName()) + 5;
+						} else {
+							radius = 15;
+						}
+						map.put(station.getName(), radius);
+						list.add(new StationHighlight(station, radius, colours[index]));
+					}
+					index++;
+				}
+			}
+		}
+		Collections.sort(list);
+		Collections.reverse(list);
+		TaxeGame game = context.getTaxeGame();
+		for (StationHighlight sh : list) {
+			game.shapeRenderer.begin(ShapeType.Filled);
+			game.shapeRenderer.setColor(sh.getColour());
+			game.shapeRenderer
+					.circle(sh.getStation().getLocation().getX(), sh.getStation().getLocation().getY(),
+							sh.getRadius());
+			game.shapeRenderer.end();
+		}
+	}
+
+	class StationHighlight implements Comparable<StationHighlight> {
+		private final Station station;
+		private final int radius;
+		private final Color colour;
+
+		StationHighlight(Station station, int radius, Color colour) {
+			this.station = station;
+			this.radius = radius;
+			this.colour = colour;
+		}
+
+		@Override
+		public int compareTo(StationHighlight o) {
+			return radius - o.radius;
+		}
+
+		public Color getColour() {
+			return colour;
+		}
+
+		public int getRadius() {
+			return radius;
+		}
+
+		public Station getStation() {
+			return station;
+		}
+	}
+
 	public void renderStations() {
 		List<Station> stations = context.getGameLogic().getMap().getStations();
 
@@ -129,6 +204,7 @@ public class StationController {
 				renderStation(station);
 			}
 		}
+		renderStationGoalHighlights();
 	}
 
 	public void renderConnections(List<Connection> connections, Color color) {

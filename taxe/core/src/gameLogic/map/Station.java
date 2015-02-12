@@ -2,7 +2,7 @@ package gameLogic.map;
 
 import fvs.taxe.actor.StationActor;
 
-public class Station{
+public class Station {
 	private String name;
 	private IPositionable location;
 	private StationActor actor;
@@ -11,7 +11,7 @@ public class Station{
 		this.name = name;
 		this.location = location;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -19,19 +19,32 @@ public class Station{
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public IPositionable getLocation() {
 		return location;
 	}
+
 	public void setLocation(IPositionable location) {
 		this.location = location;
 	}
-	
-	public void setActor(StationActor actor){
+
+	public void setActor(StationActor actor) {
 		this.actor = actor;
 	}
-	
-	public StationActor getActor(){
+
+	public StationActor getActor() {
 		return actor;
 	}
-	
+
+	public boolean equals(Object o) {
+		if (o instanceof Station) {
+			Station s = (Station) o;
+			return getName().equals(s.getName()) &&
+					getLocation().getX() == s.getLocation().getX() &&
+					getLocation().getY() == s.getLocation().getY();
+		} else {
+			return false;
+		}
+	}
+
 }
