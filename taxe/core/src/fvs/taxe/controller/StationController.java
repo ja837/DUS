@@ -66,6 +66,7 @@ public class StationController {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if (Game.getInstance().getState() == GameState.NORMAL) {
+					//TODO: OPTIMISE CLICKING
 					DialogStationMultitrain dia = new DialogStationMultitrain(station,
 							context.getSkin(), context);
 					if (dia.getIsTrain()) {
