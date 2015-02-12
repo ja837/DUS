@@ -75,13 +75,13 @@ public class Goal {//hobitses
 	}
 
 	public boolean isBonusCompleted(Train train){
-		if(withTrain == true) {
+		if(withTrain) {
 			return wentThroughStation(train);
 		}
-		if(inTurns == true){
+		if(inTurns){
 			return completedWithinMaxTurns(train);
 		}
-		if(goingThrough == true){
+		if(goingThrough){
 			return completedWithTrain(train);
 		}
 		return false;

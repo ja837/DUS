@@ -137,18 +137,20 @@ public class StationController {
 				HashMap<String, Integer> map = new HashMap<String, Integer>();
 				for (Goal goal : Game.getInstance().getPlayerManager().getCurrentPlayer()
 									 .getGoals()) {
-					if (goal.getOrigin().equals(station) || goal.getDestination().equals(station)
-							|| goal.getIntermediary().equals(station)) {
-						int radius;
-						if (map.containsKey(station.getName())) {
-							radius = map.get(station.getName()) + 5;
-						} else {
-							radius = 15;
+					if (!goal.getComplete()) {
+						if (goal.getOrigin().equals(station) || goal.getDestination().equals(station)
+								|| goal.getIntermediary().equals(station)) {
+							int radius;
+							if (map.containsKey(station.getName())) {
+								radius = map.get(station.getName()) + 5;
+							} else {
+								radius = 15;
+							}
+							map.put(station.getName(), radius);
+							list.add(new StationHighlight(station, radius, colours[index]));
 						}
-						map.put(station.getName(), radius);
-						list.add(new StationHighlight(station, radius, colours[index]));
+						index++;
 					}
-					index++;
 				}
 			}
 		}
