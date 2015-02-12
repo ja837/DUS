@@ -7,7 +7,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import fvs.taxe.controller.*;
+
+import fvs.taxe.controller.Context;
+import fvs.taxe.controller.GoalController;
+import fvs.taxe.controller.ResourceController;
+import fvs.taxe.controller.RouteController;
+import fvs.taxe.controller.StationController;
+import fvs.taxe.controller.TopBarController;
 import fvs.taxe.dialog.DialogEndGame;
 import gameLogic.Game;
 import gameLogic.GameState;
@@ -90,6 +96,13 @@ public class GameScreen extends ScreenAdapter {
         topBarController.drawBackground();
 
         stationController.renderConnections(map.getConnections(), Color.GRAY);
+		if (gameLogic.getState() == GameState.PLACING_TRAIN || gameLogic.getState() == GameState
+				.ROUTING) {
+			stationController.renderStationGoalHighlights();
+			goalController.setColours(StationController.colours);
+		} else {
+			goalController.setColours(new Color[3]);
+		}
         //Draw routing
         if(gameLogic.getState() == GameState.ROUTING) {
             routeController.drawRoute(Color.BLACK);
