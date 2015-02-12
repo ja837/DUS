@@ -54,9 +54,9 @@ public class GoalManager {
 			} while (intermediary == origin || intermediary == destination || intermediary instanceof CollisionStation|| map.inShortestPath(origin,destination,intermediary));
 			//Calculates the bonus to be equal to the two distances between origin/intermediary and intermediary/destination added together
 			bonus = (int) (map.getShortestDistance(origin, intermediary) + map.getShortestDistance(intermediary, destination));
-			if (bonus <(score + (50*Math.pow(0.0001,shortestDist)))){
+			if (bonus <(score + (30*Math.pow(1.0001,shortestDist)))){
 				//If the bonus is below what the score would be otherwise (can happen in some cases) then the bonus is set to equal the score plus a slight additional scaling to reward the player for the bonus
-				bonus = (int)(score + (50*Math.pow(0.0001,shortestDist)));
+				bonus = (int)(score + (30*Math.pow(1.0001,shortestDist)));
 			}
 		}
 		else intermediary = origin;
@@ -65,8 +65,8 @@ public class GoalManager {
 			//decides if goal can be competed in a number of turns for bonus;
 			double expectedTurns;
 			expectedTurns = Math.round(shortestDist/60.0); //This is the number of turns a goal is expected to be completed in using an average speed train
-			double lowerBound =  Math.floor(expectedTurns - 0.5*expectedTurns); //These two variables are bounds for the generation of a suitable forTurns variable.
-			double upperBound =  Math.ceil(expectedTurns + 0.5*expectedTurns);
+			double lowerBound =  Math.floor(expectedTurns - 0.3*expectedTurns); //These two variables are bounds for the generation of a suitable forTurns variable.
+			double upperBound =  Math.ceil(expectedTurns + 0.3*expectedTurns);
 			do {
 				forTurns = random.nextInt((int) upperBound+1);
 				//Continuously generates a new value until it fits within the bounds

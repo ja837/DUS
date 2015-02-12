@@ -6,10 +6,10 @@ import gameLogic.resource.Train;
 
 import java.util.ArrayList;
 
-public class Goal {//hobitses
+public class Goal {
 	private Station origin;
 	private Station destination;
-	private int turnIssued;  //Use this value to check quantifiable goals
+	private int turnIssued;
 	private boolean complete = false;
 	private boolean goingThrough = false;
 	private boolean inTurns = false;
@@ -18,7 +18,6 @@ public class Goal {//hobitses
 	private int bonus;
 	private boolean withTrain;
 	private Station intermediary;
-	//constraints
 	private Train train = null;
 
 	public int getScore(){
@@ -99,8 +98,9 @@ public class Goal {//hobitses
 	public boolean completedWithinMaxTurns(Train train) {
 		boolean completed = false;
 		if (this.isComplete(train) && this.inTurns)
-			if (turnsTime + this.turnIssued <= gameLogic.Game.getInstance().getPlayerManager().getTurnNumber())
-				completed=true;
+			if ((turnsTime + this.turnIssued) >= gameLogic.Game.getInstance().getPlayerManager().getTurnNumber()) {
+				completed = true;
+			}
 		return completed;
 
 	}

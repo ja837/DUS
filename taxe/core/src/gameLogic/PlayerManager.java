@@ -45,19 +45,6 @@ public class PlayerManager {
 		}
 	}
 
-	public void skipTurnResource(Context context) {
-
-
-
-		//TODO ADD SCREEN TO PLAYER
-		DialogResourceSkip dia = new DialogResourceSkip(context.getSkin());
-		dia.show(context.getStage());
-
-
-
-	}
-
-
 
 	public void subscribeTurnChanged(TurnListener listener) {
 		turnListeners.add(listener);

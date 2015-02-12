@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import fvs.taxe.MainMenuScreen;
 import fvs.taxe.TaxeGame;
 import gameLogic.Game;
@@ -14,9 +15,10 @@ import gameLogic.goal.Goal;
 public class DialogResourceSkip extends Dialog {
 
     public DialogResourceSkip(Skin skin) {
-        super("Your Turn is skipped.", skin);
-
-        button("Okay :( ","EXIT");
+        super("Miss a turn", skin);
+        text("Due to circumstances outside our control \n Network Rail would like to apologise for you missing your turn.");
+        button("OK", "EXIT");
+       align(Align.center);
     }
 
     @Override
