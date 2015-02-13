@@ -25,9 +25,9 @@ public class DialogResourceSkipped extends Dialog {
 
         text("What do you want to do with this resource?");
 
-        button("Cancel", "CLOSE");
-        button("Drop", "DROP");
         button("Use", "USE");
+        button("Drop", "DROP");
+        button("Cancel", "CLOSE");
     }
 
     @Override

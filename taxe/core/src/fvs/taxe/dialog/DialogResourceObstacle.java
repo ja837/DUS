@@ -16,10 +16,9 @@ public class DialogResourceObstacle extends Dialog {
         super(obstacle.toString(), skin);
 
         text("What do you want to do with this obstacle?");
-
-        button("Cancel", "CLOSE");
-        button("Drop", "DROP");
         button("Place on a connection", "PLACE");
+        button("Drop", "DROP");
+        button("Cancel", "CLOSE");
     }
 
     @Override

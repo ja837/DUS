@@ -17,10 +17,9 @@ public class DialogResourceEngineer extends Dialog{
         super(engineer.toString(), skin);
 
         text("What do you want to do with this engineer?");
-
-        button("Cancel", "CLOSE");
-        button("Drop", "DROP");
         button("Repair a blocked connection", "PLACE");
+        button("Drop", "DROP");
+        button("Cancel", "CLOSE");
     }
 
     @Override

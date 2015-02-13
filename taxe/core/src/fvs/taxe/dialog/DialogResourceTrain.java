@@ -17,10 +17,6 @@ public class DialogResourceTrain extends Dialog {
 
         text("What do you want to do with this train?");
 
-        button("Cancel", "CLOSE");
-        button("Drop", "DROP");
-
-
         if (!trainPlaced) {
             button("Place at a station", "PLACE");
         } else if(!train.isMoving()) {
@@ -30,6 +26,9 @@ public class DialogResourceTrain extends Dialog {
         } else {
             button("View Route", "VIEWROUTE");
         }
+
+        button("Cancel", "CLOSE");
+        button("Drop", "DROP");
     }
 
     @Override
