@@ -116,6 +116,9 @@ public class TrainActor extends Image {
     }
 
     public Train collided(){
+        //JOptionPane.showMessageDialog(null, "called collided","message", JOptionPane.INFORMATION_MESSAGE);
+        Station last = train.getLastStation();
+        Station next = train.getNextStation();
         if (train.getPosition().getX() == -1&&!paused){ //if this train is moving;
             for (Player player : Game.getInstance().getPlayerManager().getAllPlayers()) {
                 for (Train otherTrain : player.getTrains()) {
@@ -123,15 +126,23 @@ public class TrainActor extends Image {
                     if (!otherTrain.equals(train)) { //don't check if collided with self
 
                         if (otherTrain.getPosition() != null) { //if other train has been placed on map
+
                             if (otherTrain.getPosition().getX() == -1 && !otherTrain.getActor().getPaused()) { //if other train moving
 
-                                float difX = Math.abs(otherTrain.getActor().getX() - getX());
+                                if ((otherTrain.getNextStation() == next && otherTrain.getLastStation() == last)
+                                    || (otherTrain.getNextStation() == last && otherTrain.getLastStation() == next)){ //check if trains on same connection
 
-                                float difY = Math.abs(otherTrain.getActor().getY() - getY());
-                                if (difX < 0.1 && difY < 0.1) {
-                                    return otherTrain;
-                                    //This is slightly limiting as it only allows two trains to collide with each other, whereas in theory more could
+                                    float difX = Math.abs(otherTrain.getActor().getX() - getX());
+
+                                    float difY = Math.abs(otherTrain.getActor().getY() - getY());
+
+                                    if (difX < 1 && difY < 1) {
+                                        return otherTrain;
+                                        //This is slightly limiting as it only allows two trains to collide with each other, whereas in theory more could
+                                    }
                                 }
+
+
                             }
                         }
 

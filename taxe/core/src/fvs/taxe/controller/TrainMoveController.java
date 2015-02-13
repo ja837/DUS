@@ -51,7 +51,7 @@ public class TrainMoveController {
                         + context.getGameLogic().getPlayerManager().getTurnNumber());
                 // train.setPosition(station.getLocation());
 
-                collisions(station);
+                //collisions(station); //no longer necessary as trains check for collisions repeatedly
 
                 int stationIndex = train.getRoute().indexOf(station); //find this station in route
                 int nextIndex = stationIndex + 1;
