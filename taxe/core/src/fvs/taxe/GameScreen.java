@@ -78,7 +78,11 @@ public class GameScreen extends ScreenAdapter {
         		if((gameLogic.getPlayerManager().getTurnNumber() == gameLogic.TOTAL_TURNS||gameLogic.getPlayerManager().getCurrentPlayer().getScore()>=gameLogic.MAX_POINTS) && state == GameState.NORMAL) {
         			DialogEndGame dia = new DialogEndGame(GameScreen.this.game, gameLogic.getPlayerManager(), skin);
         			dia.show(stage);
-        		}
+        		} else if(gameLogic.getState()==GameState.ROUTING||gameLogic.getState()==GameState.PLACING_TRAIN){
+                    goalController.setColours(StationController.colours);
+                } else if(gameLogic.getState()==GameState.NORMAL){
+                    goalController.setColours(new Color[3]);
+                }
         	}
         });
     }
@@ -100,9 +104,9 @@ public class GameScreen extends ScreenAdapter {
 		if (gameLogic.getState() == GameState.PLACING_TRAIN || gameLogic.getState() == GameState
 				.ROUTING) {
 			stationController.renderStationGoalHighlights();
-			goalController.setColours(StationController.colours);
+			//
 		} else {
-			goalController.setColours(new Color[3]);
+			//goalController.setColours(new Color[3]);
 		}
         //Draw routing
         if(gameLogic.getState() == GameState.ROUTING) {
@@ -115,7 +119,7 @@ public class GameScreen extends ScreenAdapter {
                 gameLogic.setState(GameState.NORMAL);
                 timeAnimated = 0;
             }
-        } else
+        }
         //Draw the number of trains at each station
         if(gameLogic.getState() == GameState.NORMAL || gameLogic.getState() == GameState.PLACING_TRAIN){
         	stationController.displayNumberOfTrainsAtStations();
