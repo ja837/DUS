@@ -12,7 +12,6 @@ import fvs.taxe.StationClickListener;
 import fvs.taxe.actor.TrainActor;
 import fvs.taxe.controller.Context;
 import fvs.taxe.controller.StationController;
-import fvs.taxe.controller.TopBarController;
 import fvs.taxe.controller.TrainController;
 import gameLogic.Game;
 import gameLogic.GameState;
@@ -130,7 +129,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 currentPlayer.removeResource(obstacle);
                 break;
             case OBSTACLE_USE:{
-                    Pixmap pixmap = new Pixmap(Gdx.files.internal("Blockage.png"));
+                    Pixmap pixmap = new Pixmap(Gdx.files.internal("BlockageCursor.png"));
                     Gdx.input.setCursorImage(pixmap, 0, 0); // these numbers will need tweaking
                     pixmap.dispose();
                     Game.getInstance().setState(GameState.PLACING_RESOURCE);

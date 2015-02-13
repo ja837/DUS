@@ -29,6 +29,7 @@ public class GoalClickListener extends ClickListener {
 
 	@Override
 	public void clicked(InputEvent event, float x, float y) {
+
 		if (showingTooltips) {
 			//This hides the currently shown tooltips as otherwise they get stuck
 			tooltip1.hide();

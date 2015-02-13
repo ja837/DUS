@@ -33,23 +33,6 @@ public class GoalController {
 			   });
 	}
 
-	private List<String> playerGoalStrings() {
-		//Returns player goals so that they can displayed on screen
-		ArrayList<String> strings = new ArrayList<String>();
-		PlayerManager pm = context.getGameLogic().getPlayerManager();
-		Player currentPlayer = pm.getCurrentPlayer();
-
-		for (Goal goal : currentPlayer.getGoals()) {
-			if (goal.getComplete()) {
-				continue;
-			}
-
-			strings.add(goal.toString());
-		}
-
-		return strings;
-	}
-
 	public void drawHeaderText() {
 		TaxeGame game = context.getTaxeGame();
 		PlayerManager pm = context.getGameLogic().getPlayerManager();
@@ -101,7 +84,6 @@ public class GoalController {
 					button.setColor(colours[index - 1]);
 				}
 				button.addListener(listener);
-				button.getClickListener();
 				goalButtons.addActor(button);
 			}
 		}
