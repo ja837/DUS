@@ -21,6 +21,7 @@ import fvs.taxe.Tooltip;
 import fvs.taxe.actor.CollisionStationActor;
 import fvs.taxe.actor.StationActor;
 import fvs.taxe.dialog.DialogStationMultitrain;
+import fvs.taxe.dialog.TrainClicked;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.Player;
@@ -72,10 +73,22 @@ public class StationController {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if (Game.getInstance().getState() == GameState.NORMAL) {
-					//TODO: OPTIMISE CLICKING
-					DialogStationMultitrain dia = new DialogStationMultitrain(station,
-							context.getSkin(), context);
-					if (dia.getIsTrain()) {
+					ArrayList<Train> trains = new ArrayList<Train>();
+					for(Player player : context.getGameLogic().getPlayerManager().getAllPlayers()) {
+						for(Resource resource : player.getResources()) {
+							if(resource instanceof Train) {
+								if(((Train) resource).getPosition() == station.getLocation()) {
+									trains.add((Train)resource);
+								}
+							}
+						}
+					}
+					if (trains.size()==1){
+						TrainClicked clicker = new TrainClicked(context, trains.get(0));
+						clicker.clicked(null,-1,0);
+					}else if (trains.size()>0){
+						DialogStationMultitrain dia = new DialogStationMultitrain(trains,
+								context.getSkin(), context);
 						dia.show(context.getStage());
 					}
 				}

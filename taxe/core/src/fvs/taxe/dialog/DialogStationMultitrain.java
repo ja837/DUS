@@ -14,60 +14,23 @@ import java.util.ArrayList;
 public class DialogStationMultitrain extends Dialog {
 	
 	private Context context;
-	private boolean isTrain = false;
 	
-	public DialogStationMultitrain(Station station, Skin skin, Context context) {
-		//This constructor is called when a station is clicked
-		super(station.getName(), skin);
-		
-		this.context = context;
-		
-		text("Choose which train you would like");
-		
-		for(Player player : context.getGameLogic().getPlayerManager().getAllPlayers()) {
-			for(Resource resource : player.getResources()) {
-				if(resource instanceof Train) {
-					if(((Train) resource).getPosition() == station.getLocation()) {
-						String destination = "";
-						if(((Train) resource).getFinalDestination() != null) {
-							destination = " to " + ((Train) resource).getFinalDestination().getName();
-						}
-						button(((Train) resource).getName() + destination + " (Player " + ((Train) resource).getPlayer().getPlayerNumber() + ")", ((Train) resource));
-						getButtonTable().row();
-						isTrain = true;
-					}
-				}
-			}
-		}
-		
-		button("Cancel","CANCEL");
-		if(!isTrain) {
-			hide();
-		}
-	}
-
 	public DialogStationMultitrain(ArrayList<Train> trains, Skin skin, Context context) {
 		//This constructor is called when there are multiple blocked trains sitting on top of each other
 		super("Select Train", skin);
-
 		this.context = context;
-
 		text("Choose which train you would like");
-
-		for(Train train:trains) {
-
-
-			String destination = " to " + train.getFinalDestination().getName();
-
-						button (train.getName() + destination + " (Player " + train.getPlayer().getPlayerNumber() + ")", train);
-						getButtonTable().row();
-isTrain = true;
-
-
+		for (Train train : trains) {
+				String destination = "";
+				if (train.getFinalDestination()!=null) {
+					destination = " to " + train.getFinalDestination().getName();
+				}
+				button(train.getName() + destination + " (Player " + train.getPlayer().getPlayerNumber() + ")", train);
+				getButtonTable().row();
+			}
+			button("Cancel", "CANCEL");
 		}
 
-		button("Cancel","CANCEL");
-	}
 	@Override
 	public Dialog show(Stage stage) {
 		show(stage, null);
@@ -91,9 +54,5 @@ isTrain = true;
 			//This dialog has been opened before. If this was not here then this dialog and trainClicked would get stuck in an endless loop!
 			clicker.clicked(null, -1, 0);
 		}
-	}
-	
-	public boolean getIsTrain() {
-		return isTrain;
 	}
 }

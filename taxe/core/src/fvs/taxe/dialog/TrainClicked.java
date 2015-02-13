@@ -50,6 +50,7 @@ public class TrainClicked extends ClickListener {
         }
 
         if (!train.isOwnedBy(currentPlayer)) {
+            context.getTopBarController().displayFlashMessage("Enemy's " + train.getName() + ". Speed: " + train.getSpeed(),Color.RED,1);
             return;
         }
 
