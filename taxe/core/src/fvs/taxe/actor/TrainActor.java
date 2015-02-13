@@ -136,7 +136,7 @@ public class TrainActor extends Image {
 
                                     float difY = Math.abs(otherTrain.getActor().getY() - getY());
 
-                                    if (difX < 1 && difY < 1) {
+                                    if (difX < 25 && difY < 25 && difX > 20 && difY > 20) { //between 20-25 to allow to stop collisions when trains are briefly on same connection (i.e. stopped at obstacles)
                                         return otherTrain;
                                         //This is slightly limiting as it only allows two trains to collide with each other, whereas in theory more could
                                     }
