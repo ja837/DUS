@@ -139,11 +139,9 @@ public class RouteController {
         context.getGameLogic().setState(GameState.NORMAL);
         routingButtons.remove();
         isRouting = false;
-
     TrainController trainController = new TrainController(context);
     trainController.setTrainsVisible(train, true);
-        //TODO: FIX TRAIN NOT BEING HIDDEN HERE
-        if (train.getRoute().size()==0){
+        if (train.getPosition().getX()!= -1){
             train.getActor().setVisible(false);
         }
     }
