@@ -121,9 +121,9 @@ public class Train extends Resource {
 
     public Station getNextStation(){
         Station last = getLastStation();
-        for (int i = 0; i < history.size() -1; i++) {
+        for (int i = 0; i < route.size() -1; i++) {
             Station station = route.get(i);
-            if (last.getName() == station.getName()){
+            if (last.getName().equals(station.getName())){
                 return route.get(i+1);
             }
         }

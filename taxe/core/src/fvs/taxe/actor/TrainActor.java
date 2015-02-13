@@ -79,7 +79,7 @@ public class TrainActor extends Image {
             // find next station
             Station nextStation = train.getRoute().get(index+1);
 
-            // check if connection is blocked, if no unpause
+            // check if connection is blocked, if not, unpause
             if (! Game.getInstance().getMap().isConnectionBlocked(station, nextStation))
                 this.paused = false;
         }
@@ -111,21 +111,26 @@ public class TrainActor extends Image {
         this.paused = paused;
     }
 
+    public boolean getPaused(){
+        return this.paused;
+    }
+
     public Train collided(){
-        if (train.getPosition().getX() == -1){ //if this train is moving;
+        if (train.getPosition().getX() == -1&&!paused){ //if this train is moving;
             for (Player player : Game.getInstance().getPlayerManager().getAllPlayers()) {
                 for (Train otherTrain : player.getTrains()) {
 
                     if (!otherTrain.equals(train)) { //don't check if collided with self
 
                         if (otherTrain.getPosition() != null) { //if other train has been placed on map
-                            if (otherTrain.getPosition().getX() == -1) { //if other train moving
+                            if (otherTrain.getPosition().getX() == -1 && !otherTrain.getActor().getPaused()) { //if other train moving
 
                                 float difX = Math.abs(otherTrain.getActor().getX() - getX());
 
                                 float difY = Math.abs(otherTrain.getActor().getY() - getY());
                                 if (difX < 0.1 && difY < 0.1) {
                                     return otherTrain;
+                                    //This is slightly limiting as it only allows two trains to collide with each other, whereas in theory more could
                                 }
                             }
                         }

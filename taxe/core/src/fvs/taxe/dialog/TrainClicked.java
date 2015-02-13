@@ -4,11 +4,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import fvs.taxe.actor.TrainActor;
 import fvs.taxe.controller.Context;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.Player;
 import gameLogic.resource.Train;
+
+import java.util.ArrayList;
+
 //Responsible for checking whether the train is clicked.
 public class TrainClicked extends ClickListener {
     private Context context;
@@ -28,7 +32,24 @@ public class TrainClicked extends ClickListener {
 
         // current player can't be passed in as it changes so find out current player at this instant
         Player currentPlayer = Game.getInstance().getPlayerManager().getCurrentPlayer();
-
+        if (train.getActor()!=null) {
+            if (train.getActor().getPaused()) {
+                if (train.getActor().getPaused()) {
+                    ArrayList<Train> stackedTrains = new ArrayList<Train>();
+                    for (Actor actor : context.getStage().getActors()) {
+                        if (actor instanceof TrainActor) {
+                            TrainActor trainActor = (TrainActor) actor;
+                            if (trainActor.getBounds().equals(train.getActor().getBounds())) {
+                                stackedTrains.add(trainActor.train);
+                            }
+                        }
+                    }
+                    DialogStationMultitrain dia = new DialogStationMultitrain(stackedTrains, context.getSkin(), context);
+                    dia.show(context.getStage());
+                }
+                return;
+            }
+        }
         if (!train.isOwnedBy(currentPlayer)) {
             return;
         }

@@ -9,6 +9,8 @@ import gameLogic.map.Station;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
+import java.util.ArrayList;
+
 public class DialogStationMultitrain extends Dialog {
 	
 	private Context context;
@@ -42,7 +44,29 @@ public class DialogStationMultitrain extends Dialog {
 			hide();
 		}
 	}
-	
+
+	public DialogStationMultitrain(ArrayList<Train> trains, Skin skin, Context context) {
+		super("Select Train", skin);
+
+		this.context = context;
+
+		text("Choose which train you would like");
+
+		for(Train train:trains) {
+
+
+			String destination = " to " + train.getFinalDestination().getName();
+
+						button (train.getName() + destination + " (Player " + train.getPlayer().getPlayerNumber() + ")", train);
+						getButtonTable().row();
+						isTrain = true;
+
+
+
+		}
+
+		button("Cancel","CANCEL");
+	}
 	@Override
 	public Dialog show(Stage stage) {
 		show(stage, null);
