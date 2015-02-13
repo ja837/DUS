@@ -2,6 +2,7 @@ package fvs.taxe.controller;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -15,6 +16,7 @@ import fvs.taxe.TaxeGame;
 import gameLogic.GameState;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.IPositionable;
+import gameLogic.map.Position;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
 
@@ -25,7 +27,6 @@ public class RouteController {
     private boolean isRouting = false;
     private Train train;
     private boolean canEndRouting = true;
-
     public RouteController(Context context) {
         this.context = context;
 
@@ -140,9 +141,11 @@ public class RouteController {
         routingButtons.remove();
         isRouting = false;
 
-        TrainController trainController = new TrainController(context);
-        trainController.setTrainsVisible(train, true);
-        train.getActor().setVisible(false);
+    TrainController trainController = new TrainController(context);
+    trainController.setTrainsVisible(train, true);
+        if (train.getRoute().size()==0){
+            train.getActor().setVisible(false);
+        }
     }
 
     public void drawRoute(Color color) {
@@ -151,7 +154,11 @@ public class RouteController {
         IPositionable previousPosition = null;
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         game.shapeRenderer.setColor(color);
-
+        if (train.getPosition().getX()==-1&&positions.size()>0){
+            Rectangle trainBounds = train.getActor().getBounds();
+                game.shapeRenderer.rectLine(trainBounds.getX()+(trainBounds.getWidth()/2), trainBounds.getY()+(trainBounds.getWidth()/2), positions.get(0).getX(),
+                        positions.get(0).getY(), StationController.CONNECTION_LINE_WIDTH);
+        }
         for(IPositionable position : positions) {
             if(previousPosition != null) {
                 game.shapeRenderer.rectLine(previousPosition.getX(), previousPosition.getY(), position.getX(),
