@@ -132,8 +132,7 @@ public class RouteController {
 
     private void confirmed() {
         train.setRoute(context.getGameLogic().getMap().createRoute(positions));
-
-        TrainMoveController move = new TrainMoveController(context, train);
+        TrainMoveController move = new TrainMoveController(context,train);
     }
 
     private void endRouting() {
@@ -143,6 +142,7 @@ public class RouteController {
 
     TrainController trainController = new TrainController(context);
     trainController.setTrainsVisible(train, true);
+        //TODO: FIX TRAIN NOT BEING HIDDEN HERE
         if (train.getRoute().size()==0){
             train.getActor().setVisible(false);
         }
