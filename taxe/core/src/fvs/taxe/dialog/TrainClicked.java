@@ -32,9 +32,8 @@ public class TrainClicked extends ClickListener {
 
         // current player can't be passed in as it changes so find out current player at this instant
         Player currentPlayer = Game.getInstance().getPlayerManager().getCurrentPlayer();
-        if (train.getActor()!=null) {
+        if (train.getActor()!=null&&x!=-1) {
             if (train.getActor().getPaused()) {
-                if (train.getActor().getPaused()) {
                     ArrayList<Train> stackedTrains = new ArrayList<Train>();
                     for (Actor actor : context.getStage().getActors()) {
                         if (actor instanceof TrainActor) {
@@ -46,10 +45,10 @@ public class TrainClicked extends ClickListener {
                     }
                     DialogStationMultitrain dia = new DialogStationMultitrain(stackedTrains, context.getSkin(), context);
                     dia.show(context.getStage());
-                }
                 return;
             }
         }
+
         if (!train.isOwnedBy(currentPlayer)) {
             return;
         }

@@ -17,6 +17,7 @@ public class DialogStationMultitrain extends Dialog {
 	private boolean isTrain = false;
 	
 	public DialogStationMultitrain(Station station, Skin skin, Context context) {
+		//This constructor is called when a station is clicked
 		super(station.getName(), skin);
 		
 		this.context = context;
@@ -46,6 +47,7 @@ public class DialogStationMultitrain extends Dialog {
 	}
 
 	public DialogStationMultitrain(ArrayList<Train> trains, Skin skin, Context context) {
+		//This constructor is called when there are multiple blocked trains sitting on top of each other
 		super("Select Train", skin);
 
 		this.context = context;
@@ -59,8 +61,7 @@ public class DialogStationMultitrain extends Dialog {
 
 						button (train.getName() + destination + " (Player " + train.getPlayer().getPlayerNumber() + ")", train);
 						getButtonTable().row();
-						isTrain = true;
-
+isTrain = true;
 
 
 		}
@@ -86,7 +87,9 @@ public class DialogStationMultitrain extends Dialog {
 		} else {
 			//Simulate click on train
 			TrainClicked clicker = new TrainClicked(context, (Train) obj);
-			clicker.clicked(null, 0, 0);
+			//This is a small hack, by setting the value of the simulated x value to -1, we can use this to check whether or not
+			//This dialog has been opened before. If this was not here then this dialog and trainClicked would get stuck in an endless loop!
+			clicker.clicked(null, -1, 0);
 		}
 	}
 	
