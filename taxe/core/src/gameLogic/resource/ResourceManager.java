@@ -83,6 +83,10 @@ public class ResourceManager {
 		if (player.getSkip() == 1){
 			return;
 		}
+		Resource resource = getRandomResource();
+		while (player.hasResource(resource)){
+			resource = getRandomResource();
+		}
 		addResourceToPlayer(player, getRandomResource());
     }
 

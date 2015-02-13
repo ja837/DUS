@@ -35,18 +35,6 @@ public class Player {
         return skip;
     }
 
-
-    public void setObstacle (Connection connection)
-    {
-        connection.setBlocked(4);
-    }
-
-    public void unsetObstacle (Connection connection)
-    {
-        connection.setBlocked(0);
-    }
-
-
     public List<Resource> getResources() {
         return resources;
     }
@@ -125,5 +113,16 @@ public class Player {
         if (goals.contains(goal))
             goals.remove(goal);
         changed();
+    }
+
+    public boolean hasResource(Resource resource){
+        if (!(resource instanceof Train)){
+            for (Resource ownedResource: resources){
+                if (resource.equals(ownedResource)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
