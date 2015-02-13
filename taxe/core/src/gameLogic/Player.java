@@ -126,21 +126,4 @@ public class Player {
             goals.remove(goal);
         changed();
     }
-    public boolean isPlacing(){
-        if (Game.getInstance().getState()==GameState.PLACING_TRAIN){
-            return true;
-        }
-        for (Resource resource:resources){
-            if (resource instanceof Obstacle){
-                if (((Obstacle) resource).isPlacing()){
-                    return true;
-                }
-            }else if(resource instanceof Engineer){
-                if (((Engineer)resource).isPlacing()){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 }

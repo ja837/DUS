@@ -7,14 +7,12 @@ import gameLogic.map.Station;
 public class Engineer extends Resource{
     private Station station1;
     private Station station2;
-    private boolean placing;
 
     public Engineer()
     {
         this.name="Engineer";
         this.station1 = null;
         this.station2 = null;
-        this.placing = false;
     }
 
     public void use(Connection connection)
@@ -36,14 +34,6 @@ public class Engineer extends Resource{
 
     public void setStation2(Station station2) {
         this.station2 = station2;
-    }
-
-    public boolean isPlacing() {
-        return placing;
-    }
-
-    public void setPlacing(boolean isPlacing) {
-        this.placing = isPlacing;
     }
 
     @Override

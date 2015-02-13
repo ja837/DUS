@@ -71,8 +71,8 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
             case TRAIN_DROP:
                 currentPlayer.removeResource(train);
                 break;
-            case TRAIN_PLACE:
-                if (!currentPlayer.isPlacing()) {
+            case TRAIN_PLACE:{
+
                     Pixmap pixmap = new Pixmap(Gdx.files.internal(train.getCursorImage()));
                     Gdx.input.setCursorImage(pixmap, 0, 0); // these numbers will need tweaking
                     pixmap.dispose();
@@ -119,14 +119,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                     context.getStage().addListener(keyListener);
 
                     StationController.subscribeStationClick(stationListener);
-                }else{
-                        Dialog dia = new Dialog("Already Placing", context.getSkin());
-                        dia.text("You are already placing a resource." +
-                                "\nPlease finish this placement first.").align(Align.center);
-                        dia.button("OK", "OK");
-                        dia.show(context.getStage());
-                }
-                break;
+                break;}
             case TRAIN_ROUTE:
                 context.getRouteController().begin(train);
                 break;
@@ -136,13 +129,15 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
             case OBSTACLE_DROP:
                 currentPlayer.removeResource(obstacle);
                 break;
-            case OBSTACLE_USE:
-                if (!currentPlayer.isPlacing()) {
-                    Game.getInstance().setState(GameState.PLACING_TRAIN);
+            case OBSTACLE_USE:{
+                    Pixmap pixmap = new Pixmap(Gdx.files.internal("Blockage.png"));
+                    Gdx.input.setCursorImage(pixmap, 0, 0); // these numbers will need tweaking
+                    pixmap.dispose();
+                    Game.getInstance().setState(GameState.PLACING_RESOURCE);
                     final TrainController trainController = new TrainController(context);
                     trainController.setTrainsVisible(null, false);
-                    context.getTopBarController().displayFlashMessage("Placing Obstacle",Color.BLACK,10000);
-                    obstacle.setPlacing(true);
+                    context.getTopBarController().displayFlashMessage("Placing Obstacle", Color.BLACK, 10000);
+
 
                     final StationClickListener stationListener = new StationClickListener() {
                         @Override
@@ -163,109 +158,97 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                                     dia.show(context.getStage());
                                     obstacle.setStation1(null);
                                     obstacle.setStation2(null);
-                                    obstacle.setPlacing(false);
                                 }
-                                context.getTopBarController().displayFlashMessage("",Color.BLACK);
+                                context.getTopBarController().displayFlashMessage("", Color.BLACK);
                                 StationController.unsubscribeStationClick(this);
+                                Gdx.input.setCursorImage(null, 0, 0);
                                 context.getGameLogic().setState(GameState.NORMAL);
                                 trainController.setTrainsVisible(null, true);
                             }
                         }
                     };
-                    final InputListener keyListener= new InputListener() {
+                    final InputListener keyListener = new InputListener() {
                         @Override
-                        public boolean keyDown (InputEvent event, int keycode) {
+                        public boolean keyDown(InputEvent event, int keycode) {
                             TrainController trainController = new TrainController(context);
                             trainController.setTrainsVisible(null, true);
                             Gdx.input.setCursorImage(null, 0, 0);
                             StationController.unsubscribeStationClick(stationListener);
                             Game.getInstance().setState(GameState.NORMAL);
-                            obstacle.setPlacing(false);
-                            context.getTopBarController().displayFlashMessage("",Color.BLACK,0);
+                            Gdx.input.setCursorImage(null, 0, 0);
+                            context.getTopBarController().displayFlashMessage("", Color.BLACK, 0);
                             context.getStage().removeListener(this);
                             return true;
                         }
                     };
                     context.getStage().addListener(keyListener);
                     StationController.subscribeStationClick(stationListener);
-                }else{
-                    Dialog dia = new Dialog("Already Placing", context.getSkin());
-                    dia.text("You are aleady placing a resource." +
-                            "\nPlease finish this placement first.").align(Align.center);
-                    dia.button("OK", "OK");
-                    dia.show(context.getStage());
-                }
-                break;
-            case ENGINEER_USE:
-                if (!currentPlayer.isPlacing()) {
-                    Game.getInstance().setState(GameState.PLACING_TRAIN);
-                    final TrainController trainController = new TrainController(context);
-                    trainController.setTrainsVisible(null, false);
-                    context.getTopBarController().displayFlashMessage("Placing Engineer",Color.BLACK,10000);
-                    engineer.setPlacing(true);
-                    final StationClickListener stationListener = new StationClickListener() {
-                        @Override
-                        public void clicked(Station station) {
-                            if (engineer.getStation1() == null) {
-                                engineer.setStation1(station);
-                            } else {
-                                engineer.setStation2(station);
-                                if (context.getGameLogic().getMap().doesConnectionExist(engineer.getStation1().getName(), engineer.getStation2().getName())) {
-                                    if (context.getGameLogic().getMap().getConnection(engineer.getStation1(), engineer.getStation2()).isBlocked()) {
-                                        engineer.use(context.getGameLogic().getMap().getConnection(engineer.getStation1(), engineer.getStation2()));
-                                        currentPlayer.removeResource(engineer);
-                                    } else {
-                                        Dialog dia = new Dialog("Invalid Selection", context.getSkin());
-                                        dia.text("You have selected a connection which is not blocked." +
-                                                "\nPlease use the engineer again.").align(Align.center);
-                                        dia.button("OK", "OK");
-                                        dia.show(context.getStage());
-                                        engineer.setStation1(null);
-                                        engineer.setStation2(null);
-                                        engineer.setPlacing(false);
-                                    }
+
+                break;}
+            case ENGINEER_USE: {
+                Game.getInstance().setState(GameState.PLACING_RESOURCE);
+                Pixmap pixmap = new Pixmap(Gdx.files.internal("engineer.png"));
+                Gdx.input.setCursorImage(pixmap, 0, 0); // these numbers will need tweaking
+                pixmap.dispose();
+                final TrainController trainController = new TrainController(context);
+                trainController.setTrainsVisible(null, false);
+                context.getTopBarController().displayFlashMessage("Placing Engineer", Color.BLACK, 10000);
+                final StationClickListener stationListener = new StationClickListener() {
+                    @Override
+                    public void clicked(Station station) {
+                        if (engineer.getStation1() == null) {
+                            engineer.setStation1(station);
+                        } else {
+                            engineer.setStation2(station);
+                            if (context.getGameLogic().getMap().doesConnectionExist(engineer.getStation1().getName(), engineer.getStation2().getName())) {
+                                if (context.getGameLogic().getMap().getConnection(engineer.getStation1(), engineer.getStation2()).isBlocked()) {
+                                    engineer.use(context.getGameLogic().getMap().getConnection(engineer.getStation1(), engineer.getStation2()));
+                                    currentPlayer.removeResource(engineer);
                                 } else {
                                     Dialog dia = new Dialog("Invalid Selection", context.getSkin());
-                                    dia.text("You have selected two stations which are not connected." +
+                                    dia.text("You have selected a connection which is not blocked." +
                                             "\nPlease use the engineer again.").align(Align.center);
                                     dia.button("OK", "OK");
                                     dia.show(context.getStage());
                                     engineer.setStation1(null);
                                     engineer.setStation2(null);
-                                    engineer.setPlacing(false);
                                 }
-                                context.getTopBarController().displayFlashMessage("",Color.BLACK);
-                                StationController.unsubscribeStationClick(this);
-                                context.getGameLogic().setState(GameState.NORMAL);
-                                trainController.setTrainsVisible(null, true);
+                            } else {
+                                Dialog dia = new Dialog("Invalid Selection", context.getSkin());
+                                dia.text("You have selected two stations which are not connected." +
+                                        "\nPlease use the engineer again.").align(Align.center);
+                                dia.button("OK", "OK");
+                                dia.show(context.getStage());
+                                engineer.setStation1(null);
+                                engineer.setStation2(null);
                             }
-                        }
-                    };
-                    StationController.subscribeStationClick(stationListener);
-
-                    final InputListener keyListener= new InputListener() {
-                        @Override
-                        public boolean keyDown (InputEvent event, int keycode) {
-                            TrainController trainController = new TrainController(context);
-                            trainController.setTrainsVisible(null, true);
+                            context.getTopBarController().displayFlashMessage("", Color.BLACK,0);
+                            StationController.unsubscribeStationClick(this);
                             Gdx.input.setCursorImage(null, 0, 0);
-                            StationController.unsubscribeStationClick(stationListener);
-                            Game.getInstance().setState(GameState.NORMAL);
-                            engineer.setPlacing(false);
-                            context.getTopBarController().displayFlashMessage("",Color.BLACK,0);
-                            context.getStage().removeListener(this);
-                            return true;
+                            context.getGameLogic().setState(GameState.NORMAL);
+                            trainController.setTrainsVisible(null, true);
                         }
-                    };
-                    this.context.getStage().addListener(keyListener);
-                }else{
-                        Dialog dia = new Dialog("Already Placing", context.getSkin());
-                        dia.text("You are already placing a resource." +
-                                "\nPlease finish this placement first.").align(Align.center);
-                        dia.button("OK", "OK");
-                        dia.show(context.getStage());
-                }
+                    }
+                };
+                StationController.subscribeStationClick(stationListener);
+
+                final InputListener keyListener = new InputListener() {
+                    @Override
+                    public boolean keyDown(InputEvent event, int keycode) {
+                        TrainController trainController = new TrainController(context);
+                        trainController.setTrainsVisible(null, true);
+                        Gdx.input.setCursorImage(null, 0, 0);
+                        StationController.unsubscribeStationClick(stationListener);
+                        Game.getInstance().setState(GameState.NORMAL);
+                        context.getTopBarController().displayFlashMessage("", Color.BLACK, 0);
+                        context.getStage().removeListener(this);
+                        Gdx.input.setCursorImage(null, 0, 0);
+                        return true;
+                    }
+                };
+                this.context.getStage().addListener(keyListener);
                 break;
+            }
             case ENGINEER_DROP:
                 currentPlayer.removeResource(engineer);
                 break;
