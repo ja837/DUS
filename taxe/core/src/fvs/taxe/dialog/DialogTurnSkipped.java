@@ -12,9 +12,9 @@ import gameLogic.Player;
 import gameLogic.PlayerManager;
 import gameLogic.goal.Goal;
 
-public class DialogResourceSkip extends Dialog {
+public class DialogTurnSkipped extends Dialog {
 
-    public DialogResourceSkip(Skin skin) {
+    public DialogTurnSkipped(Skin skin) {
         super("Miss a turn", skin);
         text("Due to circumstances outside our control \n Network Rail would like to apologise for you missing your turn.");
         button("OK", "EXIT");

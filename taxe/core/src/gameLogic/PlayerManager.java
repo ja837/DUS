@@ -3,12 +3,8 @@ package gameLogic;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import fvs.taxe.TaxeGame;
 import fvs.taxe.controller.Context;
-import fvs.taxe.dialog.DialogResourceSkip;
+import fvs.taxe.dialog.DialogTurnSkipped;
 
 
 public class PlayerManager {
@@ -39,7 +35,7 @@ public class PlayerManager {
 		turnChanged();
 		playerChanged();
 		if (this.getCurrentPlayer().getSkip() == 1){
-			DialogResourceSkip dia = new DialogResourceSkip(context.getSkin());
+			DialogTurnSkipped dia = new DialogTurnSkipped(context.getSkin());
 			dia.show(context.getStage());
 			this.getCurrentPlayer().setSkip(0);
 		}

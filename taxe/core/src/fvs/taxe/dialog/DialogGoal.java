@@ -20,9 +20,8 @@ public class DialogGoal extends Dialog{
 
         text("What do you want to do with this goal?");
 
-        button("Cancel", "CLOSE");
         button("Drop", "DROP");
-
+        button("Cancel", "CLOSE");
     }
 
     @Override
