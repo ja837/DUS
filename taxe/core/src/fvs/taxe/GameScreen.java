@@ -87,8 +87,10 @@ public class GameScreen extends ScreenAdapter {
         			DialogEndGame dia = new DialogEndGame(GameScreen.this.game, gameLogic.getPlayerManager(), skin);
         			dia.show(stage);
         		} else if(gameLogic.getState()==GameState.ROUTING||gameLogic.getState()==GameState.PLACING_TRAIN){
+                    //If the player is routing or place a train then the goals and nodes are colour coded
                     goalController.setColours(StationController.colours);
                 } else if(gameLogic.getState()==GameState.NORMAL){
+                    //If the game state is normal then the goal colour are reset to grey
                     goalController.setColours(new Color[3]);
                 }
         	}

@@ -61,7 +61,7 @@ public class TrainClicked extends ClickListener {
                 context.getTopBarController().displayFlashMessage("Enemy's " + train.getName() + ". Speed: " + train.getSpeed(), Color.RED);
             }
 
-           else if (train.getFinalDestination() != null) {
+           else{
                 //If the train is owned by the player and has a final destination then a dialog is displayed allowing the user to interact with the train
                 DialogButtonClicked listener = new DialogButtonClicked(context, currentPlayer, train);
                 DialogResourceTrain dia = new DialogResourceTrain(train, context.getSkin(), train.getPosition() != null);

@@ -30,6 +30,7 @@ public class TrainActor extends Image {
     private Drawable rightDrawable;
     private Context context;
     private boolean paused;
+    private boolean recentlyPaused;
 
     public TrainActor(Train train, Context context) {
         //The constructor initialises all the variables and gathers the relevant image for the actor based on the train it is acting for.
@@ -48,6 +49,7 @@ public class TrainActor extends Image {
         previousX = getX();
         facingLeft = true;
         paused = false;
+        recentlyPaused = false;
     }
 
     @Override
@@ -85,8 +87,10 @@ public class TrainActor extends Image {
             Station nextStation = train.getRoute().get(index+1);
 
             // check if connection is blocked, if not, unpause
-            if (! Game.getInstance().getMap().isConnectionBlocked(station, nextStation))
+            if (! Game.getInstance().getMap().isConnectionBlocked(station, nextStation)) {
                 this.paused = false;
+                this.recentlyPaused = true;
+            }
         }
     }
 
@@ -96,7 +100,7 @@ public class TrainActor extends Image {
 
     public void updateFacingDirection() {
         float currentX = getX();
-
+        //This updates the direction that the train is facing and the image representing the train based on which direction it is travelling
         if(facingLeft && previousX < currentX) {
             setDrawable(rightDrawable);
             facingLeft = false;
@@ -116,8 +120,20 @@ public class TrainActor extends Image {
         this.paused = paused;
     }
 
+    public boolean isPaused(){
+        return this.paused;
+    }
+
     public boolean getPaused(){
         return this.paused;
+    }
+
+    public boolean isRecentlyPaused() {
+        return recentlyPaused;
+    }
+
+    public void setRecentlyPaused(boolean recentlyPaused) {
+        this.recentlyPaused = recentlyPaused;
     }
 
     public Train collided(){
@@ -146,8 +162,8 @@ public class TrainActor extends Image {
 
                                     float difY = Math.abs(otherTrain.getActor().getY() - getY());
 
-                                    if (difX < 25 && difY < 25 && difX > 20 && difY > 20) {
-                                        //This difference must be between 20 and 25 pixels
+                                    if ((difX < 25 && difY < 25)&&!((this.recentlyPaused)||(otherTrain.getActor().isRecentlyPaused()))) {
+                                        //This difference must be between 20 and 25 pixels if the trains have been recently paused
                                         //Initially it was set to be 0 to 25, however an issue was found with blocked trains instantly crashing after they had both been assigned different routes.
                                         //There is still the potential issue of two blocked trains colliding when they shouldn't, as it is impossible to know which connection a blocked train will occupy. i.e when one train is rerouted but not the other
                                         //Also it causes the issue of two trains going at the same speed from the same station never crashing despite the fact that they should
@@ -157,14 +173,8 @@ public class TrainActor extends Image {
                                         //not necessary to factor in to our implementation at this stage. If you need to add more trains then you would have to build up a list of collided trains and then return it.
                                     }
                                 }
-
-
                             }
                         }
-
-
-
-
                     }
                 }
             }
