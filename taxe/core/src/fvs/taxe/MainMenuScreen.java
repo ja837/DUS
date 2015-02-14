@@ -21,6 +21,8 @@ public class MainMenuScreen extends ScreenAdapter {
     Image mapImage;
 
     public MainMenuScreen(TaxeGame game) {
+        //This sets all the relevant variables for the menu screen
+        //Did not understand this fully so did not change anything
         this.game = game;
         camera = new OrthographicCamera(TaxeGame.WIDTH, TaxeGame.HEIGHT);
         camera.setToOrtho(false);
@@ -28,11 +30,14 @@ public class MainMenuScreen extends ScreenAdapter {
         playBounds = new Rectangle(TaxeGame.WIDTH/2 - 200, 350, 400, 100);
         exitBounds = new Rectangle(TaxeGame.WIDTH/2 - 200, 200, 400, 100);
         touchPoint = new Vector3();
+
+        //Loads the gameMap in
         mapTexture = new Texture(Gdx.files.internal("gamemap.png"));
         mapImage = new Image(mapTexture);
     }
 
     public void update() {
+        //Begins the game or exits the application based on where the user presses
         if (Gdx.input.justTouched()) {
             camera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
             if (playBounds.contains(touchPoint.x, touchPoint.y)) {
@@ -46,6 +51,8 @@ public class MainMenuScreen extends ScreenAdapter {
     }
 
     public void draw() {
+        //This method draws the menu
+
         GL20 gl = Gdx.gl;
         gl.glClearColor(1, 1, 1, 1);
         gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -53,7 +60,6 @@ public class MainMenuScreen extends ScreenAdapter {
         //Draw transparent map in the background
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
-
         game.batch.begin();
         Color c = game.batch.getColor();
         game.batch.setColor(c.r, c.g, c.b, (float) 0.3);
@@ -64,7 +70,6 @@ public class MainMenuScreen extends ScreenAdapter {
         //Draw rectangles, did not use TextButtons because it was easier not to
         game.shapeRenderer.setProjectionMatrix(camera.combined);
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
         game.shapeRenderer.setColor(Color.GREEN);
         game.shapeRenderer.rect(playBounds.getX(), playBounds.getY(), playBounds.getWidth(), playBounds.getHeight());
         game.shapeRenderer.setColor(Color.RED);

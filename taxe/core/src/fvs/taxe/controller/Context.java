@@ -6,6 +6,8 @@ import fvs.taxe.TaxeGame;
 import gameLogic.Game;
 
 public class Context {
+    //Context appears to be a class that allows different aspects of the system access parts that they otherwise logically shouldn't have access to.
+    //While this is a bit of a workaround to make implementation easier, it does weaken encapsulation somewhat, however a full system overhaul would be unfeasible to remedy this.
     private TaxeGame taxeGame;
     private Stage stage;
     private Skin skin;
@@ -19,7 +21,7 @@ public class Context {
         this.taxeGame = taxeGame;
         this.gameLogic = gameLogic;
     }
-
+    //Getters and setters: pretty self-explanatory
     public Stage getStage() {
         return stage;
     }

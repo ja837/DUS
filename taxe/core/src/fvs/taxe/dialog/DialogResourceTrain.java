@@ -14,16 +14,22 @@ public class DialogResourceTrain extends Dialog {
 
     public DialogResourceTrain(Train train, Skin skin, boolean trainPlaced) {
         super(train.toString(), skin);
-
         text("What do you want to do with this train?");
 
+        //Generates the buttons required to allow the user to interact with the dialog
         if (!trainPlaced) {
+            //If the train is not placed, generate button allowing placement
             button("Place at a station", "PLACE");
+
         } else if(!train.isMoving()) {
+            //If the train is not moving then generate button to specify a route
             button("Choose a route", "ROUTE");
-        }  else if(train.getRoute() != null){
+
+        }  else if(train.getRoute() != null) {
+            //If the train has a route then generate button to change the route
             button("Change route", "CHANGE_ROUTE");
-        } else {
+
+            //Generate button to view the route
             button("View Route", "VIEWROUTE");
         }
 

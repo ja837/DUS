@@ -11,8 +11,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class TaxeGame extends Game {
 	
-	//public static final int WIDTH=1366,HEIGHT=768;
+
 	// Using native res of the map image we are using at the moment
+	//Did not change this to allow resizing as this was deemed to be too much work
 	public static final int WIDTH=1022,HEIGHT=678;
 
 	public SpriteBatch batch;
@@ -28,13 +29,18 @@ public class TaxeGame extends Game {
 		//create font
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("arial.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		// font size 50 pixels
+
+		// font size 50pt
 		parameter.size = 50;
 		font = generator.generateFont(parameter);
+
+		//font size 20pt
 		parameter.size = 20;
 		fontSmall = generator.generateFont(parameter);
-		generator.dispose(); // don't forget to dispose to avoid memory leaks!
+		generator.dispose();
+		// don't forget to dispose to avoid memory leaks!
 
+		//Sets the main screen to be the menu
 		setScreen(new MainMenuScreen(this));
 	}
 

@@ -15,6 +15,7 @@ public class DialogResourceObstacle extends Dialog {
     public DialogResourceObstacle(Obstacle obstacle, Skin skin) {
         super(obstacle.toString(), skin);
 
+        //Generates all the buttons that allow the user to interact with the dialog
         text("What do you want to do with this obstacle?");
         button("Place on a connection", "PLACE");
         button("Drop", "DROP");
@@ -23,6 +24,7 @@ public class DialogResourceObstacle extends Dialog {
 
     @Override
     public Dialog show (Stage stage) {
+        //Shows the dialog
         show(stage, null);
         setPosition(Math.round((stage.getWidth() - getWidth()) / 2), Math.round((stage.getHeight() - getHeight()) / 2));
         return this;
@@ -30,21 +32,25 @@ public class DialogResourceObstacle extends Dialog {
 
     @Override
     public void hide () {
+        //Hides the dialog
         hide(null);
     }
 
     private void clicked(Button button) {
+        //Informs all listeners which button has been pressed
         for(ResourceDialogClickListener listener : clickListeners) {
             listener.clicked(button);
         }
     }
 
     public void subscribeClick(ResourceDialogClickListener listener) {
+        //Adds listener to the dialog
         clickListeners.add(listener);
     }
 
     @Override
     protected void result(Object obj) {
+        //Tells the clicked routine which button has been pressed
         if (obj == "CLOSE") {
             this.remove();
         } else if (obj == "DROP") {

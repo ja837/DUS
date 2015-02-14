@@ -1,5 +1,4 @@
 package gameLogic.dijkstra;
-import gameLogic.map.Connection;
 import gameLogic.map.Map;
 import gameLogic.map.Station;
 
@@ -28,13 +27,15 @@ public class Dijkstra
             // Visit each edge exiting u
             for (Edge e : u.getAdjacencies())
             {
-                Vertex v = e.target;
-                double weight = e.weight;
+                Vertex v = e.getTarget();
+                double weight = e.getWeight();
                 double distanceThroughU = u.getMinDistance() + weight;
                 if (distanceThroughU < v.getMinDistance()) {
                     //Continuously adds the smallest distance vertices to the queue until they have all been checked
                     vertexQueue.remove(v);
                     v.setMinDistance(distanceThroughU);
+
+                    //Sets previous vertex for each vertex in the queue, this is later used in shortestPath
                     v.setPrevious(u);
                     vertexQueue.add(v);
                 }
@@ -55,7 +56,10 @@ public class Dijkstra
 
 
     public Dijkstra(Map map) {
+        //Convert the current stations to vertices
         convertToVertices(map);
+
+        //Add the edges to all the vertices
         for (Station s : map.getStations()) {
             addEdges(map, s);
         }

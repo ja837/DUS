@@ -9,6 +9,7 @@ import gameLogic.resource.Train;
 
 
 public class TrainController {
+    //This class controls all the train actors
     private Context context;
 
 
@@ -17,16 +18,15 @@ public class TrainController {
     }
 
     public TrainActor renderTrain(Train train) {
+        //This renders the actor of the train which is passed to it
+
         TrainActor trainActor = new TrainActor(train, context);
         trainActor.addListener(new TrainClicked(context, train));
-
 
         trainActor.setVisible(false);
         context.getStage().addActor(trainActor);
 
-
         return trainActor;
-
     }
 
 

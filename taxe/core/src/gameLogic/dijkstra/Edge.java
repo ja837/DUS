@@ -3,8 +3,19 @@ package gameLogic.dijkstra;
 
 class Edge
 {
-    public final Vertex target;
-    public final double weight;
-    public Edge(Vertex argTarget, double argWeight)
-    { target = argTarget; weight = argWeight; }
+    private final Vertex target;
+    private final double weight;
+    public Edge(Vertex target, double weight)
+    {
+        this.target = target;
+        this.weight = weight;
+    }
+
+    public Vertex getTarget() {
+        return target;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
 }

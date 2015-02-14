@@ -22,6 +22,7 @@ import gameLogic.resource.Train;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
 
 public class TrainMoveController {
+    //This class handles all train movement in the game
     private Context context;
     private Train train;
 
@@ -29,6 +30,7 @@ public class TrainMoveController {
         this.context = context;
         this.train = train;
 
+        //This adds the movement for the train
         addMoveActions();
     }
 
@@ -37,6 +39,11 @@ public class TrainMoveController {
         return new RunnableAction() {
             public void run() {
                 train.getActor().setVisible(true);
+
+                //This is where the (-1,-1) principle comes from as it is set to (-1,-1) before every action.
+                //I don't understand exactly why this is, but it is how it was initially implemented and we did not understand enough to change it
+                //Instead we now exploit this fact to determine whether a train is already in motion
+                //A+ programming FVS!
                 train.setPosition(new Position(-1, -1));
             }
         };
@@ -47,27 +54,27 @@ public class TrainMoveController {
         return new RunnableAction() {
             public void run() {
                 train.addHistory(station, context.getGameLogic().getPlayerManager().getTurnNumber());
-                System.out.println("Added to history: passed " + station.getName() + " on turn "
-                        + context.getGameLogic().getPlayerManager().getTurnNumber());
-                // train.setPosition(station.getLocation());
 
-                //collisions(station); //no longer necessary as trains check for collisions repeatedly
+                //Uncomment to test whether or not the train is correctly adding stations to its history.
+/*                System.out.println("Added to history: passed " + station.getName() + " on turn "
+                        + context.getGameLogic().getPlayerManager().getTurnNumber());*/
 
                 int stationIndex = train.getRoute().indexOf(station); //find this station in route
                 int nextIndex = stationIndex + 1;
 
-
-                if (nextIndex < train.getRoute().size()) //is next index still in route?
+                //This checks whether or not the train is at its final destination by checking whether the index is still less than the list size
+                if (nextIndex < train.getRoute().size())
                 {
-                    //JOptionPane.showMessageDialog(null, "INSIDE IF", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
                     Station nextStation = train.getRoute().get(nextIndex);
 
+                    //Checks whether the next connection is blocked, if so the train is paused, if not the train is unpaused.
                     if (Game.getInstance().getMap().isConnectionBlocked(station, nextStation)) {
                         train.getActor().setPaused(true);
                     } else {
                         train.getActor().setPaused(false);
                     }
                 } else {
+                    //If the train is at its final destination then the train is set to unpaused so that it does not cause issues elsewhere in the program.
                     train.getActor().setPaused(false);
                 }
 
@@ -80,11 +87,13 @@ public class TrainMoveController {
     private RunnableAction afterAction() {
         return new RunnableAction() {
             public void run() {
+                //This informs the user that their train has completed a goal, if it has
                 ArrayList<String> completedGoals = context.getGameLogic().getGoalManager().trainArrived(train, train.getPlayer());
                 for(String message : completedGoals) {
                     context.getTopBarController().displayFlashMessage(message, Color.WHITE, 2);
                 }
-                System.out.println(train.getFinalDestination().getLocation().getX() + "," + train.getFinalDestination().getLocation().getY());
+
+                //Sets the train's position to be equal to its final destination's position so that it is appropriately hidden and linked to the station
                 train.setPosition(train.getFinalDestination().getLocation());
                 train.getActor().setVisible(false);
                 train.setFinalDestination(null);
@@ -92,90 +101,43 @@ public class TrainMoveController {
         };
     }
 
-    // an action for the train to run when it is stopped at an obstacle
-    private RunnableAction pauseAction() {
-        return new RunnableAction() {
-            public void run() {
-                //
-            }
-        };
-    }
-
+    //Adds the relevant movement actions to the train's actor
     public void addMoveActions() {
-        SequenceAction action = Actions.sequence();
+        SequenceAction actions = Actions.sequence();
         IPositionable current = train.getPosition();
+
+        //If the train is moving then the position is (-1,-1), this led to very high durations for small distances in edited routes
+        //Instead this is checked and if the train is found to be moving then instead the location of the trainActor is used.
+        //It is not possible to always use the train actor as if a train is not moving then trainActor is null.
         if (train.getPosition().getX() == -1){
            current = new Position ((int) train.getActor().getBounds().getX(),(int) train.getActor().getBounds().getY());
         }
-        action.addAction(beforeAction());
+        actions.addAction(beforeAction());
 
         for (final Station station : train.getRoute()) {
             IPositionable next = station.getLocation();
+            //This calculates how long it will take for the train to travel to the next station on the route
             float duration = getDistance(current, next) / train.getSpeed();
-            //Current is -1,-1 need to fix
-            action.addAction(moveTo(next.getX() - TrainActor.width / 2, next.getY() - TrainActor.height / 2, duration));
-            action.addAction(perStationAction(station));
+
+            //This adds the action to the actor which makes it move from point A to point B in a certain amount of time, calculated using duration and the two station positions.
+            actions.addAction(moveTo(next.getX() - TrainActor.width / 2, next.getY() - TrainActor.height / 2, duration));
+            actions.addAction(perStationAction(station));
             current = next;
         }
 
-        action.addAction(afterAction());
+        actions.addAction(afterAction());
 
-        // remove previous actions to be cautious
+        //Remove all previous actions from the actor so that it does not travel along its original path before the new path
         train.getActor().clearActions();
-        train.getActor().addAction(action);
+
+        //Adds the new actions to the actor
+        train.getActor().addAction(actions);
     }
 
     private float getDistance(IPositionable a, IPositionable b) {
+        //This method returns the absolute distance from point A to point B in pixels
         return Vector2.dst(a.getX(), a.getY(), b.getX(), b.getY());
     }
 
-    public static float getDistanceStatic (IPositionable a, IPositionable b) {
-        return Vector2.dst(a.getX(), a.getY(), b.getX(), b.getY());
-    }
-
-    private void collisions(Station station) {
-        //test for train collisions at Junction point
-
-
-        //TODO: ADD BETTER COLLISIONS HERE
-        if(!(station instanceof CollisionStation)) {
-            return;
-        }
-
-        List<Train> trainsToDestroy = trainsToDestroy();
-
-        if(trainsToDestroy.size() > 0) {
-            for(Train trainToDestroy : trainsToDestroy) {
-                trainToDestroy.getActor().remove();
-                trainToDestroy.getPlayer().removeResource(trainToDestroy);
-            }
-
-            context.getTopBarController().displayFlashMessage("Two trains collided at a Junction.  They were both destroyed.", Color.RED, 2);
-        }
-    }
-
-    private List<Train> trainsToDestroy() {
-        List<Train> trainsToDestroy = new ArrayList<Train>();
-
-        for(Player player : context.getGameLogic().getPlayerManager().getAllPlayers()) {
-            for(Resource resource : player.getResources()) {
-                if(resource instanceof Train) {
-                    Train otherTrain = (Train) resource;
-                    if(otherTrain.getActor() == null) continue;
-                    if(otherTrain == train) continue;
-
-                    if(train.getActor().getBounds().overlaps(otherTrain.getActor().getBounds())) {
-                        //destroy trains that have crashed and burned
-                        trainsToDestroy.add(train);
-                        trainsToDestroy.add(otherTrain);
-                    }
-
-                }
-            }
-        }
-
-        return trainsToDestroy;
-    }
-
-
+    //We removed collisions from here as it was more appropriate for how we wanted collisions to work to test it every time the trains were rendered
 }

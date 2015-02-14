@@ -16,16 +16,19 @@ public class EngineerClicked extends ClickListener{
         this.engineer = engineer;
         this.context = context;
     }
+
     @Override
     public void clicked(InputEvent event, float x, float y) {
-        if (Game.getInstance().getState() != GameState.NORMAL) return;
+        if (Game.getInstance().getState() == GameState.NORMAL) {
 
-        // current player can't be passed in as it changes so find out current player at this instant
-        Player currentPlayer = Game.getInstance().getPlayerManager().getCurrentPlayer();
+            // current player can't be passed in as it changes so find out current player at this instant
+            Player currentPlayer = Game.getInstance().getPlayerManager().getCurrentPlayer();
 
-        DialogButtonClicked listener = new DialogButtonClicked(context, currentPlayer, engineer);
-        DialogResourceEngineer dia = new DialogResourceEngineer(engineer, context.getSkin());
-        dia.show(context.getStage());
-        dia.subscribeClick(listener);
+            //Creates a dialog and a listener for the result of it
+            DialogButtonClicked listener = new DialogButtonClicked(context, currentPlayer, engineer);
+            DialogResourceEngineer dia = new DialogResourceEngineer(engineer, context.getSkin());
+            dia.show(context.getStage());
+            dia.subscribeClick(listener);
+        }
     }
 }

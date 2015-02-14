@@ -44,11 +44,15 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen(TaxeGame game) {
         this.game = game;
         stage = new Stage();
+
+        //Sets the skin
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
+        //Initialises the game
         gameLogic = Game.getInstance();
         context = new Context(stage, skin, game, gameLogic);
         Gdx.input.setInputProcessor(stage);
+
         //Draw background
         mapTexture = new Texture(Gdx.files.internal("gamemap.png"));
         map = gameLogic.getMap();
@@ -56,15 +60,16 @@ public class GameScreen extends ScreenAdapter {
         tooltip = new Tooltip(skin);
         stage.addActor(tooltip);
 
+        //Initialises all of the controllers for the UI
         stationController = new StationController(context, tooltip);
         topBarController = new TopBarController(context);
         resourceController = new ResourceController(context);
         goalController = new GoalController(context);
         routeController = new RouteController(context);
-
         context.setRouteController(routeController);
         context.setTopBarController(topBarController);
 
+        //Adds a listener that displays a flash message whenever the turn ends
         gameLogic.getPlayerManager().subscribeTurnChanged(new TurnListener() {
             @Override
             public void changed() {
@@ -72,10 +77,13 @@ public class GameScreen extends ScreenAdapter {
                 topBarController.displayFlashMessage("Time is passing...", Color.BLACK);
             }
         });
+
+        //Adds a listener that checks certain conditions at the end of every turn
         gameLogic.subscribeStateChanged(new GameStateListener() {
         	@Override
         	public void changed(GameState state){
         		if((gameLogic.getPlayerManager().getTurnNumber() == gameLogic.TOTAL_TURNS||gameLogic.getPlayerManager().getCurrentPlayer().getScore()>=gameLogic.MAX_POINTS) && state == GameState.NORMAL) {
+                    //If the game should end due to the turn number or points total then the appropriate dialog is displayed
         			DialogEndGame dia = new DialogEndGame(GameScreen.this.game, gameLogic.getPlayerManager(), skin);
         			dia.show(stage);
         		} else if(gameLogic.getState()==GameState.ROUTING||gameLogic.getState()==GameState.PLACING_TRAIN){

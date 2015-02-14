@@ -19,19 +19,23 @@ public class DialogEndGame extends Dialog{
 		double highScore = 0;
 		int playerNum = 0;
 		for(Player player : pm.getAllPlayers()) {
+			//Checks each player's score
 			if (player.getScore()>highScore){
 				highScore = player.getScore();
-				playerNum = player.getPlayerNumber();
+				//Need to add one as playerNumber is 0-based indexing
+				playerNum = player.getPlayerNumber()+1;
 			}
 		}
 
+		//Declares the winner based on who received the highest score
+		//If adding multiple players then this would need to be changed to reflect that
 		if(playerNum != 0) {
 			text("PLAYER " + playerNum + " WINS!");
 		} else {
+			//If no player has the high score then a tie is declared
 			text("IT'S A TIE!");
 		}
-		
-		//button("Main Menu","MENU");
+
 		button("Exit","EXIT");
 	}
 	
@@ -50,9 +54,8 @@ public class DialogEndGame extends Dialog{
 	@Override
 	protected void result(Object obj) {
 		if(obj == "EXIT"){
+			//Closes the app and disposes any machine resources used
 			Gdx.app.exit();
-		} else {
-			game.setScreen(new MainMenuScreen(game));
 		}
 	}
 }

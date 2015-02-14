@@ -5,16 +5,24 @@ import java.util.ArrayList;
 public class Vertex implements Comparable<Vertex>
 {
     private final String name;
+    //Stores the list of all vertices connected to it and their weights
     private ArrayList<Edge> adjacencies = new ArrayList<Edge>();
     private double minDistance = Double.POSITIVE_INFINITY;
     private Vertex previous;
-    public Vertex(String argName) { name = argName;
-    this.previous = null;}
-    public String toString() { return name; }
+    public Vertex(String name) {
+        this.name = name;
+    this.previous = null;
+    }
+    public String toString() {
+        return name;
+    }
+
     public int compareTo(Vertex other) {
+        //Used as a comparator to compare two vertices, necessary do determine the smallest weight
         return Double.compare(minDistance, other.minDistance);
     }
-    public ArrayList<Edge> getAdjacencies(){
+
+    public ArrayList<Edge> getAdjacencies() {
         return adjacencies;
     }
     public void addAdjacency(Edge edge){
