@@ -181,16 +181,6 @@ public class Map {
         return true;
     }
 
-    public ArrayList<Connection> getBlockedConnections(){
-        ArrayList<Connection> blockedConnections = new ArrayList<Connection>();
-        for (Connection connection : this.getConnections()){
-            if (connection.isBlocked()){
-                blockedConnections.add(connection);
-            }
-        }
-        return blockedConnections;
-    }
-
     public float getDistance (Station s1, Station s2) {
         return Vector2.dst(s1.getLocation().getX(), s1.getLocation().getY(), s2.getLocation().getX(), s2.getLocation().getY());
     }

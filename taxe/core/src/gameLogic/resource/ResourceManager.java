@@ -87,7 +87,7 @@ public class ResourceManager {
 		while (player.hasResource(resource)){
 			resource = getRandomResource();
 		}
-		addResourceToPlayer(player, getRandomResource());
+		addResourceToPlayer(player, resource);
     }
 
     private void addResourceToPlayer(Player player, Resource resource) {

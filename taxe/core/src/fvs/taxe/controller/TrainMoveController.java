@@ -53,6 +53,10 @@ public class TrainMoveController {
     private RunnableAction perStationAction(final Station station) {
         return new RunnableAction() {
             public void run() {
+                if (!train.getRoute().get(0).equals(station)){
+                    train.getActor().setRecentlyPaused(false);
+                }
+
                 train.addHistory(station, context.getGameLogic().getPlayerManager().getTurnNumber());
 
                 //Uncomment to test whether or not the train is correctly adding stations to its history.
@@ -70,13 +74,18 @@ public class TrainMoveController {
                     //Checks whether the next connection is blocked, if so the train is paused, if not the train is unpaused.
                     if (Game.getInstance().getMap().isConnectionBlocked(station, nextStation)) {
                         train.getActor().setPaused(true);
+                        train.getActor().setRecentlyPaused(false);
                     } else {
-                        train.getActor().setPaused(false);
+                        if (train.getActor().isPaused()){
+                            train.getActor().setPaused(false);
+                            train.getActor().setRecentlyPaused(true);
+                        }
                     }
                 } else {
                     //If the train is at its final destination then the train is set to unpaused so that it does not cause issues elsewhere in the program.
                     train.getActor().setPaused(false);
                 }
+
 
 
             }
