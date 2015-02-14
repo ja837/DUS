@@ -1,6 +1,7 @@
 package gameLogic.map;
 
 public class Position extends IPositionable {
+	//This is the class that implements IPositionable and allows you to create new Positions that can be compared to existing ones
 	private int x;
 	private int y;
 	

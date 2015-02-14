@@ -16,72 +16,26 @@ public class Map {
     private List<Connection> connections;
     private Random random = new Random();
     private Dijkstra dijkstra;
+    private JSONImporter jsonImporter;
 
     public Map() {
         stations = new ArrayList<Station>();
         connections = new ArrayList<Connection>();
 
-        initialise();
+        //Imports all values from the JSON file using the JSONImporter
+        jsonImporter = new JSONImporter(this);
+
+        //Analyses the graph using Dijkstra's algorithm
         dijkstra = new Dijkstra(this);
     }
 
-    private void initialise() {
-        JsonReader jsonReader = new JsonReader();
-        JsonValue jsonVal = jsonReader.parse(Gdx.files.local("stations.json"));
-
-        parseStations(jsonVal);
-        parseConnections(jsonVal);
-    }
-
-    private void parseConnections(JsonValue jsonVal) {
-        for(JsonValue connection = jsonVal.getChild("connections"); connection != null; connection = connection.next) {
-            String station1 = "";
-            String station2 = "";
-
-            for(JsonValue val = connection.child; val != null; val = val.next) {
-                if(val.name.equalsIgnoreCase("station1")) {
-                    station1 = val.asString();
-                } else {
-                    station2 = val.asString();
-                }
-            }
-
-            addConnection(station1, station2);
-        }
-    }
-
-    private void parseStations(JsonValue jsonVal) {
-        for(JsonValue station = jsonVal.getChild("stations"); station != null; station = station.next) {
-            String name = "";
-            int x = 0;
-            int y = 0;
-            boolean isJunction = false;
-
-            for(JsonValue val = station.child; val != null; val = val.next) {
-                if(val.name.equalsIgnoreCase("name")) {
-                    name = val.asString();
-                } else if(val.name.equalsIgnoreCase("x")) {
-                    x = val.asInt();
-                } else if(val.name.equalsIgnoreCase("y")) {
-                    y = val.asInt();
-                } else {
-                    isJunction = val.asBoolean();
-                }
-            }
-
-            if (isJunction) {
-                addJunction(name, new Position(x,y));
-            } else {
-                addStation(name, new Position(x, y));
-            }
-        }
-    }
-
     public boolean doesConnectionExist(String stationName, String anotherStationName) {
+        //Returns whether or not the connection exists by checking the two station names passed to it
         for (Connection connection : connections) {
             String s1 = connection.getStation1().getName();
             String s2 = connection.getStation2().getName();
 
+            //Checks whether or not the connection has station 1 and station 2 in its attributes, if so returns true, if not returns false
             if (s1.equals(stationName) && s2.equals(anotherStationName)
                     || s1.equals(anotherStationName) && s2.equals(stationName)) {
                 return true;
@@ -92,13 +46,16 @@ public class Map {
     }
 
     public Connection getConnection(Station station1, Station station2) {
+        //Returns the connection that connects station1 and station2 if it exists
         String stationName = station1.getName();
         String anotherStationName = station2.getName();
 
+        //Iterates through every connection and checks them
         for (Connection connection : connections) {
             String s1 = connection.getStation1().getName();
             String s2 = connection.getStation2().getName();
 
+            //Checks whether the connection is between station1 and station2 by comparing the start and end to their names
             if (s1.equals(stationName) && s2.equals(anotherStationName)
                     || s1.equals(anotherStationName) && s2.equals(stationName)) {
                 return connection;
@@ -110,6 +67,7 @@ public class Map {
 
 
     public Station getRandomStation() {
+        //Returns a random station
         return stations.get(random.nextInt(stations.size()));
     }
 
@@ -146,16 +104,6 @@ public class Map {
         return addConnection(st1, st2);
     }
 
-    //Get connections from station
-    public List<Connection> getConnectionsFromStation(Station station) {
-        List<Connection> results = new ArrayList<Connection>();
-        for(Connection connection : connections) {
-            if(connection.getStation1() == station || connection.getStation2() == station) {
-                results.add(connection);
-            }
-        }
-        return results;
-    }
 
     public Station getStationByName(String name) {
         int i = 0;

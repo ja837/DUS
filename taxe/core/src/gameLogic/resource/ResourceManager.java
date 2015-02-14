@@ -80,7 +80,7 @@ public class ResourceManager {
 
 
     public void addRandomResourceToPlayer(Player player) {
-		if (player.getSkip() == 1){
+		if (player.getSkip()){
 			return;
 		}
 		Resource resource = getRandomResource();

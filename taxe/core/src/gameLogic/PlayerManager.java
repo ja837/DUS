@@ -34,10 +34,10 @@ public class PlayerManager {
 		//Calls turn listeners
 		turnChanged();
 		playerChanged();
-		if (this.getCurrentPlayer().getSkip() == 1){
+		if (this.getCurrentPlayer().getSkip()){
 			DialogTurnSkipped dia = new DialogTurnSkipped(context.getSkin());
 			dia.show(context.getStage());
-			this.getCurrentPlayer().setSkip(0);
+			this.getCurrentPlayer().setSkip(false);
 		}
 	}
 

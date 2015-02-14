@@ -17,6 +17,7 @@ public class Engineer extends Resource{
 
     public void use(Connection connection)
     {
+        //Sets the connection the Engineer is used on to have a blocked time of 0 (i.e not blocked)
         connection.setBlocked(0);
     }
 

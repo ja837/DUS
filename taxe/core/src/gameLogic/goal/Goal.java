@@ -29,16 +29,21 @@ public class Goal {
 	}
 
 	public Goal(Station origin, Station destination, Station intermediary, int turn, int turnsTime,int score, int bonus, Train train) {
+		//If a train is passed to the constructor then the appropriate flag is set as well as the train variable.
+		//This indicates that the bonus is to complete the goal with a specific train
 		if (train != null){
 			this.train = train;
 			withTrain = true;
 		}
+
 		this.origin = origin;
 		this.destination = destination;
 		this.score = score;
+
 		//set the amount of points to give if a bonus goal is completed
 		this.bonus = bonus;
 
+		//If there is no 'via' bonus then intermediary equals the origin, by checking this we set the appropriate flags and variables
 		if (intermediary != destination && intermediary != origin) {
 			goingThrough = true;
 			this.intermediary = intermediary;
@@ -47,8 +52,10 @@ public class Goal {
 			this.intermediary = intermediary;
 		}
 
+		//This variable is set so that we can check whether or not the train visited the relevant nodes for the goal before or after the goal had been issued
 		this.turnIssued = turn;
 
+		//If turnsTime is greater than 0 then the bonus is to complete a goal in a certain number of turns, sets the relevant variables for this
 		if (turnsTime!=0)
 		{
 			this.inTurns=true;
@@ -59,13 +66,16 @@ public class Goal {
 	}
 
 	public boolean isComplete(Train train) {
+		//This checks whether or not a goal has been completed
 		boolean passedOrigin = false;
 		for(Tuple<Station, Integer> history: train.getHistory()) {
+			//Checks whether or not the station is the origin and if it was visited after the goal was issued
 			if(history.getFirst().getName().equals(origin.getName()) && history.getSecond() >=
 					turnIssued) {
 				passedOrigin = true;
 			}
 		}
+		//This checks whether or not the final destination is the destination of the goal, if it has then returns true
 		if(train.getFinalDestination() == destination && passedOrigin) {
 			return true;
 		} else {
@@ -74,6 +84,7 @@ public class Goal {
 	}
 
 	public boolean isBonusCompleted(Train train){
+		//This method returns whether or not a bonus has been completed by checking which bonus the goal has, then passing it to the relevant checking method for that bonus
 		if(withTrain) {
 			return wentThroughStation(train);
 		}
@@ -86,9 +97,11 @@ public class Goal {
 		return false;
 	}
 
-	public boolean wentThroughStation(Train train) { //checks if a train has passed through the intermediary station if it exists
+	public boolean wentThroughStation(Train train) {
+	//checks if a train has passed through the intermediary station if it exists
 		boolean passedThrough = false;
 		if (this.isComplete(train))
+			//One issue with this could be that the intermediary station could have been visited before the goal was issued
 			if (goingThrough && train.routeContains(intermediary)) passedThrough = true;
 		return passedThrough;
 	}
@@ -96,8 +109,11 @@ public class Goal {
 
 
 	public boolean completedWithinMaxTurns(Train train) {
+		//Checks if a train has completed the goal in a certain number of turns
 		boolean completed = false;
 		if (this.isComplete(train) && this.inTurns)
+			//Checks whether the turnsTime and turnIssued is greater than the currentTurn.
+			//This indicates whether it was completed in time for the bonus
 			if ((turnsTime + this.turnIssued) >= gameLogic.Game.getInstance().getPlayerManager().getTurnNumber()) {
 				completed = true;
 			}
@@ -106,6 +122,7 @@ public class Goal {
 	}
 
 	public boolean completedWithTrain(Train train){
+		//Checks whether the train passed to it has the same name as the train required by the goal's bonus
 		if(this.train.getName() == train.getName()){
 			return true;
 		}
@@ -113,6 +130,7 @@ public class Goal {
 	}
 
 	public String baseGoalString(){
+		//This generates the string for the base goal in the form "A to B : <points> points"
 		return origin.getName() + " to " + destination.getName() + ": " + this.score + " points";
 	}
 
@@ -138,6 +156,8 @@ public class Goal {
 	}
 
 	public String toString() { // based on the type of goal
+		//This routine is only used for printing to the console for debugging
+		//Not used in the actual game
 		String trainString = "train";
 		ArrayList<String> vowels=new ArrayList<String>();
 		vowels.add("A");

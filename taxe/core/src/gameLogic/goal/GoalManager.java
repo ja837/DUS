@@ -67,6 +67,7 @@ public class GoalManager {
 			expectedTurns = Math.round(shortestDist/60.0); //This is the number of turns a goal is expected to be completed in using an average speed train
 			double lowerBound =  Math.floor(expectedTurns - 0.3*expectedTurns); //These two variables are bounds for the generation of a suitable forTurns variable.
 			double upperBound =  Math.ceil(expectedTurns + 0.3*expectedTurns);
+			//By creating these bounds it adds an element of randomisation to the goals which SHOULD increase the enjoyment of the game
 			do {
 				forTurns = random.nextInt((int) upperBound+1);
 				//Continuously generates a new value until it fits within the bounds
@@ -92,17 +93,19 @@ public class GoalManager {
 	}
 	
 	public void addRandomGoalToPlayer(Player player) {
-		if (player.getSkip() == 1){
-			return;
+		//Needs to check whether the player is skipping their turn, if they are then they should not be given a goal
+		if (!player.getSkip()){
+			player.addGoal(generateRandom(player.getPlayerManager().getTurnNumber()));
 		}
-		player.addGoal(generateRandom(player.getPlayerManager().getTurnNumber()));
-		/* Uncomment to test the appropriateness of the generated points
+
+		/* Uncomment to test the appropriateness of the generated points for the goals
 		for (int i = 0; i<20;i++){
 			generateRandom(player.getPlayerManager().getTurnNumber());
 		}*/
 	}
 
 	public ArrayList<String> trainArrived(Train train, Player player) {
+		//This updates the score when a train arrives at a station by checking if the goals are complete
 		ArrayList<String> completedString = new ArrayList<String>();
 		for(Goal goal:player.getGoals()) {
 			if(goal.isComplete(train)) {

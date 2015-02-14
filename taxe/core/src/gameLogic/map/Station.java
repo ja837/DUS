@@ -37,6 +37,7 @@ public class Station {
 	}
 
 	public boolean equals(Object o) {
+		//Allows stations to be compared to each other, to check if they are the same station
 		if (o instanceof Station) {
 			Station s = (Station) o;
 			return getName().equals(s.getName()) &&

@@ -17,7 +17,7 @@ public class Player {
     private List<Goal> goals;
     private int number;
     private double score;
-    private int skip;
+    private boolean skip;
 
     public Player(PlayerManager pm, int playerNumber) {
         goals = new ArrayList<Goal>();
@@ -27,11 +27,11 @@ public class Player {
         score = 0;
     }
 
-    public void setSkip(int skip){
+    public void setSkip(boolean skip){
         this.skip = skip;
     }
 
-    public int getSkip(){
+    public boolean getSkip(){
         return skip;
     }
 
