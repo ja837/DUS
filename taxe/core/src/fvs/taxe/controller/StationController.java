@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -232,8 +233,6 @@ public class StationController {
 		TaxeGame game = context.getTaxeGame();
 
 		game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-		Gdx.gl.glEnable(GL20.GL_BLEND);
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
 		for (Connection connection : connections) {
 			IPositionable start = connection.getStation1().getLocation();
@@ -244,17 +243,33 @@ public class StationController {
 		}
 		game.shapeRenderer.end();
 
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		game.shapeRenderer.setColor(translucentBlack);
+
+		// draw an icon on connections that are blocked, showing how many turns remain until they
+		// become unblocked
+		// if the game is in routing mode, then all connections that aren't blocked have a
+		// translucent black circle drawn on their midpoint, to increase visibility of the white
+		// text that will be drawn on top showing the length of the connection
 		for (Connection connection : connections) {
+			IPositionable midpoint = connection.getMidpoint();
 			if (connection.isBlocked()) {
-				IPositionable midpoint = connection.getMidpoint();
 				game.batch.begin();
 				game.batch.draw(blockageTextures[connection.getTurnsBlocked() - 1],
 						midpoint.getX() - 16, midpoint.getY() - 16, 32, 32);
 				game.batch.end();
+			} else if (Game.getInstance().getState() == GameState.ROUTING) {
+				game.shapeRenderer.circle(midpoint.getX(), midpoint.getY(), 15);
 			}
 		}
+		game.shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 
+		// draw a number on each blocked connection, indicating how many turns remain until they
+		// become unblocked
+		// if the game is in routing mode, then the length of the connection is displayed
 		for (Connection connection : connections) {
 			if (connection.isBlocked()) {
 				IPositionable midpoint = connection.getMidpoint();
@@ -262,6 +277,19 @@ public class StationController {
 				game.fontSmall.setColor(Color.WHITE);
 				game.fontSmall.draw(game.batch, String.valueOf(connection.getTurnsBlocked()),
 						midpoint.getX() - 5, midpoint.getY() + 7);
+				game.batch.end();
+			} else if (Game.getInstance().getState() == GameState.ROUTING) {
+				IPositionable midpoint = connection.getMidpoint();
+				game.batch.begin();
+				game.fontTiny.setColor(Color.WHITE);
+				String text = String.valueOf(Math.round(
+						Vector2.dst(connection.getStation1().getLocation().getX(),
+								connection.getStation1().getLocation().getY(),
+								connection.getStation2().getLocation().getX(),
+								connection.getStation2().getLocation().getY())));
+				game.fontTiny.draw(game.batch, text,
+						midpoint.getX() - game.fontTiny.getBounds(text).width / 2f,
+						midpoint.getY() + game.fontTiny.getBounds(text).height / 2f);
 				game.batch.end();
 			}
 		}
