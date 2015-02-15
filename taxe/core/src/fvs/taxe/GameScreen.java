@@ -98,6 +98,8 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
+
+        //Draws the map background
         game.batch.draw(mapTexture, 0, 0);
         game.batch.end();
 
@@ -113,6 +115,7 @@ public class GameScreen extends ScreenAdapter {
         //Draw routing
         if (gameLogic.getState() == GameState.ROUTING) {
             routeController.drawRoute(Color.BLACK);
+
         } else
             //Draw train moving
             if (gameLogic.getState() == GameState.ANIMATING) {
