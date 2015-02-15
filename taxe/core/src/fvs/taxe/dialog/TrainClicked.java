@@ -71,10 +71,12 @@ public class TrainClicked extends ClickListener {
                     DialogStationMultitrain dia = new DialogStationMultitrain(stackedTrains, context.getSkin(), context);
                     dia.show(context.getStage());
                 }else{
-                    DialogButtonClicked listener = new DialogButtonClicked(context, currentPlayer, train);
-                    DialogResourceTrain dia = new DialogResourceTrain(train, context.getSkin(), train.getPosition() != null);
-                    dia.show(context.getStage());
-                    dia.subscribeClick(listener);
+                    if (train.isOwnedBy(currentPlayer)) {
+                        DialogButtonClicked listener = new DialogButtonClicked(context, currentPlayer, train);
+                        DialogResourceTrain dia = new DialogResourceTrain(train, context.getSkin(), train.getPosition() != null);
+                        dia.show(context.getStage());
+                        dia.subscribeClick(listener);
+                    }
                 }
 
             }
