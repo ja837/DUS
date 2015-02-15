@@ -4,19 +4,17 @@ package gameLogic.resource;
 import gameLogic.map.Connection;
 import gameLogic.map.Station;
 
-public class Engineer extends Resource{
+public class Engineer extends Resource {
     private Station station1;
     private Station station2;
 
-    public Engineer()
-    {
-        this.name="Engineer";
+    public Engineer() {
+        this.name = "Engineer";
         this.station1 = null;
         this.station2 = null;
     }
 
-    public void use(Connection connection)
-    {
+    public void use(Connection connection) {
         //Sets the connection the Engineer is used on to have a blocked time of 0 (i.e not blocked)
         connection.setBlocked(0);
     }

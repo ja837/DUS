@@ -1,15 +1,14 @@
 package gameLogic.resource;
 
 
-public class Skip extends Resource{
+public class Skip extends Resource {
 
-    public Skip()
-    {
-        this.name="Skip Turn";
+    public Skip() {
+        this.name = "Skip Turn";
     }
 
     @Override
-    public void dispose(){
+    public void dispose() {
 
     }
 }

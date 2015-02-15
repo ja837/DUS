@@ -27,8 +27,8 @@ public class MainMenuScreen extends ScreenAdapter {
         camera = new OrthographicCamera(TaxeGame.WIDTH, TaxeGame.HEIGHT);
         camera.setToOrtho(false);
 
-        playBounds = new Rectangle(TaxeGame.WIDTH/2 - 200, 350, 400, 100);
-        exitBounds = new Rectangle(TaxeGame.WIDTH/2 - 200, 200, 400, 100);
+        playBounds = new Rectangle(TaxeGame.WIDTH / 2 - 200, 350, 400, 100);
+        exitBounds = new Rectangle(TaxeGame.WIDTH / 2 - 200, 200, 400, 100);
         touchPoint = new Vector3();
 
         //Loads the gameMap in
@@ -79,11 +79,11 @@ public class MainMenuScreen extends ScreenAdapter {
         //Draw text into rectangles
         game.batch.begin();
         String startGameString = "Start Game";
-        game.font.draw(game.batch, startGameString, playBounds.getX() + playBounds.getWidth()/2 - game.font.getBounds(startGameString).width/2,
-                playBounds.getY() + playBounds.getHeight()/2 + game.font.getBounds(startGameString).height/2); // center the text
+        game.font.draw(game.batch, startGameString, playBounds.getX() + playBounds.getWidth() / 2 - game.font.getBounds(startGameString).width / 2,
+                playBounds.getY() + playBounds.getHeight() / 2 + game.font.getBounds(startGameString).height / 2); // center the text
         String exitGameString = "Exit";
-        game.font.draw(game.batch, exitGameString, exitBounds.getX() + exitBounds.getWidth()/2 - game.font.getBounds(exitGameString).width/2,
-                exitBounds.getY() + exitBounds.getHeight()/2 + game.font.getBounds(exitGameString).height/2); // center the text
+        game.font.draw(game.batch, exitGameString, exitBounds.getX() + exitBounds.getWidth() / 2 - game.font.getBounds(exitGameString).width / 2,
+                exitBounds.getY() + exitBounds.getHeight() / 2 + game.font.getBounds(exitGameString).height / 2); // center the text
 
         game.batch.end();
     }

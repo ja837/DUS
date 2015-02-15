@@ -1,16 +1,10 @@
 package fvs.taxe.dialog;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import fvs.taxe.MainMenuScreen;
-import fvs.taxe.TaxeGame;
 import gameLogic.Game;
-import gameLogic.Player;
-import gameLogic.PlayerManager;
-import gameLogic.goal.Goal;
 
 public class DialogTurnSkipped extends Dialog {
 
@@ -19,7 +13,7 @@ public class DialogTurnSkipped extends Dialog {
         //Informs player that they have missed their turn.
         text("Due to circumstances outside our control \n Network Rail would like to apologise for you missing your turn.");
         button("OK", "EXIT");
-       align(Align.center);
+        align(Align.center);
     }
 
     @Override

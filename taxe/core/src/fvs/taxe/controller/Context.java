@@ -21,6 +21,7 @@ public class Context {
         this.taxeGame = taxeGame;
         this.gameLogic = gameLogic;
     }
+
     //Getters and setters: pretty self-explanatory
     public Stage getStage() {
         return stage;

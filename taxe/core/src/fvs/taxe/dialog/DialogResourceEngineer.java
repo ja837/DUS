@@ -5,12 +5,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import fvs.taxe.Button;
 import gameLogic.resource.Engineer;
-import gameLogic.resource.Obstacle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DialogResourceEngineer extends Dialog{
+public class DialogResourceEngineer extends Dialog {
     private List<ResourceDialogClickListener> clickListeners = new ArrayList<ResourceDialogClickListener>();
 
     public DialogResourceEngineer(Engineer engineer, Skin skin) {
@@ -23,7 +22,7 @@ public class DialogResourceEngineer extends Dialog{
     }
 
     @Override
-    public Dialog show (Stage stage) {
+    public Dialog show(Stage stage) {
         //Displays the dialog on screen
         show(stage, null);
         setPosition(Math.round((stage.getWidth() - getWidth()) / 2), Math.round((stage.getHeight() - getHeight()) / 2));
@@ -31,14 +30,14 @@ public class DialogResourceEngineer extends Dialog{
     }
 
     @Override
-    public void hide () {
+    public void hide() {
         //Hides the dialog
         hide(null);
     }
 
     private void clicked(Button button) {
         //Informs all listeners which button has been clicked
-        for(ResourceDialogClickListener listener : clickListeners) {
+        for (ResourceDialogClickListener listener : clickListeners) {
             listener.clicked(button);
         }
     }
@@ -55,7 +54,7 @@ public class DialogResourceEngineer extends Dialog{
             this.remove();
         } else if (obj == "DROP") {
             clicked(Button.ENGINEER_DROP);
-        } else if(obj == "PLACE") {
+        } else if (obj == "PLACE") {
             clicked(Button.ENGINEER_USE);
         }
     }

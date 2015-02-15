@@ -1,20 +1,13 @@
 package fvs.taxe;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-
-import fvs.taxe.controller.Context;
-import fvs.taxe.controller.GoalController;
-import fvs.taxe.controller.ResourceController;
-import fvs.taxe.controller.RouteController;
-import fvs.taxe.controller.StationController;
-import fvs.taxe.controller.TopBarController;
+import fvs.taxe.controller.*;
 import fvs.taxe.dialog.DialogEndGame;
 import gameLogic.Game;
 import gameLogic.GameState;
@@ -80,20 +73,20 @@ public class GameScreen extends ScreenAdapter {
 
         //Adds a listener that checks certain conditions at the end of every turn
         gameLogic.subscribeStateChanged(new GameStateListener() {
-        	@Override
-        	public void changed(GameState state){
-        		if((gameLogic.getPlayerManager().getTurnNumber() == gameLogic.TOTAL_TURNS||gameLogic.getPlayerManager().getCurrentPlayer().getScore()>=gameLogic.MAX_POINTS) && state == GameState.NORMAL) {
+            @Override
+            public void changed(GameState state) {
+                if ((gameLogic.getPlayerManager().getTurnNumber() == gameLogic.TOTAL_TURNS || gameLogic.getPlayerManager().getCurrentPlayer().getScore() >= gameLogic.MAX_POINTS) && state == GameState.NORMAL) {
                     //If the game should end due to the turn number or points total then the appropriate dialog is displayed
-        			DialogEndGame dia = new DialogEndGame(GameScreen.this.game, gameLogic.getPlayerManager(), skin);
-        			dia.show(stage);
-        		} else if(gameLogic.getState()==GameState.ROUTING||gameLogic.getState()==GameState.PLACING_TRAIN){
+                    DialogEndGame dia = new DialogEndGame(GameScreen.this.game, gameLogic.getPlayerManager(), skin);
+                    dia.show(stage);
+                } else if (gameLogic.getState() == GameState.ROUTING || gameLogic.getState() == GameState.PLACING_TRAIN) {
                     //If the player is routing or place a train then the goals and nodes are colour coded
                     goalController.setColours(StationController.colours);
-                } else if(gameLogic.getState()==GameState.NORMAL){
+                } else if (gameLogic.getState() == GameState.NORMAL) {
                     //If the game state is normal then the goal colour are reset to grey
                     goalController.setColours(new Color[3]);
                 }
-        	}
+            }
         });
     }
 
@@ -111,38 +104,37 @@ public class GameScreen extends ScreenAdapter {
         topBarController.drawBackground();
 
         stationController.renderConnections(map.getConnections(), Color.GRAY);
-		if (gameLogic.getState() == GameState.PLACING_TRAIN || gameLogic.getState() == GameState
-				.ROUTING) {
-			stationController.renderStationGoalHighlights();
-			//This colours the start and end nodes of each goal to allow the player to easily see where they need to route
-		}
+        if (gameLogic.getState() == GameState.PLACING_TRAIN || gameLogic.getState() == GameState
+                .ROUTING) {
+            stationController.renderStationGoalHighlights();
+            //This colours the start and end nodes of each goal to allow the player to easily see where they need to route
+        }
 
         //Draw routing
-        if(gameLogic.getState() == GameState.ROUTING) {
+        if (gameLogic.getState() == GameState.ROUTING) {
             routeController.drawRoute(Color.BLACK);
-        }
-        else
-        //Draw train moving
-        if(gameLogic.getState() == GameState.ANIMATING) {
-            timeAnimated += delta;
-            if (timeAnimated >= ANIMATION_TIME) {
-                gameLogic.setState(GameState.NORMAL);
-                timeAnimated = 0;
+        } else
+            //Draw train moving
+            if (gameLogic.getState() == GameState.ANIMATING) {
+                timeAnimated += delta;
+                if (timeAnimated >= ANIMATION_TIME) {
+                    gameLogic.setState(GameState.NORMAL);
+                    timeAnimated = 0;
+                }
             }
-        }
 
         //Draw the number of trains at each station
-        if(gameLogic.getState() == GameState.NORMAL || gameLogic.getState() == GameState.PLACING_TRAIN){
-        	stationController.displayNumberOfTrainsAtStations();
+        if (gameLogic.getState() == GameState.NORMAL || gameLogic.getState() == GameState.PLACING_TRAIN) {
+            stationController.displayNumberOfTrainsAtStations();
         }
 
         //Causes all the actors to perform their actions (i.e trains to move)
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-        
+
         game.batch.begin();
         //If statement checks whether the turn is above 30, if it is then display 30 anyway
-        game.fontSmall.draw(game.batch, "Turn " + ((gameLogic.getPlayerManager().getTurnNumber() + 1 < gameLogic.TOTAL_TURNS) ? gameLogic.getPlayerManager().getTurnNumber() + 1 :gameLogic.TOTAL_TURNS) + "/" + gameLogic.TOTAL_TURNS, (float) TaxeGame.WIDTH - 90.0f, 20.0f);
+        game.fontSmall.draw(game.batch, "Turn " + ((gameLogic.getPlayerManager().getTurnNumber() + 1 < gameLogic.TOTAL_TURNS) ? gameLogic.getPlayerManager().getTurnNumber() + 1 : gameLogic.TOTAL_TURNS) + "/" + gameLogic.TOTAL_TURNS, (float) TaxeGame.WIDTH - 90.0f, 20.0f);
         game.batch.end();
 
         resourceController.drawHeaderText();

@@ -9,7 +9,7 @@ public class DijkstraData {
     private double distance;
     private ArrayList<Vertex> shortestPath;
 
-    public DijkstraData(Vertex source, Vertex target,double distance, ArrayList<Vertex> shortestPath){
+    public DijkstraData(Vertex source, Vertex target, double distance, ArrayList<Vertex> shortestPath) {
         this.source = source;
         this.target = target;
         this.distance = distance;
@@ -28,17 +28,17 @@ public class DijkstraData {
         return distance;
     }
 
-    public boolean inShortestPath(String stationName){
+    public boolean inShortestPath(String stationName) {
         //This method returns whether or not the stationName passed to it is featured in the shortestPath
-        for (Vertex v: shortestPath){
-            if (v.getName().equals(stationName)){
+        for (Vertex v : shortestPath) {
+            if (v.getName().equals(stationName)) {
                 return true;
             }
         }
         return false;
     }
 
-    public String toString(){
+    public String toString() {
         return source.getName() + " to " + target.getName() + ": " + distance;
     }
 }

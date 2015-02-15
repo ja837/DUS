@@ -27,7 +27,7 @@ public class PlayerManagerTest {
     }
 
     @Test
-    public void testTurnNumber() throws  Exception {
+    public void testTurnNumber() throws Exception {
         int previous = pm.getTurnNumber();
         pm.turnOver(null);
 

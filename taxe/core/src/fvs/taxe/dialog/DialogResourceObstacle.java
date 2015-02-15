@@ -23,7 +23,7 @@ public class DialogResourceObstacle extends Dialog {
     }
 
     @Override
-    public Dialog show (Stage stage) {
+    public Dialog show(Stage stage) {
         //Shows the dialog
         show(stage, null);
         setPosition(Math.round((stage.getWidth() - getWidth()) / 2), Math.round((stage.getHeight() - getHeight()) / 2));
@@ -31,14 +31,14 @@ public class DialogResourceObstacle extends Dialog {
     }
 
     @Override
-    public void hide () {
+    public void hide() {
         //Hides the dialog
         hide(null);
     }
 
     private void clicked(Button button) {
         //Informs all listeners which button has been pressed
-        for(ResourceDialogClickListener listener : clickListeners) {
+        for (ResourceDialogClickListener listener : clickListeners) {
             listener.clicked(button);
         }
     }
@@ -55,7 +55,7 @@ public class DialogResourceObstacle extends Dialog {
             this.remove();
         } else if (obj == "DROP") {
             clicked(Button.OBSTACLE_DROP);
-        } else if(obj == "PLACE") {
+        } else if (obj == "PLACE") {
             clicked(Button.OBSTACLE_USE);
         }
     }

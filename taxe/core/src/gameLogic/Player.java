@@ -2,9 +2,6 @@ package gameLogic;
 
 import gameLogic.goal.Goal;
 import gameLogic.goal.GoalManager;
-import gameLogic.map.Connection;
-import gameLogic.resource.Engineer;
-import gameLogic.resource.Obstacle;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
@@ -28,11 +25,11 @@ public class Player {
         score = 0;
     }
 
-    public void setSkip(boolean skip){
+    public void setSkip(boolean skip) {
         this.skip = skip;
     }
 
-    public boolean getSkip(){
+    public boolean getSkip() {
         return skip;
     }
 
@@ -66,13 +63,13 @@ public class Player {
     }
 
     public void addGoal(Goal goal) {
-    	int incompleteGoals = 0;
+        int incompleteGoals = 0;
         //Iterates through every goal and counts each goal that has not already been completed
-    	for(Goal existingGoal : goals) {
-    		if(!existingGoal.getComplete()) {
-    			incompleteGoals++;
-    		}
-    	}
+        for (Goal existingGoal : goals) {
+            if (!existingGoal.getComplete()) {
+                incompleteGoals++;
+            }
+        }
 
         //If the number of incomplete goals is less than the maximum number of goals then the player is given a new goal
         if (incompleteGoals < GoalManager.CONFIG_MAX_PLAYER_GOALS) {
@@ -81,7 +78,7 @@ public class Player {
         }
 
     }
-    
+
     public void completeGoal(Goal goal) {
         //This sets the goal to complete and hence removes it from being displayed on the GUI
         goal.setComplete();
@@ -98,18 +95,20 @@ public class Player {
     public List<Goal> getGoals() {
         return goals;
     }
-    
+
     public PlayerManager getPlayerManager() {
-    	return pm;
+        return pm;
     }
-    
+
     public int getPlayerNumber() {
-    	return number;
+        return number;
     }
 
-    public double getScore(){ return score;}
+    public double getScore() {
+        return score;
+    }
 
-    public void updateScore(int score){
+    public void updateScore(int score) {
         this.score = this.score + score;
     }
 
@@ -120,13 +119,13 @@ public class Player {
         changed();
     }
 
-    public boolean hasResource(Resource resource){
+    public boolean hasResource(Resource resource) {
         //Returns whether or not the player has the resource passed to the method
 
         //This method ignores the resource if it is a train as we did not want to stop the player receiving the same train more than once
-        if (!(resource instanceof Train)){
-            for (Resource ownedResource: resources){
-                if (resource.equals(ownedResource)){
+        if (!(resource instanceof Train)) {
+            for (Resource ownedResource : resources) {
+                if (resource.equals(ownedResource)) {
                     return true;
                 }
             }

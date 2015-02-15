@@ -40,11 +40,11 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
         this.train = train;
         this.context = context;
         this.obstacle = null;
-        this.skip=null;
+        this.skip = null;
         this.engineer = null;
     }
 
-    public DialogButtonClicked(Context context, Player player, Obstacle obstacle){
+    public DialogButtonClicked(Context context, Player player, Obstacle obstacle) {
         //This constructor is used when an obstacle dialog button is clicked.
         //obstacle is set to the obstacle that the dialog was associated with and the other variables are set to null
         this.currentPlayer = player;
@@ -54,7 +54,8 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
         this.obstacle = obstacle;
         this.engineer = null;
     }
-    public DialogButtonClicked(Context context, Player player, Skip skip){
+
+    public DialogButtonClicked(Context context, Player player, Skip skip) {
         //This constructor is used when an skip dialog button is clicked.
         //skip is set to the skip that the dialog was associated with and the other variables are set to null
         this.currentPlayer = player;
@@ -65,7 +66,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
         this.engineer = null;
     }
 
-    public DialogButtonClicked(Context context, Player player, Engineer engineer){
+    public DialogButtonClicked(Context context, Player player, Engineer engineer) {
         //This constructor is used when an engineer dialog button is clicked.
         //engineer is set to the engineer that the dialog was associated with and the other variables are set to null
         this.currentPlayer = player;
@@ -86,7 +87,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 
             //The reason that all the placement case statements are in their own scope ({}) is due to the fact that switch statements do not create their own scopes between cases.
             //Instead these must be manually defined, which was done to allow for instantiation of new TrainControllers.
-            case TRAIN_PLACE:{
+            case TRAIN_PLACE: {
                 //If the TRAIN_PLACE button is pressed then the game is set up so that the train can be placed
 
                 //This sets the cursor to be the one associated with the train loaded from the assets folder
@@ -131,9 +132,9 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                     }
                 };
 
-                final InputListener keyListener= new InputListener() {
+                final InputListener keyListener = new InputListener() {
                     @Override
-                    public boolean keyDown (InputEvent event, int keycode) {
+                    public boolean keyDown(InputEvent event, int keycode) {
                         //If the Escape key is pressed while placing a train then it is cancelled
                         //This is a new addition as the original code did not allow the user to cancel placement of trains once they had begun which was frustrating
                         if (keycode == Input.Keys.ESCAPE) {
@@ -180,7 +181,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 currentPlayer.removeResource(obstacle);
                 break;
 
-            case OBSTACLE_USE:{
+            case OBSTACLE_USE: {
 
                 //Sets the cursor to be the one used to indicate placing a blockage
                 Pixmap pixmap = new Pixmap(Gdx.files.internal("BlockageCursor.png"));
@@ -338,7 +339,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                                 engineer.setStation2(null);
                             }
                             //This resets all relevant values and unsubscribes from the listeners created for placing engineers
-                            context.getTopBarController().displayFlashMessage("", Color.BLACK,0);
+                            context.getTopBarController().displayFlashMessage("", Color.BLACK, 0);
                             StationController.unsubscribeStationClick(this);
                             Gdx.input.setCursorImage(null, 0, 0);
                             context.getGameLogic().setState(GameState.NORMAL);
@@ -387,9 +388,9 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 //If you wish to add more than 2 players then extra checking would have to be added here to ensure that the right player has their turn skipped
                 //For our implementation just checking the two binary value is enough
                 int p = context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber() - 1;
-                if (p == 0){
+                if (p == 0) {
                     p = 1;
-                }else {
+                } else {
                     p = 0;
                 }
 

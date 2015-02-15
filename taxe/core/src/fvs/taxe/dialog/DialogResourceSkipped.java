@@ -3,13 +3,8 @@ package fvs.taxe.dialog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import fvs.taxe.Button;
-import fvs.taxe.MainMenuScreen;
-import fvs.taxe.TaxeGame;
 import fvs.taxe.controller.Context;
-import gameLogic.Player;
-import gameLogic.resource.Skip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +43,7 @@ public class DialogResourceSkipped extends Dialog {
 
     private void clicked(Button button) {
         //Informs all listeners what the result of the dialog is
-        for(ResourceDialogClickListener listener : clickListeners) {
+        for (ResourceDialogClickListener listener : clickListeners) {
             listener.clicked(button);
         }
     }
@@ -57,11 +52,11 @@ public class DialogResourceSkipped extends Dialog {
     @Override
     protected void result(Object obj) {
         //Calls the clicked routine and passes it the button that the user clicked
-        if(obj == "EXIT"){
+        if (obj == "EXIT") {
             Gdx.app.exit();
         } else if (obj == "DROP") {
             clicked(Button.SKIP_DROP);
-        }else if (obj == "USE") {
+        } else if (obj == "USE") {
             clicked(Button.SKIP_RESOURCE);
         }
     }

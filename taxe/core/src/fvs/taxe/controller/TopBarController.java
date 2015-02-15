@@ -90,7 +90,7 @@ public class TopBarController {
             public void changed(GameState state) {
                 //This sets whether or not the endTurn button is displayed based on the state of the game
                 //This is important as it prevents players from ending their turn mid placement or mid routing
-                if(state == GameState.NORMAL) {
+                if (state == GameState.NORMAL) {
                     endTurnButton.setVisible(true);
                 } else {
                     endTurnButton.setVisible(false);

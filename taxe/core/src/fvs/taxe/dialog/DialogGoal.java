@@ -4,13 +4,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import fvs.taxe.Button;
-import fvs.taxe.TaxeGame;
 import gameLogic.goal.Goal;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DialogGoal extends Dialog{
+public class DialogGoal extends Dialog {
     private List<ResourceDialogClickListener> clickListeners = new ArrayList<ResourceDialogClickListener>();
 
     public DialogGoal(Goal goal, Skin skin) {
@@ -33,14 +32,14 @@ public class DialogGoal extends Dialog{
 
 
     @Override
-    public void hide () {
+    public void hide() {
         //Hides the dialog
         hide(null);
     }
 
     private void clicked(Button button) {
         //Informs all listeners that the dialog has been pressed, and which button has been pressed
-        for(ResourceDialogClickListener listener : clickListeners) {
+        for (ResourceDialogClickListener listener : clickListeners) {
             listener.clicked(button);
         }
     }

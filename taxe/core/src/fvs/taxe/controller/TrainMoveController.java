@@ -5,19 +5,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import fvs.taxe.actor.TrainActor;
 import gameLogic.Game;
-import gameLogic.Player;
-import gameLogic.map.CollisionStation;
 import gameLogic.map.IPositionable;
 import gameLogic.map.Position;
 import gameLogic.map.Station;
-import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
+
+import java.util.ArrayList;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
 
@@ -53,7 +48,7 @@ public class TrainMoveController {
     private RunnableAction perStationAction(final Station station) {
         return new RunnableAction() {
             public void run() {
-                if (!train.getRoute().get(0).equals(station)){
+                if (!train.getRoute().get(0).equals(station)) {
                     train.getActor().setRecentlyPaused(false);
                 }
 
@@ -67,8 +62,7 @@ public class TrainMoveController {
                 int nextIndex = stationIndex + 1;
 
                 //This checks whether or not the train is at its final destination by checking whether the index is still less than the list size
-                if (nextIndex < train.getRoute().size())
-                {
+                if (nextIndex < train.getRoute().size()) {
                     Station nextStation = train.getRoute().get(nextIndex);
 
                     //Checks whether the next connection is blocked, if so the train is paused, if not the train is unpaused.
@@ -76,7 +70,7 @@ public class TrainMoveController {
                         train.getActor().setPaused(true);
                         train.getActor().setRecentlyPaused(false);
                     } else {
-                        if (train.getActor().isPaused()){
+                        if (train.getActor().isPaused()) {
                             train.getActor().setPaused(false);
                             train.getActor().setRecentlyPaused(true);
                         }
@@ -85,7 +79,6 @@ public class TrainMoveController {
                     //If the train is at its final destination then the train is set to unpaused so that it does not cause issues elsewhere in the program.
                     train.getActor().setPaused(false);
                 }
-
 
 
             }
@@ -98,7 +91,7 @@ public class TrainMoveController {
             public void run() {
                 //This informs the user that their train has completed a goal, if it has
                 ArrayList<String> completedGoals = context.getGameLogic().getGoalManager().trainArrived(train, train.getPlayer());
-                for(String message : completedGoals) {
+                for (String message : completedGoals) {
                     context.getTopBarController().displayFlashMessage(message, Color.WHITE, 2);
                 }
 
@@ -118,8 +111,8 @@ public class TrainMoveController {
         //If the train is moving then the position is (-1,-1), this led to very high durations for small distances in edited routes
         //Instead this is checked and if the train is found to be moving then instead the location of the trainActor is used.
         //It is not possible to always use the train actor as if a train is not moving then trainActor is null.
-        if (train.getPosition().getX() == -1){
-           current = new Position ((int) train.getActor().getBounds().getX(),(int) train.getActor().getBounds().getY());
+        if (train.getPosition().getX() == -1) {
+            current = new Position((int) train.getActor().getBounds().getX(), (int) train.getActor().getBounds().getY());
         }
         actions.addAction(beforeAction());
 

@@ -5,15 +5,12 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import fvs.taxe.TaxeGame;
 import fvs.taxe.dialog.EngineerClicked;
-import fvs.taxe.dialog.SkipClicked;
 import fvs.taxe.dialog.ObstacleClicked;
+import fvs.taxe.dialog.SkipClicked;
 import fvs.taxe.dialog.TrainClicked;
 import gameLogic.Player;
 import gameLogic.PlayerChangedListener;
 import gameLogic.resource.*;
-
-import javax.swing.*;
-import java.util.ArrayList;
 
 public class ResourceController {
     private Context context;
@@ -69,10 +66,10 @@ public class ResourceController {
                     y -= 30;
                 }
 
-            }else if(resource instanceof Obstacle) {
+            } else if (resource instanceof Obstacle) {
                 //Creates a clickListener for the button and adds it to the list of buttons
                 Obstacle obstacle = (Obstacle) resource;
-                ObstacleClicked listener = new ObstacleClicked(context,obstacle);
+                ObstacleClicked listener = new ObstacleClicked(context, obstacle);
                 TextButton button = new TextButton("Obstacle", context.getSkin());
                 button.setPosition(x, y);
                 button.addListener(listener);
@@ -80,7 +77,7 @@ public class ResourceController {
 
                 y -= 30;
 
-            } else if(resource instanceof Skip) {
+            } else if (resource instanceof Skip) {
                 //Creates a clickListener for the button and adds it to the list of buttons
                 Skip skip = (Skip) resource;
                 SkipClicked listener = new SkipClicked(context, skip);
@@ -91,10 +88,10 @@ public class ResourceController {
 
                 y -= 30;
 
-            } else if(resource instanceof Engineer){
+            } else if (resource instanceof Engineer) {
                 //Creates a clickListener for the button and adds it to the list of buttons
                 Engineer engineer = (Engineer) resource;
-                EngineerClicked listener = new EngineerClicked(context,engineer);
+                EngineerClicked listener = new EngineerClicked(context, engineer);
                 TextButton button = new TextButton("Engineer", context.getSkin());
                 button.setPosition(x, y);
                 button.addListener(listener);

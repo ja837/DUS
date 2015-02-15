@@ -10,18 +10,16 @@ public class Obstacle extends Resource {
     private Station station1;
     private Station station2;
 
-    public Obstacle()
-    {
-        this.name="Roadblock";
+    public Obstacle() {
+        this.name = "Roadblock";
         //By default forTurns set to 5, possible to make this random instead
-        this.forTurns=5;
+        this.forTurns = 5;
         this.station1 = null;
         this.station2 = null;
 
     }
 
-    public void use(Connection connection)
-    {
+    public void use(Connection connection) {
         connection.setBlocked(this.forTurns);
     }
 

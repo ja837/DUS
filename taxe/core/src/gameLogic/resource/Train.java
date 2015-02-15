@@ -1,12 +1,12 @@
 package gameLogic.resource;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import Util.Tuple;
 import fvs.taxe.actor.TrainActor;
 import gameLogic.map.IPositionable;
 import gameLogic.map.Station;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Train extends Resource {
     private String leftImage;
@@ -30,11 +30,11 @@ public class Train extends Resource {
         this.rightImage = rightImage;
         this.speed = speed;
         history = new ArrayList<Tuple<Station, Integer>>();
-        route =  new ArrayList<Station>();
+        route = new ArrayList<Station>();
     }
-    
+
     public String getName() {
-    	return name;
+        return name;
     }
 
     public String getLeftImage() {
@@ -54,7 +54,7 @@ public class Train extends Resource {
         changed();
     }
 
-    public boolean routeContains (Station station){
+    public boolean routeContains(Station station) {
         //Returns whether or not the route contains the station passed to the method
         if (this.route.contains(station)) return true;
         return false;
@@ -94,7 +94,7 @@ public class Train extends Resource {
     public void setFinalDestination(Station station) {
         finalDestination = station;
     }
-    
+
     public int getSpeed() {
         return speed;
     }
@@ -116,18 +116,18 @@ public class Train extends Resource {
         }
     }
 
-    public Station getLastStation(){
+    public Station getLastStation() {
         //Returns the station that the train has most recently visited
-        return this.history.get(history.size()- 1).getFirst();
+        return this.history.get(history.size() - 1).getFirst();
     }
 
-    public Station getNextStation(){
+    public Station getNextStation() {
         //Returns the next station along the route
         Station last = getLastStation();
-        for (int i = 0; i < route.size() -1; i++) {
+        for (int i = 0; i < route.size() - 1; i++) {
             Station station = route.get(i);
-            if (last.getName().equals(station.getName())){
-                return route.get(i+1);
+            if (last.getName().equals(station.getName())) {
+                return route.get(i + 1);
             }
         }
         return null;

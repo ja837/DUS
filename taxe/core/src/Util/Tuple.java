@@ -1,6 +1,6 @@
 package Util;
 
-public class Tuple<T,U> {
+public class Tuple<T, U> {
     private T val1;
     private U val2;
 

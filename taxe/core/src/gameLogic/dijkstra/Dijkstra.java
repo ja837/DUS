@@ -1,18 +1,18 @@
 package gameLogic.dijkstra;
+
 import gameLogic.map.Map;
 import gameLogic.map.Station;
 
-import java.util.PriorityQueue;
 import java.util.ArrayList;
 import java.util.Collections;
-public class Dijkstra
-{
+import java.util.PriorityQueue;
+
+public class Dijkstra {
     ArrayList<Vertex> vertices;
     ArrayList<DijkstraData> dijkstras = new ArrayList<DijkstraData>();
 
-    public void computePaths(Vertex source)
-    {
-        for (Vertex v: vertices){
+    public void computePaths(Vertex source) {
+        for (Vertex v : vertices) {
             //Resets the necessary values for all vertices
             v.setMinDistance(Double.POSITIVE_INFINITY);
             v.setPrevious(null);
@@ -25,8 +25,7 @@ public class Dijkstra
             Vertex u = vertexQueue.poll();
 
             // Visit each edge exiting u
-            for (Edge e : u.getAdjacencies())
-            {
+            for (Edge e : u.getAdjacencies()) {
                 Vertex v = e.getTarget();
                 double weight = e.getWeight();
                 double distanceThroughU = u.getMinDistance() + weight;
@@ -43,8 +42,8 @@ public class Dijkstra
         }
         return;
     }
-    public static ArrayList<Vertex> getShortestPathTo(Vertex target)
-    {
+
+    public static ArrayList<Vertex> getShortestPathTo(Vertex target) {
         //Returns the shortest path from the source node to the target node
         ArrayList<Vertex> path = new ArrayList<Vertex>();
         for (Vertex vertex = target; vertex != null; vertex = vertex.getPrevious()) {
@@ -75,36 +74,40 @@ public class Dijkstra
             }
         }
     }
-    private void convertToVertices(Map map){
+
+    private void convertToVertices(Map map) {
         //Converts all stations to vertices
         vertices = new ArrayList<Vertex>();
-        for (Station s: map.getStations()){
+        for (Station s : map.getStations()) {
             Vertex v = new Vertex(s.getName());
             vertices.add(v);
         }
     }
-    private void addEdges(Map map,Station s1){
+
+    private void addEdges(Map map, Station s1) {
         //Converts all connections to edges
-        for (Station s2: map.getStations()){
-            if (map.doesConnectionExist(s1.getName(),s2.getName())){
-                Edge edge = new Edge(findVertex(s2),map.getDistance(s1,s2));
+        for (Station s2 : map.getStations()) {
+            if (map.doesConnectionExist(s1.getName(), s2.getName())) {
+                Edge edge = new Edge(findVertex(s2), map.getDistance(s1, s2));
                 findVertex(s1).addAdjacency(edge);
             }
         }
 
     }
-    private Vertex findVertex(Station s){
-        for (Vertex v: vertices){
-            if (v.getName()==s.getName()){
+
+    private Vertex findVertex(Station s) {
+        for (Vertex v : vertices) {
+            if (v.getName() == s.getName()) {
                 return v;
             }
         }
         return null;
     }
-    public double findMinDistance(Station s1,Station s2){
+
+    public double findMinDistance(Station s1, Station s2) {
         //Returns the minimum distance between two stations
-        for (DijkstraData d:dijkstras){
-            if (d.getSource().getName().equals(s1.getName()) && d.getTarget().getName().equals(s2.getName())){
+        for (DijkstraData d : dijkstras) {
+            if (d.getSource().getName().equals(s1.getName()) && d.getTarget().getName().equals(s2.getName())) {
                 return d.getDistance();
             }
         }
@@ -112,10 +115,10 @@ public class Dijkstra
         return -1;
     }
 
-    public boolean inShortestPath(Station s1, Station s2, Station s3){
+    public boolean inShortestPath(Station s1, Station s2, Station s3) {
         //Returns whether not station s3 is in the shortest path between s1 and s2
-        for (DijkstraData d:dijkstras){
-            if (d.getSource().getName().equals(s1.getName()) && d.getTarget().getName().equals(s2.getName())){
+        for (DijkstraData d : dijkstras) {
+            if (d.getSource().getName().equals(s1.getName()) && d.getTarget().getName().equals(s2.getName())) {
                 return d.inShortestPath(s3.getName());
             }
         }

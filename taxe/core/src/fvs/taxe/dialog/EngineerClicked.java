@@ -9,10 +9,11 @@ import gameLogic.Player;
 import gameLogic.resource.Engineer;
 
 
-public class EngineerClicked extends ClickListener{
+public class EngineerClicked extends ClickListener {
     private Engineer engineer;
     private Context context;
-    public EngineerClicked(Context context, Engineer engineer){
+
+    public EngineerClicked(Context context, Engineer engineer) {
         this.engineer = engineer;
         this.context = context;
     }

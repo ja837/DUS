@@ -52,14 +52,14 @@ public class TrainClicked extends ClickListener {
 
                         }//This checks all station actors and checks whether or not the trainActor overlaps with the station
                         //If it does then it is necessary to add all trains at that station to the dialog too
-                        else if(actor instanceof StationActor){
+                        else if (actor instanceof StationActor) {
                             StationActor stationActor = (StationActor) actor;
                             if (stationActor.getBounds().overlaps(train.getActor().getBounds())) {
-                                for(Player player : context.getGameLogic().getPlayerManager().getAllPlayers()) {
-                                    for(Resource resource : player.getResources()) {
-                                        if(resource instanceof Train) {
-                                            if(((Train) resource).getPosition() == StationActor.getStation().getLocation()) {
-                                                stackedTrains.add((Train)resource);
+                                for (Player player : context.getGameLogic().getPlayerManager().getAllPlayers()) {
+                                    for (Resource resource : player.getResources()) {
+                                        if (resource instanceof Train) {
+                                            if (((Train) resource).getPosition() == StationActor.getStation().getLocation()) {
+                                                stackedTrains.add((Train) resource);
                                             }
                                         }
                                     }
@@ -78,9 +78,7 @@ public class TrainClicked extends ClickListener {
             else if (!train.isOwnedBy(currentPlayer)) {
                 //If the train is not owned by the current player then its details are displayed but nothing more
                 context.getTopBarController().displayFlashMessage("Enemy's " + train.getName() + ". Speed: " + train.getSpeed(), Color.RED);
-            }
-
-           else{
+            } else {
                 //If the train is owned by the player and has a final destination then a dialog is displayed allowing the user to interact with the train
                 DialogButtonClicked listener = new DialogButtonClicked(context, currentPlayer, train);
                 DialogResourceTrain dia = new DialogResourceTrain(train, context.getSkin(), train.getPosition() != null);
@@ -119,9 +117,7 @@ public class TrainClicked extends ClickListener {
                     //If the train isn't owned by the current player then basic information is displayed about it
                     //By passing the displayFlashMessage a very large value for time, this acts almost as a permanent message until it is cleared (suitable for mouseover)
                     context.getTopBarController().displayFlashMessage("Opponent's " + train.getName() + ". Speed: " + train.getSpeed(), Color.RED, 1000);
-                }
-
-                else if (train.getFinalDestination() == null) {
+                } else if (train.getFinalDestination() == null) {
                     //If the train is not placed then the name and speed of the train are displayed
                     //By passing the displayFlashMessage a very large value for time, this acts almost as a permanent message until it is cleared (suitable for mouseover)
                     context.getTopBarController().displayFlashMessage("Your " + train.getName() + ". Speed: " + train.getSpeed(), Color.BLACK, 1000);

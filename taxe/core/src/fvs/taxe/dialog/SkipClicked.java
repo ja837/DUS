@@ -8,12 +8,12 @@ import gameLogic.GameState;
 import gameLogic.Player;
 import gameLogic.resource.Skip;
 
-public class SkipClicked extends ClickListener{
+public class SkipClicked extends ClickListener {
 
     Context context;
     Skip skip;
 
-    public SkipClicked(Context context, Skip skip){
+    public SkipClicked(Context context, Skip skip) {
         this.context = context;
         this.skip = skip;
     }

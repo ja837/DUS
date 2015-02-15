@@ -1,11 +1,7 @@
 package gameLogic.map;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 import gameLogic.dijkstra.Dijkstra;
-import gameLogic.dijkstra.Vertex;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,12 +73,12 @@ public class Map {
         stations.add(newStation);
         return newStation;
     }
-    
+
     public CollisionStation addJunction(String name, Position location) {
         //This routine adds a new junction to the list of stations
-    	CollisionStation newJunction = new CollisionStation(name, location);
-    	stations.add(newJunction);
-    	return newJunction;
+        CollisionStation newJunction = new CollisionStation(name, location);
+        stations.add(newJunction);
+        return newJunction;
     }
 
     public List<Station> getStations() {
@@ -112,10 +108,10 @@ public class Map {
     public Station getStationByName(String name) {
         //Returns the station whose name matches the string passed to the method
         int i = 0;
-        while(i < stations.size()) {
-            if(stations.get(i).getName().equals(name)) {
+        while (i < stations.size()) {
+            if (stations.get(i).getName().equals(name)) {
                 return stations.get(i);
-            } else{
+            } else {
                 i++;
             }
         }
@@ -152,13 +148,13 @@ public class Map {
         }
     }
 
-    public Connection getRandomConnection(){
+    public Connection getRandomConnection() {
         //Returns a random connection, used for blocking a random connection
         int index = random.nextInt(connections.size());
         return connections.get(index);
     }
 
-    public void blockRandomConnection(){
+    public void blockRandomConnection() {
         //This blocks a random connection
         int rand = random.nextInt(2);
         if (rand > 0) { //50% chance of connection being blocked
@@ -169,11 +165,11 @@ public class Map {
 
     }
 
-    public void blockConnection(Station station1, Station station2, int turnsBlocked){
+    public void blockConnection(Station station1, Station station2, int turnsBlocked) {
         //This method sets a connection to be blocked
         //Takes the parameter turnsBlocked which in our implementation is not necessary as we always block for 5 turns, you may wish to randomise the number of turns it is blocked for though
         //This method will allow you to do that easily
-        if (doesConnectionExist(station1.getName(),station2.getName())){
+        if (doesConnectionExist(station1.getName(), station2.getName())) {
             Connection connection = getConnection(station1, station2);
             connection.setBlocked(turnsBlocked);
         }
@@ -181,12 +177,12 @@ public class Map {
 
     public boolean isConnectionBlocked(Station station1, Station station2) {
         //Iterates through all the connections and finds the connection that links station1 and station2. Returns if this connection is blocked.
-        for (Connection connection : connections){
-            if(connection.getStation1() == station1)
-                if(connection.getStation2() == station2)
+        for (Connection connection : connections) {
+            if (connection.getStation1() == station1)
+                if (connection.getStation2() == station2)
                     return connection.isBlocked();
-            if(connection.getStation1() == station2)
-                if(connection.getStation2() == station1)
+            if (connection.getStation1() == station2)
+                if (connection.getStation2() == station1)
                     return connection.isBlocked();
         }
 
@@ -194,18 +190,18 @@ public class Map {
         return true;
     }
 
-    public float getDistance (Station s1, Station s2) {
+    public float getDistance(Station s1, Station s2) {
         //Uses vector maths to find the absolute distance between two stations' locations in pixels
         return Vector2.dst(s1.getLocation().getX(), s1.getLocation().getY(), s2.getLocation().getX(), s2.getLocation().getY());
     }
 
-    public double getShortestDistance(Station s1, Station s2){
+    public double getShortestDistance(Station s1, Station s2) {
         //This calls the relevant method from the Dijkstra's algorithm which finds the smallest distance between two stations
         return dijkstra.findMinDistance(s1, s2);
     }
 
-    public boolean inShortestPath(Station s1, Station s2,Station s3){
+    public boolean inShortestPath(Station s1, Station s2, Station s3) {
         //This method calls the relevant method from Dijkstra's algorithm which checks whether or not s3 is in the shortest path from s1 to s2
-        return dijkstra.inShortestPath(s1,s2,s3);
+        return dijkstra.inShortestPath(s1, s2, s3);
     }
 }
