@@ -49,7 +49,6 @@ public class TrainClicked extends ClickListener {
                             if (trainActor.getBounds().overlaps(train.getActor().getBounds())) {
                                 stackedTrains.add(trainActor.train);
                             }
-
                         }//This checks all station actors and checks whether or not the trainActor overlaps with the station
                         //If it does then it is necessary to add all trains at that station to the dialog too
                         else if (actor instanceof StationActor) {
@@ -71,7 +70,13 @@ public class TrainClicked extends ClickListener {
                     //Creates a new multitrain dialog based on the number of trains at that location
                     DialogStationMultitrain dia = new DialogStationMultitrain(stackedTrains, context.getSkin(), context);
                     dia.show(context.getStage());
+                }else{
+                    DialogButtonClicked listener = new DialogButtonClicked(context, currentPlayer, train);
+                    DialogResourceTrain dia = new DialogResourceTrain(train, context.getSkin(), train.getPosition() != null);
+                    dia.show(context.getStage());
+                    dia.subscribeClick(listener);
                 }
+
             }
 
             //The rest of the code assumes there is only a single train on that location as that is the only possibility
