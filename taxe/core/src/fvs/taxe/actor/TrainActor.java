@@ -154,11 +154,8 @@ public class TrainActor extends Image {
                                         || (otherTrain.getNextStation() == last && otherTrain.getLastStation() == next)) {
                                     //check if trains on same connection
 
-                                    float difX = Math.abs(otherTrain.getActor().getX() - getX());
 
-                                    float difY = Math.abs(otherTrain.getActor().getY() - getY());
-
-                                    if ((difX < 25 && difY < 25) && !((this.recentlyPaused) || (otherTrain.getActor().isRecentlyPaused()))) {
+                                    if ((this.bounds.overlaps(otherTrain.getActor().getBounds())) && !((this.recentlyPaused) || (otherTrain.getActor().isRecentlyPaused()))) {
                                         //This difference must be between 20 and 25 pixels if the trains have been recently paused
                                         //Initially it was set to be 0 to 25, however an issue was found with blocked trains instantly crashing after they had both been assigned different routes.
                                         //There is still the potential issue of two blocked trains colliding when they shouldn't, as it is impossible to know which connection a blocked train will occupy. i.e when one train is rerouted but not the other
