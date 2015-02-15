@@ -97,7 +97,7 @@ public class Dijkstra {
 
     private Vertex findVertex(Station s) {
         for (Vertex v : vertices) {
-            if (v.getName() == s.getName()) {
+            if (v.getName().equals(s.getName())) {
                 return v;
             }
         }

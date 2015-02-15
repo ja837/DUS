@@ -120,7 +120,7 @@ public class Goal {
 
     public boolean completedWithTrain(Train train) {
         //Checks whether the train passed to it has the same name as the train required by the goal's bonus
-        if (this.train.getName() == train.getName()) {
+        if (this.train.getName().equals(train.getName())) {
             return true;
         }
         return false;
