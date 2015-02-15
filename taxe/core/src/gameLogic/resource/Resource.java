@@ -12,6 +12,7 @@ public abstract class Resource implements Disposable {
 	}
 
 	public boolean isOwnedBy(Player player) {
+		//Returns whether a given resource is owned by the player passed to the method
 		return player == this.player;
 	}
 

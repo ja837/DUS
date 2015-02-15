@@ -4,11 +4,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import fvs.taxe.actor.StationActor;
 import fvs.taxe.actor.TrainActor;
 import fvs.taxe.controller.Context;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.Player;
+import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
 import java.util.ArrayList;
@@ -44,9 +46,26 @@ public class TrainClicked extends ClickListener {
                         if (actor instanceof TrainActor) {
                             TrainActor trainActor = (TrainActor) actor;
                             //If the actor's bounds (location and size) equal that of the original train's actor then the train is added to the ArrayList
-                            if (trainActor.getBounds().equals(train.getActor().getBounds())) {
+                            if (trainActor.getBounds().overlaps(train.getActor().getBounds())) {
                                 stackedTrains.add(trainActor.train);
                             }
+
+                        }//This checks all station actors and checks whether or not the trainActor overlaps with the station
+                        //If it does then it is necessary to add all trains at that station to the dialog too
+                        else if(actor instanceof StationActor){
+                            StationActor stationActor = (StationActor) actor;
+                            if (stationActor.getBounds().overlaps(train.getActor().getBounds())) {
+                                for(Player player : context.getGameLogic().getPlayerManager().getAllPlayers()) {
+                                    for(Resource resource : player.getResources()) {
+                                        if(resource instanceof Train) {
+                                            if(((Train) resource).getPosition() == StationActor.getStation().getLocation()) {
+                                                stackedTrains.add((Train)resource);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
                         }
                     }
                     //Creates a new multitrain dialog based on the number of trains at that location

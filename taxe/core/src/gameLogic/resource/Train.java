@@ -55,6 +55,7 @@ public class Train extends Resource {
     }
 
     public boolean routeContains (Station station){
+        //Returns whether or not the route contains the station passed to the method
         if (this.route.contains(station)) return true;
         return false;
     }
@@ -116,10 +117,12 @@ public class Train extends Resource {
     }
 
     public Station getLastStation(){
-        return this.history.get(history.size()-1).getFirst();
+        //Returns the station that the train has most recently visited
+        return this.history.get(history.size()- 1).getFirst();
     }
 
     public Station getNextStation(){
+        //Returns the next station along the route
         Station last = getLastStation();
         for (int i = 0; i < route.size() -1; i++) {
             Station station = route.get(i);

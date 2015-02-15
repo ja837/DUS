@@ -114,14 +114,14 @@ public class GameScreen extends ScreenAdapter {
 		if (gameLogic.getState() == GameState.PLACING_TRAIN || gameLogic.getState() == GameState
 				.ROUTING) {
 			stationController.renderStationGoalHighlights();
-			//
-		} else {
-			//goalController.setColours(new Color[3]);
+			//This colours the start and end nodes of each goal to allow the player to easily see where they need to route
 		}
+
         //Draw routing
         if(gameLogic.getState() == GameState.ROUTING) {
             routeController.drawRoute(Color.BLACK);
-        } else
+        }
+        else
         //Draw train moving
         if(gameLogic.getState() == GameState.ANIMATING) {
             timeAnimated += delta;
@@ -130,17 +130,19 @@ public class GameScreen extends ScreenAdapter {
                 timeAnimated = 0;
             }
         }
+
         //Draw the number of trains at each station
         if(gameLogic.getState() == GameState.NORMAL || gameLogic.getState() == GameState.PLACING_TRAIN){
         	stationController.displayNumberOfTrainsAtStations();
         }
 
+        //Causes all the actors to perform their actions (i.e trains to move)
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         
         game.batch.begin();
         //If statement checks whether the turn is above 30, if it is then display 30 anyway
-        game.fontSmall.draw(game.batch, "Turn " + ((gameLogic.getPlayerManager().getTurnNumber() + 1 < 30) ? gameLogic.getPlayerManager().getTurnNumber() + 1 :30) + "/" + gameLogic.TOTAL_TURNS, (float) TaxeGame.WIDTH - 90.0f, 20.0f);
+        game.fontSmall.draw(game.batch, "Turn " + ((gameLogic.getPlayerManager().getTurnNumber() + 1 < gameLogic.TOTAL_TURNS) ? gameLogic.getPlayerManager().getTurnNumber() + 1 :gameLogic.TOTAL_TURNS) + "/" + gameLogic.TOTAL_TURNS, (float) TaxeGame.WIDTH - 90.0f, 20.0f);
         game.batch.end();
 
         resourceController.drawHeaderText();
@@ -150,6 +152,9 @@ public class GameScreen extends ScreenAdapter {
     @Override
     // Called when GameScreen becomes current screen of the game
     public void show() {
+        //We only render this once a turn, this allows the buttons generated to be clickable.
+        //Initially some of this functionality was in the draw() routine, but it was found that when the player clicked on a button a new one was rendered before the input could be handled
+        //This is why the header texts and the buttons are rendered separately, to prevent these issues from occuring
         stationController.renderStations();
         topBarController.addEndTurnButton();
         goalController.showCurrentPlayerGoals();

@@ -1,8 +1,12 @@
 package gameLogic.map;
 
+import Util.Tuple;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import gameLogic.resource.ResourceManager;
+
+import java.util.ArrayList;
 
 //This is a new class that handles all of the importing from the JSON file for the map.
 //This was done to separate the logic as it did not feel appropriate that the map class also handled the JSON importing
@@ -19,7 +23,34 @@ public class JSONImporter {
         //Parses the connections and adds them to the map
         parseConnections(jsonVal,map);
     }
+    public JSONImporter(ResourceManager resourceManager){
+        JsonReader jsonReader = new JsonReader();
 
+        //Defines the file to parse
+        JsonValue jsonVal = jsonReader.parse(Gdx.files.local("trains.json"));
+
+        ArrayList<Tuple<String,Integer>> trains = new ArrayList<Tuple<String, Integer>>();
+
+        //Loads each train from the JSON file
+        for(JsonValue train = jsonVal.getChild("trains"); train != null; train = train.next()) {
+            String name = "";
+            int speed = 50;
+            for(JsonValue val  = train.child; val != null; val = val.next()) {
+                if(val.name.equalsIgnoreCase("name")) {
+                    //If the field name is "name" then the name is set as the val
+                    name = val.asString();
+                } else {
+                    //Otherwise the speed is set as the val
+                    speed = val.asInt();
+                }
+            }
+
+            //Sets the trains loaded in from the JSON as the trains used by the resource manager passed to the method
+            trains.add(new Tuple<String, Integer>(name, speed));
+        }
+
+        resourceManager.setTrains(trains);
+    }
 
     public void parseConnections(JsonValue jsonVal,Map map) {
         //Iterates through all the connections stored in the JSON array associated with the connections attribute

@@ -13,6 +13,7 @@ public class Obstacle extends Resource {
     public Obstacle()
     {
         this.name="Roadblock";
+        //By default forTurns set to 5, possible to make this random instead
         this.forTurns=5;
         this.station1 = null;
         this.station2 = null;

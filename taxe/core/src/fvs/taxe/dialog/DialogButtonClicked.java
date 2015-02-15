@@ -1,6 +1,7 @@
 package fvs.taxe.dialog;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -135,20 +136,21 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                     public boolean keyDown (InputEvent event, int keycode) {
                         //If the Escape key is pressed while placing a train then it is cancelled
                         //This is a new addition as the original code did not allow the user to cancel placement of trains once they had begun which was frustrating
+                        if (keycode == Input.Keys.ESCAPE) {
+                            //Sets all of the currently placed trains back to visible
+                            TrainController trainController = new TrainController(context);
+                            trainController.setTrainsVisible(null, true);
 
-                        //Sets all of the currently placed trains back to visible
-                        TrainController trainController = new TrainController(context);
-                        trainController.setTrainsVisible(null, true);
+                            //Resets the cursor
+                            Gdx.input.setCursorImage(null, 0, 0);
 
-                        //Resets the cursor
-                        Gdx.input.setCursorImage(null, 0, 0);
+                            //Unsubscribes from the listener so that it does not call the code when it is not intended to
+                            StationController.unsubscribeStationClick(stationListener);
+                            Game.getInstance().setState(GameState.NORMAL);
 
-                        //Unsubscribes from the listener so that it does not call the code when it is not intended to
-                        StationController.unsubscribeStationClick(stationListener);
-                        Game.getInstance().setState(GameState.NORMAL);
-
-                        //Removes itself from the keylisteners of the game as otherwise there would be a lot of null pointer exceptions and unintended behaviour
-                        context.getStage().removeListener(this);
+                            //Removes itself from the keylisteners of the game as otherwise there would be a lot of null pointer exceptions and unintended behaviour
+                            context.getStage().removeListener(this);
+                        }
 
                         //keyDown requires you to return the boolean true when the function has completed, so this ends the function
                         return true;
@@ -252,24 +254,24 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                     @Override
                     public boolean keyDown(InputEvent event, int keycode) {
                         //If the Escape key is pressed while placing an obstacle then it is cancelled
+                        if (keycode == Input.Keys.ESCAPE) {
+                            //Makes all trains visible
+                            TrainController trainController = new TrainController(context);
+                            trainController.setTrainsVisible(null, true);
 
-                        //Makes all trains visible
-                        TrainController trainController = new TrainController(context);
-                        trainController.setTrainsVisible(null, true);
+                            //Resets cursor
+                            Gdx.input.setCursorImage(null, 0, 0);
 
-                        //Resets cursor
-                        Gdx.input.setCursorImage(null, 0, 0);
+                            //Unsubscribes from the StationClickListener as this would cause a lot of errors and unexpected behaviour is not called from the correct context
+                            StationController.unsubscribeStationClick(stationListener);
+                            Game.getInstance().setState(GameState.NORMAL);
 
-                        //Unsubscribes from the StationClickListener as this would cause a lot of errors and unexpected behaviour is not called from the correct context
-                        StationController.unsubscribeStationClick(stationListener);
-                        Game.getInstance().setState(GameState.NORMAL);
+                            //Resets the topBar
+                            context.getTopBarController().displayFlashMessage("", Color.BLACK, 0);
 
-                        //Resets the topBar
-                        context.getTopBarController().displayFlashMessage("", Color.BLACK, 0);
-
-                        //Removes itself from the keylisteners of the game as otherwise there would be a lot of null pointer exceptions and unintended behaviour
-                        context.getStage().removeListener(this);
-
+                            //Removes itself from the keylisteners of the game as otherwise there would be a lot of null pointer exceptions and unintended behaviour
+                            context.getStage().removeListener(this);
+                        }
                         //keyDown requires you to return the boolean true when the function has completed, so this ends the function
                         return true;
                     }
@@ -292,21 +294,31 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 Gdx.input.setCursorImage(pixmap, 0, 0); // these numbers will need tweaking
                 pixmap.dispose();
 
+                //Hides all trains
                 final TrainController trainController = new TrainController(context);
                 trainController.setTrainsVisible(null, false);
                 context.getTopBarController().displayFlashMessage("Placing Engineer", Color.BLACK, 10000);
+
+                //Adds a station click listener that handles all the logic
                 final StationClickListener stationListener = new StationClickListener() {
                     @Override
                     public void clicked(Station station) {
                         if (engineer.getStation1() == null) {
+                            //If the station is the first one clicked then it sets it to be station1
                             engineer.setStation1(station);
                         } else {
+                            //If the station is the second one clicked then it sets it to station2
                             engineer.setStation2(station);
+
+                            //Checks whether a connection exists between the two selected stations
                             if (context.getGameLogic().getMap().doesConnectionExist(engineer.getStation1().getName(), engineer.getStation2().getName())) {
+                                //If a connection exists then it checks whether the connection is blocked
                                 if (context.getGameLogic().getMap().getConnection(engineer.getStation1(), engineer.getStation2()).isBlocked()) {
+                                    //If the connection is blocked then it removes the blockage
                                     engineer.use(context.getGameLogic().getMap().getConnection(engineer.getStation1(), engineer.getStation2()));
                                     currentPlayer.removeResource(engineer);
                                 } else {
+                                    //If the connection is not blocked then placement is cancelled and the user is informed
                                     Dialog dia = new Dialog("Invalid Selection", context.getSkin());
                                     dia.text("You have selected a connection which is not blocked." +
                                             "\nPlease use the engineer again.").align(Align.center);
@@ -316,6 +328,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                                     engineer.setStation2(null);
                                 }
                             } else {
+                                //If the connection does not exist then placement is cancelled and the user is informed of this
                                 Dialog dia = new Dialog("Invalid Selection", context.getSkin());
                                 dia.text("You have selected two stations which are not connected." +
                                         "\nPlease use the engineer again.").align(Align.center);
@@ -324,6 +337,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                                 engineer.setStation1(null);
                                 engineer.setStation2(null);
                             }
+                            //This resets all relevant values and unsubscribes from the listeners created for placing engineers
                             context.getTopBarController().displayFlashMessage("", Color.BLACK,0);
                             StationController.unsubscribeStationClick(this);
                             Gdx.input.setCursorImage(null, 0, 0);
@@ -334,41 +348,63 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 };
                 StationController.subscribeStationClick(stationListener);
 
+                //Adds a keyListener that triggers when the
                 final InputListener keyListener = new InputListener() {
                     @Override
                     public boolean keyDown(InputEvent event, int keycode) {
-                        TrainController trainController = new TrainController(context);
-                        trainController.setTrainsVisible(null, true);
-                        Gdx.input.setCursorImage(null, 0, 0);
-                        StationController.unsubscribeStationClick(stationListener);
-                        Game.getInstance().setState(GameState.NORMAL);
-                        context.getTopBarController().displayFlashMessage("", Color.BLACK, 0);
-                        context.getStage().removeListener(this);
-                        Gdx.input.setCursorImage(null, 0, 0);
+                        if (keycode == Input.Keys.ESCAPE) {
+                            //Makes all trains visible
+                            TrainController trainController = new TrainController(context);
+                            trainController.setTrainsVisible(null, true);
+
+                            //Resets cursor
+                            Gdx.input.setCursorImage(null, 0, 0);
+
+                            //Unsubscribes from the StationClickListener as this would cause a lot of errors and unexpected behaviour is not called from the correct context
+                            StationController.unsubscribeStationClick(stationListener);
+                            Game.getInstance().setState(GameState.NORMAL);
+
+                            //Resets the topBar
+                            context.getTopBarController().displayFlashMessage("", Color.BLACK, 0);
+
+                            //Removes itself from the keylisteners of the game as otherwise there would be a lot of null pointer exceptions and unintended behaviour
+                            context.getStage().removeListener(this);
+                        }
                         return true;
                     }
                 };
                 this.context.getStage().addListener(keyListener);
                 break;
             }
+
             case ENGINEER_DROP:
+                //If the ENGINEER_DROP button is pressed then the resource is removed from the player's inventory
                 currentPlayer.removeResource(engineer);
                 break;
+
             case SKIP_RESOURCE:
+                //If SKIP_RESOURCE is pressed then this finds the other player's playerNumber and sets their skipped boolean to true
+                //If you wish to add more than 2 players then extra checking would have to be added here to ensure that the right player has their turn skipped
+                //For our implementation just checking the two binary value is enough
                 int p = context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber() - 1;
                 if (p == 0){
                     p = 1;
                 }else {
                     p = 0;
                 }
+
                 context.getGameLogic().getPlayerManager().getAllPlayers().get(p).setSkip(true);
+                //Removes the resource after it has been used
                 currentPlayer.removeResource(skip);
                 break;
+
             case SKIP_DROP:
+                //Removes the resource from the player if they press the SKIP_DROP button
                 currentPlayer.removeResource(skip);
                 break;
 
             case TRAIN_CHANGE_ROUTE:
+                //Begins the change route feature when TRAIN_CHANGE_ROUTE is pressed by the player
                 context.getRouteController().begin(train);
                 break;
         }

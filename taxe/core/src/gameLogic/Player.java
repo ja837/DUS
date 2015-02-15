@@ -17,6 +17,7 @@ public class Player {
     private List<Goal> goals;
     private int number;
     private double score;
+    //This indicates whether the player is skipping their turn
     private boolean skip;
 
     public Player(PlayerManager pm, int playerNumber) {
@@ -40,6 +41,7 @@ public class Player {
     }
 
     public List<Train> getTrains() {
+        //Returns all of the player's trains
         ArrayList<Train> trains = new ArrayList<Train>();
         for (Resource resource : resources) {
             if (resource instanceof Train) {
@@ -57,31 +59,33 @@ public class Player {
 
     public void removeResource(Resource resource) {
         resources.remove(resource);
+
+        //Disposes the resource to avoid memory leaks
         resource.dispose();
         changed();
     }
 
     public void addGoal(Goal goal) {
-    	int uncompleteGoals = 0;
+    	int incompleteGoals = 0;
+        //Iterates through every goal and counts each goal that has not already been completed
     	for(Goal existingGoal : goals) {
     		if(!existingGoal.getComplete()) {
-    			uncompleteGoals++;
+    			incompleteGoals++;
     		}
     	}
-        if (uncompleteGoals >= GoalManager.CONFIG_MAX_PLAYER_GOALS) {
-            //throw new RuntimeException("Max player goals exceeded");
-        	return;
+
+        //If the number of incomplete goals is less than the maximum number of goals then the player is given a new goal
+        if (incompleteGoals < GoalManager.CONFIG_MAX_PLAYER_GOALS) {
+            goals.add(goal);
+            changed();
         }
 
-        goals.add(goal);
-        changed();
     }
     
     public void completeGoal(Goal goal) {
         //This sets the goal to complete and hence removes it from being displayed on the GUI
         goal.setComplete();
         changed();
-
     }
 
     /**
@@ -110,12 +114,16 @@ public class Player {
     }
 
     public void removeGoal(Goal goal) {
+        //Removes a goal from a player's inventory
         if (goals.contains(goal))
             goals.remove(goal);
         changed();
     }
 
     public boolean hasResource(Resource resource){
+        //Returns whether or not the player has the resource passed to the method
+
+        //This method ignores the resource if it is a train as we did not want to stop the player receiving the same train more than once
         if (!(resource instanceof Train)){
             for (Resource ownedResource: resources){
                 if (resource.equals(ownedResource)){

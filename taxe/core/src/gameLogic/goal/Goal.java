@@ -193,14 +193,6 @@ public class Goal {
 		return complete;
 	}
 
-	public boolean isInTurns(){
-		return inTurns;
-	}
-
-	public boolean isGoingThrough(){
-		return goingThrough;
-	}
-
 	public Station getOrigin() { return this.origin; }
 
 	public Station getDestination() { return this.destination; }

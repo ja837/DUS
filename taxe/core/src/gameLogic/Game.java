@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
+	//This is sort of a super-class that can be accessed throughout the system as many of its methods are static
+	//This is a useful tool to exploit to make implementing certain features easier
 	private static Game instance;
 	private PlayerManager playerManager;
 	private GoalManager goalManager;
@@ -16,7 +18,10 @@ public class Game {
 	private GameState state;
 	private List<GameStateListener> gameStateListeners = new ArrayList<GameStateListener>();
 
+	//Number of players, not sure how much impact this has on the game at the moment but if you wanted to add more players you would use this attributes
 	private final int CONFIG_PLAYERS = 2;
+
+	//This
 	public final int TOTAL_TURNS = 30;
 	public final int MAX_POINTS = 10000;
 	private Game() {
@@ -32,6 +37,9 @@ public class Game {
 		
 		state = GameState.NORMAL;
 
+		//Adds all the subscriptions to the game which gives players resources and goals at the start of each turn.
+		//Also decrements all connections and blocks a random one
+		//The checking for whether a turn is being skipped is handled inside the methods, this just always calls them
 		playerManager.subscribeTurnChanged(new TurnListener() {
 			@Override
 			public void changed() {
@@ -73,10 +81,6 @@ public class Game {
 		return goalManager;
 	}
 
-	public ResourceManager getResourceManager() {
-		return resourceManager;
-	}
-
 	public Map getMap() {
 		return map;
 	}
@@ -87,6 +91,7 @@ public class Game {
 
 	public void setState(GameState state) {
 		this.state = state;
+		//Informs all listeners that the state has changed
 		stateChanged();
 	}
 
