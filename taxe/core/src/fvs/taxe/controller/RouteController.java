@@ -2,11 +2,15 @@ package fvs.taxe.controller;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Util.Tuple;
 import fvs.taxe.StationClickListener;
 import fvs.taxe.TaxeGame;
 import gameLogic.GameState;
@@ -14,9 +18,6 @@ import gameLogic.map.CollisionStation;
 import gameLogic.map.IPositionable;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RouteController {
     private Context context;
@@ -177,37 +178,46 @@ public class RouteController {
         }
     }
 
-    public void drawRoute(Color color) {
-        //This routine is called to draw the current route of the train being routed
-        TaxeGame game = context.getTaxeGame();
+	public void drawRoute(Color color) {
+		TaxeGame game = context.getTaxeGame();
 
-        IPositionable previousPosition = null;
-        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        game.shapeRenderer.setColor(color);
+		IPositionable previousPosition = null;
+		game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		game.shapeRenderer.setColor(color);
 
-        //This block was added in to draw a line from a currently routed train to its first destination.
-        //As the route controller takes the first station the player clicks as the initial node of the route, it was not indicated to the player that the train would move from its location to that station
-        //This draws a line from the current location of the train actor to the first station along the route
-        //In order to check this was the case, we check that the route has more than one node in it and also that the train is moving already (by exploiting the (-1,-1) location principle).
-        if (train.getPosition().getX() == -1 && positions.size() > 0) {
-            Rectangle trainBounds = train.getActor().getBounds();
-            game.shapeRenderer.rectLine(trainBounds.getX() + (trainBounds.getWidth() / 2), trainBounds.getY() + (trainBounds.getWidth() / 2), positions.get(0).getX(),
-                    positions.get(0).getY(), StationController.CONNECTION_LINE_WIDTH);
-        }
+		// get a list of all stations that the train has passed so far
+		ArrayList<Station> history = Tuple.getFirstsFromList(train.getHistory());
+		// iterate through all positions in the route
+		for (int i = 0; i < positions.size(); i++) {
+			if (i > 0) {
+				boolean b = false;
+				// check to see if the connection between to 2 positions is one that has been
+				// visited, and if it has been visited then change the colour of the connection line
+				for (int j = i; j < history.size(); j++) {
+					if (history.get(j).getLocation().equals(positions.get(i)) &&
+							history.get(j - 1).getLocation().equals(previousPosition)) {
+						game.shapeRenderer.setColor(Color.RED);
+						b = true;
+						break;
+					}
+				}
+				// otherwise, use the default connection line colour
+				if (!b) {
+					game.shapeRenderer.setColor(color);
+				}
+			}
+			if (previousPosition != null) {
+				game.shapeRenderer.rectLine(previousPosition.getX(), previousPosition.getY(),
+						positions.get(i).getX(), positions.get(i).getY(),
+						StationController.CONNECTION_LINE_WIDTH);
+			}
 
-        //This draws lines between the different positions along the route by iterating through the list.
-        for (IPositionable position : positions) {
-            if (previousPosition != null) {
-                game.shapeRenderer.rectLine(previousPosition.getX(), previousPosition.getY(), position.getX(),
-                        position.getY(), StationController.CONNECTION_LINE_WIDTH);
-            }
+			//Need to keep track of the previous node as we are not using an index based for-loop and the previous node is required to find one of the end points of the line
+			previousPosition = positions.get(i);
+		}
 
-            //Need to keep track of the previous node as we are not using an index based for-loop and the previous node is required to find one of the end points of the line
-            previousPosition = position;
-        }
-
-        game.shapeRenderer.end();
-    }
+		game.shapeRenderer.end();
+	}
 
     public void viewRoute(Train train) {
         //This method is used to draw the trains current route so that the user can see where their trains are going
