@@ -12,11 +12,7 @@ import gameLogic.GameState;
 import gameLogic.Player;
 import gameLogic.map.IPositionable;
 import gameLogic.map.Station;
-import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
-
-import javax.swing.*;
-import java.util.ArrayList;
 
 public class TrainActor extends Image {
     public static int width = 36;
@@ -53,8 +49,8 @@ public class TrainActor extends Image {
     }
 
     @Override
-    public void act (float delta) {
-        if ((Game.getInstance().getState() == GameState.ANIMATING) && (! this.paused)) {
+    public void act(float delta) {
+        if ((Game.getInstance().getState() == GameState.ANIMATING) && (!this.paused)) {
             //This function moves the train actors along their routes.
             //It renders everything every 1/delta seconds
             super.act(delta);
@@ -62,7 +58,7 @@ public class TrainActor extends Image {
             updateFacingDirection();
 
             Train collision = collided();
-            if (collision != null){
+            if (collision != null) {
                 //If there is a collision then the user is informed, the two trains destroyed and the connection that they collided on is blocked for 5 turns.
                 context.getTopBarController().displayFlashMessage("Two trains collided.  They were both destroyed.", Color.RED, 2);
                 Game.getInstance().getMap().blockConnection(train.getLastStation(), train.getNextStation(), 5);
@@ -72,22 +68,22 @@ public class TrainActor extends Image {
                 this.remove();
             }
 
-        } else if (this.paused){
+        } else if (this.paused) {
             //Everything inside this block ensures that the train does not move if the paused variable is set to true.
             //This ensures that trains do not move through blocked connections when they are not supposed to.
 
             //find station train most recently passed
-            Station station = train.getHistory().get(train.getHistory().size()-1).getFirst();
+            Station station = train.getHistory().get(train.getHistory().size() - 1).getFirst();
 //            Station station = Game.getInstance().getMap().getStationByName(stationName);
 
             // find index of this within route
             int index = train.getRoute().indexOf(station);
 
             // find next station
-            Station nextStation = train.getRoute().get(index+1);
+            Station nextStation = train.getRoute().get(index + 1);
 
             // check if connection is blocked, if not, unpause
-            if (! Game.getInstance().getMap().isConnectionBlocked(station, nextStation)) {
+            if (!Game.getInstance().getMap().isConnectionBlocked(station, nextStation)) {
                 this.paused = false;
                 this.recentlyPaused = true;
             }
@@ -101,10 +97,10 @@ public class TrainActor extends Image {
     public void updateFacingDirection() {
         float currentX = getX();
         //This updates the direction that the train is facing and the image representing the train based on which direction it is travelling
-        if(facingLeft && previousX < currentX) {
+        if (facingLeft && previousX < currentX) {
             setDrawable(rightDrawable);
             facingLeft = false;
-        } else if(!facingLeft && previousX > currentX) {
+        } else if (!facingLeft && previousX > currentX) {
             setDrawable(leftDrawable);
             facingLeft = true;
         }
@@ -116,15 +112,15 @@ public class TrainActor extends Image {
         return bounds;
     }
 
-    public void setPaused(boolean paused){
+    public void setPaused(boolean paused) {
         this.paused = paused;
     }
 
-    public boolean isPaused(){
+    public boolean isPaused() {
         return this.paused;
     }
 
-    public boolean getPaused(){
+    public boolean getPaused() {
         return this.paused;
     }
 
@@ -136,33 +132,33 @@ public class TrainActor extends Image {
         this.recentlyPaused = recentlyPaused;
     }
 
-    public Train collided(){
+    public Train collided() {
         //The aim of this function is to check whether the train represented by the actor has collided with any other trains on the board
         Station last = train.getLastStation();
         Station next = train.getNextStation();
-        if (train.getPosition().getX() == -1&&!paused){
-        //if this train is moving;
+        if (train.getPosition().getX() == -1 && !paused) {
+            //if this train is moving;
             for (Player player : Game.getInstance().getPlayerManager().getAllPlayers()) {
                 for (Train otherTrain : player.getTrains()) {
                     //This checks every train that is currently present within the game
                     if (!otherTrain.equals(train)) {
                         //don't check if collided with self
                         if (otherTrain.getPosition() != null) {
-                        //Checks if the other train has been placed on the map
+                            //Checks if the other train has been placed on the map
                             if (otherTrain.getPosition().getX() == -1 && !otherTrain.getActor().getPaused()) {
                                 //if other train moving
                                 //This is because the position of the train when it is in motion (i.e travelling along its route) is (-1,-1) as that is how FVS decided to implement it
                                 //It is necessary to check whether this is true as if the train is not in motion then it does not have an actor, hence otherTrain.getActor() would cause a null point exception.
 
                                 if ((otherTrain.getNextStation() == next && otherTrain.getLastStation() == last)
-                                    || (otherTrain.getNextStation() == last && otherTrain.getLastStation() == next)){
+                                        || (otherTrain.getNextStation() == last && otherTrain.getLastStation() == next)) {
                                     //check if trains on same connection
 
                                     float difX = Math.abs(otherTrain.getActor().getX() - getX());
 
                                     float difY = Math.abs(otherTrain.getActor().getY() - getY());
 
-                                    if ((difX < 25 && difY < 25)&&!((this.recentlyPaused)||(otherTrain.getActor().isRecentlyPaused()))) {
+                                    if ((difX < 25 && difY < 25) && !((this.recentlyPaused) || (otherTrain.getActor().isRecentlyPaused()))) {
                                         //This difference must be between 20 and 25 pixels if the trains have been recently paused
                                         //Initially it was set to be 0 to 25, however an issue was found with blocked trains instantly crashing after they had both been assigned different routes.
                                         //There is still the potential issue of two blocked trains colliding when they shouldn't, as it is impossible to know which connection a blocked train will occupy. i.e when one train is rerouted but not the other

@@ -13,7 +13,7 @@ public class StationActor extends Image {
     private Rectangle bounds;
     private static Station station;
 
-    public StationActor(IPositionable location,Station station) {
+    public StationActor(IPositionable location, Station station) {
         super(new Texture(Gdx.files.internal("station_dot.png")));
         setSize(width, height);
         setPosition(location.getX() - width / 2, location.getY() - height / 2);
@@ -22,7 +22,7 @@ public class StationActor extends Image {
         this.station = station;
     }
 
-    public static Station getStation(){
+    public static Station getStation() {
         return station;
     }
 
