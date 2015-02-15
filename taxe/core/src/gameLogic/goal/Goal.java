@@ -83,13 +83,13 @@ public class Goal {
 
     public boolean isBonusCompleted(Train train) {
         //This method returns whether or not a bonus has been completed by checking which bonus the goal has, then passing it to the relevant checking method for that bonus
-        if (withTrain) {
+        if (goingThrough) {
             return wentThroughStation(train);
         }
         if (inTurns) {
             return completedWithinMaxTurns(train);
         }
-        if (goingThrough) {
+        if (withTrain) {
             return completedWithTrain(train);
         }
         return false;
