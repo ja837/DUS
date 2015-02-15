@@ -1,7 +1,10 @@
 package gameLogic.map;
 
 import com.badlogic.gdx.math.Vector2;
+import gameLogic.Game;
+import gameLogic.Player;
 import gameLogic.dijkstra.Dijkstra;
+import gameLogic.resource.Train;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +129,7 @@ public class Map {
             }
         }
 
-        throw new RuntimeException("Station does not exist for that position");
+       return null;
     }
 
     public List<Station> createRoute(List<IPositionable> positions) {
@@ -157,10 +160,26 @@ public class Map {
     public void blockRandomConnection() {
         //This blocks a random connection
         int rand = random.nextInt(2);
-        if (rand > 0) { //50% chance of connection being blocked
+        if (rand > 0) {
+        //50% chance of connection being blocked
+            Connection toBlock;
+            boolean canBlock = true;
+            do {
+                toBlock = getRandomConnection();
+                for (Player player : Game.getInstance().getPlayerManager().getAllPlayers()) {
+                    for (Train train : player.getTrains()) {
+                        try {
+                            if ((train.getNextStation() == toBlock.getStation1() && train.getLastStation() == toBlock.getStation2())
+                                    || (train.getNextStation() == toBlock.getStation2() && train.getLastStation() == toBlock.getStation1())) {
+                                canBlock = false;
+                            }
+                        }catch(Exception e){}
+                    }
+                }
+            } while (!canBlock);
 
-            Connection toBlock = getRandomConnection();
             toBlock.setBlocked(5);
+
         }
 
     }

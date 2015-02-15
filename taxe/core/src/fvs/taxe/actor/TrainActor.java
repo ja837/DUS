@@ -156,11 +156,9 @@ public class TrainActor extends Image {
 
 
                                     if ((this.bounds.overlaps(otherTrain.getActor().getBounds())) && !((this.recentlyPaused) || (otherTrain.getActor().isRecentlyPaused()))) {
-                                        //This difference must be between 20 and 25 pixels if the trains have been recently paused
-                                        //Initially it was set to be 0 to 25, however an issue was found with blocked trains instantly crashing after they had both been assigned different routes.
+                                        //Checks whether the two trains are recently paused, if either of them are then no collision should occur
+                                        //This prevents the issue of two paused trains crashing when they shouldn't
                                         //There is still the potential issue of two blocked trains colliding when they shouldn't, as it is impossible to know which connection a blocked train will occupy. i.e when one train is rerouted but not the other
-                                        //Also it causes the issue of two trains going at the same speed from the same station never crashing despite the fact that they should
-                                        //However these issues were considered to be minor as they will not occur often compared to two trains being blocked and then routed different paths
                                         return otherTrain;
                                         //This is slightly limiting as it only allows two trains to collide with each other, whereas in theory more than 2 could collide, this is however very unlikely and due to complications
                                         //not necessary to factor in to our implementation at this stage. If you need to add more trains then you would have to build up a list of collided trains and then return it.
