@@ -1,6 +1,7 @@
 package fvs.taxe.dialog;
 
 import fvs.taxe.Button;
+import fvs.taxe.clickListener.ResourceDialogClickListener;
 import gameLogic.Player;
 import gameLogic.goal.Goal;
 

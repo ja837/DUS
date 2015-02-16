@@ -1,4 +1,4 @@
-package fvs.taxe.dialog;
+package fvs.taxe.clickListener;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -7,6 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import fvs.taxe.actor.StationActor;
 import fvs.taxe.actor.TrainActor;
 import fvs.taxe.controller.Context;
+import fvs.taxe.dialog.DialogButtonClicked;
+import fvs.taxe.dialog.DialogResourceTrain;
+import fvs.taxe.dialog.DialogStationMultitrain;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.Player;

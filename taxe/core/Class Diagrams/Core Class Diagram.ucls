@@ -37,7 +37,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="5" language="java" name="fvs.taxe.StationClickListener" project="taxe-core" 
+  <interface id="5" language="java" name="fvs.taxe.clickListener.StationClickListener" project="taxe-core"
     file="/taxe-core/src/fvs/taxe/StationClickListener.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="81" width="139" x="969" y="-42"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -163,7 +163,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="fvs.taxe.dialog.TrainClicked" project="taxe-core" 
+  <class id="19" language="java" name="fvs.taxe.clickListener.TrainClicked" project="taxe-core"
     file="/taxe-core/src/fvs/taxe/dialog/TrainClicked.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="117" width="188" x="254" y="155"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -181,7 +181,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="21" language="java" name="fvs.taxe.dialog.ResourceDialogClickListener" project="taxe-core" 
+  <interface id="21" language="java" name="fvs.taxe.clickListener.ResourceDialogClickListener" project="taxe-core"
     file="/taxe-core/src/fvs/taxe/dialog/ResourceDialogClickListener.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="81" width="189" x="614" y="366"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

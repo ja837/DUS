@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Util.Tuple;
-import fvs.taxe.StationClickListener;
+import fvs.taxe.clickListener.StationClickListener;
 import fvs.taxe.TaxeGame;
 import gameLogic.GameState;
 import gameLogic.map.CollisionStation;

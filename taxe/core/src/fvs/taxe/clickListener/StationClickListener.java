@@ -1,4 +1,4 @@
-package fvs.taxe;
+package fvs.taxe.clickListener;
 
 import gameLogic.map.Station;
 

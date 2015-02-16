@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import fvs.taxe.Button;
+import fvs.taxe.clickListener.ResourceDialogClickListener;
 import gameLogic.resource.Engineer;
 
 import java.util.ArrayList;

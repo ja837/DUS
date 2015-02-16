@@ -17,13 +17,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import fvs.taxe.StationClickListener;
+import fvs.taxe.clickListener.StationClickListener;
 import fvs.taxe.TaxeGame;
 import fvs.taxe.Tooltip;
 import fvs.taxe.actor.CollisionStationActor;
 import fvs.taxe.actor.StationActor;
 import fvs.taxe.dialog.DialogStationMultitrain;
-import fvs.taxe.dialog.TrainClicked;
+import fvs.taxe.clickListener.TrainClicked;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.Player;

@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import fvs.taxe.TaxeGame;
-import fvs.taxe.dialog.GoalClickListener;
+import fvs.taxe.clickListener.GoalClickListener;
 import gameLogic.Player;
 import gameLogic.PlayerChangedListener;
 import gameLogic.PlayerManager;
@@ -24,11 +24,11 @@ public class GoalController {
         //Makes the system redraw the currentGoals whenever the player changes.
         context.getGameLogic().getPlayerManager()
                 .subscribePlayerChanged(new PlayerChangedListener() {
-                    @Override
-                    public void changed() {
-                        showCurrentPlayerGoals();
-                    }
-                });
+					@Override
+					public void changed() {
+						showCurrentPlayerGoals();
+					}
+				});
     }
 
     public void drawHeaderText() {
