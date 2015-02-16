@@ -43,6 +43,7 @@ public class TaxeGame extends Game {
 		parameter.size = 14;
 		fontTiny = generator.generateFont(parameter);
 
+
         generator.dispose();
         // don't forget to dispose to avoid memory leaks!
 

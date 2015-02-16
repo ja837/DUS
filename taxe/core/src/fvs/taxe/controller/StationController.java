@@ -245,7 +245,7 @@ public class StationController {
 
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		game.shapeRenderer.setColor(translucentBlack);
 
 		// draw an icon on connections that are blocked, showing how many turns remain until they
@@ -257,11 +257,10 @@ public class StationController {
 			IPositionable midpoint = connection.getMidpoint();
 			if (connection.isBlocked()) {
 				game.batch.begin();
+				game.shapeRenderer.circle(midpoint.getX(), midpoint.getY(), 10);
 				game.batch.draw(blockageTextures[connection.getTurnsBlocked() - 1],
 						midpoint.getX() - 10, midpoint.getY() - 10, 20, 20);
 				game.batch.end();
-			} else if (Game.getInstance().getState() == GameState.ROUTING) {
-				game.shapeRenderer.circle(midpoint.getX(), midpoint.getY(), 13);
 			}
 		}
 		game.shapeRenderer.end();
@@ -281,7 +280,7 @@ public class StationController {
 			} else if (Game.getInstance().getState() == GameState.ROUTING) {
 				IPositionable midpoint = connection.getMidpoint();
 				game.batch.begin();
-				game.fontTiny.setColor(Color.WHITE);
+				game.fontTiny.setColor(Color.BLACK);
 				String text = String.valueOf(Math.round(
 						Vector2.dst(connection.getStation1().getLocation().getX(),
 								connection.getStation1().getLocation().getY(),
