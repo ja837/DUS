@@ -2,6 +2,7 @@ package gameLogic;
 
 import gameLogic.goal.Goal;
 import gameLogic.goal.GoalManager;
+import gameLogic.resource.Engineer;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
@@ -125,7 +126,7 @@ public class Player {
         //This method ignores the resource if it is a train as we did not want to stop the player receiving the same train more than once
         if (!(resource instanceof Train)) {
             for (Resource ownedResource : resources) {
-                if (resource.equals(ownedResource)) {
+                if (resource.toString().equals(ownedResource.toString())){
                     return true;
                 }
             }
