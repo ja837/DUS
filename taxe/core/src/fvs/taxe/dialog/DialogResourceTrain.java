@@ -34,8 +34,9 @@ public class DialogResourceTrain extends Dialog {
             button("View Route", "VIEWROUTE");
         }
 
-        button("Cancel", "CLOSE");
         button("Drop", "DROP");
+
+        button("Cancel", "CLOSE");
     }
 
     @Override
