@@ -12,6 +12,7 @@ import gameLogic.GameState;
 import gameLogic.Player;
 import gameLogic.resource.Skip;
 
+//Responsible for checking whether the Skip is clicked.
 public class SkipClicked extends ClickListener {
 
     Context context;
@@ -42,7 +43,7 @@ public class SkipClicked extends ClickListener {
 
     @Override
     public void enter(InputEvent event, float x, float y, int pointer, Actor trainActor) {
-        //This is used for mouseover events for Engineer
+        //This is used for mouseover events for Skips
         //This shows the message if there is not one currently being displayed
         if (!displayingMessage) {
             displayingMessage = true;
@@ -56,7 +57,7 @@ public class SkipClicked extends ClickListener {
 
     @Override
     public void exit(InputEvent event, float x, float y, int pointer, Actor trainActor) {
-        //This is used for mouseover events for trains
+        //This is used for mouseover events for Skips
         //This hides the message currently in the topBar if one is being displayed
         if (displayingMessage) {
             displayingMessage = false;

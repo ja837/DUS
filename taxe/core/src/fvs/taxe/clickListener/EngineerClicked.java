@@ -55,7 +55,7 @@ public class EngineerClicked extends ClickListener {
 
     @Override
     public void exit(InputEvent event, float x, float y, int pointer, Actor trainActor) {
-        //This is used for mouseover events for trains
+        //This is used for mouseover events for Engineer
         //This hides the message currently in the topBar if one is being displayed
         if (displayingMessage) {
             displayingMessage = false;
