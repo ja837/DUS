@@ -65,8 +65,8 @@ public class GoalManager {
             //decides if goal can be competed in a number of turns for bonus;
             double expectedTurns;
             expectedTurns = Math.round(shortestDist / 60.0)/2; //This is the number of turns a goal is expected to be completed in using an average speed train
-            double lowerBound = Math.floor(expectedTurns - 0.5 * expectedTurns); //These two variables are bounds for the generation of a suitable forTurns variable.
-            double upperBound = Math.ceil(expectedTurns + 0.5 * expectedTurns);
+            double lowerBound = Math.floor(expectedTurns - 0.25 * expectedTurns); //These two variables are bounds for the generation of a suitable forTurns variable.
+            double upperBound = Math.ceil(expectedTurns + 0.25 * expectedTurns);
             //By creating these bounds it adds an element of randomisation to the goals which SHOULD increase the enjoyment of the game
             do {
                 forTurns = random.nextInt((int) upperBound + 1);
