@@ -193,7 +193,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 Game.getInstance().setState(GameState.PLACING_RESOURCE);
                 final TrainController trainController = new TrainController(context);
                 trainController.setTrainsVisible(null, false);
-                context.getTopBarController().displayFlashMessage("Placing Obstacle", Color.BLACK, 10000);
+                context.getTopBarController().displayMessage("Placing Obstacle", Color.BLACK);
 
                 //Creates a clickListener for when a station is clicked
                 final StationClickListener stationListener = new StationClickListener() {
@@ -268,7 +268,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                             Game.getInstance().setState(GameState.NORMAL);
 
                             //Resets the topBar
-                            context.getTopBarController().displayFlashMessage("", Color.BLACK, 0);
+                            context.getTopBarController().clearMessage();
 
                             //Removes itself from the keylisteners of the game as otherwise there would be a lot of null pointer exceptions and unintended behaviour
                             context.getStage().removeListener(this);
@@ -298,7 +298,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 //Hides all trains
                 final TrainController trainController = new TrainController(context);
                 trainController.setTrainsVisible(null, false);
-                context.getTopBarController().displayFlashMessage("Placing Engineer", Color.BLACK, 10000);
+                context.getTopBarController().displayMessage("Placing Engineer", Color.BLACK);
 
                 //Adds a station click listener that handles all the logic
                 final StationClickListener stationListener = new StationClickListener() {
@@ -339,7 +339,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                                 engineer.setStation2(null);
                             }
                             //This resets all relevant values and unsubscribes from the listeners created for placing engineers
-                            context.getTopBarController().displayFlashMessage("", Color.BLACK, 0);
+                            context.getTopBarController().clearMessage();
                             StationController.unsubscribeStationClick(this);
                             Gdx.input.setCursorImage(null, 0, 0);
                             context.getGameLogic().setState(GameState.NORMAL);
@@ -366,7 +366,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                             Game.getInstance().setState(GameState.NORMAL);
 
                             //Resets the topBar
-                            context.getTopBarController().displayFlashMessage("", Color.BLACK, 0);
+                            context.getTopBarController().clearMessage();
 
                             //Removes itself from the keylisteners of the game as otherwise there would be a lot of null pointer exceptions and unintended behaviour
                             context.getStage().removeListener(this);

@@ -258,10 +258,10 @@ public class StationController {
 			if (connection.isBlocked()) {
 				game.batch.begin();
 				game.batch.draw(blockageTextures[connection.getTurnsBlocked() - 1],
-						midpoint.getX() - 16, midpoint.getY() - 16, 32, 32);
+						midpoint.getX() - 10, midpoint.getY() - 10, 20, 20);
 				game.batch.end();
 			} else if (Game.getInstance().getState() == GameState.ROUTING) {
-				game.shapeRenderer.circle(midpoint.getX(), midpoint.getY(), 15);
+				game.shapeRenderer.circle(midpoint.getX(), midpoint.getY(), 13);
 			}
 		}
 		game.shapeRenderer.end();
@@ -275,8 +275,8 @@ public class StationController {
 				IPositionable midpoint = connection.getMidpoint();
 				game.batch.begin();
 				game.fontSmall.setColor(Color.WHITE);
-				game.fontSmall.draw(game.batch, String.valueOf(connection.getTurnsBlocked()),
-						midpoint.getX() - 5, midpoint.getY() + 7);
+				//game.fontSmall.draw(game.batch, String.valueOf(connection.getTurnsBlocked()),
+						//midpoint.getX() - 5, midpoint.getY() + 7);
 				game.batch.end();
 			} else if (Game.getInstance().getState() == GameState.ROUTING) {
 				IPositionable midpoint = connection.getMidpoint();

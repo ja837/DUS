@@ -62,6 +62,16 @@ public class TopBarController {
         flashMessage.addAction(sequence(delay(time), fadeOut(0.25f)));
     }
 
+    public void displayMessage(String message, Color color){
+        flashMessage.setText(message);
+        flashMessage.setColor(color);
+    }
+
+    public void clearMessage(){
+        flashMessage.setText("");
+        flashMessage.setColor(Color.LIGHT_GRAY);
+    }
+
     public void drawBackground() {
         TaxeGame game = context.getTaxeGame();
         //This method draws the topBar onto the game screen

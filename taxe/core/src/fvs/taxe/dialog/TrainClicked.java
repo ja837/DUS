@@ -67,9 +67,13 @@ public class TrainClicked extends ClickListener {
 
                         }
                     }
-                    //Creates a new multitrain dialog based on the number of trains at that location
-                    DialogStationMultitrain dia = new DialogStationMultitrain(stackedTrains, context.getSkin(), context);
-                    dia.show(context.getStage());
+                    if (stackedTrains.size()==1) {
+                        clicked(event,-1,-1);
+                    }else{
+                        //Creates a new multitrain dialog based on the number of trains at that location
+                        DialogStationMultitrain dia = new DialogStationMultitrain(stackedTrains, context.getSkin(), context);
+                        dia.show(context.getStage());
+                    }
                 }else{
                     if (train.isOwnedBy(currentPlayer)) {
                         DialogButtonClicked listener = new DialogButtonClicked(context, currentPlayer, train);
@@ -103,7 +107,7 @@ public class TrainClicked extends ClickListener {
             displayingMessage = false;
             if (Game.getInstance().getState() == GameState.NORMAL) {
                 //If the game state is normal then the topBar is cleared by passing it an empty string to display for 0 seconds
-                context.getTopBarController().displayFlashMessage(" ", Color.LIGHT_GRAY, 0);
+                context.getTopBarController().clearMessage();
             }
         }
     }
@@ -123,16 +127,16 @@ public class TrainClicked extends ClickListener {
                 if (!train.isOwnedBy(currentPlayer)) {
                     //If the train isn't owned by the current player then basic information is displayed about it
                     //By passing the displayFlashMessage a very large value for time, this acts almost as a permanent message until it is cleared (suitable for mouseover)
-                    context.getTopBarController().displayFlashMessage("Opponent's " + train.getName() + ". Speed: " + train.getSpeed(), Color.RED, 1000);
+                    context.getTopBarController().displayMessage("Opponent's " + train.getName() + ". Speed: " + train.getSpeed(), Color.RED);
                 } else if (train.getFinalDestination() == null) {
                     //If the train is not placed then the name and speed of the train are displayed
                     //By passing the displayFlashMessage a very large value for time, this acts almost as a permanent message until it is cleared (suitable for mouseover)
-                    context.getTopBarController().displayFlashMessage("Your " + train.getName() + ". Speed: " + train.getSpeed(), Color.BLACK, 1000);
+                    context.getTopBarController().displayMessage("Your " + train.getName() + ". Speed: " + train.getSpeed(), Color.BLACK);
 
                 } else {
                     //If the train is the player's and placed then the name, speed and destination of the train are all displayed
                     //By passing the displayFlashMessage a very large value for time, this acts almost as a permanent message until it is cleared (suitable for mouseover)
-                    context.getTopBarController().displayFlashMessage("Your " + train.getName() + ". Speed: " + train.getSpeed() + ". Destination: " + train.getFinalDestination().getName(), Color.BLACK, 1000);
+                    context.getTopBarController().displayMessage("Your " + train.getName() + ". Speed: " + train.getSpeed() + ". Destination: " + train.getFinalDestination().getName(), Color.BLACK);
                 }
             }
         }

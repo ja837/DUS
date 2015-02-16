@@ -2,11 +2,13 @@ package fvs.taxe.controller;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import fvs.taxe.TaxeGame;
 import gameLogic.GameState;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.IPositionable;
+import gameLogic.map.Position;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
 
@@ -27,6 +30,7 @@ public class RouteController {
     private Train train;
     private boolean canEndRouting = true;
     private boolean editingRoute = false;
+    private double distance = 0;
 
     public RouteController(Context context) {
         this.context = context;
@@ -103,9 +107,12 @@ public class RouteController {
                 context.getTopBarController().displayFlashMessage("This connection doesn't exist", Color.RED);
 
             } else {
+                distance+= context.getGameLogic().getMap().getDistance(lastStation, station);
+                DecimalFormat integer = new DecimalFormat("0");
+
+                context.getTopBarController().displayMessage("Total Distance: " + integer.format(distance) + ". Will be take " + integer.format(Math.ceil(distance / train.getSpeed() / 2)) + " turns.", Color.BLACK);
                 //If the connection exists then the station passed to the method is added to the route
                 positions.add(station.getLocation());
-
                 //Sets the relevant boolean checking if the last node on the route is a junction or not
                 canEndRouting = !(station instanceof CollisionStation);
             }
@@ -167,6 +174,9 @@ public class RouteController {
         //All buttons are removed and flags set to the relevant values.
         routingButtons.remove();
         isRouting = false;
+        editingRoute = false;
+        distance = 0;
+        context.getTopBarController().clearMessage();
         //This sets all trains currently travelling along their route to be set to visible.
         TrainController trainController = new TrainController(context);
         trainController.setTrainsVisible(train, true);
@@ -205,7 +215,10 @@ public class RouteController {
 				if (!b) {
 					game.shapeRenderer.setColor(color);
 				}
-			}
+			}else if (editingRoute){
+                Rectangle bounds = train.getActor().getBounds();
+                previousPosition = new Position((int) (bounds.getX()+(bounds.getWidth()/2)),(int) (train.getActor().getBounds().getY()+(bounds.getHeight()/2)));
+            }
 			if (previousPosition != null) {
 				game.shapeRenderer.rectLine(previousPosition.getX(), previousPosition.getY(),
 						positions.get(i).getX(), positions.get(i).getY(),
@@ -230,10 +243,15 @@ public class RouteController {
         //This works by simulating the creation of a new route, but without the ability to save the route
         //This will instead draw the route passed to it, which is the one located in train.getRoute()
         positions = new ArrayList<IPositionable>();
-
+        Station prevStation=null;
         for (Station station : train.getRoute()) {
             positions.add(station.getLocation());
-
+            if (prevStation!=null) {
+                distance += context.getGameLogic().getMap().getDistance(station,prevStation);
+                DecimalFormat integer = new DecimalFormat("0");
+                context.getTopBarController().displayMessage("Total Distance: " + integer.format(distance) + ". Will be take " + integer.format(Math.ceil(distance / train.getSpeed() / 2)) + " turns.", Color.BLACK);
+            }
+            prevStation = station;
         }
 
         context.getGameLogic().setState(GameState.ROUTING);
@@ -247,6 +265,7 @@ public class RouteController {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 context.getGameLogic().setState(GameState.NORMAL);
+                context.getTopBarController().clearMessage();
                 routingButtons.remove();
 
             }
