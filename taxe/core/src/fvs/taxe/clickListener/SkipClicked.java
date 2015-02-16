@@ -1,5 +1,7 @@
 package fvs.taxe.clickListener;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import fvs.taxe.controller.Context;
@@ -14,10 +16,12 @@ public class SkipClicked extends ClickListener {
 
     Context context;
     Skip skip;
+    private boolean displayingMessage;
 
     public SkipClicked(Context context, Skip skip) {
         this.context = context;
         this.skip = skip;
+        displayingMessage = false;
     }
 
 
@@ -33,6 +37,33 @@ public class SkipClicked extends ClickListener {
             DialogResourceSkipped dia = new DialogResourceSkipped(context);
             dia.show(context.getStage());
             dia.subscribeClick(listener);
+        }
+    }
+
+    @Override
+    public void enter(InputEvent event, float x, float y, int pointer, Actor trainActor) {
+        //This is used for mouseover events for Engineer
+        //This shows the message if there is not one currently being displayed
+        if (!displayingMessage) {
+            displayingMessage = true;
+            if (Game.getInstance().getState() == GameState.NORMAL) {
+                context.getTopBarController().displayMessage("Force your opponent to skip a turn.", Color.BLACK);
+
+
+            }
+        }
+    }
+
+    @Override
+    public void exit(InputEvent event, float x, float y, int pointer, Actor trainActor) {
+        //This is used for mouseover events for trains
+        //This hides the message currently in the topBar if one is being displayed
+        if (displayingMessage) {
+            displayingMessage = false;
+            if (Game.getInstance().getState() == GameState.NORMAL) {
+                //If the game state is normal then the topBar is cleared by passing it an empty string to display for 0 seconds
+                context.getTopBarController().clearMessage();
+            }
         }
     }
 }
