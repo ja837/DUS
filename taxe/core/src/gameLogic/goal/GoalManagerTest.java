@@ -1,7 +1,7 @@
 package gameLogic.goal;
 
-import gameLogic.Player;
-import gameLogic.PlayerManager;
+import gameLogic.player.PlayerManager;
+import gameLogic.player.Player;
 import gameLogic.map.Position;
 import gameLogic.map.Station;
 import gameLogic.resource.ResourceManager;

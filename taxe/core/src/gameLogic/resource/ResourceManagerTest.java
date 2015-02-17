@@ -1,7 +1,7 @@
 package gameLogic.resource;
 
-import gameLogic.Player;
-import gameLogic.PlayerManager;
+import gameLogic.player.Player;
+import gameLogic.player.PlayerManager;
 import junit.framework.TestCase;
 
 public class ResourceManagerTest extends TestCase {
