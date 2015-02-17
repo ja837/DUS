@@ -387,7 +387,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
             case SKIP_RESOURCE:
                 //If SKIP_RESOURCE is pressed then this finds the other player's playerNumber and sets their skipped boolean to true
                 //If you wish to add more than 2 players then extra checking would have to be added here to ensure that the right player has their turn skipped
-                //For our implementation just checking the two binary value is enough
+                //For our implementation just checking the two binary values is enough
                 int p = context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber() - 1;
                 if (p == 0) {
                     p = 1;
