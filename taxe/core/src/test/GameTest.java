@@ -1,8 +1,8 @@
 package test;
 
 import gameLogic.Game;
-import gameLogic.player.Player;
-import gameLogic.player.PlayerManager;
+import gameLogic.Player;
+import gameLogic.PlayerManager;
 import org.junit.Before;
 import org.junit.Test;
 

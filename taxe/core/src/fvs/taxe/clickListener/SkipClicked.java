@@ -9,7 +9,7 @@ import fvs.taxe.dialog.DialogButtonClicked;
 import fvs.taxe.dialog.DialogResourceSkipped;
 import gameLogic.Game;
 import gameLogic.GameState;
-import gameLogic.player.Player;
+import gameLogic.Player;
 import gameLogic.resource.Skip;
 
 //Responsible for checking whether the Skip is clicked.

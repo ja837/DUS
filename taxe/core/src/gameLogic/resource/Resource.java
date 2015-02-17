@@ -1,7 +1,7 @@
 package gameLogic.resource;
 
 import gameLogic.Disposable;
-import gameLogic.player.Player;
+import gameLogic.Player;
 
 public abstract class Resource implements Disposable {
     protected String name;

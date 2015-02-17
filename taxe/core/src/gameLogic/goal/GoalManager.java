@@ -1,7 +1,7 @@
 package gameLogic.goal;
 
 import gameLogic.Game;
-import gameLogic.player.Player;
+import gameLogic.Player;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.Map;
 import gameLogic.map.Station;

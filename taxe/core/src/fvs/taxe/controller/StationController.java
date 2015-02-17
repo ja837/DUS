@@ -26,7 +26,7 @@ import fvs.taxe.dialog.DialogStationMultitrain;
 import fvs.taxe.clickListener.TrainClicked;
 import gameLogic.Game;
 import gameLogic.GameState;
-import gameLogic.player.Player;
+import gameLogic.Player;
 import gameLogic.goal.Goal;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.Connection;

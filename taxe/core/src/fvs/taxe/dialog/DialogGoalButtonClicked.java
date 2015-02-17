@@ -2,7 +2,7 @@ package fvs.taxe.dialog;
 
 import fvs.taxe.Button;
 import fvs.taxe.clickListener.ResourceDialogClickListener;
-import gameLogic.player.Player;
+import gameLogic.Player;
 import gameLogic.goal.Goal;
 
 public class DialogGoalButtonClicked implements ResourceDialogClickListener {

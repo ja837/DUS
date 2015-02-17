@@ -1,8 +1,8 @@
 package test;
 
 
-import gameLogic.player.Player;
-import gameLogic.player.PlayerManager;
+import gameLogic.Player;
+import gameLogic.PlayerManager;
 import gameLogic.goal.Goal;
 import gameLogic.goal.GoalManager;
 import gameLogic.map.Position;

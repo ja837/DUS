@@ -2,7 +2,7 @@ package fvs.taxe.controller;
 
 import fvs.taxe.actor.TrainActor;
 import fvs.taxe.clickListener.TrainClicked;
-import gameLogic.player.Player;
+import gameLogic.Player;
 import gameLogic.map.Station;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;

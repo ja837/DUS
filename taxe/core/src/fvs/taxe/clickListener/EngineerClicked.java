@@ -9,7 +9,7 @@ import fvs.taxe.dialog.DialogButtonClicked;
 import fvs.taxe.dialog.DialogResourceEngineer;
 import gameLogic.Game;
 import gameLogic.GameState;
-import gameLogic.player.Player;
+import gameLogic.Player;
 import gameLogic.resource.Engineer;
 
 //Responsible for checking whether then engineer has been clicked
