@@ -63,7 +63,7 @@ public class TrainTest extends LibGdxTest {
         route.add(b);
         route.add(c);
         train.setRoute(route);
-        
+
         train.addHistory(a,1);
         assertEquals("Paris",train.getNextStation().getName());
     }

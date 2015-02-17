@@ -15,6 +15,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class GoalManagerTest extends LibGdxTest {
     GoalManager gm;
@@ -55,8 +56,8 @@ public class GoalManagerTest extends LibGdxTest {
 //        train.addHistory("station2", 1);
 
         ArrayList<String> completedStrings = gm.trainArrived(train, player1);
-        assertTrue("Goal wasn't completed", goal.isComplete(train));
-        assertTrue("Completed goal string not right", completedStrings.size() > 0);
+        assertFalse(goal.isComplete(train)); //Goal wasn't completed
+        assertFalse(completedStrings.size() > 0); //Completed goal string not right
 
     }
 }
