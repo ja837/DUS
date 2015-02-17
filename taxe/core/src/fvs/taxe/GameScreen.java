@@ -11,8 +11,8 @@ import fvs.taxe.controller.*;
 import fvs.taxe.dialog.DialogEndGame;
 import gameLogic.Game;
 import gameLogic.GameState;
-import gameLogic.GameStateListener;
-import gameLogic.TurnListener;
+import gameLogic.listeners.GameStateListener;
+import gameLogic.listeners.TurnListener;
 import gameLogic.map.Map;
 
 

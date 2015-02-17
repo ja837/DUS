@@ -1,7 +1,7 @@
 package gameLogic.goal;
 
 import gameLogic.Game;
-import gameLogic.Player;
+import gameLogic.player.Player;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.Map;
 import gameLogic.map.Station;
@@ -115,7 +115,7 @@ public class GoalManager {
                 }
                 player.completeGoal(goal);
                 player.removeResource(train);
-                completedString.add("Player " + player.getPlayerNumber() + " completed a goal to " + goal.toString() + "!");
+                completedString.add("player " + player.getPlayerNumber() + " completed a goal to " + goal.toString() + "!");
             }
         }
         System.out.println("Train arrived at final destination: " + train.getFinalDestination().getName());

@@ -9,7 +9,7 @@ import fvs.taxe.dialog.DialogButtonClicked;
 import fvs.taxe.dialog.DialogResourceObstacle;
 import gameLogic.Game;
 import gameLogic.GameState;
-import gameLogic.Player;
+import gameLogic.player.Player;
 import gameLogic.resource.Obstacle;
 
 //Responsible for checking whether the Obstacle is clicked.

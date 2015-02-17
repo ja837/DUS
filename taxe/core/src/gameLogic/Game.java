@@ -1,5 +1,9 @@
 package gameLogic;
 
+import gameLogic.listeners.GameStateListener;
+import gameLogic.listeners.TurnListener;
+import gameLogic.player.Player;
+import gameLogic.player.PlayerManager;
 import gameLogic.goal.GoalManager;
 import gameLogic.map.Map;
 import gameLogic.resource.ResourceManager;

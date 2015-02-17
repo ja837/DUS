@@ -6,9 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import fvs.taxe.TaxeGame;
 import fvs.taxe.clickListener.GoalClickListener;
-import gameLogic.Player;
-import gameLogic.PlayerChangedListener;
-import gameLogic.PlayerManager;
+import gameLogic.player.Player;
+import gameLogic.listeners.PlayerChangedListener;
+import gameLogic.player.PlayerManager;
 import gameLogic.goal.Goal;
 
 import java.text.DecimalFormat;
@@ -103,7 +103,7 @@ public class GoalController {
         //This method is used to draw the current player's name and their score
         //It was necessary to apply a decimal format to the score as it is stored a double which by default is "0.0", however that is not intuitive for scoring as it should only be integer values.
         DecimalFormat integer = new DecimalFormat("0");
-        return "Player " +
+        return "player " +
                 context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber() +
                 ": " + integer.format(
                 context.getGameLogic().getPlayerManager().getCurrentPlayer().getScore());

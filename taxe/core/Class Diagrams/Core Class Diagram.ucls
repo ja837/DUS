@@ -217,7 +217,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <interface id="25" language="java" name="gameLogic.PlayerChangedListener" project="taxe-core" 
+  <interface id="25" language="java" name="gameLogic.listeners.PlayerChangedListener" project="taxe-core"
     file="/taxe-core/src/gameLogic/PlayerChangedListener.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="81" width="157" x="58" y="823"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -226,7 +226,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="26" language="java" name="gameLogic.GameStateListener" project="taxe-core" 
+  <interface id="26" language="java" name="gameLogic.listeners.GameStateListener" project="taxe-core"
     file="/taxe-core/src/gameLogic/GameStateListener.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="81" width="152" x="112" y="504"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -235,7 +235,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="27" language="java" name="gameLogic.TurnListener" project="taxe-core" 
+  <interface id="27" language="java" name="gameLogic.listeners.TurnListener" project="taxe-core"
     file="/taxe-core/src/gameLogic/TurnListener.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="81" width="103" x="255" y="823"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -244,7 +244,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="28" language="java" name="gameLogic.Player" project="taxe-core" file="/taxe-core/src/gameLogic/Player.java" 
+  <class id="28" language="java" name="gameLogic.player.Player" project="taxe-core" file="/taxe-core/src/gameLogic/Player.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="297" width="196" x="398" y="823"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -253,7 +253,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="gameLogic.PlayerManager" project="taxe-core" 
+  <class id="29" language="java" name="gameLogic.player.PlayerManager" project="taxe-core"
     file="/taxe-core/src/gameLogic/PlayerManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="279" width="290" x="304" y="504"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

@@ -1,7 +1,7 @@
 package test;
 
-import gameLogic.Player;
-import gameLogic.PlayerManager;
+import gameLogic.player.Player;
+import gameLogic.player.PlayerManager;
 import gameLogic.resource.ResourceManager;
 import org.junit.Test;
 

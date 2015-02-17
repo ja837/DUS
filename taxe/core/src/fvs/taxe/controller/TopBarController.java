@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import fvs.taxe.TaxeGame;
 import gameLogic.GameState;
-import gameLogic.GameStateListener;
+import gameLogic.listeners.GameStateListener;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
