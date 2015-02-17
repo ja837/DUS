@@ -1,5 +1,6 @@
 package test;
 
+import gameLogic.Game;
 import gameLogic.goal.Goal;
 import gameLogic.goal.GoalManager;
 import gameLogic.map.Map;
@@ -13,26 +14,31 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class PlayerTest {
+public class PlayerTest extends LibGdxTest {
     private Player p;
     private PlayerManager pm;
-    private Goal g;
     private GoalManager gm;
     private ResourceManager rs;
+    private Map map;
 
-    @Before
+    /*@Before
     public void setUp() throws Exception {
-        pm = new PlayerManager();
+        Game game = Game.getInstance();
+        game.getPlayerManager();
+        pm = game.getPlayerManager();
         pm.createPlayers(1);
         p = pm.getCurrentPlayer();
         rs = new ResourceManager();
-        gm = new GoalManager(rs);
-    }
+        game.getGoalManager();
+        gm = game.getGoalManager();
+        map = new Map();
+
+    }*/
 
     @Test
     public void removeGoal() throws Exception {
-        gm.addRandomGoalToPlayer(p);
-        assertEquals(1,p.getGoals().size());
+        Player p = Game.getInstance().getPlayerManager().getAllPlayers().get(0);
+        assertEquals(1, p.getGoals().size());
 
         Goal g = p.getGoals().get(0);
 
@@ -45,8 +51,12 @@ public class PlayerTest {
         assertEquals(0, p.getGoals().size());
     }
 
+    @Test
     public void getTrains() throws Exception {
-        p.addResource(rs.getRandomTrain());
+        Player p = Game.getInstance().getPlayerManager().getAllPlayers().get(0);
+
+        Train t = new Train("x","y","z",1);
+        p.addResource(t);
         assertTrue(p.getTrains().get(0) instanceof Train);
     }
 
