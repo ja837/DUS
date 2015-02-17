@@ -1,4 +1,4 @@
-package fvs.taxe.dialog;
+package fvs.taxe.clickListener;
 
 import fvs.taxe.Button;
 import fvs.taxe.clickListener.ResourceDialogClickListener;

@@ -1,4 +1,4 @@
-package fvs.taxe.dialog;
+package fvs.taxe.clickListener;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

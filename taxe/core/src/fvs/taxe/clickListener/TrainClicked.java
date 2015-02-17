@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import fvs.taxe.actor.StationActor;
 import fvs.taxe.actor.TrainActor;
 import fvs.taxe.controller.Context;
-import fvs.taxe.dialog.DialogButtonClicked;
 import fvs.taxe.dialog.DialogResourceTrain;
 import fvs.taxe.dialog.DialogStationMultitrain;
 import gameLogic.Game;

@@ -7,7 +7,6 @@ import fvs.taxe.Tooltip;
 import fvs.taxe.actor.StationActor;
 import fvs.taxe.controller.Context;
 import fvs.taxe.dialog.DialogGoal;
-import fvs.taxe.dialog.DialogGoalButtonClicked;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.player.Player;

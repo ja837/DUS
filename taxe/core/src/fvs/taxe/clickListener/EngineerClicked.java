@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import fvs.taxe.controller.Context;
-import fvs.taxe.dialog.DialogButtonClicked;
 import fvs.taxe.dialog.DialogResourceEngineer;
 import gameLogic.Game;
 import gameLogic.GameState;
