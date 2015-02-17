@@ -1,4 +1,4 @@
-package gameLogic;
+package gameLogic.player;
 
 import gameLogic.goal.Goal;
 import gameLogic.goal.GoalManager;

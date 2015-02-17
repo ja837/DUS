@@ -10,7 +10,7 @@ import fvs.taxe.dialog.DialogGoal;
 import fvs.taxe.dialog.DialogGoalButtonClicked;
 import gameLogic.Game;
 import gameLogic.GameState;
-import gameLogic.Player;
+import gameLogic.player.Player;
 import gameLogic.goal.Goal;
 import gameLogic.map.Station;
 

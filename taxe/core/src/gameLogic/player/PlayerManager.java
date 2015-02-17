@@ -1,9 +1,10 @@
-package gameLogic;
+package gameLogic.player;
 
 import fvs.taxe.controller.Context;
 import fvs.taxe.dialog.DialogTurnSkipped;
 import gameLogic.listeners.TurnListener;
 import gameLogic.listeners.PlayerChangedListener;
+import gameLogic.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;

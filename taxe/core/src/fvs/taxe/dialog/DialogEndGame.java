@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import fvs.taxe.TaxeGame;
-import gameLogic.Player;
-import gameLogic.PlayerManager;
+import gameLogic.player.Player;
+import gameLogic.player.PlayerManager;
 
 public class DialogEndGame extends Dialog {
     private TaxeGame game;

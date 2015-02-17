@@ -8,7 +8,7 @@ import fvs.taxe.clickListener.EngineerClicked;
 import fvs.taxe.clickListener.ObstacleClicked;
 import fvs.taxe.clickListener.SkipClicked;
 import fvs.taxe.clickListener.TrainClicked;
-import gameLogic.Player;
+import gameLogic.player.Player;
 import gameLogic.listeners.PlayerChangedListener;
 import gameLogic.resource.*;
 

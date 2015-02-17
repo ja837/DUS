@@ -244,7 +244,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="28" language="java" name="gameLogic.Player" project="taxe-core" file="/taxe-core/src/gameLogic/Player.java"
+  <class id="28" language="java" name="gameLogic.player.Player" project="taxe-core" file="/taxe-core/src/gameLogic/Player.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="297" width="196" x="398" y="823"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -253,7 +253,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="gameLogic.PlayerManager" project="taxe-core"
+  <class id="29" language="java" name="gameLogic.player.PlayerManager" project="taxe-core"
     file="/taxe-core/src/gameLogic/PlayerManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="279" width="290" x="304" y="504"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

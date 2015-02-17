@@ -1,7 +1,7 @@
 package gameLogic.resource;
 
 import Util.Tuple;
-import gameLogic.Player;
+import gameLogic.player.Player;
 import gameLogic.map.JSONImporter;
 
 import java.util.ArrayList;

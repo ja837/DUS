@@ -17,7 +17,7 @@ import fvs.taxe.controller.StationController;
 import fvs.taxe.controller.TrainController;
 import gameLogic.Game;
 import gameLogic.GameState;
-import gameLogic.Player;
+import gameLogic.player.Player;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.Station;
 import gameLogic.resource.Engineer;

@@ -4,6 +4,8 @@ import gameLogic.listeners.GameStateListener;
 import gameLogic.listeners.TurnListener;
 import gameLogic.goal.GoalManager;
 import gameLogic.map.Map;
+import gameLogic.player.Player;
+import gameLogic.player.PlayerManager;
 import gameLogic.resource.ResourceManager;
 
 import java.util.ArrayList;
