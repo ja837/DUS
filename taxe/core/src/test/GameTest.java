@@ -1,6 +1,7 @@
 package test;
 
 import gameLogic.Game;
+import gameLogic.map.Connection;
 import gameLogic.player.Player;
 import gameLogic.player.PlayerManager;
 import org.junit.Before;
@@ -40,4 +41,6 @@ public class GameTest extends LibGdxTest {
         assertTrue(p1.getResources().size() > resourceCount);
         assertTrue(p1.getGoals().size() > goalCount);
     }
+
+
 }

@@ -1,11 +1,13 @@
 package test;
 
+import gameLogic.map.Connection;
 import gameLogic.map.Map;
 import gameLogic.map.Position;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class MapTest extends LibGdxTest {
     private Map map;
@@ -32,5 +34,27 @@ public class MapTest extends LibGdxTest {
 
         // Should throw an error by itself
         map.getStationFromPosition(new Position(9999, 9999));
+    }
+
+    @Test
+    public void testConnectionsSetTo0() {
+        for (Connection connection : map.getConnections()) {
+            assertFalse(connection.isBlocked());
+        }
+    }
+
+    @Test
+    public void testDoesConnectionExist() {
+        assertTrue(map.doesConnectionExist("York","London"));
+        assertFalse(map.doesConnectionExist("York","Madrid"));
+    }
+
+    @Test
+    public void testBlockConnection() {
+
+        assertFalse(map.isConnectionBlocked(map.getStationByName("York"),map.getStationByName("London")));
+        map.blockConnection(map.getStationByName("York"),map.getStationByName("London"),4);
+        assertTrue(map.isConnectionBlocked(map.getStationByName("York"), map.getStationByName("London")));
+        map.blockConnection(map.getStationByName("York"),map.getStationByName("Madrid"),4);
     }
 }
