@@ -19,7 +19,7 @@ public class GoalManager {
         this.resourceManager = resourceManager;
     }
 
-    private Goal generateRandom(int turn) {
+    public Goal generateRandom(int turn) {
         //This routine generates a random goal and calculates the points that should be awarded for completion of the goal
 
         Map map = Game.getInstance().getMap();

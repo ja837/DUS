@@ -201,4 +201,8 @@ public class Goal {
     public Station getIntermediary() {
         return this.intermediary;
     }
+
+    public Train getTrain() {
+        return train;
+    }
 }

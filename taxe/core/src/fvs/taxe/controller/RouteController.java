@@ -267,6 +267,7 @@ public class RouteController {
                 context.getGameLogic().setState(GameState.NORMAL);
                 context.getTopBarController().clearMessage();
                 routingButtons.remove();
+                distance = 0;
 
             }
         });
