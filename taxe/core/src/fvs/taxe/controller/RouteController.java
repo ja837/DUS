@@ -75,7 +75,6 @@ public class RouteController {
     }
 
     private void addStationToRoute(Station station) {
-        //TODO: ADD CHECK HERE
         // the latest position chosen in the positions so far
         if (positions.size() == 0) {
          if (editingRoute) {
@@ -249,7 +248,7 @@ public class RouteController {
             if (prevStation!=null) {
                 distance += context.getGameLogic().getMap().getDistance(station,prevStation);
                 DecimalFormat integer = new DecimalFormat("0");
-                context.getTopBarController().displayMessage("Total Distance: " + integer.format(distance) + ". Will be take " + integer.format(Math.ceil(distance / train.getSpeed() / 2)) + " turns.", Color.BLACK);
+                context.getTopBarController().displayMessage("Total Distance: " + integer.format(distance) + ". Will take " + integer.format(Math.ceil(distance / train.getSpeed() / 2)) + " turns.", Color.BLACK);
             }
             prevStation = station;
         }
