@@ -1,33 +1,57 @@
-package gameLogic.goal;
+package test;
 
+import gameLogic.goal.Goal;
 import gameLogic.map.Position;
 import gameLogic.map.Station;
 import gameLogic.resource.ResourceManager;
 import gameLogic.resource.Train;
 import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+import test.LibGdxTest;
 
 import java.util.ArrayList;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 
-public class GoalTest extends TestCase {
+public class GoalTest extends LibGdxTest {
 
-    Station origin = new Station("station1", new Position(5, 5));
-    Station destination = new Station("station2", new Position(2, 2));
-
-    Station station3= new Station("station3", new Position(3, 5));
-    Station station4 = new Station("station4", new Position(4, 2));
-    Station station5= new Station("station5", new Position(5, 1));
-    Station station6 = new Station("station6", new Position(6, 2));
-    Station station7= new Station("station7", new Position(7, 5));
-    Station station8 = new Station("station8", new Position(8, 2));
-
-
-    Station intermediary = new Station("stationi", new Position(5, 5));
-    Train train = new Train("RedTrain", "RedTrain.png", "RedTrainRight.png", 250);
-    Goal goal = new Goal(origin, destination, intermediary, 0, 4, 50, 20, train);
-    Goal goal2 = new Goal(origin, destination, intermediary, 0, 4, 50, 20, null);
+    Station origin;
+    Station destination;
+    Station station3;
+    Station station4;
+    Station station5;
+    Station station6;
+    Station station7;
+    Station station8;
+    Station intermediary;
+    Train train;
+    Goal goal;
+    Goal goal2;
 
 
+    @Before
+    public void setup() {
+        origin = new Station("station1", new Position(5, 5));
+        destination = new Station("station2", new Position(2, 2));
 
+        station3= new Station("station3", new Position(3, 5));
+        station4 = new Station("station4", new Position(4, 2));
+        station5= new Station("station5", new Position(5, 1));
+        station6 = new Station("station6", new Position(6, 2));
+        station7= new Station("station7", new Position(7, 5));
+        station8 = new Station("station8", new Position(8, 2));
+
+
+        intermediary = new Station("stationi", new Position(5, 5));
+        train = new Train("RedTrain", "RedTrain.png", "RedTrainRight.png", 250);
+        goal = new Goal(origin, destination, intermediary, 0, 4, 50, 20, train);
+        goal2 = new Goal(origin, destination, intermediary, 0, 4, 50, 20, null);
+
+    }
+
+    @Test
     public void testIsComplete() throws Exception {
         train.addHistory(origin, 0);
         train.addHistory(station3, 1);
@@ -44,7 +68,7 @@ public class GoalTest extends TestCase {
 
     }
 
-
+    @Test
     public void testWentThroughStation() throws Exception {
         train.addHistory(origin, 0);
         //train.addHistory(station3, 1);
@@ -60,6 +84,7 @@ public class GoalTest extends TestCase {
         assertEquals(true, goal2.wentThroughStation(train));
     }
 
+    @Test
     public void testCompletedWithinMaxTurns() throws Exception {
 
         Goal anotherGoal= new Goal (origin, destination, intermediary, 20, 0, 20, 50, train);
@@ -76,6 +101,7 @@ public class GoalTest extends TestCase {
 
     }
 
+    @Test
     public void testCompletedWithTrain() throws Exception {
         assertEquals(true, goal.getTrain().getName()==train.getName());
         Train timeOfMyLife = new Train("I just love testing", "RedTrain.png", "RedTrainRight.png", 250);
