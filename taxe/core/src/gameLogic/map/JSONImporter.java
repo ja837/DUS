@@ -1,16 +1,12 @@
 package gameLogic.map;
 
+import Util.Tuple;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-
-import Util.Tuple;
 import gameLogic.resource.ResourceManager;
+
+import java.util.ArrayList;
 
 //This is a new class that handles all of the importing from the JSON file for the map.
 //This was done to separate the logic as it did not feel appropriate that the map class also handled the JSON importing
@@ -19,17 +15,7 @@ public class JSONImporter {
 		JsonReader jsonReader = new JsonReader();
 
 		//Defines the file to parse
-		JsonValue jsonVal = null;
-		if (Gdx.files == null) {
-			try {
-				jsonVal = jsonReader
-						.parse(new String(Files.readAllBytes(Paths.get("assets/stations.json"))));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else {
-			jsonVal = jsonReader.parse(Gdx.files.local("stations.json"));
-		}
+		JsonValue jsonVal = jsonReader.parse(Gdx.files.local("stations.json"));
 
 		//Parses the stations and adds them to the map
 		parseStations(jsonVal, map);
@@ -42,17 +28,7 @@ public class JSONImporter {
 		JsonReader jsonReader = new JsonReader();
 
 		//Defines the file to parse
-		JsonValue jsonVal = null;
-		if (Gdx.files == null) {
-			try {
-				jsonVal = jsonReader
-						.parse(new String(Files.readAllBytes(Paths.get("assets/trains.json"))));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else {
-			jsonVal = jsonReader.parse(Gdx.files.local("trains.json"));
-		}
+		JsonValue jsonVal = jsonReader.parse(Gdx.files.local("trains.json"));
 
 		ArrayList<Tuple<String, Integer>> trains = new ArrayList<Tuple<String, Integer>>();
 
@@ -79,8 +55,7 @@ public class JSONImporter {
 
 	public void parseConnections(JsonValue jsonVal, Map map) {
 		//Iterates through all the connections stored in the JSON array associated with the connections attribute
-		for (JsonValue connection = jsonVal.getChild("connections");
-			 connection != null; connection = connection.next) {
+		for (JsonValue connection = jsonVal.getChild("connections"); connection != null; connection = connection.next) {
 			String station1 = "";
 			String station2 = "";
 
@@ -100,8 +75,7 @@ public class JSONImporter {
 
 	private void parseStations(JsonValue jsonVal, Map map) {
 		//Iterates through all the stations stored in the JSON array associated with the stations attribute
-		for (JsonValue station = jsonVal.getChild("stations");
-			 station != null; station = station.next) {
+		for (JsonValue station = jsonVal.getChild("stations"); station != null; station = station.next) {
 			String name = "";
 			int x = 0;
 			int y = 0;
