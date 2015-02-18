@@ -21,9 +21,10 @@ public class GoalTest extends TestCase {
     Station station8 = new Station("station8", new Position(8, 2));
 
 
-    Station intermediary = new Station("station3", new Position(5, 5));
+    Station intermediary = new Station("stationi", new Position(5, 5));
     Train train = new Train("RedTrain", "RedTrain.png", "RedTrainRight.png", 250);
-    Goal goal = new Goal(origin, destination, intermediary, 0, 4, 50, 20, train);
+    Goal goal = new Goal(origin, destination, origin, 0, 4, 50, 20, train);
+    Goal goal2 = new Goal(origin, destination, intermediary, 0, 4, 50, 20, null);
 
 
 
@@ -47,15 +48,15 @@ public class GoalTest extends TestCase {
 
     public void testWentThroughStation() throws Exception {
         train.addHistory(origin, 0);
-        train.addHistory(station3, 1);
+        //train.addHistory(station3, 1);
         train.addHistory(station4, 4);
         train.addHistory(station6, 10);
         train.addHistory(station7, 11);
         train.addHistory(station8, 16);
 
-        assertEquals(false, goal.wentThroughStation(train));
+        assertEquals(false, goal2.wentThroughStation(train));
         train.addHistory(intermediary, 8);
-        assertEquals(true, goal.wentThroughStation(train));
+        assertEquals(true, goal2.wentThroughStation(train));
     }
 
     public void testCompletedWithinMaxTurns() throws Exception {
