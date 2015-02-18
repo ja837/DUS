@@ -109,7 +109,7 @@ public class RouteController {
                 distance+= context.getGameLogic().getMap().getDistance(lastStation, station);
                 DecimalFormat integer = new DecimalFormat("0");
 
-                context.getTopBarController().displayMessage("Total Distance: " + integer.format(distance) + ". Will be take " + integer.format(Math.ceil(distance / train.getSpeed() / 2)) + " turns.", Color.BLACK);
+                context.getTopBarController().displayMessage("Total Distance: " + integer.format(distance) + ". Will take " + integer.format(Math.ceil(distance / train.getSpeed() / 2)) + " turns.", Color.BLACK);
                 //If the connection exists then the station passed to the method is added to the route
                 positions.add(station.getLocation());
                 //Sets the relevant boolean checking if the last node on the route is a junction or not
