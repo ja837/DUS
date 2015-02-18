@@ -1,5 +1,6 @@
 package gameLogic.map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 
@@ -19,11 +20,15 @@ public class JSONImporter {
 
 		//Defines the file to parse
 		JsonValue jsonVal = null;
-		try {
-			jsonVal = jsonReader
-					.parse(new String(Files.readAllBytes(Paths.get("assets/stations.json"))));
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (Gdx.files == null) {
+			try {
+				jsonVal = jsonReader
+						.parse(new String(Files.readAllBytes(Paths.get("assets/stations.json"))));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			jsonVal = jsonReader.parse(Gdx.files.local("stations.json"));
 		}
 
 		//Parses the stations and adds them to the map
@@ -38,11 +43,15 @@ public class JSONImporter {
 
 		//Defines the file to parse
 		JsonValue jsonVal = null;
-		try {
-			jsonVal = jsonReader
-					.parse(new String(Files.readAllBytes(Paths.get("assets/trains.json"))));
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (Gdx.files == null) {
+			try {
+				jsonVal = jsonReader
+						.parse(new String(Files.readAllBytes(Paths.get("assets/trains.json"))));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			jsonVal = jsonReader.parse(Gdx.files.local("trains.json"));
 		}
 
 		ArrayList<Tuple<String, Integer>> trains = new ArrayList<Tuple<String, Integer>>();
