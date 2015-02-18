@@ -23,9 +23,8 @@ public class GoalTest extends TestCase {
 
     Station intermediary = new Station("stationi", new Position(5, 5));
     Train train = new Train("RedTrain", "RedTrain.png", "RedTrainRight.png", 250);
-    Goal goal = new Goal(origin, destination, origin, 0, 4, 50, 20, train);
+    Goal goal = new Goal(origin, destination, intermediary, 0, 4, 50, 20, train);
     Goal goal2 = new Goal(origin, destination, intermediary, 0, 4, 50, 20, null);
-
 
 
 
@@ -56,6 +55,8 @@ public class GoalTest extends TestCase {
 
         assertEquals(false, goal2.wentThroughStation(train));
         train.addHistory(intermediary, 8);
+        train.setFinalDestination(destination);
+        train.addHistory(destination, 18);
         assertEquals(true, goal2.wentThroughStation(train));
     }
 
