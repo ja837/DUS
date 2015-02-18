@@ -1,24 +1,47 @@
 package test;
 
+import junit.framework.TestCase;
+
 import gameLogic.player.Player;
 import gameLogic.player.PlayerManager;
 import gameLogic.resource.ResourceManager;
-import org.junit.Test;
+import gameLogic.resource.Train;
 
-import static org.junit.Assert.assertTrue;
+public class ResourceManagerTest extends TestCase {
+	ResourceManager rm = new ResourceManager();
 
-public class ResourceManagerTest extends LibGdxTest {
-    @Test
-    public void testAddResourceToPlayer() throws Exception {
-        PlayerManager pm = new PlayerManager();
-        Player player = new Player(pm, 1);
-        ResourceManager rm = new ResourceManager();
+	public void testGetRandomTrain() throws Exception {
+		Train train1 = rm.getRandomTrain();
+		System.out.println(train1.toString());
 
-        // add enough resources to exceed maximum
-        for (int i = 0; i < 20; i++) {
-            rm.addRandomResourceToPlayer(player);
-        }
+		Train train2 = rm.getRandomTrain();
+		System.out.println(train2.toString());
 
-        assertTrue(player.getResources().size() == rm.CONFIG_MAX_RESOURCES);
-    }
+		Train train3 = rm.getRandomTrain();
+		System.out.println(train3.toString());
+
+		Train train4 = rm.getRandomTrain();
+		System.out.println(train4.toString());
+
+		Train train5 = rm.getRandomTrain();
+		System.out.println(train5.toString());
+
+		Train train6 = rm.getRandomTrain();
+		System.out.println(train6.toString());
+
+
+	}
+
+	public void testAddRandomResourceToPlayer() throws Exception {
+		PlayerManager playerManager = new PlayerManager();
+		playerManager.createPlayers(2);
+		Player player1 = playerManager.getCurrentPlayer();
+
+		rm.addRandomResourceToPlayer(player1);
+		rm.addRandomResourceToPlayer(player1);
+		rm.addRandomResourceToPlayer(player1);
+
+		assertEquals(3, player1.getResources().size());
+
+	}
 }
