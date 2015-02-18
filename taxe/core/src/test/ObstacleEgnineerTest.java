@@ -1,8 +1,10 @@
-package gameLogic.resource;
+package test;
 
 import gameLogic.map.Connection;
 import gameLogic.map.Position;
 import gameLogic.map.Station;
+import gameLogic.resource.Engineer;
+import gameLogic.resource.Obstacle;
 import junit.framework.TestCase;
 
 public class ObstacleEgnineerTest extends TestCase {

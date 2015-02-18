@@ -63,11 +63,13 @@ public class TopBarController {
     }
 
     public void displayMessage(String message, Color color){
+        //This method sets a permanent message until it is overwritten
         flashMessage.setText(message);
         flashMessage.setColor(color);
     }
 
     public void clearMessage(){
+        //This method clears the current message
         flashMessage.setText("");
         flashMessage.setColor(Color.LIGHT_GRAY);
     }
