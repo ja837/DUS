@@ -66,6 +66,7 @@ public class GameScreen extends ScreenAdapter {
         gameLogic.getPlayerManager().subscribeTurnChanged(new TurnListener() {
             @Override
             public void changed() {
+                //The game will not be set into the animating state for the first turn to prevent player 1 from gaining an inherent advantage by gaining an extra turn of movement.
                 if (context.getGameLogic().getPlayerManager().getTurnNumber()!=1) {
                     gameLogic.setState(GameState.ANIMATING);
                     topBarController.displayFlashMessage("Time is passing...", Color.BLACK);
@@ -134,9 +135,8 @@ public class GameScreen extends ScreenAdapter {
         }
 
         //Causes all the actors to perform their actions (i.e trains to move)
-        if (context.getGameLogic().getPlayerManager().getTurnNumber()!=1) {
-            stage.act(Gdx.graphics.getDeltaTime());
-        }
+        stage.act(Gdx.graphics.getDeltaTime());
+
         stage.draw();
 
         game.batch.begin();

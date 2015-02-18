@@ -78,16 +78,30 @@ public class RouteController {
         // the latest position chosen in the positions so far
         if (positions.size() == 0) {
          if (editingRoute) {
-             Station lastStation = train.getLastStation();
-             Station nextStation = train.getNextStation();
-             if (station.getName()==lastStation.getName()||nextStation.getName()==station.getName()) {
-                 //If the connection exists then the station passed to the method is added to the route
-                 positions.add(station.getLocation());
+             //Checks whether the train's actor is paused due to a bug with blocked trains
+             if (train.getActor().isPaused()){
+                 Station lastStation = train.getLastStation();
+                 //Checks if a connection exists between the station the train is paused at and the clicked station
+                 if (context.getGameLogic().getMap().doesConnectionExist(lastStation.getName(),station.getName())){
+                     positions.add(station.getLocation());
 
-                 //Sets the relevant boolean checking if the last node on the route is a junction or not
-                 canEndRouting = !(station instanceof CollisionStation);
-             } else {
-                 context.getTopBarController().displayFlashMessage("This connection doesn't exist", Color.RED);
+                     //Sets the relevant boolean checking if the last node on the route is a junction or not
+                     canEndRouting = !(station instanceof CollisionStation);
+                 }else {
+                     context.getTopBarController().displayFlashMessage("This connection doesn't exist", Color.RED);
+                 }
+             }else {
+                 Station lastStation = train.getLastStation();
+                 Station nextStation = train.getNextStation();
+                 if (station.getName() == lastStation.getName() || nextStation.getName() == station.getName()) {
+                     //If the connection exists then the station passed to the method is added to the route
+                     positions.add(station.getLocation());
+
+                     //Sets the relevant boolean checking if the last node on the route is a junction or not
+                     canEndRouting = !(station instanceof CollisionStation);
+                 } else {
+                     context.getTopBarController().displayFlashMessage("This connection doesn't exist", Color.RED);
+                 }
              }
          }else{
              positions.add(station.getLocation());

@@ -22,7 +22,9 @@ public class DialogEndGame extends Dialog {
             if (player.getScore() > highScore) {
                 highScore = player.getScore();
                 //Need to add one as playerNumber is 0-based indexing
-                playerNum = player.getPlayerNumber() + 1;
+                playerNum = player.getPlayerNumber();
+            }else if (player.getScore() == highScore){
+                playerNum =0;
             }
         }
 

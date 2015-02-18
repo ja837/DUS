@@ -163,12 +163,15 @@ public class Map {
         if (rand > 0) {
         //50% chance of connection being blocked
             Connection toBlock;
-            boolean canBlock = true;
+            boolean canBlock;
             do {
+               canBlock = true;
                 toBlock = getRandomConnection();
                 for (Player player : Game.getInstance().getPlayerManager().getAllPlayers()) {
                     for (Train train : player.getTrains()) {
+                        //In a try catch statement as unplaced trains do not have a nextStation, resulting in null pointer exceptions
                         try {
+                            //If a train is found to be on the connection to block, the boolean is set to false.
                             if ((train.getNextStation() == toBlock.getStation1() && train.getLastStation() == toBlock.getStation2())
                                     || (train.getNextStation() == toBlock.getStation2() && train.getLastStation() == toBlock.getStation1())) {
                                 canBlock = false;
