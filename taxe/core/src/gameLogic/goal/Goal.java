@@ -65,6 +65,8 @@ public class Goal {
 
     public boolean isComplete(Train train) {
         //This checks whether or not a goal has been completed
+        //This is interesting because this method in itself doesn't check whether a goal is completed
+        //The fact that this method is only called when a train reaches its destination allows this to work
         boolean passedOrigin = false;
         for (Tuple<Station, Integer> history : train.getHistory()) {
             //Checks whether or not the station is the origin and if it was visited after the goal was issued

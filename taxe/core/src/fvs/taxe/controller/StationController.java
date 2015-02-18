@@ -282,10 +282,8 @@ public class StationController {
 				game.batch.begin();
 				game.fontTiny.setColor(Color.BLACK);
 				String text = String.valueOf(Math.round(
-						Vector2.dst(connection.getStation1().getLocation().getX(),
-								connection.getStation1().getLocation().getY(),
-								connection.getStation2().getLocation().getX(),
-								connection.getStation2().getLocation().getY())));
+						context.getGameLogic().getMap().getDistance(connection.getStation1(),connection.getStation2())
+				));
 				game.fontTiny.draw(game.batch, text,
 						midpoint.getX() - game.fontTiny.getBounds(text).width / 2f,
 						midpoint.getY() + game.fontTiny.getBounds(text).height / 2f);
