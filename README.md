@@ -1,4 +1,4 @@
-DUS' extension of FVS' game.
+PIKs extension of DUS' extension of FVS' game.
 
 Project Set-up Instructions
 ===========================
