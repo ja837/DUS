@@ -33,6 +33,8 @@ public class GameScreen extends ScreenAdapter {
     private ResourceController resourceController;
     private GoalController goalController;
     private RouteController routeController;
+    
+    private ActionManager actionManager;
 
     public GameScreen(TaxeGame game) {
         this.game = game;
