@@ -27,8 +27,7 @@ public class ModifierClicked extends ClickListener {
     }
 
     @Override
-    public void clicked(InputEvent event, float x, float y) {
-    	System.out.println("clicked");
+    public void clicked(InputEvent event, float x, float y) {    	
         if (Game.getInstance().getState() == GameState.NORMAL) {
 
             // current player can't be passed in as it changes so find out current player at this instant

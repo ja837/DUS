@@ -246,8 +246,8 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                                         "\nPlease use the obstacle again.").align(Align.center);
                                 dia.button("OK", "OK");
                                 dia.show(context.getStage());
-                               // obstacle.setStation1(null);
-                               // obstacle.setStation2(null);
+                                modifier.setStation1(null);
+                                modifier.setStation2(null);
                             }
                             //This code runs regardless of whether the placement was successful, this returns the game to its normal state
 
@@ -556,10 +556,10 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                             modifier.setStation2(station);
 
                             //Checks whether a connection exists between the two stations
-                            if (map.doesConnectionExist(obstacle.getStation1().getName(), obstacle.getStation2().getName())) {
+                            if (map.doesConnectionExist(modifier.getStation1().getName(), modifier.getStation2().getName())) {
 
                                 //If the connections is less than our max distance then add a connection
-                                map.removeConnection(map.getConnection(obstacle.getStation1(),obstacle.getStation2()));
+                                map.removeConnection(map.getConnection(modifier.getStation1(),modifier.getStation2()));
                                 //The modifiers is removed from the player's inventory as it has been used
                                 currentPlayer.removeResource(modifier);
 
@@ -571,8 +571,8 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                                         "\nPlease use the obstacle again.").align(Align.center);
                                 dia.button("OK", "OK");
                                 dia.show(context.getStage());
-                               // obstacle.setStation1(null);
-                               // obstacle.setStation2(null);
+                                modifier.setStation1(null);
+                                modifier.setStation2(null);
                             }
                             //This code runs regardless of whether the placement was successful, this returns the game to its normal state
 

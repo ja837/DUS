@@ -65,9 +65,8 @@ public class ResourceManager {
 
         //Need to check whether the player is skipping their turn as they should not receive a resource if they are
         if (!player.getSkip()) {
-            //Generates random resource
-        	Resource resource = new Modifier();
-           // Resource resource = getRandomResource();
+            //Generates random resource        	
+            Resource resource = getRandomResource();
 
             //If player has a particular resource it will generate a new one until they do not have the generated resource.
             //This is to prevent a build up of obstacles/skips/engineers

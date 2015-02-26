@@ -43,6 +43,22 @@ public class Map {
 
         return false;
     }
+    
+    public boolean doesConnectionExist(Station station1, Station station2) {
+        //Returns whether or not the connection exists by checking the two station names passed to it
+        for (Connection connection : connections) {
+            String s1 = connection.getStation1().getName();
+            String s2 = connection.getStation2().getName();
+
+            //Checks whether or not the connection has station 1 and station 2 in its attributes, if so returns true, if not returns false
+            if (s1.equals(station1.getName()) && s2.equals(station2.getName())
+                    || s1.equals(station2.getName()) && s2.equals(station1.getName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public Connection getConnection(Station station1, Station station2) {
         //Returns the connection that connects station1 and station2 if it exists

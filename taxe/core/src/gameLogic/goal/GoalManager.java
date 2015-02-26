@@ -5,6 +5,7 @@ import gameLogic.player.Player;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.Map;
 import gameLogic.map.Station;
+import gameLogic.resource.Modifier;
 import gameLogic.resource.ResourceManager;
 import gameLogic.resource.Train;
 
@@ -115,6 +116,7 @@ public class GoalManager {
                 }
                 player.completeGoal(goal);
                 player.removeResource(train);
+                player.addResource(new Modifier());
                 completedString.add("player " + player.getPlayerNumber() + " completed a goal to " + goal.toString() + "!");
             }
         }
