@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+
 import fvs.taxe.Button;
 import fvs.taxe.clickListener.StationClickListener;
 import fvs.taxe.actor.TrainActor;
@@ -21,6 +23,7 @@ import gameLogic.player.Player;
 import gameLogic.map.CollisionStation;
 import gameLogic.map.Station;
 import gameLogic.resource.Engineer;
+import gameLogic.resource.Modifier;
 import gameLogic.resource.Obstacle;
 import gameLogic.resource.Skip;
 import gameLogic.resource.Train;
@@ -33,6 +36,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
     private Obstacle obstacle;
     private Skip skip;
     private Engineer engineer;
+	private Modifier modifier;
 
     public DialogButtonClicked(Context context, Player player, Train train) {
         //This constructor is used when a train dialog button is clicked.
@@ -43,6 +47,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
         this.obstacle = null;
         this.skip = null;
         this.engineer = null;
+        this.modifier = null;
     }
 
     public DialogButtonClicked(Context context, Player player, Obstacle obstacle) {
@@ -54,6 +59,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
         this.context = context;
         this.obstacle = obstacle;
         this.engineer = null;
+        this.modifier = null;
     }
 
     public DialogButtonClicked(Context context, Player player, Skip skip) {
@@ -65,6 +71,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
         this.context = context;
         this.obstacle = null;
         this.engineer = null;
+        this.modifier = null;
     }
 
     public DialogButtonClicked(Context context, Player player, Engineer engineer) {
@@ -76,6 +83,19 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
         this.context = context;
         this.obstacle = null;
         this.skip = null;
+        this.modifier = null;
+    }
+    
+    public DialogButtonClicked(Context context, Player player, Modifier modifier) {
+        //This constructor is used when an obstacle dialog button is clicked.
+        //obstacle is set to the obstacle that the dialog was associated with and the other variables are set to null
+        this.currentPlayer = player;
+        this.train = null;
+        this.skip = null;
+        this.context = context;
+        this.obstacle = null;
+        this.engineer = null;
+        this.modifier = modifier;
     }
 
     @Override
@@ -181,7 +201,105 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 //Removes the obstacle from the current player's inventory if they click the OBSTACLE_DROP button
                 currentPlayer.removeResource(obstacle);
                 break;
+                
+            case ADD_PLACE:	{
+            	//Sets the cursor to be the one used to indicate placing a blockage
+                Pixmap pixmap = new Pixmap(Gdx.files.internal("BlockageCursor.png"));
+                Gdx.input.setCursorImage(pixmap, 0, 0); // these numbers will need tweaking
+                pixmap.dispose();
+                
+                //Indicates that a resource is currently being placed and to hide all trains
+                //While it would be useful to see trains while placing a new piece of track, this was done to remove the possibility of trains preventing the user being able to click a node
+               
+            	Game.getInstance().setState(GameState.PLACING_RESOURCE);
+            	final TrainController trainController = new TrainController(context);
+                trainController.setTrainsVisible(null, false);
+                context.getTopBarController().displayMessage("Placing Modifier", Color.BLACK);
+              //Creates a clickListener for when a station is clicked
+                final StationClickListener stationListener = new StationClickListener() {
+                    @Override
+                    public void clicked(Station station) {
 
+                        //If the station clicked is the first one to be chosen by the user
+                        if (modifier.getStation1() == null) {
+
+                            //Sets the first station to be the one that the user selects
+                            modifier.setStation1(station);
+
+                        } else {
+                            //Sets the second station of the blockage to be the one that the user selects once they have selected the first one
+                            modifier.setStation2(station);
+
+                            //Checks whether a connection exists between the two stations
+                            if (context.getGameLogic().getMap().getDistance(modifier.getStation1(), modifier.getStation2())< 300) {
+
+                                //If the connections is less than our max distance then add a connection
+                                context.getGameLogic().getMap().addConnection(modifier.getStation1(), modifier.getStation2());
+                                //The modifiers is removed from the player's inventory as it has been used
+                                currentPlayer.removeResource(modifier);
+
+                            } else {
+
+                                //Informs the player that their selection is invalid and cancels placement
+                                Dialog dia = new Dialog("Invalid Selection", context.getSkin());
+                                dia.text("You have selected two stations which are too far apart." +
+                                        "\nPlease use the obstacle again.").align(Align.center);
+                                dia.button("OK", "OK");
+                                dia.show(context.getStage());
+                               // obstacle.setStation1(null);
+                               // obstacle.setStation2(null);
+                            }
+                            //This code runs regardless of whether the placement was successful, this returns the game to its normal state
+
+                            //Resets the topBar
+                            context.getTopBarController().displayFlashMessage("", Color.BLACK);
+
+                            //Unsubscribes from the StationClickListener as this would cause a lot of errors and unexpected behaviour is not called from the correct context
+                            StationController.unsubscribeStationClick(this);
+
+                            //Resets the cursor to the normal one
+                            Gdx.input.setCursorImage(null, 0, 0);
+                            context.getGameLogic().setState(GameState.NORMAL);
+
+                            //Sets all moving trains to be visible
+                            trainController.setTrainsVisible(null, true);
+                        }
+                    }
+                };
+                final InputListener keyListener = new InputListener() {
+                    @Override
+                    public boolean keyDown(InputEvent event, int keycode) {
+                        //If the Escape key is pressed while placing an obstacle then it is cancelled
+                        if (keycode == Input.Keys.ESCAPE) {
+                            //Makes all trains visible
+                            TrainController trainController = new TrainController(context);
+                            trainController.setTrainsVisible(null, true);
+
+                            //Resets cursor
+                            Gdx.input.setCursorImage(null, 0, 0);
+
+                            //Unsubscribes from the StationClickListener as this would cause a lot of errors and unexpected behaviour is not called from the correct context
+                            StationController.unsubscribeStationClick(stationListener);
+                            Game.getInstance().setState(GameState.NORMAL);
+
+                            //Resets the topBar
+                            context.getTopBarController().clearMessage();
+
+                            //Removes itself from the keylisteners of the game as otherwise there would be a lot of null pointer exceptions and unintended behaviour
+                            context.getStage().removeListener(this);
+                        }
+                        //keyDown requires you to return the boolean true when the function has completed, so this ends the function
+                        return true;
+                    }
+                };
+
+                //Adds the listeners to their relevant entities
+                context.getStage().addListener(keyListener);
+                StationController.subscribeStationClick(stationListener);
+
+                break;
+            }
+                
             case OBSTACLE_USE: {
 
                 //Sets the cursor to be the one used to indicate placing a blockage
@@ -404,6 +522,110 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 //Removes the resource from the player if they press the SKIP_DROP button
                 currentPlayer.removeResource(skip);
                 break;
+                
+           
+            
+            case REMOVE_PLACE:	{
+            	
+            	//Sets the cursor to be the one used to indicate placing a blockage
+                Pixmap pixmap = new Pixmap(Gdx.files.internal("BlockageCursor.png"));
+                Gdx.input.setCursorImage(pixmap, 0, 0); // these numbers will need tweaking
+                pixmap.dispose();
+                
+                //Indicates that a resource is currently being placed and to hide all trains
+                //While it would be useful to see trains while placing a new piece of track, this was done to remove the possibility of trains preventing the user being able to click a node
+               
+            	Game.getInstance().setState(GameState.PLACING_RESOURCE);
+            	final TrainController trainController = new TrainController(context);
+                trainController.setTrainsVisible(null, false);
+                context.getTopBarController().displayMessage("Placing Modifier", Color.BLACK);
+                final gameLogic.map.Map map = context.getGameLogic().getMap();
+              //Creates a clickListener for when a station is clicked
+                final StationClickListener stationListener = new StationClickListener() {
+                    @Override
+                    public void clicked(Station station) {
+
+                        //If the station clicked is the first one to be chosen by the user
+                        if (modifier.getStation1() == null) {
+
+                            //Sets the first station to be the one that the user selects
+                            modifier.setStation1(station);
+
+                        } else {
+                            //Sets the second station of the blockage to be the one that the user selects once they have selected the first one
+                            modifier.setStation2(station);
+
+                            //Checks whether a connection exists between the two stations
+                            if (map.doesConnectionExist(obstacle.getStation1().getName(), obstacle.getStation2().getName())) {
+
+                                //If the connections is less than our max distance then add a connection
+                                map.removeConnection(map.getConnection(obstacle.getStation1(),obstacle.getStation2()));
+                                //The modifiers is removed from the player's inventory as it has been used
+                                currentPlayer.removeResource(modifier);
+
+                            } else {
+
+                                //Informs the player that their selection is invalid and cancels placement
+                                Dialog dia = new Dialog("Invalid Selection", context.getSkin());
+                                dia.text("There is no connection between those stations." +
+                                        "\nPlease use the obstacle again.").align(Align.center);
+                                dia.button("OK", "OK");
+                                dia.show(context.getStage());
+                               // obstacle.setStation1(null);
+                               // obstacle.setStation2(null);
+                            }
+                            //This code runs regardless of whether the placement was successful, this returns the game to its normal state
+
+                            //Resets the topBar
+                            context.getTopBarController().displayFlashMessage("", Color.BLACK);
+
+                            //Unsubscribes from the StationClickListener as this would cause a lot of errors and unexpected behaviour is not called from the correct context
+                            StationController.unsubscribeStationClick(this);
+
+                            //Resets the cursor to the normal one
+                            Gdx.input.setCursorImage(null, 0, 0);
+                            context.getGameLogic().setState(GameState.NORMAL);
+
+                            //Sets all moving trains to be visible
+                            trainController.setTrainsVisible(null, true);
+                        }
+                    }
+                };
+                final InputListener keyListener = new InputListener() {
+                    @Override
+                    public boolean keyDown(InputEvent event, int keycode) {
+                        //If the Escape key is pressed while placing an obstacle then it is cancelled
+                        if (keycode == Input.Keys.ESCAPE) {
+                            //Makes all trains visible
+                            TrainController trainController = new TrainController(context);
+                            trainController.setTrainsVisible(null, true);
+
+                            //Resets cursor
+                            Gdx.input.setCursorImage(null, 0, 0);
+
+                            //Unsubscribes from the StationClickListener as this would cause a lot of errors and unexpected behaviour is not called from the correct context
+                            StationController.unsubscribeStationClick(stationListener);
+                            Game.getInstance().setState(GameState.NORMAL);
+
+                            //Resets the topBar
+                            context.getTopBarController().clearMessage();
+
+                            //Removes itself from the keylisteners of the game as otherwise there would be a lot of null pointer exceptions and unintended behaviour
+                            context.getStage().removeListener(this);
+                        }
+                        //keyDown requires you to return the boolean true when the function has completed, so this ends the function
+                        return true;
+                    }
+                };
+
+                //Adds the listeners to their relevant entities
+                context.getStage().addListener(keyListener);
+                StationController.subscribeStationClick(stationListener);
+
+                break;
+            }
+            	
+            case MODIFIER_DROP:
 
             case TRAIN_CHANGE_ROUTE:
                 //Begins the change route feature when TRAIN_CHANGE_ROUTE is pressed by the player

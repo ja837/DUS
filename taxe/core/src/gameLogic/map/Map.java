@@ -107,6 +107,9 @@ public class Map {
         return addConnection(st1, st2);
     }
 
+    public void removeConnection(Connection connection){
+    	connections.remove(connection);    	
+    }
 
     public Station getStationByName(String name) {
         //Returns the station whose name matches the string passed to the method

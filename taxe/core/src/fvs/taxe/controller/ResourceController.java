@@ -3,8 +3,10 @@ package fvs.taxe.controller;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
 import fvs.taxe.TaxeGame;
 import fvs.taxe.clickListener.EngineerClicked;
+import fvs.taxe.clickListener.ModifierClicked;
 import fvs.taxe.clickListener.ObstacleClicked;
 import fvs.taxe.clickListener.SkipClicked;
 import fvs.taxe.clickListener.TrainClicked;
@@ -71,6 +73,17 @@ public class ResourceController {
                 Obstacle obstacle = (Obstacle) resource;
                 ObstacleClicked listener = new ObstacleClicked(context, obstacle);
                 TextButton button = new TextButton("Obstacle", context.getSkin());
+                button.setPosition(x, y);
+                button.addListener(listener);
+                resourceButtons.addActor(button);
+
+                y -= 30;
+                
+            } else if (resource instanceof Modifier) {
+                //Creates a clickListener for the button and adds it to the list of buttons
+                Modifier modifier = (Modifier) resource;
+                ModifierClicked listener = new ModifierClicked(context, modifier);
+                TextButton button = new TextButton("Modifier", context.getSkin());
                 button.setPosition(x, y);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
