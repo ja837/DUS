@@ -64,7 +64,7 @@ public class ResourceController {
                     
                     TextButton button = new TextButton(resource.toString(), context.getSkin());
                     button.setPosition(x, y);
-                    button.setName(TimeUtils.millis() + "");
+                    button.setName("Train Button"); //This will be changed to the timestamp when clicked
                     TrainClicked listener = new TrainClicked(context, button, train);
                     button.addListener(listener);
                     resourceButtons.addActor(button);
@@ -77,7 +77,7 @@ public class ResourceController {
                 
                 TextButton button = new TextButton("Obstacle", context.getSkin());
                 button.setPosition(x, y);
-                button.setName(TimeUtils.millis() + "");
+                button.setName("Obstacle Button"); //This will be changed to the timestamp when clicked
                 ObstacleClicked listener = new ObstacleClicked(context, button, obstacle);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
@@ -90,7 +90,7 @@ public class ResourceController {
                 
                 TextButton button = new TextButton("Modifier", context.getSkin());
                 button.setPosition(x, y);
-                button.setName(TimeUtils.millis() + "");
+                button.setName("Modifier Button"); //This will be changed to the timestamp when clicked
                 ModifierClicked listener = new ModifierClicked(context, button, modifier);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
@@ -103,7 +103,7 @@ public class ResourceController {
                 
                 TextButton button = new TextButton("Skip", context.getSkin());
                 button.setPosition(x, y);
-                button.setName(TimeUtils.millis() + "");
+                button.setName("Skip Button"); //This will be changed to the timestamp when clicked
                 SkipClicked listener = new SkipClicked(context, button, skip);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
@@ -116,7 +116,7 @@ public class ResourceController {
                 
                 TextButton button = new TextButton("Engineer", context.getSkin());
                 button.setPosition(x, y);
-                button.setName(TimeUtils.millis() + "");
+                button.setName("Engineer Button"); //This will be changed to the timestamp when clicked
                 EngineerClicked listener = new EngineerClicked(context, button, engineer);
                 button.addListener(listener);
                 resourceButtons.addActor(button);

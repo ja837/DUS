@@ -11,18 +11,18 @@ public class Action {
 	ActionType type;
 	long timeStamp;
 	
-	public Action(String id){
+	public Action(String id, long time){
 		type = ActionType.ACTOR;
-		ID = id;
+		ID = id;		
+		timeStamp = time;
 		
-		this.timeStamp = TimeUtils.millis();
 	}
 	
-	public Action(ActionType type, String id){
+	public Action(ActionType type, String id, long time){
 		this.type = type;
 		this.ID = id;
 		
-		this.timeStamp = TimeUtils.millis();
+		this.timeStamp = time;
 	}
 	
 	

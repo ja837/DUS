@@ -44,6 +44,7 @@ public class ActionManager {
 
 	private void clickActor(long timeStamp) {
 
+		//for all actors on the stage find one with id = to timestamp and click it
 		
 	}
 
