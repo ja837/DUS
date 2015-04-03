@@ -12,12 +12,13 @@ import gameLogic.player.Player;
 import gameLogic.resource.Obstacle;
 
 //Responsible for checking whether the Obstacle is clicked.
-public class ObstacleClicked extends ClickListener {
+public class ObstacleClicked extends ActionClickListener {
     private Obstacle obstacle;
     private Context context;
     private boolean displayingMessage;
 
-    public ObstacleClicked(Context context, Obstacle obstacle) {
+    public ObstacleClicked(Context context, Actor actor, Obstacle obstacle) {
+    	super(context.getActionManager(), actor);
         this.obstacle = obstacle;
         this.context = context;
         displayingMessage = false;
@@ -25,6 +26,10 @@ public class ObstacleClicked extends ClickListener {
 
     @Override
     public void clicked(InputEvent event, float x, float y) {
+
+    	//Performs logic for keeping track of actions (for replays)
+    	super.clicked(event, x, y);
+    	
         if (Game.getInstance().getState() == GameState.NORMAL) {
 
             // current player can't be passed in as it changes so find out current player at this instant

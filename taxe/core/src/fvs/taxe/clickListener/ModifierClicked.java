@@ -14,7 +14,7 @@ import gameLogic.player.Player;
 import gameLogic.resource.Modifier;
 import gameLogic.resource.Obstacle;
 
-//Responsible for checking whether the Obstacle is clicked.
+//Responsible for checking whether the Modifier is clicked.
 public class ModifierClicked extends ActionClickListener {
     private Modifier modifier;
     private Context context;
