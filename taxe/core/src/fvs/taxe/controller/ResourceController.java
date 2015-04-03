@@ -3,6 +3,7 @@ package fvs.taxe.controller;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.TimeUtils;
 
 import fvs.taxe.TaxeGame;
 import fvs.taxe.clickListener.EngineerClicked;
@@ -63,7 +64,7 @@ public class ResourceController {
                     
                     TextButton button = new TextButton(resource.toString(), context.getSkin());
                     button.setPosition(x, y);
-                    button.setName("Train button");
+                    button.setName(TimeUtils.millis() + "");
                     TrainClicked listener = new TrainClicked(context, button, train);
                     button.addListener(listener);
                     resourceButtons.addActor(button);
@@ -76,7 +77,7 @@ public class ResourceController {
                 
                 TextButton button = new TextButton("Obstacle", context.getSkin());
                 button.setPosition(x, y);
-                button.setName("Obstacle button");
+                button.setName(TimeUtils.millis() + "");
                 ObstacleClicked listener = new ObstacleClicked(context, button, obstacle);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
@@ -89,7 +90,7 @@ public class ResourceController {
                 
                 TextButton button = new TextButton("Modifier", context.getSkin());
                 button.setPosition(x, y);
-                button.setName("Modifier button");
+                button.setName(TimeUtils.millis() + "");
                 ModifierClicked listener = new ModifierClicked(context, button, modifier);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
@@ -102,7 +103,7 @@ public class ResourceController {
                 
                 TextButton button = new TextButton("Skip", context.getSkin());
                 button.setPosition(x, y);
-                button.setName("Skip button");
+                button.setName(TimeUtils.millis() + "");
                 SkipClicked listener = new SkipClicked(context, button, skip);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
@@ -115,7 +116,7 @@ public class ResourceController {
                 
                 TextButton button = new TextButton("Engineer", context.getSkin());
                 button.setPosition(x, y);
-                button.setName("Engineer button");
+                button.setName(TimeUtils.millis() + "");
                 EngineerClicked listener = new EngineerClicked(context, button, engineer);
                 button.addListener(listener);
                 resourceButtons.addActor(button);

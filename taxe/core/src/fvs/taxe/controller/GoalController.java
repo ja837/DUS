@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.utils.TimeUtils;
+
 import fvs.taxe.TaxeGame;
 import fvs.taxe.clickListener.GoalClickListener;
 import gameLogic.player.Player;
@@ -86,7 +88,7 @@ public class GoalController {
 
                 
                 button.setPosition(x, y);
-                button.setName("Goal button");
+                button.setName(TimeUtils.millis() + "");
                 
                 //Adds the listener to the button so that it will inform the correct parts of the system
                 GoalClickListener listener = new GoalClickListener(context, button, goal);
