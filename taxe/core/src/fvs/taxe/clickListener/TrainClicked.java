@@ -31,7 +31,7 @@ public class TrainClicked extends ActionClickListener {
     }
 
     @Override
-    public void clicked(InputEvent event, float x, float y) {
+    public void clicked(InputEvent event, float x, float y) {   	
 
     	//Performs logic for keeping track of actions
     	super.clicked(event, x, y);
