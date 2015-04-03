@@ -95,7 +95,7 @@ public class StationController {
 					}
 					if (trains.size() == 1) {
 						//If there is only one train here it immediately simulates the train click
-						TrainClicked clicker = new TrainClicked(context, null, trains.get(0));
+						TrainClicked clicker = new TrainClicked(context, trains.get(0).getActor(), trains.get(0));
 						clicker.clicked(null, -1, 0);
 					} else if (trains.size() > 1) {
 						//If there is more than one of a particular train then the multitrain dialog is called using the list of trains

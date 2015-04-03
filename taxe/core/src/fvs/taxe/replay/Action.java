@@ -19,4 +19,12 @@ public class Action {
 	public void play(){
 		
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Action of type: " + type.toString() + " with an ID of " + ID;
+	}
+	
+	
 }
