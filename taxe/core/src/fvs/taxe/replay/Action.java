@@ -1,18 +1,25 @@
 package fvs.taxe.replay;
 
+import com.badlogic.gdx.utils.TimeUtils;
+
 public class Action {
 
 	String ID = "";
 	ActionType type;
+	long timeStamp;
 	
 	public Action(String id){
 		type = ActionType.ACTOR;
 		ID = id;
+		
+		this.timeStamp = TimeUtils.millis();
 	}
 	
 	public Action(ActionType type, String id){
 		this.type = type;
 		this.ID = id;
+		
+		this.timeStamp = TimeUtils.millis();
 	}
 	
 	
@@ -37,7 +44,7 @@ public class Action {
 		
 		BUTTON,
 		STAGE,
-		ACTOR,
+		ACTOR
 		
 
 	}
