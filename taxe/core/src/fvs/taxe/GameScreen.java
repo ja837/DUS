@@ -36,7 +36,7 @@ public class GameScreen extends ScreenAdapter {
     private GoalController goalController;
     private RouteController routeController;
     
-    private ActionManager replayManager;
+    private ActionManager actionManager;
 
     public GameScreen(TaxeGame game) {
         this.game = game;
@@ -47,7 +47,7 @@ public class GameScreen extends ScreenAdapter {
 
         //Initialises the game
         gameLogic = Game.getInstance();
-        context = new Context(stage, skin, game, gameLogic);
+        context = new Context(stage, skin, game, gameLogic, actionManager);
         Gdx.input.setInputProcessor(stage);
 
         //Draw background

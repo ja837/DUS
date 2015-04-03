@@ -18,12 +18,13 @@ import gameLogic.resource.Train;
 import java.util.ArrayList;
 
 //Responsible for checking whether the train is clicked.
-public class TrainClicked extends ClickListener {
+public class TrainClicked extends ActionClickListener {
     private Context context;
     private Train train;
     private boolean displayingMessage;
 
-    public TrainClicked(Context context, Train train) {
+    public TrainClicked(Context context, Actor actor, Train train) {
+    	super(context.getActionManager(), actor);
         this.train = train;
         this.context = context;
         displayingMessage = false;

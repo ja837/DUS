@@ -12,9 +12,6 @@ public class ActionClickListener extends ClickListener {
 	private ActionManager manager;
     private Actor actor;
 
-    protected ActionClickListener() {
-    }
-
     public ActionClickListener(ActionManager manager, Actor actor) {
         this.manager = manager;
         this.actor = actor;
