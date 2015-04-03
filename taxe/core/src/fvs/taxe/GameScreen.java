@@ -7,8 +7,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
 import fvs.taxe.controller.*;
 import fvs.taxe.dialog.DialogEndGame;
+import fvs.taxe.replay.ReplayManager;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.listeners.GameStateListener;
@@ -34,7 +36,7 @@ public class GameScreen extends ScreenAdapter {
     private GoalController goalController;
     private RouteController routeController;
     
-    private ActionManager actionManager;
+    private ReplayManager replayManager;
 
     public GameScreen(TaxeGame game) {
         this.game = game;
