@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import fvs.taxe.controller.*;
 import fvs.taxe.dialog.DialogEndGame;
-import fvs.taxe.replay.ReplayManager;
+import fvs.taxe.replay.ActionManager;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.listeners.GameStateListener;
@@ -36,7 +36,7 @@ public class GameScreen extends ScreenAdapter {
     private GoalController goalController;
     private RouteController routeController;
     
-    private ReplayManager replayManager;
+    private ActionManager replayManager;
 
     public GameScreen(TaxeGame game) {
         this.game = game;

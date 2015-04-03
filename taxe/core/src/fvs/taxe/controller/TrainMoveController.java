@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 
-import fvs.taxe.Replay;
 import fvs.taxe.actor.TrainActor;
 import gameLogic.Game;
 import gameLogic.map.IPositionable;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
 
-public class TrainMoveController implements Replay{
+public class TrainMoveController{
     //This class handles all train movement in the game
     private Context context;
     private Train train;
@@ -143,18 +142,7 @@ public class TrainMoveController implements Replay{
         return Vector2.dst(a.getX(), a.getY(), b.getX(), b.getY());
     }
 
-	@Override
-	public void onReplay() {
-		// TODO Auto-generated method stub
-		//play action
-	}
 
-	@Override
-	public void onInitialPlay() {
-		// TODO Auto-generated method stub
-		//add to list of all actions
-		//double linked list of actions with time stamps
-	}
 
     //We removed collisions from here as it was more appropriate for how we wanted collisions to work to test it every time the trains were rendered
 }
