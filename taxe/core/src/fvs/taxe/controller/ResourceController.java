@@ -76,7 +76,7 @@ public class ResourceController {
                 
                 TextButton button = new TextButton("Obstacle", context.getSkin());
                 button.setPosition(x, y);
-                button.setName("Train button");
+                button.setName("Obstacle button");
                 ObstacleClicked listener = new ObstacleClicked(context, button, obstacle);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
@@ -89,7 +89,7 @@ public class ResourceController {
                 
                 TextButton button = new TextButton("Modifier", context.getSkin());
                 button.setPosition(x, y);
-                button.setName("Train button");
+                button.setName("Modifier button");
                 ModifierClicked listener = new ModifierClicked(context, button, modifier);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
@@ -102,8 +102,8 @@ public class ResourceController {
                 
                 TextButton button = new TextButton("Skip", context.getSkin());
                 button.setPosition(x, y);
-                button.setName("Train button");
-                SkipClicked listener = new SkipClicked(context, skip);
+                button.setName("Skip button");
+                SkipClicked listener = new SkipClicked(context, button, skip);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
 
