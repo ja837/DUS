@@ -33,7 +33,7 @@ public class TrainClicked extends ActionClickListener {
     @Override
     public void clicked(InputEvent event, float x, float y) {   	
 
-    	//Performs logic for keeping track of actions
+    	//Performs logic for keeping track of actions (for replays)
     	super.clicked(event, x, y);
     	
         if (Game.getInstance().getState() == GameState.NORMAL) {

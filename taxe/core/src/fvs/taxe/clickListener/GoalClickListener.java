@@ -14,7 +14,7 @@ import gameLogic.goal.Goal;
 import gameLogic.map.Station;
 
 //Responsible for checking whether the goal is clicked
-public class GoalClickListener extends ClickListener {
+public class GoalClickListener extends ActionClickListener {
     private Context context;
     private Goal goal;
     private Tooltip tooltip1;
@@ -24,7 +24,8 @@ public class GoalClickListener extends ClickListener {
     //This boolean was necessary to check whether tooltips are currently being displayed or not. Otherwise tooltips got constantly re-rendered
     private boolean showingTooltips;
 
-    public GoalClickListener(Context context, Goal goal) {
+    public GoalClickListener(Context context, Actor actor, Goal goal) {
+    	super(context.getActionManager(), actor);
         this.goal = goal;
         this.context = context;
         this.showingTooltips = false;
@@ -32,6 +33,10 @@ public class GoalClickListener extends ClickListener {
 
     @Override
     public void clicked(InputEvent event, float x, float y) {
+    	
+    	//Performs logic for keeping track of actions (for replays)
+    	super.clicked(event, x, y);
+    	
         //A check was necessary as to whether tooltips were currently being shown
         //This is due to the odd way that the events work
         //When clicking on a goal, it simultaneously performs the enter and exit methods

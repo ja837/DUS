@@ -60,9 +60,11 @@ public class ResourceController {
                 //If a train is not placed then its position is null so this is used to check
                 if (train.getPosition() == null) {
                     //Creates a clickListener for the button and adds it to the list of buttons
-                    TrainClicked listener = new TrainClicked(context, train.getActor(), train);
+                    
                     TextButton button = new TextButton(resource.toString(), context.getSkin());
                     button.setPosition(x, y);
+                    button.setName("Train button");
+                    TrainClicked listener = new TrainClicked(context, button, train);
                     button.addListener(listener);
                     resourceButtons.addActor(button);
                     y -= 30;
@@ -71,9 +73,11 @@ public class ResourceController {
             } else if (resource instanceof Obstacle) {
                 //Creates a clickListener for the button and adds it to the list of buttons
                 Obstacle obstacle = (Obstacle) resource;
-                ObstacleClicked listener = new ObstacleClicked(context, obstacle);
+                
                 TextButton button = new TextButton("Obstacle", context.getSkin());
                 button.setPosition(x, y);
+                button.setName("Train button");
+                ObstacleClicked listener = new ObstacleClicked(context, obstacle);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
 
@@ -82,9 +86,11 @@ public class ResourceController {
             } else if (resource instanceof Modifier) {
                 //Creates a clickListener for the button and adds it to the list of buttons
                 Modifier modifier = (Modifier) resource;
-                ModifierClicked listener = new ModifierClicked(context, modifier);
+                
                 TextButton button = new TextButton("Modifier", context.getSkin());
                 button.setPosition(x, y);
+                button.setName("Train button");
+                ModifierClicked listener = new ModifierClicked(context, modifier);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
 
@@ -93,9 +99,11 @@ public class ResourceController {
             } else if (resource instanceof Skip) {
                 //Creates a clickListener for the button and adds it to the list of buttons
                 Skip skip = (Skip) resource;
-                SkipClicked listener = new SkipClicked(context, skip);
+                
                 TextButton button = new TextButton("Skip", context.getSkin());
                 button.setPosition(x, y);
+                button.setName("Train button");
+                SkipClicked listener = new SkipClicked(context, skip);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
 
@@ -107,6 +115,7 @@ public class ResourceController {
                 
                 TextButton button = new TextButton("Engineer", context.getSkin());
                 button.setPosition(x, y);
+                button.setName("Engineer button");
                 EngineerClicked listener = new EngineerClicked(context, button, engineer);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
