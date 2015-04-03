@@ -17,8 +17,8 @@ public class EngineerClicked extends ActionClickListener {
     private Context context;
     private boolean displayingMessage;
 
-    public EngineerClicked(Context context, Engineer engineer) {
-    	super(context.getActionManager(), null);
+    public EngineerClicked(Context context, Actor actor, Engineer engineer) {
+    	super(context.getActionManager(), actor);
         this.engineer = engineer;
         this.context = context;
         displayingMessage = false;
