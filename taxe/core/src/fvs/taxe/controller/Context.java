@@ -20,12 +20,12 @@ public class Context {
 
     
 
-	public Context(Stage stage, Skin skin, TaxeGame taxeGame, Game gameLogic, ActionManager manager) {
+	public Context(Stage stage, Skin skin, TaxeGame taxeGame, Game gameLogic) {
         this.stage = stage;
         this.skin = skin;
         this.taxeGame = taxeGame;
         this.gameLogic = gameLogic;
-        this.actionManager = manager;
+        this.actionManager = new ActionManager(stage);
     }
 
     //Getters and setters: pretty self-explanatory

@@ -21,9 +21,15 @@ public class ActionClickListener extends ClickListener {
     @Override
     public void clicked(InputEvent event, float x, float y) {       
         if (actor != null) {
-        	long time = TimeUtils.millis();
+        	
+        	//Get the time since the game started
+        	long time = TimeUtils.millis() - manager.getStartingTime();
+        	
+        	//Set the name of the actor to the timestamp at which it was clicked
         	actor.setName(time + "");
         	Action action = new Action(actor.getName(), time);
+        	
+        	//Add the action to the managers list of actions
             manager.addAction(action);
         }
 
