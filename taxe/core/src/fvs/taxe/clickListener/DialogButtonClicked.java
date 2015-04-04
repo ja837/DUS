@@ -17,6 +17,7 @@ import fvs.taxe.clickListener.ResourceDialogClickListener;
 import fvs.taxe.controller.Context;
 import fvs.taxe.controller.StationController;
 import fvs.taxe.controller.TrainController;
+import fvs.taxe.replay.DropResourceAction;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.player.Player;
@@ -104,6 +105,12 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
             case TRAIN_DROP:
                 //If a TRAIN_DROP button is pressed then the train is removed from the player's resources
                 currentPlayer.removeResource(train);
+                
+                //Add train dropping to replay system.
+                DropResourceAction action = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, train);
+                context.getGameLogic().getReplayManager().addAction(action);
+                
+                
                 break;
 
             //The reason that all the placement case statements are in their own scope ({}) is due to the fact that switch statements do not create their own scopes between cases.

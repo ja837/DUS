@@ -98,18 +98,22 @@ public class GameScreen extends ScreenAdapter {
                 map.decrementBlockedConnections();
                 map.blockRandomConnection();
                 
-                //Record the actions that happen at the end of a turn in the replay manager.
-                GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource1);
-                GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource2);
-                GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, goal);
+                if (gameLogic.getState() != GameState.REPLAYING){
+                	
+                	//Record the actions that happen at the end of a turn in the replay manager.
+                    GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource1);
+                    GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource2);
+                    GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, goal);
+                    
+                                    
+                    
+                    replayManager.addAction(resourceAction);
+                    replayManager.addAction(resourceAction2);
+                    replayManager.addAction(goalAction);
+                    
+                    //replayManager.printDebugInfo();
+                }
                 
-                                
-                
-                replayManager.addAction(resourceAction);
-                replayManager.addAction(resourceAction2);
-                replayManager.addAction(goalAction);
-                
-                replayManager.printDebugInfo();
             }
         });
         
@@ -218,15 +222,17 @@ public class GameScreen extends ScreenAdapter {
         Resource resource1 = gameLogic.getResourceManager().addRandomResourceToPlayer(player);
         Resource resource2 = gameLogic.getResourceManager().addRandomResourceToPlayer(player);
         
+        if (gameLogic.getState() != GameState.REPLAYING){
+        	//Record actions for replay
+            GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), player, resource1);
+            GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), player, resource2);
+            GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), player, goal);
+                                           
+            replayManager.addAction(resourceAction);
+            replayManager.addAction(resourceAction2);
+            replayManager.addAction(goalAction);
+        }
         
-        //Record actions for replay
-        GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), player, resource1);
-        GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), player, resource2);
-        GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), player, goal);
-                                       
-        replayManager.addAction(resourceAction);
-        replayManager.addAction(resourceAction2);
-        replayManager.addAction(goalAction);
     }
 
 }
