@@ -54,7 +54,7 @@ public class Game {
         playerManager.subscribeTurnChanged(new TurnListener() {
             @Override
             public void changed() {
-                //Moveed all the adding of resources ad goals to GameScreen to enable replay handling - Jamie
+                //Moved all the adding of resources ad goals to GameScreen to enable replay handling - Jamie
             }
         });
     }

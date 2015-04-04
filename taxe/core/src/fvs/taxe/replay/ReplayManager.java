@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.utils.TimeUtils;
 
+/**
+ * Manages all the actions for replaying
+ * @author Jamie
+ *
+ */
 public class ReplayManager {
 	
 	
@@ -19,7 +24,10 @@ public class ReplayManager {
 		startingTime = TimeUtils.millis();
 	}
 
-	
+	/**
+	 * Add an action to the list
+	 * @param a Action to be added
+	 */
 	public void addAction(Action a){
 
 		actionList.add(a);
@@ -27,6 +35,9 @@ public class ReplayManager {
 		System.out.println("Action added to replay list: " + a.toString());
 	}
 	
+	/**
+	 * Plays the next action in the list.
+	 */
 	public void playNextAction(){
 		playing = true;
 		
@@ -52,5 +63,15 @@ public class ReplayManager {
 	 */
 	public long getCurrentTimeStamp(){		
 		return TimeUtils.millis() - startingTime;
+	}
+	
+	/**
+	 * Prints all the recorded actions out into console. Just to check if recording has worked.
+	 */
+	public void printDebugInfo(){
+		System.out.println("\nReplay Manager Debug Info \n\n");
+		for (Action a : actionList){
+			System.out.println(a.toString());
+		}
 	}
 }
