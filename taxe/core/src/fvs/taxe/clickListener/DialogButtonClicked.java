@@ -20,6 +20,8 @@ import fvs.taxe.controller.TrainController;
 import fvs.taxe.replay.DropResourceAction;
 import fvs.taxe.replay.PlaceTrainAction;
 import fvs.taxe.replay.UseEngineerAction;
+import fvs.taxe.replay.UseModifierPlaceAction;
+import fvs.taxe.replay.UseModifierRemoveAction;
 import fvs.taxe.replay.UseObstacleAction;
 import fvs.taxe.replay.UseSkipAction;
 import gameLogic.Game;
@@ -264,6 +266,13 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 							context.getGameLogic().getMap().addConnection(modifier.getStation1(), modifier.getStation2());
 							//The modifiers is removed from the player's inventory as it has been used
 							currentPlayer.removeResource(modifier);
+							
+							//Add modifier use to replay system.
+							if (context.getGameLogic().getState() != GameState.REPLAYING){
+								
+								UseModifierPlaceAction actionUseMP = new UseModifierPlaceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, modifier);
+								context.getGameLogic().getReplayManager().addAction(actionUseMP);
+							}
 
 						} else {
 
@@ -626,6 +635,13 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 							map.removeConnection(map.getConnection(modifier.getStation1(),modifier.getStation2()));
 							//The modifiers is removed from the player's inventory as it has been used
 							currentPlayer.removeResource(modifier);
+							
+							//Add modifier use to replay system.
+							if (context.getGameLogic().getState() != GameState.REPLAYING){
+								
+								UseModifierRemoveAction actionUseMR = new UseModifierRemoveAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, modifier);
+								context.getGameLogic().getReplayManager().addAction(actionUseMR);
+							}
 
 						} else {
 
