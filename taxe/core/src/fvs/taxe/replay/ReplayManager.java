@@ -16,6 +16,7 @@ public class ReplayManager {
 	int currentAction = -1;
 	long startingTime = 0;
 	boolean playing = false;
+	float currentPlaybackSpeedMultiplier = 1;
 	
 	
 	public ReplayManager(){

@@ -13,19 +13,20 @@ import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.map.Station;
 import gameLogic.player.Player;
+import gameLogic.resource.Engineer;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
 public class UseEngineerAction extends Action {
 	
 	
-	Train train;
-	List<Station> route;
+	Player currentPlayer;
+	Engineer engineer;
 
-	public UseEngineerAction(Context context, long timestamp, Train t, List<Station> route) {
+	public UseEngineerAction(Context context, long timestamp, Player currentPlayer, Engineer engineer) {
 		super(context, timestamp);
-		train  = t;
-		this.route = route;
+		this.currentPlayer = currentPlayer;
+		this.engineer = engineer;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -33,14 +34,15 @@ public class UseEngineerAction extends Action {
 	public void play() {
 		System.out.println("Replaying an engineer use action.");
 
-		train.setRoute(route);
-		TrainMoveController move = new TrainMoveController(context, train);
+		//If the connection is blocked then it removes the blockage
+		engineer.use(context.getGameLogic().getMap().getConnection(engineer.getStation1(), engineer.getStation2()));
+		currentPlayer.removeResource(engineer);
 	}
 
 	@Override
 	public String toString() {
 		
-		return "Route Train Action, routing " + train.toString() + " from " + route.get(0).toString() + " to " + route.get(route.size() - 1).toString() + super.toString();
+		return "Engineer use Action, fixing the route between " + engineer.getStation1().toString() + " and " + engineer.getStation2() + " used by " + currentPlayer.toString() + super.toString();
 	}
 
 }

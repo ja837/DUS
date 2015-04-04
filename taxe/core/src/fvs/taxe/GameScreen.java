@@ -13,11 +13,13 @@ import fvs.taxe.dialog.DialogEndGame;
 import fvs.taxe.replay.GiveGoalAction;
 import fvs.taxe.replay.GiveResourceAction;
 import fvs.taxe.replay.ReplayManager;
+import fvs.taxe.replay.UseObstacleAction;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.goal.Goal;
 import gameLogic.listeners.GameStateListener;
 import gameLogic.listeners.TurnListener;
+import gameLogic.map.Connection;
 import gameLogic.map.Map;
 import gameLogic.player.Player;
 import gameLogic.resource.Resource;
@@ -96,7 +98,7 @@ public class GameScreen extends ScreenAdapter {
                 Resource resource1 = gameLogic.getResourceManager().addRandomResourceToPlayer(currentPlayer);
                 Resource resource2 = gameLogic.getResourceManager().addRandomResourceToPlayer(currentPlayer);
                 map.decrementBlockedConnections();
-                map.blockRandomConnection();
+                Connection blockedConnection = map.blockRandomConnection();
                 
                 //Record the actions that happen at the end of a turn in the replay manager.
                 if (gameLogic.getState() != GameState.REPLAYING){
@@ -114,6 +116,11 @@ public class GameScreen extends ScreenAdapter {
                 	if (goal != null){
                 		GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, goal);                   
                         replayManager.addAction(goalAction);
+                	}
+                	
+                	if (blockedConnection != null){
+                		UseObstacleAction obstacleAction =  new UseObstacleAction(context, replayManager.getCurrentTimeStamp(), null, null, blockedConnection);                   
+                        replayManager.addAction(obstacleAction);
                 	}
                     
                     

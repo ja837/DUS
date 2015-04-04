@@ -176,7 +176,7 @@ public class Map {
         return connections.get(index);
     }
 
-    public void blockRandomConnection() {
+    public Connection blockRandomConnection() {
         //This blocks a random connection
         int rand = random.nextInt(2);
         if (rand > 0) {
@@ -201,8 +201,11 @@ public class Map {
             } while (!canBlock);
 
             toBlock.setBlocked(5);
+            return toBlock;
 
         }
+        
+        return null;
 
     }
 

@@ -19,11 +19,14 @@ import fvs.taxe.controller.StationController;
 import fvs.taxe.controller.TrainController;
 import fvs.taxe.replay.DropResourceAction;
 import fvs.taxe.replay.PlaceTrainAction;
+import fvs.taxe.replay.UseEngineerAction;
+import fvs.taxe.replay.UseObstacleAction;
 import fvs.taxe.replay.UseSkipAction;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.player.Player;
 import gameLogic.map.CollisionStation;
+import gameLogic.map.Connection;
 import gameLogic.map.Station;
 import gameLogic.resource.Engineer;
 import gameLogic.resource.Modifier;
@@ -357,7 +360,8 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 						if (context.getGameLogic().getMap().doesConnectionExist(obstacle.getStation1().getName(), obstacle.getStation2().getName())) {
 
 							//If the connections exists then the connection is blocked for 5 turns
-							obstacle.use(context.getGameLogic().getMap().getConnection(obstacle.getStation1(), obstacle.getStation2()));
+							Connection toBlock = context.getGameLogic().getMap().getConnection(obstacle.getStation1(), obstacle.getStation2());
+							obstacle.use(toBlock);
 							//The obstacle is removed from the player's inventory as it has been used
 							currentPlayer.removeResource(obstacle);
 
@@ -365,6 +369,11 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 							//In practice this means that a train already on the track will continue its motion unopposed
 							//This is considered the intended behaviour of the obstacle feature as its intent is to reward proactive players, not reward reactive ones
 							//If this is not how you want your obstacles to work you might consider preventing the player from placing obstacles on blocked connections or immediately pausing any train on that connection
+							
+							if (context.getGameLogic().getState() != GameState.REPLAYING){
+							UseObstacleAction obstacleAction =  new UseObstacleAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, obstacle, toBlock);                   
+							context.getGameLogic().getReplayManager().addAction(obstacleAction);
+							}
 
 						} else {
 
@@ -461,6 +470,14 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 								//If the connection is blocked then it removes the blockage
 								engineer.use(context.getGameLogic().getMap().getConnection(engineer.getStation1(), engineer.getStation2()));
 								currentPlayer.removeResource(engineer);
+								
+								//Add engineer use to replay system.
+								if (context.getGameLogic().getState() != GameState.REPLAYING){
+									
+									UseEngineerAction actionUseE = new UseEngineerAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, engineer);
+									context.getGameLogic().getReplayManager().addAction(actionUseE);
+								}
+								
 							} else {
 								//If the connection is not blocked then placement is cancelled and the user is informed
 								Dialog dia = new Dialog("Invalid Selection", context.getSkin());
@@ -615,7 +632,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 							//Informs the player that their selection is invalid and cancels placement
 							Dialog dia = new Dialog("Invalid Selection", context.getSkin());
 							dia.text("There is no connection between those stations." +
-									"\nPlease use the obstacle again.").align(Align.center);
+									"\nPlease use the modifier again.").align(Align.center);
 							dia.button("OK", "OK");
 							dia.show(context.getStage());
 							modifier.setStation1(null);
