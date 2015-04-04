@@ -52,6 +52,7 @@ public class GameScreen extends ScreenAdapter {
 
         //Initialises the game
         gameLogic = Game.getInstance();
+        replayManager = gameLogic.getReplayManager();
         
         //Moved this here from Game.java to give access to things needed for replay system.
         initialisePlayers();
@@ -62,7 +63,7 @@ public class GameScreen extends ScreenAdapter {
         //Draw background
         mapTexture = new Texture(Gdx.files.internal("gamemap.png"));
         map = gameLogic.getMap();
-        replayManager = gameLogic.getReplayManager();
+        
 
         tooltip = new Tooltip(skin);
         stage.addActor(tooltip);
