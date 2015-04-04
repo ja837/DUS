@@ -52,6 +52,10 @@ public class GameScreen extends ScreenAdapter {
 
         //Initialises the game
         gameLogic = Game.getInstance();
+        
+        //Moved this here from Game.java to give access to things needed for replay system.
+        initialisePlayers();
+        
         context = new Context(stage, skin, game, gameLogic);
         Gdx.input.setInputProcessor(stage);
 
@@ -82,6 +86,10 @@ public class GameScreen extends ScreenAdapter {
                     topBarController.displayFlashMessage("Time is passing...", Color.BLACK);
                 }
                 
+                //Adds all the subscriptions to the game which gives players resources and goals at the start of each turn.
+                //Also decrements all connections and blocks a random one
+                //The checking for whether a turn is being skipped is handled inside the methods, this just always calls them
+                
                 Player currentPlayer = gameLogic.getPlayerManager().getCurrentPlayer();
                 Goal goal = gameLogic.getGoalManager().addRandomGoalToPlayer(currentPlayer);
                 Resource resource1 = gameLogic.getResourceManager().addRandomResourceToPlayer(currentPlayer);
@@ -94,8 +102,7 @@ public class GameScreen extends ScreenAdapter {
                 GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource2);
                 GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, goal);
                 
-                
-                
+                                
                 
                 replayManager.addAction(resourceAction);
                 replayManager.addAction(resourceAction2);
@@ -103,9 +110,7 @@ public class GameScreen extends ScreenAdapter {
             }
         });
         
-      //Adds all the subscriptions to the game which gives players resources and goals at the start of each turn.
-        //Also decrements all connections and blocks a random one
-        //The checking for whether a turn is being skipped is handled inside the methods, this just always calls them
+
 
 
         //Adds a listener that checks certain conditions at the end of every turn
@@ -199,6 +204,26 @@ public class GameScreen extends ScreenAdapter {
     public void dispose() {
         mapTexture.dispose();
         stage.dispose();
+    }
+    
+    // Only the first player should be given goals and resources during init
+    // The second player gets them when turn changes!
+    // Moved here from Game.java to give access to replay system
+    private void initialisePlayers() {
+        Player player = gameLogic.getPlayerManager().getAllPlayers().get(0);
+        Goal goal = gameLogic.getGoalManager().addRandomGoalToPlayer(player);
+        Resource resource1 = gameLogic.getResourceManager().addRandomResourceToPlayer(player);
+        Resource resource2 = gameLogic.getResourceManager().addRandomResourceToPlayer(player);
+        
+        
+        //Record actions for replay
+        GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), player, resource1);
+        GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), player, resource2);
+        GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), player, goal);
+                                       
+        replayManager.addAction(resourceAction);
+        replayManager.addAction(resourceAction2);
+        replayManager.addAction(goalAction);
     }
 
 }

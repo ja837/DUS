@@ -66,20 +66,15 @@ public class Game {
             instance = new Game();
             // initialisePlayers gives them a goal, and the GoalManager requires an instance of game to exist so this
             // method can't be called in the constructor
-            instance.initialisePlayers();
+            
+            //Moved init players to game screen to allow for easy replay action logging.
+            //instance.initialisePlayers();
         }
 
         return instance;
     }
 
-    // Only the first player should be given goals and resources during init
-    // The second player gets them when turn changes!
-    private void initialisePlayers() {
-        Player player = playerManager.getAllPlayers().get(0);
-        goalManager.addRandomGoalToPlayer(player);
-        resourceManager.addRandomResourceToPlayer(player);
-        resourceManager.addRandomResourceToPlayer(player);
-    }
+    
 
     public PlayerManager getPlayerManager() {
         return playerManager;
