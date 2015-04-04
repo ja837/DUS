@@ -38,7 +38,6 @@ public class TrainActor extends Image {
         IPositionable position = train.getPosition();
 
         train.setActor(this);
-        train.getActor().setName(train.getName());
         this.train = train;
         setSize(width, height);
         bounds = new Rectangle();

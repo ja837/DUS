@@ -33,9 +33,6 @@ public class TrainClicked extends ActionClickListener {
     @Override
     public void clicked(InputEvent event, float x, float y) {
 
-    	//Performs logic for keeping track of actions
-    	super.clicked(event, x, y);
-    	
         if (Game.getInstance().getState() == GameState.NORMAL) {
 
             // current player can't be passed in as it changes so find out current player at this instant

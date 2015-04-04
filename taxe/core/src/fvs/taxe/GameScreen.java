@@ -47,7 +47,6 @@ public class GameScreen extends ScreenAdapter {
 
         //Initialises the game
         gameLogic = Game.getInstance();
-        actionManager = new ActionManager();
         context = new Context(stage, skin, game, gameLogic, actionManager);
         Gdx.input.setInputProcessor(stage);
 
