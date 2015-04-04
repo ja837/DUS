@@ -1,5 +1,9 @@
 package gameLogic;
 
+import fvs.taxe.controller.Context;
+import fvs.taxe.replay.EndTurnAction;
+import fvs.taxe.replay.GiveResourceAction;
+import fvs.taxe.replay.ReplayManager;
 import gameLogic.listeners.GameStateListener;
 import gameLogic.listeners.TurnListener;
 import gameLogic.goal.GoalManager;
@@ -19,6 +23,7 @@ public class Game {
     private PlayerManager playerManager;
     private GoalManager goalManager;
     private ResourceManager resourceManager;
+    private ReplayManager replayManager;
     private Map map;
     private GameState state;
     private List<GameStateListener> gameStateListeners = new ArrayList<GameStateListener>();
@@ -38,26 +43,18 @@ public class Game {
         //Give them starting resources and goals
         resourceManager = new ResourceManager();
         goalManager = new GoalManager(resourceManager);
+        
+        //Init replayManager
+        replayManager = new ReplayManager();
 
         map = new Map();
 
         state = GameState.NORMAL;
 
-        //Adds all the subscriptions to the game which gives players resources and goals at the start of each turn.
-        //Also decrements all connections and blocks a random one
-        //The checking for whether a turn is being skipped is handled inside the methods, this just always calls them
         playerManager.subscribeTurnChanged(new TurnListener() {
             @Override
             public void changed() {
-                Player currentPlayer = playerManager.getCurrentPlayer();
-                goalManager.addRandomGoalToPlayer(currentPlayer);
-                Resource resource1 = resourceManager.addRandomResourceToPlayer(currentPlayer);
-                Resource resource2 = resourceManager.addRandomResourceToPlayer(currentPlayer);
-                map.decrementBlockedConnections();
-                map.blockRandomConnection();
-                
-                //Add to replay system
-                
+                //Moveed all the adding of resources ad goals to GameScreen to enable replay handling - Jamie
             }
         });
     }
@@ -94,6 +91,10 @@ public class Game {
     
     public ResourceManager getResourceManager() {
 		return resourceManager;
+	}
+    
+    public ReplayManager getReplayManager() {
+		return replayManager;
 	}
 
     public Map getMap() {

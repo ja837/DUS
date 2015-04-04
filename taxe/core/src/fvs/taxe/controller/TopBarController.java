@@ -97,9 +97,9 @@ public class TopBarController {
                 context.getGameLogic().getPlayerManager().turnOver(context);
                 
                 //Record this acation in the replay manager.
-                long timestamp = context.getReplayManager().getCurrentTimeStamp();
+                long timestamp = context.getGameLogic().getReplayManager().getCurrentTimeStamp();
                 EndTurnAction action = new EndTurnAction(context, timestamp);
-                context.getReplayManager().addAction(action);
+                context.getGameLogic().getReplayManager().addAction(action);
             }
         });
 

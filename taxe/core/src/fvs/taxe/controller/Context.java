@@ -18,14 +18,11 @@ public class Context {
     private TopBarController topBarController;
     
 
-	private ReplayManager replayManager;
-
     public Context(Stage stage, Skin skin, TaxeGame taxeGame, Game gameLogic) {
         this.stage = stage;
         this.skin = skin;
         this.taxeGame = taxeGame;
         this.gameLogic = gameLogic;
-        this.replayManager = new ReplayManager();
     }
 
     //Getters and setters: pretty self-explanatory
@@ -33,9 +30,6 @@ public class Context {
         return stage;
     }
     
-    public ReplayManager getReplayManager() {
-		return replayManager;
-	}
 
     public Skin getSkin() {
         return skin;

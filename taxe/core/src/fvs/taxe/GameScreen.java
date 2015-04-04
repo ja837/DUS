@@ -10,12 +10,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import fvs.taxe.controller.*;
 import fvs.taxe.dialog.DialogEndGame;
+import fvs.taxe.replay.GiveGoalAction;
+import fvs.taxe.replay.GiveResourceAction;
 import fvs.taxe.replay.ReplayManager;
 import gameLogic.Game;
 import gameLogic.GameState;
+import gameLogic.goal.Goal;
 import gameLogic.listeners.GameStateListener;
 import gameLogic.listeners.TurnListener;
 import gameLogic.map.Map;
+import gameLogic.player.Player;
+import gameLogic.resource.Resource;
 
 
 public class GameScreen extends ScreenAdapter {
@@ -53,6 +58,7 @@ public class GameScreen extends ScreenAdapter {
         //Draw background
         mapTexture = new Texture(Gdx.files.internal("gamemap.png"));
         map = gameLogic.getMap();
+        replayManager = gameLogic.getReplayManager();
 
         tooltip = new Tooltip(skin);
         stage.addActor(tooltip);
@@ -75,8 +81,32 @@ public class GameScreen extends ScreenAdapter {
                     gameLogic.setState(GameState.ANIMATING);
                     topBarController.displayFlashMessage("Time is passing...", Color.BLACK);
                 }
+                
+                Player currentPlayer = gameLogic.getPlayerManager().getCurrentPlayer();
+                Goal goal = gameLogic.getGoalManager().addRandomGoalToPlayer(currentPlayer);
+                Resource resource1 = gameLogic.getResourceManager().addRandomResourceToPlayer(currentPlayer);
+                Resource resource2 = gameLogic.getResourceManager().addRandomResourceToPlayer(currentPlayer);
+                map.decrementBlockedConnections();
+                map.blockRandomConnection();
+                
+                //Record the actions that happen at the end of a turn in the replay manager.
+                GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource1);
+                GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource2);
+                GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, goal);
+                
+                
+                
+                
+                replayManager.addAction(resourceAction);
+                replayManager.addAction(resourceAction2);
+                replayManager.addAction(goalAction);
             }
         });
+        
+      //Adds all the subscriptions to the game which gives players resources and goals at the start of each turn.
+        //Also decrements all connections and blocks a random one
+        //The checking for whether a turn is being skipped is handled inside the methods, this just always calls them
+
 
         //Adds a listener that checks certain conditions at the end of every turn
         gameLogic.subscribeStateChanged(new GameStateListener() {

@@ -28,7 +28,7 @@ public class GiveResourceAction extends Action {
 	@Override
 	public String toString() {
 		
-		return "Train Allocation Action, giving " + resource.toString() + " to " + playerToGiveResourceTo.toString() + super.toString();
+		return "Resource Allocation Action, giving " + resource.toString() + " to " + playerToGiveResourceTo.toString() + super.toString();
 	}
 
 }

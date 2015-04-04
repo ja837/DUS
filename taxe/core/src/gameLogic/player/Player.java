@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private PlayerManager pm;
+    
+
+	private PlayerManager pm;
     private List<Resource> resources;
     private List<Goal> goals;
     private int number;
@@ -84,6 +86,12 @@ public class Player {
         goal.setComplete();
         changed();
     }
+    
+    @Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Player " + number;
+	}
 
     /**
      * Method is called whenever a property of this player changes, or one of the player's resources changes

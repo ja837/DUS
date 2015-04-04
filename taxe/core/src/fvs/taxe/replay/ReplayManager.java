@@ -39,7 +39,7 @@ public class ReplayManager {
 		playing = false;
 	}
 	
-	/*
+	/**
 	 * Get the list of all the actions
 	 */
 	public ArrayList<Action> getAllActions(){
@@ -47,7 +47,7 @@ public class ReplayManager {
 	}
 	
 	
-	/*
+	/**
 	 * When recording an action we need to save the time it happened. This method returns the time elapsed after the game started
 	 */
 	public long getCurrentTimeStamp(){		

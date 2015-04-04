@@ -9,11 +9,11 @@ public abstract class Action {
 	Context context;
 	
 	public Action(Context context, long timestamp){
-		this.timeStamp = timestamp;
 		this.context = context;
+		this.timeStamp = timestamp;
 	}
 	
-	/*
+	/**
 	 * This method is called when the action is being replayed.
 	 */
 	public abstract void play();
@@ -25,6 +25,6 @@ public abstract class Action {
 
 	@Override
 	public String toString() {
-		return " with a timestamp of " + timeStamp;
+		return " at timestamp of " + timeStamp;
 	}
 }
