@@ -26,7 +26,10 @@ public class Game {
     private ReplayManager replayManager;
     private Map map;
     private GameState state;
-    private List<GameStateListener> gameStateListeners = new ArrayList<GameStateListener>();
+    private boolean replaying = false;;
+
+
+	private List<GameStateListener> gameStateListeners = new ArrayList<GameStateListener>();
 
     //Number of players, not sure how much impact this has on the game at the moment but if you wanted to add more players you would use this attributes
     private final int CONFIG_PLAYERS = 2;
@@ -75,7 +78,14 @@ public class Game {
     }
 
     
+    public boolean isReplaying() {
+		return replaying;
+	}
 
+	public void setReplaying(boolean replaying) {
+		this.replaying = replaying;
+	}
+	
     public PlayerManager getPlayerManager() {
         return playerManager;
     }
