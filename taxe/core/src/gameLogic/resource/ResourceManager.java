@@ -60,7 +60,7 @@ public class ResourceManager {
     }
 
 
-    public void addRandomResourceToPlayer(Player player) {
+    public Resource addRandomResourceToPlayer(Player player) {
         //This adds a random resource to player
 
         //Need to check whether the player is skipping their turn as they should not receive a resource if they are
@@ -75,10 +75,14 @@ public class ResourceManager {
                 resource = getRandomResource();
             }
             addResourceToPlayer(player, resource);
+            
+            return resource;
         }
+        
+        return null;
     }
 
-    private void addResourceToPlayer(Player player, Resource resource) {
+    public void addResourceToPlayer(Player player, Resource resource) {
         if (player.getResources().size() < CONFIG_MAX_RESOURCES) {
             //If the player has less than the max number of resources then the resource is given to the player.
             resource.setPlayer(player);

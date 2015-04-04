@@ -6,6 +6,7 @@ import gameLogic.goal.GoalManager;
 import gameLogic.map.Map;
 import gameLogic.player.Player;
 import gameLogic.player.PlayerManager;
+import gameLogic.resource.Resource;
 import gameLogic.resource.ResourceManager;
 
 import java.util.ArrayList;
@@ -50,15 +51,20 @@ public class Game {
             public void changed() {
                 Player currentPlayer = playerManager.getCurrentPlayer();
                 goalManager.addRandomGoalToPlayer(currentPlayer);
-                resourceManager.addRandomResourceToPlayer(currentPlayer);
-                resourceManager.addRandomResourceToPlayer(currentPlayer);
+                Resource resource1 = resourceManager.addRandomResourceToPlayer(currentPlayer);
+                Resource resource2 = resourceManager.addRandomResourceToPlayer(currentPlayer);
                 map.decrementBlockedConnections();
                 map.blockRandomConnection();
+                
+                //Add to replay system
+                
             }
         });
     }
 
-    public static Game getInstance() {
+    
+
+	public static Game getInstance() {
         if (instance == null) {
             instance = new Game();
             // initialisePlayers gives them a goal, and the GoalManager requires an instance of game to exist so this
@@ -85,6 +91,10 @@ public class Game {
     public GoalManager getGoalManager() {
         return goalManager;
     }
+    
+    public ResourceManager getResourceManager() {
+		return resourceManager;
+	}
 
     public Map getMap() {
         return map;
