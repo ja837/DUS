@@ -15,24 +15,19 @@ import gameLogic.resource.Modifier;
 import gameLogic.resource.Obstacle;
 
 //Responsible for checking whether the Obstacle is clicked.
-public class ModifierClicked extends ActionClickListener {
+public class ModifierClicked extends ClickListener {
     private Modifier modifier;
     private Context context;
     private boolean displayingMessage;
 
-    public ModifierClicked(Context context, Actor actor, Modifier modifier) {
-    	super(context.getActionManager(), actor);
+    public ModifierClicked(Context context, Modifier modifier) {
         this.modifier = modifier;
         this.context = context;
         displayingMessage = false;
     }
 
     @Override
-    public void clicked(InputEvent event, float x, float y) {   
-    	
-    	//Performs logic for keeping track of actions (for replays)
-    	super.clicked(event, x, y);
-    	
+    public void clicked(InputEvent event, float x, float y) {    	
         if (Game.getInstance().getState() == GameState.NORMAL) {
 
             // current player can't be passed in as it changes so find out current player at this instant

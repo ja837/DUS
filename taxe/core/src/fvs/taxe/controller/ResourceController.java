@@ -90,7 +90,7 @@ public class ResourceController {
                 TextButton button = new TextButton("Modifier", context.getSkin());
                 button.setPosition(x, y);
                 button.setName("Train button");
-                ModifierClicked listener = new ModifierClicked(context, button, modifier);
+                ModifierClicked listener = new ModifierClicked(context, modifier);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
 
