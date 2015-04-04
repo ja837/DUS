@@ -35,6 +35,7 @@ public class EngineerClicked extends ClickListener {
             DialogResourceEngineer dia = new DialogResourceEngineer(engineer, context.getSkin());
             dia.show(context.getStage());
             dia.subscribeClick(listener);
+
         }
     }
 

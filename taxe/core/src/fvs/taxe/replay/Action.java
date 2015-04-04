@@ -22,4 +22,9 @@ public abstract class Action {
 	public long getTimeStamp(){
 		return timeStamp;
 	}
+
+	@Override
+	public String toString() {
+		return " with a timestamp of " + timeStamp;
+	}
 }

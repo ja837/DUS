@@ -11,7 +11,15 @@ public class EndTurnAction extends Action {
 
 	@Override
 	public void play() {
+		System.out.println("Replaying an end of turn action.");
 		context.getGameLogic().getPlayerManager().turnOver(context);
+		
+	}
+
+	@Override
+	public String toString() {
+		
+		return "End of Turn Action" + super.toString();
 	}
 
 }

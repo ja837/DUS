@@ -30,7 +30,9 @@ public class ReplayManager {
 	public void playNextAction(){
 		playing = true;
 		
-		
+		if (currentAction < actionList.size()){
+			actionList.get(currentAction).play();
+		}
 		
 		
 		
