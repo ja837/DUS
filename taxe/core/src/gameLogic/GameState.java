@@ -6,6 +6,5 @@ public enum GameState {
     PLACING_TRAIN,
     PLACING_RESOURCE,
     ROUTING,
-    ANIMATING,
-    REPLAYING
+    ANIMATING
 }
