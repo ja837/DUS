@@ -88,7 +88,7 @@ public class GoalController {
 
                 
                 button.setPosition(x, y);
-                button.setName("Goal Button"); //This will be changed to the timestamp when clicked
+                button.setName(TimeUtils.millis() + "");
                 
                 //Adds the listener to the button so that it will inform the correct parts of the system
                 GoalClickListener listener = new GoalClickListener(context, button, goal);
