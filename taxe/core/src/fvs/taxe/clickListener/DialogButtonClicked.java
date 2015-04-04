@@ -19,6 +19,7 @@ import fvs.taxe.controller.StationController;
 import fvs.taxe.controller.TrainController;
 import fvs.taxe.replay.DropResourceAction;
 import fvs.taxe.replay.PlaceTrainAction;
+import fvs.taxe.replay.UseSkipAction;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.player.Player;
@@ -546,6 +547,15 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 			context.getGameLogic().getPlayerManager().getAllPlayers().get(p).setSkip(true);
 			//Removes the resource after it has been used
 			currentPlayer.removeResource(skip);
+			
+			if (context.getGameLogic().getState() != GameState.REPLAYING){
+				//Add engineer dropping to replay system.
+				UseSkipAction actionUseS = new UseSkipAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, skip, p);
+				context.getGameLogic().getReplayManager().addAction(actionUseS);
+				
+				
+			}
+			
 			break;
 
 		case SKIP_DROP:

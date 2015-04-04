@@ -98,18 +98,25 @@ public class GameScreen extends ScreenAdapter {
                 map.decrementBlockedConnections();
                 map.blockRandomConnection();
                 
+                //Record the actions that happen at the end of a turn in the replay manager.
                 if (gameLogic.getState() != GameState.REPLAYING){
+                	               	
+                	if (resource1 != null){
+                		GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource1);
+                		replayManager.addAction(resourceAction);
+                	}
+                    
+                	if (resource2 != null){
+                		GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource2);
+                		replayManager.addAction(resourceAction2);
+                	}
                 	
-                	//Record the actions that happen at the end of a turn in the replay manager.
-                    GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource1);
-                    GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource2);
-                    GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, goal);
+                	if (goal != null){
+                		GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, goal);                   
+                        replayManager.addAction(goalAction);
+                	}
                     
-                                    
                     
-                    replayManager.addAction(resourceAction);
-                    replayManager.addAction(resourceAction2);
-                    replayManager.addAction(goalAction);
                     
                     replayManager.printDebugInfo();
                 }
