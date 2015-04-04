@@ -6,7 +6,7 @@ public class Action {
 	ActionType type;
 	
 	public Action(String id){
-		type = ActionType.ACTOR;
+		type = ActionType.ACTOR_CLICK;
 		ID = id;
 	}
 	

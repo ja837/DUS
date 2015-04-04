@@ -2,9 +2,7 @@ package fvs.taxe.controller;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-
 import fvs.taxe.TaxeGame;
-import fvs.taxe.replay.ActionManager;
 import gameLogic.Game;
 
 public class Context {
@@ -16,27 +14,15 @@ public class Context {
     private Game gameLogic;
     private RouteController routeController;
     private TopBarController topBarController;
-    private ActionManager actionManager;
 
-    
-
-	public Context(Stage stage, Skin skin, TaxeGame taxeGame, Game gameLogic, ActionManager manager) {
+    public Context(Stage stage, Skin skin, TaxeGame taxeGame, Game gameLogic) {
         this.stage = stage;
         this.skin = skin;
         this.taxeGame = taxeGame;
         this.gameLogic = gameLogic;
-        this.actionManager = manager;
     }
 
     //Getters and setters: pretty self-explanatory
-	public ActionManager getActionManager() {
-		return actionManager;
-	}
-
-	public void setActionManager(ActionManager actionManager) {
-		this.actionManager = actionManager;
-	}
-	
     public Stage getStage() {
         return stage;
     }
