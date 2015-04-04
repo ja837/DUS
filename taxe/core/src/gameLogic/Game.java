@@ -26,7 +26,7 @@ public class Game {
     private ReplayManager replayManager;
     private Map map;
     private GameState state;
-    private boolean replaying = false;;
+    private boolean replaying = false;
 
 
 	private List<GameStateListener> gameStateListeners = new ArrayList<GameStateListener>();

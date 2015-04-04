@@ -2,6 +2,7 @@ package gameLogic.player;
 
 import fvs.taxe.controller.Context;
 import fvs.taxe.dialog.DialogTurnSkipped;
+import gameLogic.Game;
 import gameLogic.listeners.TurnListener;
 import gameLogic.listeners.PlayerChangedListener;
 import gameLogic.player.Player;
@@ -43,9 +44,19 @@ public class PlayerManager {
 
         //Checks whether or not the turn is being skipped, if it is then it informs the player
         if (this.getCurrentPlayer().getSkip()) {
-            DialogTurnSkipped dia = new DialogTurnSkipped(context.getSkin());
-            dia.show(context.getStage());
-            this.getCurrentPlayer().setSkip(false);
+        	
+        	this.getCurrentPlayer().setSkip(false);
+        	
+        	//Only display dialog if not in replay mode.
+        	if (!context.getGameLogic().isReplaying()){
+        		DialogTurnSkipped dia = new DialogTurnSkipped(context.getSkin());
+                dia.show(context.getStage());
+        	}
+        	else{
+        		Game.getInstance().getPlayerManager().turnOver(null);
+        	}
+            
+            
         }
     }
 
