@@ -14,6 +14,8 @@ import java.util.List;
 
 import Util.Tuple;
 import fvs.taxe.clickListener.StationClickListener;
+import fvs.taxe.replay.DropResourceAction;
+import fvs.taxe.replay.RouteTrainAction;
 import fvs.taxe.TaxeGame;
 import gameLogic.GameState;
 import gameLogic.map.CollisionStation;
@@ -173,12 +175,21 @@ public class RouteController {
 
     private void confirmed() {
         //Passes the positions to the backend to create a route
-        train.setRoute(context.getGameLogic().getMap().createRoute(positions));
+        List<Station> route = context.getGameLogic().getMap().createRoute(positions);
+        train.setRoute(route);
 
         //A move controller is created to allow the train to move along its route.
         //Although move is never used later on in the program, it must be instantiated or else the trains will not move.
         //Hence you should not remove this even though it appears useless, I tried and trains do not move at all.
         TrainMoveController move = new TrainMoveController(context, train);
+        
+        
+        //Add train routing to replay system
+        if (context.getGameLogic().getState() != GameState.REPLAYING){
+			RouteTrainAction actionRouteTrain = new RouteTrainAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), train, route);
+			context.getGameLogic().getReplayManager().addAction(actionRouteTrain);
+        
+        }
     }
 
     private void endRouting() {
