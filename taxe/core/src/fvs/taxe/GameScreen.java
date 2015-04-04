@@ -101,7 +101,7 @@ public class GameScreen extends ScreenAdapter {
                 Connection blockedConnection = map.blockRandomConnection();
                 
                 //Record the actions that happen at the end of a turn in the replay manager.
-                if (!gameLogic.getState().isReplaying()){
+                if (!gameLogic.isReplaying()){
                 	               	
                 	if (resource1 != null){
                 		GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource1);
@@ -236,7 +236,7 @@ public class GameScreen extends ScreenAdapter {
         Resource resource1 = gameLogic.getResourceManager().addRandomResourceToPlayer(player);
         Resource resource2 = gameLogic.getResourceManager().addRandomResourceToPlayer(player);
         
-        if (!gameLogic.getState().isReplaying()){
+        if (!gameLogic.isReplaying()){
         	//Record actions for replay
             GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), player, resource1);
             GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), player, resource2);

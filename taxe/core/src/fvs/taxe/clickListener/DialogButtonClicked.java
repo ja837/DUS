@@ -551,7 +551,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 			//If the ENGINEER_DROP button is pressed then the resource is removed from the player's inventory
 			currentPlayer.removeResource(engineer);
 
-			if (!context.getGameLogic().getState().isReplaying()){
+			if (!context.getGameLogic().isReplaying()){
 				//Add engineer dropping to replay system.
 				DropResourceAction actionDropE = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, engineer);
 				context.getGameLogic().getReplayManager().addAction(actionDropE);
@@ -588,7 +588,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 			//Removes the resource from the player if they press the SKIP_DROP button
 			currentPlayer.removeResource(skip);
 
-			if (!context.getGameLogic().getState().isReplaying()){
+			if (!context.getGameLogic().isReplaying()){
 				//Add engineer dropping to replay system.
 				DropResourceAction actionDropS = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, skip);
 				context.getGameLogic().getReplayManager().addAction(actionDropS);
