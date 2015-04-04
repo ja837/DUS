@@ -19,7 +19,7 @@ public class DropResourceAction extends Action {
 
 	@Override
 	public void play() {
-		System.out.println("Replaying an train allocation action.");
+		System.out.println("Replaying an resource dropping action.");
 
 		player.removeResource(resource);
 		

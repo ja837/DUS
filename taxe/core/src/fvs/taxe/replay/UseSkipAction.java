@@ -16,13 +16,13 @@ import gameLogic.player.Player;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
-public class RouteTrainAction extends Action {
+public class UseSkipAction extends Action {
 	
 	
 	Train train;
 	List<Station> route;
 
-	public RouteTrainAction(Context context, long timestamp, Train t, List<Station> route) {
+	public UseSkipAction(Context context, long timestamp, Train t, List<Station> route) {
 		super(context, timestamp);
 		train  = t;
 		this.route = route;
@@ -31,7 +31,7 @@ public class RouteTrainAction extends Action {
 
 	@Override
 	public void play() {
-		System.out.println("Replaying an train routing action.");
+		System.out.println("Replaying an skip use action.");
 
 		train.setRoute(route);
 		TrainMoveController move = new TrainMoveController(context, train);

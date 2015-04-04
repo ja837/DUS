@@ -28,7 +28,7 @@ public class PlaceTrainAction extends Action {
 
 	@Override
 	public void play() {
-		System.out.println("Replaying an train allocation action.");
+		System.out.println("Replaying an train placement action.");
 
 		//This puts the train at the station that the user clicks and adds it to the trains visited history
         train.setPosition(station.getLocation());

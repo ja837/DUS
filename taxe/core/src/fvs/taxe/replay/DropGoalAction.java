@@ -20,7 +20,7 @@ public class DropGoalAction extends Action {
 
 	@Override
 	public void play() {
-		System.out.println("Replaying an train allocation action.");
+		System.out.println("Replaying an goal dropping action.");
 
 		player.removeGoal(goal);
 		

@@ -20,7 +20,7 @@ public class GiveGoalAction extends Action {
 
 	@Override
 	public void play() {
-		System.out.println("Replaying an train allocation action.");
+		System.out.println("Replaying an goal allocation action.");
 
 		context.getGameLogic().getGoalManager().addGoalToPlayer(playerToGiveGoalTo, goal);
 		
