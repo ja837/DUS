@@ -88,8 +88,8 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
     }
     
     public DialogButtonClicked(Context context, Player player, Modifier modifier) {
-        //This constructor is used when an obstacle dialog button is clicked.
-        //obstacle is set to the obstacle that the dialog was associated with and the other variables are set to null
+        //This constructor is used when an modifier dialog button is clicked.
+        //modifier is set to the modifier that the dialog was associated with and the other variables are set to null
         this.currentPlayer = player;
         this.train = null;
         this.skip = null;
@@ -107,8 +107,8 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
                 currentPlayer.removeResource(train);
                 
                 //Add train dropping to replay system.
-                DropResourceAction action = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, train);
-                context.getGameLogic().getReplayManager().addAction(action);
+                DropResourceAction actionDropT = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, train);
+                context.getGameLogic().getReplayManager().addAction(actionDropT);
                 
                 
                 break;
@@ -207,6 +207,10 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
             case OBSTACLE_DROP:
                 //Removes the obstacle from the current player's inventory if they click the OBSTACLE_DROP button
                 currentPlayer.removeResource(obstacle);
+                
+                //Add obst dropping to replay system.
+                DropResourceAction actionDropO = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, obstacle);
+                context.getGameLogic().getReplayManager().addAction(actionDropO);
                 break;
                 
             case ADD_PLACE:	{
@@ -507,6 +511,11 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
             case ENGINEER_DROP:
                 //If the ENGINEER_DROP button is pressed then the resource is removed from the player's inventory
                 currentPlayer.removeResource(engineer);
+                
+                //Add engineer dropping to replay system.
+                DropResourceAction actionDropE = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, engineer);
+                context.getGameLogic().getReplayManager().addAction(actionDropE);
+                
                 break;
 
             case SKIP_RESOURCE:
@@ -528,6 +537,11 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
             case SKIP_DROP:
                 //Removes the resource from the player if they press the SKIP_DROP button
                 currentPlayer.removeResource(skip);
+                
+                //Add engineer dropping to replay system.
+                DropResourceAction actionDropS = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, skip);
+                context.getGameLogic().getReplayManager().addAction(actionDropS);
+                
                 break;
                 
            
@@ -633,6 +647,13 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
             }
             	
             case MODIFIER_DROP:
+            	//Removes the resource from the player if they press the MODIFIER_DROP button
+                currentPlayer.removeResource(modifier);
+                
+                //Add engineer dropping to replay system.
+                DropResourceAction actionDropM = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, modifier);
+                context.getGameLogic().getReplayManager().addAction(actionDropM);
+                break;
 
             case TRAIN_CHANGE_ROUTE:
                 //Begins the change route feature when TRAIN_CHANGE_ROUTE is pressed by the player
