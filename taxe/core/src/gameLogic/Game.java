@@ -16,6 +16,8 @@ import gameLogic.resource.ResourceManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.utils.TimeUtils;
+
 public class Game {
     //This is sort of a super-class that can be accessed throughout the system as many of its methods are static
     //This is a useful tool to exploit to make implementing certain features easier
@@ -48,7 +50,7 @@ public class Game {
         goalManager = new GoalManager(resourceManager);
         
         //Init replayManager
-        replayManager = new ReplayManager();
+        replayManager = new ReplayManager(this);
 
         map = new Map();
 
@@ -57,7 +59,7 @@ public class Game {
         playerManager.subscribeTurnChanged(new TurnListener() {
             @Override
             public void changed() {
-                //Moved all the adding of resources ad goals to GameScreen to enable replay handling - Jamie
+                //Moved all the adding of resources and goals to GameScreen to enable replay handling - Jamie
             }
         });
     }
@@ -78,12 +80,17 @@ public class Game {
     }
 
     
-    public boolean isReplaying() {
+
+
+
+
+	public boolean isReplaying() {
 		return replaying;
 	}
 
-	public void setReplaying(boolean replaying) {
-		this.replaying = replaying;
+	public void startReplay() {
+		this.replaying = true;
+		replayManager.setReplayStartingTime(TimeUtils.millis());
 	}
 	
     public PlayerManager getPlayerManager() {
@@ -100,6 +107,10 @@ public class Game {
     
     public ReplayManager getReplayManager() {
 		return replayManager;
+	}
+    
+    public void setReplayManager(ReplayManager replayManager) {
+		this.replayManager = replayManager;
 	}
 
     public Map getMap() {

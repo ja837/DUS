@@ -1,5 +1,7 @@
 package fvs.taxe.replay;
 
+import gameLogic.Game;
+
 import java.util.ArrayList;
 
 import com.badlogic.gdx.utils.TimeUtils;
@@ -13,17 +15,23 @@ public class ReplayManager {
 	
 	
 	ArrayList<Action> actionList;
-	int currentAction = -1;
-	long startingTime = 0;
+	public int currentAction = -1;
+	long gameStartingTime = 0;
+	long replayStartingTime = -1;
 	boolean playing = false;
 	float currentPlaybackSpeedMultiplier = 1;
 	
+	Game gameToBeReplayed;
 	
-	public ReplayManager(){
+	
+	public ReplayManager(Game game){
 		actionList = new ArrayList<Action>();
 		currentAction = 0;
-		startingTime = TimeUtils.millis();
+		gameStartingTime = TimeUtils.millis();
+		gameToBeReplayed = game;
 	}
+
+
 
 	/**
 	 * Add an action to the list
@@ -44,6 +52,7 @@ public class ReplayManager {
 		
 		if (currentAction < actionList.size()){
 			actionList.get(currentAction).play();
+			currentAction++;
 		}
 		
 		
@@ -58,12 +67,27 @@ public class ReplayManager {
 		return actionList;
 	}
 	
+	public long getTimeOfNextAction(){
+		if (currentAction < actionList.size()){
+			return actionList.get(currentAction).getTimeStamp();
+		}
+		return -1;
+	}
+	
 	
 	/**
 	 * When recording an action we need to save the time it happened. This method returns the time elapsed after the game started
 	 */
 	public long getCurrentTimeStamp(){		
-		return TimeUtils.millis() - startingTime;
+		return TimeUtils.millis() - gameStartingTime;
+	}
+	
+	public long getReplayStartingTime() {
+		return replayStartingTime;
+	}
+
+	public void setReplayStartingTime(long replayStartingTime) {
+		this.replayStartingTime = replayStartingTime;
 	}
 	
 	/**
