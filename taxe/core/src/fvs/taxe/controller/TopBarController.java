@@ -6,10 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 import fvs.taxe.TaxeGame;
+import fvs.taxe.replay.EndTurnAction;
 import gameLogic.GameState;
 import gameLogic.listeners.GameStateListener;
-
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 public class TopBarController {
@@ -94,6 +95,11 @@ public class TopBarController {
             public void clicked(InputEvent event, float x, float y) {
                 //This sets the turn to be over in the backend
                 context.getGameLogic().getPlayerManager().turnOver(context);
+                
+                //Record this acation in the replay manager.
+                long timestamp = context.getReplayManager().getCurrentTimeStamp();
+                EndTurnAction action = new EndTurnAction(context, timestamp);
+                context.getReplayManager().addAction(action);
             }
         });
 

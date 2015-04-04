@@ -2,7 +2,9 @@ package fvs.taxe.controller;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
 import fvs.taxe.TaxeGame;
+import fvs.taxe.replay.ReplayManager;
 import gameLogic.Game;
 
 public class Context {
@@ -14,18 +16,26 @@ public class Context {
     private Game gameLogic;
     private RouteController routeController;
     private TopBarController topBarController;
+    
+
+	private ReplayManager replayManager;
 
     public Context(Stage stage, Skin skin, TaxeGame taxeGame, Game gameLogic) {
         this.stage = stage;
         this.skin = skin;
         this.taxeGame = taxeGame;
         this.gameLogic = gameLogic;
+        this.replayManager = new ReplayManager();
     }
 
     //Getters and setters: pretty self-explanatory
     public Stage getStage() {
         return stage;
     }
+    
+    public ReplayManager getReplayManager() {
+		return replayManager;
+	}
 
     public Skin getSkin() {
         return skin;
