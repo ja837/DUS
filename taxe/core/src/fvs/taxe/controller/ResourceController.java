@@ -77,7 +77,7 @@ public class ResourceController {
                 TextButton button = new TextButton("Obstacle", context.getSkin());
                 button.setPosition(x, y);
                 button.setName("Train button");
-                ObstacleClicked listener = new ObstacleClicked(context, button, obstacle);
+                ObstacleClicked listener = new ObstacleClicked(context, obstacle);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
 
