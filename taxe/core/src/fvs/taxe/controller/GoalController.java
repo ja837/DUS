@@ -84,12 +84,9 @@ public class GoalController {
                 button.setWidth(scaleFactor * button.getWidth());
                 button.setHeight(scaleFactor * button.getHeight());
 
-                
-                button.setPosition(x, y);
-                button.setName("Goal button");
-                
                 //Adds the listener to the button so that it will inform the correct parts of the system
-                GoalClickListener listener = new GoalClickListener(context, button, goal);
+                GoalClickListener listener = new GoalClickListener(context, goal);
+                button.setPosition(x, y);
 
                 if (colours[index++] != null) {
                     //Sets the colour based on the values in the array. If the train is routing then these colours will match nodes on the map, otherwise they are all grey.
