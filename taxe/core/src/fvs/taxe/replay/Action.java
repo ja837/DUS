@@ -5,9 +5,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class Action {
 
 	String ID = "";
-	
-
-
 	ActionType type;
 	long timeStamp;
 	
@@ -37,30 +34,19 @@ public class Action {
 	}
 	
 	
-	
-	
-	public String getID() {
-		return ID;
-	}
+	/*
+	 * Enum for which type of action was performed.
+	 * Button for if a dialog button was clicked
+	 * stage for if the stage was clicked
+	 * Actor for if an actor was clicked.
+	 */
+	public enum ActionType {	
+		
+		BUTTON,
+		STAGE,
+		ACTOR
+		
 
-	public void setID(String iD) {
-		ID = iD;
-	}
-
-	public ActionType getType() {
-		return type;
-	}
-
-	public void setType(ActionType type) {
-		this.type = type;
-	}
-
-	public long getTimeStamp() {
-		return timeStamp;
-	}
-
-	public void setTimeStamp(long timeStamp) {
-		this.timeStamp = timeStamp;
 	}
 	
 	
