@@ -16,13 +16,13 @@ import gameLogic.player.Player;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
-public class UseModifierAction extends Action {
+public class UseModifierRemoveAction extends Action {
 	
 	
 	Train train;
 	List<Station> route;
 
-	public UseModifierAction(Context context, long timestamp, Train t, List<Station> route) {
+	public UseModifierRemoveAction(Context context, long timestamp, Train t, List<Station> route) {
 		super(context, timestamp);
 		train  = t;
 		this.route = route;

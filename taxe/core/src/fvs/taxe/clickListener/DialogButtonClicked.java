@@ -369,10 +369,10 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 							//In practice this means that a train already on the track will continue its motion unopposed
 							//This is considered the intended behaviour of the obstacle feature as its intent is to reward proactive players, not reward reactive ones
 							//If this is not how you want your obstacles to work you might consider preventing the player from placing obstacles on blocked connections or immediately pausing any train on that connection
-							
+
 							if (context.getGameLogic().getState() != GameState.REPLAYING){
-							UseObstacleAction obstacleAction =  new UseObstacleAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, obstacle, toBlock);                   
-							context.getGameLogic().getReplayManager().addAction(obstacleAction);
+								UseObstacleAction obstacleAction =  new UseObstacleAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, obstacle, toBlock);                   
+								context.getGameLogic().getReplayManager().addAction(obstacleAction);
 							}
 
 						} else {
@@ -470,14 +470,14 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 								//If the connection is blocked then it removes the blockage
 								engineer.use(context.getGameLogic().getMap().getConnection(engineer.getStation1(), engineer.getStation2()));
 								currentPlayer.removeResource(engineer);
-								
+
 								//Add engineer use to replay system.
 								if (context.getGameLogic().getState() != GameState.REPLAYING){
-									
+
 									UseEngineerAction actionUseE = new UseEngineerAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, engineer);
 									context.getGameLogic().getReplayManager().addAction(actionUseE);
 								}
-								
+
 							} else {
 								//If the connection is not blocked then placement is cancelled and the user is informed
 								Dialog dia = new Dialog("Invalid Selection", context.getSkin());
@@ -564,15 +564,15 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 			context.getGameLogic().getPlayerManager().getAllPlayers().get(p).setSkip(true);
 			//Removes the resource after it has been used
 			currentPlayer.removeResource(skip);
-			
+
 			if (context.getGameLogic().getState() != GameState.REPLAYING){
 				//Add engineer dropping to replay system.
 				UseSkipAction actionUseS = new UseSkipAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, skip, p);
 				context.getGameLogic().getReplayManager().addAction(actionUseS);
-				
-				
+
+
 			}
-			
+
 			break;
 
 		case SKIP_DROP:
