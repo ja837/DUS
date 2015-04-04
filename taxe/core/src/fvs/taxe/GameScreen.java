@@ -111,7 +111,7 @@ public class GameScreen extends ScreenAdapter {
                     replayManager.addAction(resourceAction2);
                     replayManager.addAction(goalAction);
                     
-                    //replayManager.printDebugInfo();
+                    replayManager.printDebugInfo();
                 }
                 
             }

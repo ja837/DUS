@@ -3,7 +3,9 @@ package gameLogic.map;
 import fvs.taxe.actor.StationActor;
 
 public class Station {
-    private String name;
+
+
+	private String name;
     private IPositionable location;
     private StationActor actor;
 
@@ -47,5 +49,10 @@ public class Station {
             return false;
         }
     }
+    
+    @Override
+	public String toString() {
+		return name;
+	}
 
 }
