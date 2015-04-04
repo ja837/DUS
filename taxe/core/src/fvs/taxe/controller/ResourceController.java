@@ -104,10 +104,9 @@ public class ResourceController {
             } else if (resource instanceof Engineer) {
                 //Creates a clickListener for the button and adds it to the list of buttons
                 Engineer engineer = (Engineer) resource;
-                
+                EngineerClicked listener = new EngineerClicked(context, engineer);
                 TextButton button = new TextButton("Engineer", context.getSkin());
                 button.setPosition(x, y);
-                EngineerClicked listener = new EngineerClicked(context, button, engineer);
                 button.addListener(listener);
                 resourceButtons.addActor(button);
 
