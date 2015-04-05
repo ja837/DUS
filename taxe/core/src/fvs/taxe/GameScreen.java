@@ -13,6 +13,7 @@ import fvs.taxe.controller.*;
 import fvs.taxe.dialog.DialogEndGame;
 import fvs.taxe.replay.GiveGoalAction;
 import fvs.taxe.replay.GiveResourceAction;
+import fvs.taxe.replay.PlaceObstacleAction;
 import fvs.taxe.replay.ReplayManager;
 import fvs.taxe.replay.UseObstacleAction;
 import gameLogic.Game;
@@ -130,7 +131,7 @@ public class GameScreen extends ScreenAdapter {
 					}
 
 					if (blockedConnection != null){
-						UseObstacleAction obstacleAction =  new UseObstacleAction(context, replayManager.getCurrentTimeStamp(), null, blockedConnection);                   
+						PlaceObstacleAction obstacleAction =  new PlaceObstacleAction(context, replayManager.getCurrentTimeStamp(), blockedConnection);                   
 						replayManager.addAction(obstacleAction);
 					}
 

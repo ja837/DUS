@@ -35,6 +35,15 @@ public class Train extends Resource {
         history = new ArrayList<Tuple<Station, Integer>>();
         route = new ArrayList<Station>();
     }
+    
+    public Train(Train t){
+    	this.name = t.name;
+    	this.leftImage = t.leftImage;
+    	this.rightImage = t.rightImage;
+    	this.speed = t.speed;
+    	history = new ArrayList<Tuple<Station, Integer>>();
+        route = new ArrayList<Station>();
+    }
 
     public String getName() {
         return name;

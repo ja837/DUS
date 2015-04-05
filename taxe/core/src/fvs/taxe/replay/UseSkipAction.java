@@ -14,6 +14,7 @@ import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.map.Station;
 import gameLogic.player.Player;
+import gameLogic.resource.Modifier;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Skip;
 import gameLogic.resource.Train;
@@ -23,13 +24,11 @@ public class UseSkipAction extends Action {
 	
 	int player;
 
-	Skip skip;
 
-	public UseSkipAction(Context context, long timestamp, Skip skipResource, int playerToMissTurn) {
+	public UseSkipAction(Context context, long timestamp, int playerToMissTurn) {
 		super(context, timestamp);
 
 		player = playerToMissTurn;
-		skip = skipResource;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -40,7 +39,13 @@ public class UseSkipAction extends Action {
 		context.getGameLogic().getPlayerManager().getAllPlayers().get(player).setSkip(true);
 		
 		//Removes the resource after it has been used
-		context.getGameLogic().getPlayerManager().getCurrentPlayer().removeResource(skip);
+		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
+		
+		for (Resource r : currentPlayer.getResources()){
+			if (r instanceof Skip){
+				currentPlayer.removeResource(r);
+			}
+		}
 		
 	}
 

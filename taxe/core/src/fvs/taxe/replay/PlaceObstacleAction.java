@@ -20,14 +20,12 @@ import gameLogic.resource.Resource;
 import gameLogic.resource.Skip;
 import gameLogic.resource.Train;
 
-public class UseObstacleAction extends Action {
+public class PlaceObstacleAction extends Action {
 	
-	
-
 
 	Connection connection;
 
-	public UseObstacleAction(Context context, long timestamp, Connection c) {
+	public PlaceObstacleAction(Context context, long timestamp, Connection c) {
 		super(context, timestamp);
 		this.connection = c;
 
@@ -41,13 +39,6 @@ public class UseObstacleAction extends Action {
 
 		c.setBlocked(5);
 		
-		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
-		
-		for (Resource r : currentPlayer.getResources()){
-			if (r instanceof Obstacle){
-				currentPlayer.removeResource(r);
-			}
-		}
 
 		
 	}
@@ -55,7 +46,7 @@ public class UseObstacleAction extends Action {
 	@Override
 	public String toString() {
 		
-		return "Obstacle Use Action, placing an obstacle between  " + connection.getStation1().toString() + " and " + connection.getStation2().toString() + super.toString();
+		return "Obstacle Place Action, placing an obstacle between  " + connection.getStation1().toString() + " and " + connection.getStation2().toString() + super.toString();
 	}
 
 }

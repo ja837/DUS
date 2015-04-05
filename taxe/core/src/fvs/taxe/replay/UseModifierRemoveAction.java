@@ -15,6 +15,7 @@ import gameLogic.map.Connection;
 import gameLogic.map.Station;
 import gameLogic.player.Player;
 import gameLogic.resource.Modifier;
+import gameLogic.resource.Obstacle;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
@@ -37,7 +38,13 @@ public class UseModifierRemoveAction extends Action {
 		context.getGameLogic().getMap().removeConnection(c);
 		
 		//The modifiers is removed from the player's inventory as it has been used
-		context.getGameLogic().getPlayerManager().getCurrentPlayer().removeResource(modifier);
+		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
+		
+		for (Resource r : currentPlayer.getResources()){
+			if (r instanceof Modifier){
+				currentPlayer.removeResource(r);
+			}
+		}
 	}
 
 	@Override

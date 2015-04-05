@@ -14,6 +14,7 @@ import gameLogic.GameState;
 import gameLogic.map.Station;
 import gameLogic.player.Player;
 import gameLogic.resource.Engineer;
+import gameLogic.resource.Modifier;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Train;
 
@@ -36,7 +37,13 @@ public class UseEngineerAction extends Action {
 
 		//If the connection is blocked then it removes the blockage
 		engineer.use(context.getGameLogic().getMap().getConnection(engineer.getStation1(), engineer.getStation2()));
-		context.getGameLogic().getPlayerManager().getCurrentPlayer().removeResource(engineer);
+		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
+		
+		for (Resource r : currentPlayer.getResources()){
+			if (r instanceof Engineer){
+				currentPlayer.removeResource(r);
+			}
+		}
 	}
 
 	@Override

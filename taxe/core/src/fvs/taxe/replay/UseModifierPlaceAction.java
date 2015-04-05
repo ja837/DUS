@@ -38,7 +38,13 @@ public class UseModifierPlaceAction extends Action {
 		context.getGameLogic().getMap().addConnection(modifier.getStation1(), modifier.getStation2());
 		
 		//The modifiers is removed from the player's inventory as it has been used
-		context.getGameLogic().getPlayerManager().getCurrentPlayer().removeResource(modifier);
+		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
+		
+		for (Resource r : currentPlayer.getResources()){
+			if (r instanceof Modifier){
+				currentPlayer.removeResource(r);
+			}
+		}
 	}
 
 	@Override

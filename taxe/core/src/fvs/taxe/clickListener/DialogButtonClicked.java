@@ -380,7 +380,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 							//If this is not how you want your obstacles to work you might consider preventing the player from placing obstacles on blocked connections or immediately pausing any train on that connection
 
 							if (!context.getReplayManager().isReplaying()){
-								UseObstacleAction obstacleAction =  new UseObstacleAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), obstacle, toBlock);                   
+								UseObstacleAction obstacleAction =  new UseObstacleAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), toBlock);                   
 								context.getGameLogic().getReplayManager().addAction(obstacleAction);
 							}
 
@@ -576,7 +576,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 
 			if (!context.getReplayManager().isReplaying()){
 				//Add engineer dropping to replay system.
-				UseSkipAction actionUseS = new UseSkipAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), skip, p);
+				UseSkipAction actionUseS = new UseSkipAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), p);
 				context.getGameLogic().getReplayManager().addAction(actionUseS);
 
 
