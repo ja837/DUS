@@ -18,8 +18,8 @@ public class ReplayManager {
 	public int currentAction = -1;
 	long gameStartingTime = 0;
 	long replayStartingTime = -1;
-	boolean playing = false;
 	float currentPlaybackSpeedMultiplier = 1;
+    private boolean replaying = false;
 	
 	Game gameToBeReplayed;
 	
@@ -48,16 +48,13 @@ public class ReplayManager {
 	 * Plays the next action in the list.
 	 */
 	public void playNextAction(){
-		playing = true;
 		
 		if (currentAction < actionList.size()){
+			System.out.println("Current Action index = " + currentAction);
 			actionList.get(currentAction).play();
 			currentAction++;
 		}
 		
-		
-		
-		playing = false;
 	}
 	
 	/**
@@ -86,8 +83,17 @@ public class ReplayManager {
 		return replayStartingTime;
 	}
 
-	public void setReplayStartingTime(long replayStartingTime) {
+	private void setReplayStartingTime(long replayStartingTime) {
 		this.replayStartingTime = replayStartingTime;
+	}
+	
+	public boolean isReplaying() {
+		return replaying;
+	}
+	
+	public void startReplay() {
+		this.replaying = true;
+		setReplayStartingTime(TimeUtils.millis());
 	}
 	
 	/**

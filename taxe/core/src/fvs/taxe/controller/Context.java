@@ -3,6 +3,7 @@ package fvs.taxe.controller;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import fvs.taxe.GameScreen;
 import fvs.taxe.TaxeGame;
 import fvs.taxe.replay.ReplayManager;
 import gameLogic.Game;
@@ -16,6 +17,7 @@ public class Context {
     private Game gameLogic;
     private RouteController routeController;
     private TopBarController topBarController;
+    private GameScreen gameScreen;
     
 
     public Context(Stage stage, Skin skin, TaxeGame taxeGame, Game gameLogic) {
@@ -57,6 +59,10 @@ public class Context {
 
     public void setTopBarController(TopBarController topBarController) {
         this.topBarController = topBarController;
+    }
+    
+    public GameScreen getGameScreen(){
+    	return taxeGame.gameScreen;
     }
 
 }

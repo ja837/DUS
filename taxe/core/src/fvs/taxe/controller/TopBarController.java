@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import fvs.taxe.TaxeGame;
 import fvs.taxe.replay.EndTurnAction;
+import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.listeners.GameStateListener;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
@@ -86,6 +87,10 @@ public class TopBarController {
         game.shapeRenderer.rect(0, TaxeGame.HEIGHT - CONTROLS_HEIGHT, TaxeGame.WIDTH, 1);
         game.shapeRenderer.end();
     }
+    
+    public void UpdateContext(Context context){
+    	this.context = context;
+    }
 
     public void addEndTurnButton() {
         //This method adds an endTurn button to the topBar which allows the user to end their turn
@@ -124,8 +129,8 @@ public class TopBarController {
     }
     
     public void hideButtonsForReplay(){
-    	replayButton.setVisible(false);
-    	endTurnButton.setVisible(false);
+    	replayButton.remove();
+    	endTurnButton.remove();
     }
     
     public void addReplayButton(){
@@ -137,8 +142,9 @@ public class TopBarController {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 //This sets the turn to be over in the backend
-                context.getGameLogic().startReplay();  
-                hideButtonsForReplay();
+                //context.getGameLogic().startReplay();  
+                //hideButtonsForReplay();
+                context.getGameScreen().startReplay(Game.newGameWithReplay(context.getGameLogic().getReplayManager()));
             }
         });
         

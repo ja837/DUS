@@ -28,7 +28,7 @@ public class Game {
     private ReplayManager replayManager;
     private Map map;
     private GameState state;
-    private boolean replaying = false;
+
 
 
 	private List<GameStateListener> gameStateListeners = new ArrayList<GameStateListener>();
@@ -40,7 +40,7 @@ public class Game {
     public final int TOTAL_TURNS = 30;
     public final int MAX_POINTS = 10000;
 
-    private Game() {
+    private Game(ReplayManager rm) {
         //Creates players
         playerManager = new PlayerManager();
         playerManager.createPlayers(CONFIG_PLAYERS);
@@ -50,7 +50,13 @@ public class Game {
         goalManager = new GoalManager(resourceManager);
         
         //Init replayManager
-        replayManager = new ReplayManager(this);
+        if (rm == null){
+        	replayManager = new ReplayManager(this);
+        }
+        else{
+        	replayManager = rm;
+        }
+        
 
         map = new Map();
 
@@ -68,7 +74,7 @@ public class Game {
 
 	public static Game getInstance() {
         if (instance == null) {
-            instance = new Game();
+            instance = new Game(null);
             // initialisePlayers gives them a goal, and the GoalManager requires an instance of game to exist so this
             // method can't be called in the constructor
             
@@ -79,18 +85,17 @@ public class Game {
         return instance;
     }
 
-    
-
-
-
-
-	public boolean isReplaying() {
-		return replaying;
+	public static Game newGameWithReplay(ReplayManager rm){
+		return new Game(rm);
 	}
 
+	public boolean isReplaying() {
+		return replayManager.isReplaying();
+	}
+
+
 	public void startReplay() {
-		this.replaying = true;
-		replayManager.setReplayStartingTime(TimeUtils.millis());
+		replayManager.startReplay();
 	}
 	
     public PlayerManager getPlayerManager() {

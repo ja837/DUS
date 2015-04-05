@@ -53,6 +53,10 @@ public class GoalController {
         //then redraws the current player goals with the new colours
         showCurrentPlayerGoals();
     }
+    
+    public void UpdateContext(Context context){
+    	this.context = context;
+    }
 
     public void showCurrentPlayerGoals() {
         //This method displays the player's current goals

@@ -71,7 +71,10 @@ public class StationController {
 		}
 	}
 
-
+    public void UpdateContext(Context context){
+    	this.context = context;
+    }
+    
 	private void renderStation(final Station station) {
 		//This method renders the station passed to the method
 		final StationActor stationActor = new StationActor(station.getLocation(), station);

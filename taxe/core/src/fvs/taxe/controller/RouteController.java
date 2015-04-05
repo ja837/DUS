@@ -300,5 +300,9 @@ public class RouteController {
 
         context.getStage().addActor(routingButtons);
     }
+    
+    public void UpdateContext(Context context){
+    	this.context = context;
+    }
 
 }

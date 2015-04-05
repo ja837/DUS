@@ -21,6 +21,9 @@ public class TaxeGame extends Game {
 	public BitmapFont fontSmall;
 	public BitmapFont fontTiny;
     public ShapeRenderer shapeRenderer;
+    
+    public MainMenuScreen mainMenuScreen;
+    public GameScreen gameScreen;
 
     @Override
     public void create() {
@@ -48,7 +51,8 @@ public class TaxeGame extends Game {
         // don't forget to dispose to avoid memory leaks!
 
         //Sets the main screen to be the menu
-        setScreen(new MainMenuScreen(this));
+        mainMenuScreen = new MainMenuScreen(this);
+        setScreen(mainMenuScreen);
     }
 
     public void render() {

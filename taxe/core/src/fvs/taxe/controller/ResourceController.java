@@ -117,5 +117,9 @@ public class ResourceController {
         //Adds all generated buttons to the stage
         context.getStage().addActor(resourceButtons);
     }
+    
+    public void UpdateContext(Context context){
+    	this.context = context;
+    }
 
 }
