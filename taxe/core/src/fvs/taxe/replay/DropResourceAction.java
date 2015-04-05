@@ -6,13 +6,12 @@ import gameLogic.resource.Resource;
 
 public class DropResourceAction extends Action {
 	
-	
-	Player player;
+	int playerDropping;
 	Resource resource;
 
-	public DropResourceAction(Context context, long timestamp, Player p, Resource r) {
+	public DropResourceAction(Context context, long timestamp, int p, Resource r) {
 		super(context, timestamp);
-		player = p;
+		playerDropping = p;
 		resource = r;
 		// TODO Auto-generated constructor stub
 	}
@@ -21,6 +20,7 @@ public class DropResourceAction extends Action {
 	public void play() {
 		System.out.println("Replaying an resource dropping action.");
 
+		Player player = context.getGameLogic().getPlayerManager().getAllPlayers().get(playerDropping - 1);
 		player.removeResource(resource);
 		
 	}
@@ -28,7 +28,7 @@ public class DropResourceAction extends Action {
 	@Override
 	public String toString() {
 		
-		return "Resource Drop Action, removing " + resource.toString() + " from " + player.toString() + super.toString();
+		return "Resource Drop Action, removing " + resource.toString() + " from Player " + playerDropping + super.toString();
 	}
 
 }

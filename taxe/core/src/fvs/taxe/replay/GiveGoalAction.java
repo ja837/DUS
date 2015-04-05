@@ -8,12 +8,12 @@ import gameLogic.resource.Resource;
 public class GiveGoalAction extends Action {
 	
 	
-	Player playerToGiveGoalTo;
+	int playerNumber;
 	Goal goal;
 
-	public GiveGoalAction(Context context, long timestamp, Player p, Goal g) {
+	public GiveGoalAction(Context context, long timestamp, int player, Goal g) {
 		super(context, timestamp);
-		playerToGiveGoalTo = p;
+		playerNumber = player;
 		goal = g;
 		// TODO Auto-generated constructor stub
 	}
@@ -21,7 +21,8 @@ public class GiveGoalAction extends Action {
 	@Override
 	public void play() {
 		System.out.println("Replaying an goal allocation action.");
-
+		
+		Player playerToGiveGoalTo = context.getGameLogic().getPlayerManager().getAllPlayers().get(playerNumber - 1);
 		context.getGameLogic().getGoalManager().addGoalToPlayer(playerToGiveGoalTo, goal);
 		
 	}
@@ -29,7 +30,7 @@ public class GiveGoalAction extends Action {
 	@Override
 	public String toString() {
 		
-		return "Goal Allocation Action, giving '" + goal.toString() + "' to " + playerToGiveGoalTo.toString() + super.toString();
+		return "Goal Allocation Action, giving '" + goal.toString() + "' to Player " + playerNumber + super.toString();
 	}
 
 }

@@ -7,10 +7,10 @@ import gameLogic.resource.Resource;
 public class GiveResourceAction extends Action {
 	
 	
-	Player playerToGiveResourceTo;
+	int playerToGiveResourceTo;
 	Resource resource;
 
-	public GiveResourceAction(Context context, long timestamp, Player p, Resource r) {
+	public GiveResourceAction(Context context, long timestamp, int p, Resource r) {
 		super(context, timestamp);
 		playerToGiveResourceTo = p;
 		resource = r;
@@ -20,15 +20,16 @@ public class GiveResourceAction extends Action {
 	@Override
 	public void play() {
 		System.out.println("Replaying an resource allocation action.");
-
-		context.getGameLogic().getResourceManager().addResourceToPlayer(playerToGiveResourceTo, resource);
+		
+		Player player = context.getGameLogic().getPlayerManager().getAllPlayers().get(playerToGiveResourceTo - 1);
+		context.getGameLogic().getResourceManager().addResourceToPlayer(player, resource);
 		
 	}
 
 	@Override
 	public String toString() {
 		
-		return "Resource Allocation Action, giving " + resource.toString() + " to " + playerToGiveResourceTo.toString() + super.toString();
+		return "Resource Allocation Action, giving " + resource.toString() + " to Player " + playerToGiveResourceTo + super.toString();
 	}
 
 }

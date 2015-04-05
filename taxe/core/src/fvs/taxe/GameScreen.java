@@ -48,26 +48,17 @@ public class GameScreen extends ScreenAdapter {
 
 	public GameScreen(TaxeGame game) {
 		this.game = game;			
-		
+
 		ResetGameScreen(Game.getInstance());
-		
-		//Initialises all of the controllers for the UI
-		stationController = new StationController(context, tooltip);
-		topBarController = new TopBarController(context);
-		resourceController = new ResourceController(context);
-		goalController = new GoalController(context);
-		routeController = new RouteController(context);
-		context.setRouteController(routeController);
-		context.setTopBarController(topBarController);
 
 		//Moved this here from Game.java to give access to things needed for replay system.
 		initialisePlayers();
 	}
 
 	private void ResetGameScreen(Game newGame){
-		
+
 		stage = new Stage();
-		
+
 		//Sets the skin
 		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
@@ -86,7 +77,14 @@ public class GameScreen extends ScreenAdapter {
 		tooltip = new Tooltip(skin);
 		stage.addActor(tooltip);
 
-
+		//Initialises all of the controllers for the UI
+		stationController = new StationController(context, tooltip);
+		topBarController = new TopBarController(context);
+		resourceController = new ResourceController(context);
+		goalController = new GoalController(context);
+		routeController = new RouteController(context);
+		context.setRouteController(routeController);
+		context.setTopBarController(topBarController);
 
 		//Adds a listener that displays a flash message whenever the turn ends
 		gameLogic.getPlayerManager().subscribeTurnChanged(new TurnListener() {
@@ -103,7 +101,7 @@ public class GameScreen extends ScreenAdapter {
 				//The checking for whether a turn is being skipped is handled inside the methods, this just always calls them
 
 
-				if (!gameLogic.isReplaying()){
+				if (!context.getReplayManager().isReplaying()){
 					Player currentPlayer = gameLogic.getPlayerManager().getCurrentPlayer();
 					Goal goal = gameLogic.getGoalManager().addRandomGoalToPlayer(currentPlayer);
 					Resource resource1 = gameLogic.getResourceManager().addRandomResourceToPlayer(currentPlayer);
@@ -117,28 +115,28 @@ public class GameScreen extends ScreenAdapter {
 
 
 					if (resource1 != null){
-						GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource1);
+						GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer.getPlayerNumber(), resource1);
 						replayManager.addAction(resourceAction);
 					}
 
 					if (resource2 != null){
-						GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, resource2);
+						GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), currentPlayer.getPlayerNumber(), resource2);
 						replayManager.addAction(resourceAction2);
 					}
 
 					if (goal != null){
-						GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), currentPlayer, goal);                   
+						GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), currentPlayer.getPlayerNumber(), goal);                   
 						replayManager.addAction(goalAction);
 					}
 
 					if (blockedConnection != null){
-						UseObstacleAction obstacleAction =  new UseObstacleAction(context, replayManager.getCurrentTimeStamp(), null, null, blockedConnection);                   
+						UseObstacleAction obstacleAction =  new UseObstacleAction(context, replayManager.getCurrentTimeStamp(), null, blockedConnection);                   
 						replayManager.addAction(obstacleAction);
 					}
 
 
 
-					
+
 				}
 				else{
 					//context.getGameLogic().getReplayManager().printDebugInfo();
@@ -170,42 +168,23 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 
-	public void startReplay(Game game){
-		stage.clear();
-		
-		ResetGameScreen(game);
-		
-		UpdateControllerContexts();
-		show();
-		
-		game.getReplayManager().startReplay();
-		
-		//topBarController.hideButtonsForReplay();
-	}
-
-	private void UpdateControllerContexts() {
-		goalController.UpdateContext(context);
-		stationController.UpdateContext(context);
-		//topBarController.UpdateContext(context);
-		resourceController.UpdateContext(context);
-		routeController.UpdateContext(context);
-		
-	}
-
 	// called every frame
 	@Override
 	public void render(float delta) {
+		
+		gameLogic = context.getGameLogic();
 
 		//Replay stuff if it is the right time to do it
-		if (context.getGameLogic().isReplaying()){
+		if (context.getReplayManager().isReplaying()){
 
-			ReplayManager replayManager = context.getGameLogic().getReplayManager(); 
+			ReplayManager replayManager = context.getReplayManager(); 
 
 			long timeSinceReplayStarted = TimeUtils.millis() - replayManager.getReplayStartingTime();
 
 			if (replayManager.getTimeOfNextAction() != -1){
 				if (timeSinceReplayStarted > replayManager.getTimeOfNextAction()){
 					replayManager.playNextAction();
+					show();
 
 					//System.out.println("would play an action now " + replayManager.currentAction + " at " + timeSinceReplayStarted);
 					//replayManager.currentAction++;
@@ -273,12 +252,12 @@ public class GameScreen extends ScreenAdapter {
 		//Initially some of this functionality was in the draw() routine, but it was found that when the player clicked on a button a new one was rendered before the input could be handled
 		//This is why the header texts and the buttons are rendered separately, to prevent these issues from occuring
 		stationController.renderStations();
-		if (!context.getGameLogic().isReplaying()){
+		if (!context.getReplayManager().isReplaying()){
 			topBarController.addEndTurnButton();
 			topBarController.addReplayButton();
 		}		
 		goalController.showCurrentPlayerGoals();
-		resourceController.drawPlayerResources(gameLogic.getPlayerManager().getCurrentPlayer());
+		resourceController.drawPlayerResources(context.getGameLogic().getPlayerManager().getCurrentPlayer());
 	}
 
 
@@ -297,13 +276,13 @@ public class GameScreen extends ScreenAdapter {
 		Resource resource1 = gameLogic.getResourceManager().addRandomResourceToPlayer(player);
 		Resource resource2 = gameLogic.getResourceManager().addRandomResourceToPlayer(player);
 
-		if (!gameLogic.isReplaying()){
+		if (!context.getReplayManager().isReplaying()){
 			//Record actions for replay
 			ReplayManager replayManager = context.getGameLogic().getReplayManager(); 
 
-			GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), player, resource1);
-			GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), player, resource2);
-			GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), player, goal);
+			GiveResourceAction resourceAction = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), player.getPlayerNumber(), resource1);
+			GiveResourceAction resourceAction2 = new GiveResourceAction(context, replayManager.getCurrentTimeStamp(), player.getPlayerNumber(), resource2);
+			GiveGoalAction goalAction =  new GiveGoalAction(context, replayManager.getCurrentTimeStamp(), player.getPlayerNumber(), goal);
 
 			replayManager.addAction(resourceAction);
 			replayManager.addAction(resourceAction2);

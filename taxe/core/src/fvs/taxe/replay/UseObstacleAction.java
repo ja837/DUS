@@ -24,13 +24,11 @@ public class UseObstacleAction extends Action {
 	
 	
 
-	Player currentPlayer;
 	Obstacle obstacle;
 	Connection connection;
 
-	public UseObstacleAction(Context context, long timestamp, Player currentPlayer, Obstacle o, Connection c) {
+	public UseObstacleAction(Context context, long timestamp, Obstacle o, Connection c) {
 		super(context, timestamp);
-		this.currentPlayer = currentPlayer;		
 		this.obstacle = o;
 		this.connection = c;
 
@@ -39,12 +37,20 @@ public class UseObstacleAction extends Action {
 	@Override
 	public void play() {
 		System.out.println("Replaying an obstacle use action.");
+		
+		Connection c = context.getGameLogic().getMap().getConnection(connection.getStation1(), connection.getStation2());
 
-		connection.setBlocked(5);
+		c.setBlocked(5);
 		
-		
-		if (currentPlayer != null){
-			currentPlayer.removeResource(obstacle);
+		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
+		if (obstacle != null){
+			try{
+				currentPlayer.removeResource(obstacle);
+			}
+			catch(Exception e){
+				System.out.println(e.toString());
+			}
+			
 			
 		}
 

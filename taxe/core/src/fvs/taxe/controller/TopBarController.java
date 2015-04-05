@@ -103,7 +103,7 @@ public class TopBarController {
                 context.getGameLogic().getPlayerManager().turnOver(context);
                 
                 //Record this acation in the replay manager.
-                if (!context.getGameLogic().isReplaying()){               	
+                if (!context.getReplayManager().isReplaying()){               	
                     long timestamp = context.getGameLogic().getReplayManager().getCurrentTimeStamp();
                     EndTurnAction action = new EndTurnAction(context, timestamp);
                     context.getGameLogic().getReplayManager().addAction(action);
@@ -143,8 +143,8 @@ public class TopBarController {
             public void clicked(InputEvent event, float x, float y) {
                 //This sets the turn to be over in the backend
                 //context.getGameLogic().startReplay();  
-                //hideButtonsForReplay();
-                context.getGameScreen().startReplay(Game.newGameWithReplay(context.getGameLogic().getReplayManager()));
+                hideButtonsForReplay();
+                context.getReplayManager().startReplay();
             }
         });
         

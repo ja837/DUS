@@ -22,12 +22,12 @@ public class UseSkipAction extends Action {
 	
 	
 	int player;
-	Player currentPlayer;
+
 	Skip skip;
 
-	public UseSkipAction(Context context, long timestamp, Player playerThatUsedPowerup, Skip skipResource, int playerToMissTurn) {
+	public UseSkipAction(Context context, long timestamp, Skip skipResource, int playerToMissTurn) {
 		super(context, timestamp);
-		currentPlayer = playerThatUsedPowerup;
+
 		player = playerToMissTurn;
 		skip = skipResource;
 		// TODO Auto-generated constructor stub
@@ -40,7 +40,7 @@ public class UseSkipAction extends Action {
 		context.getGameLogic().getPlayerManager().getAllPlayers().get(player).setSkip(true);
 		
 		//Removes the resource after it has been used
-		currentPlayer.removeResource(skip);
+		context.getGameLogic().getPlayerManager().getCurrentPlayer().removeResource(skip);
 		
 	}
 

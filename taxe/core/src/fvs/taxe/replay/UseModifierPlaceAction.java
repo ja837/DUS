@@ -21,12 +21,12 @@ import gameLogic.resource.Train;
 public class UseModifierPlaceAction extends Action {
 	
 	
-	Player currentPlayer;
+
 	Modifier modifier;
 
-	public UseModifierPlaceAction(Context context, long timestamp,Player p, Modifier m) {
+	public UseModifierPlaceAction(Context context, long timestamp, Modifier m) {
 		super(context, timestamp);
-		currentPlayer = p;
+
 		modifier = m;
 		// TODO Auto-generated constructor stub
 	}
@@ -38,7 +38,7 @@ public class UseModifierPlaceAction extends Action {
 		context.getGameLogic().getMap().addConnection(modifier.getStation1(), modifier.getStation2());
 		
 		//The modifiers is removed from the player's inventory as it has been used
-		currentPlayer.removeResource(modifier);
+		context.getGameLogic().getPlayerManager().getCurrentPlayer().removeResource(modifier);
 	}
 
 	@Override

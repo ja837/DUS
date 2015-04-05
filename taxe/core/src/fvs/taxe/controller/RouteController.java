@@ -185,7 +185,7 @@ public class RouteController {
         
         
         //Add train routing to replay system
-        if (!context.getGameLogic().isReplaying()){
+        if (!context.getReplayManager().isReplaying()){
 			RouteTrainAction actionRouteTrain = new RouteTrainAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), train, route);
 			context.getGameLogic().getReplayManager().addAction(actionRouteTrain);
         

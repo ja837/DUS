@@ -24,11 +24,10 @@ public class ReplayManager {
 	Game gameToBeReplayed;
 	
 	
-	public ReplayManager(Game game){
+	public ReplayManager(){
 		actionList = new ArrayList<Action>();
 		currentAction = 0;
 		gameStartingTime = TimeUtils.millis();
-		gameToBeReplayed = game;
 	}
 
 

@@ -27,9 +27,9 @@ public class DialogGoalButtonClicked implements ResourceDialogClickListener {
                 currentPlayer.removeGoal(goal);
                 //simulate mouse exiting goal button to remove tooltips
                 
-                if (!context.getGameLogic().isReplaying()){
+                if (!context.getReplayManager().isReplaying()){
                 	//Add goal dropping to replay system.
-    				DropGoalAction actionDropG = new DropGoalAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, goal);
+    				DropGoalAction actionDropG = new DropGoalAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer.getPlayerNumber(), goal);
     				context.getGameLogic().getReplayManager().addAction(actionDropG);
                 
                 }

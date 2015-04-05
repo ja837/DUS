@@ -113,9 +113,9 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 			//If a TRAIN_DROP button is pressed then the train is removed from the player's resources
 			currentPlayer.removeResource(train);
 
-			if (!context.getGameLogic().isReplaying()){
+			if (!context.getReplayManager().isReplaying()){
 				//Add train dropping to replay system.
-				DropResourceAction actionDropT = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, train);
+				DropResourceAction actionDropT = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer.getPlayerNumber(), train);
 				context.getGameLogic().getReplayManager().addAction(actionDropT);
 			}
 
@@ -166,7 +166,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 						StationController.unsubscribeStationClick(this);
 						Game.getInstance().setState(GameState.NORMAL);
 
-						if (!context.getGameLogic().isReplaying()){
+						if (!context.getReplayManager().isReplaying()){
 							//Record in replay manager                            
 							PlaceTrainAction placeTrainAction = new PlaceTrainAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), train, station);
 							context.getGameLogic().getReplayManager().addAction(placeTrainAction);
@@ -224,9 +224,9 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 			//Removes the obstacle from the current player's inventory if they click the OBSTACLE_DROP button
 			currentPlayer.removeResource(obstacle);
 
-			if (!context.getGameLogic().isReplaying()){
+			if (!context.getReplayManager().isReplaying()){
 				//Add obst dropping to replay system.
-				DropResourceAction actionDropO = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, obstacle);
+				DropResourceAction actionDropO = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer.getPlayerNumber(), obstacle);
 				context.getGameLogic().getReplayManager().addAction(actionDropO);
 			}
 			break;
@@ -268,9 +268,9 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 							currentPlayer.removeResource(modifier);
 							
 							//Add modifier use to replay system.
-							if (!context.getGameLogic().isReplaying()){
+							if (!context.getReplayManager().isReplaying()){
 								
-								UseModifierPlaceAction actionUseMP = new UseModifierPlaceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, modifier);
+								UseModifierPlaceAction actionUseMP = new UseModifierPlaceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), modifier);
 								context.getGameLogic().getReplayManager().addAction(actionUseMP);
 							}
 
@@ -379,8 +379,8 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 							//This is considered the intended behaviour of the obstacle feature as its intent is to reward proactive players, not reward reactive ones
 							//If this is not how you want your obstacles to work you might consider preventing the player from placing obstacles on blocked connections or immediately pausing any train on that connection
 
-							if (!context.getGameLogic().isReplaying()){
-								UseObstacleAction obstacleAction =  new UseObstacleAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, obstacle, toBlock);                   
+							if (!context.getReplayManager().isReplaying()){
+								UseObstacleAction obstacleAction =  new UseObstacleAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), obstacle, toBlock);                   
 								context.getGameLogic().getReplayManager().addAction(obstacleAction);
 							}
 
@@ -481,9 +481,9 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 								currentPlayer.removeResource(engineer);
 
 								//Add engineer use to replay system.
-								if (!context.getGameLogic().isReplaying()){
+								if (!context.getReplayManager().isReplaying()){
 
-									UseEngineerAction actionUseE = new UseEngineerAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, engineer);
+									UseEngineerAction actionUseE = new UseEngineerAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), engineer);
 									context.getGameLogic().getReplayManager().addAction(actionUseE);
 								}
 
@@ -551,9 +551,9 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 			//If the ENGINEER_DROP button is pressed then the resource is removed from the player's inventory
 			currentPlayer.removeResource(engineer);
 
-			if (!context.getGameLogic().isReplaying()){
+			if (!context.getReplayManager().isReplaying()){
 				//Add engineer dropping to replay system.
-				DropResourceAction actionDropE = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, engineer);
+				DropResourceAction actionDropE = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer.getPlayerNumber(), engineer);
 				context.getGameLogic().getReplayManager().addAction(actionDropE);
 			}
 
@@ -574,9 +574,9 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 			//Removes the resource after it has been used
 			currentPlayer.removeResource(skip);
 
-			if (!context.getGameLogic().isReplaying()){
+			if (!context.getReplayManager().isReplaying()){
 				//Add engineer dropping to replay system.
-				UseSkipAction actionUseS = new UseSkipAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, skip, p);
+				UseSkipAction actionUseS = new UseSkipAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), skip, p);
 				context.getGameLogic().getReplayManager().addAction(actionUseS);
 
 
@@ -588,9 +588,9 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 			//Removes the resource from the player if they press the SKIP_DROP button
 			currentPlayer.removeResource(skip);
 
-			if (!context.getGameLogic().isReplaying()){
+			if (!context.getReplayManager().isReplaying()){
 				//Add engineer dropping to replay system.
-				DropResourceAction actionDropS = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, skip);
+				DropResourceAction actionDropS = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer.getPlayerNumber(), skip);
 				context.getGameLogic().getReplayManager().addAction(actionDropS);
 			}
 
@@ -637,9 +637,9 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 							currentPlayer.removeResource(modifier);
 							
 							//Add modifier use to replay system.
-							if (!context.getGameLogic().isReplaying()){
+							if (!context.getReplayManager().isReplaying()){
 								
-								UseModifierRemoveAction actionUseMR = new UseModifierRemoveAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, modifier);
+								UseModifierRemoveAction actionUseMR = new UseModifierRemoveAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), modifier);
 								context.getGameLogic().getReplayManager().addAction(actionUseMR);
 							}
 
@@ -709,9 +709,9 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 			//Removes the resource from the player if they press the MODIFIER_DROP button
 			currentPlayer.removeResource(modifier);
 
-			if (!context.getGameLogic().isReplaying()){
+			if (!context.getReplayManager().isReplaying()){
 				//Add engineer dropping to replay system.
-				DropResourceAction actionDropM = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer, modifier);
+				DropResourceAction actionDropM = new DropResourceAction(context, context.getGameLogic().getReplayManager().getCurrentTimeStamp(), currentPlayer.getPlayerNumber(), modifier);
 				context.getGameLogic().getReplayManager().addAction(actionDropM);
 			}
 			break;

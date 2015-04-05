@@ -8,12 +8,14 @@ import gameLogic.resource.Resource;
 public class DropGoalAction extends Action {
 	
 	
-	Player player;
-	Goal goal;
 
-	public DropGoalAction(Context context, long timestamp, Player p, Goal g) {
+	Goal goal;
+	int playerDropping;
+
+	public DropGoalAction(Context context, long timestamp, int p, Goal g) {
 		super(context, timestamp);
-		player = p;
+		playerDropping = p;
+		
 		goal = g;
 		// TODO Auto-generated constructor stub
 	}
@@ -22,6 +24,7 @@ public class DropGoalAction extends Action {
 	public void play() {
 		System.out.println("Replaying an goal dropping action.");
 
+		Player player = context.getGameLogic().getPlayerManager().getAllPlayers().get(playerDropping - 1);
 		player.removeGoal(goal);
 		
 	}
@@ -29,7 +32,7 @@ public class DropGoalAction extends Action {
 	@Override
 	public String toString() {
 		
-		return "Goal Drop Action, removing '" + goal.toString() + "' from " + player.toString() + super.toString();
+		return "Goal Drop Action, removing '" + goal.toString() + "' from Player " + playerDropping + super.toString();
 	}
 
 }

@@ -48,12 +48,12 @@ public class PlayerManager {
         	this.getCurrentPlayer().setSkip(false);
         	
         	//Only display dialog if not in replay mode.
-        	if (!context.getGameLogic().isReplaying()){
+        	if (!context.getReplayManager().isReplaying()){
         		DialogTurnSkipped dia = new DialogTurnSkipped(context.getSkin());
                 dia.show(context.getStage());
         	}
         	else{
-        		Game.getInstance().getPlayerManager().turnOver(null);
+        		Game.getInstance().getPlayerManager().turnOver(context);
         	}
             
             

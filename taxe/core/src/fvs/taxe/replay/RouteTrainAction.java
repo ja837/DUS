@@ -34,6 +34,7 @@ public class RouteTrainAction extends Action {
 		System.out.println("Replaying an train routing action.");
 
 		train.setRoute(route);
+		train.setReplay(true);
 		TrainMoveController move = new TrainMoveController(context, train);
 	}
 

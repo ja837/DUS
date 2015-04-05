@@ -43,9 +43,12 @@ public class TrainController {
                             break;
                         }
                     }
+                    
                     if (((Train) resource).getActor() != null && resource != train && !trainAtStation) {
                         ((Train) resource).getActor().setVisible(visible);
                     }
+                    
+                    
                 }
             }
         }

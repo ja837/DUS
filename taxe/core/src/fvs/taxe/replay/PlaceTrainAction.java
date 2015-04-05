@@ -32,7 +32,8 @@ public class PlaceTrainAction extends Action {
 
 		//This puts the train at the station that the user clicks and adds it to the trains visited history
         train.setPosition(station.getLocation());
-        train.addHistory(station, Game.getInstance().getPlayerManager().getTurnNumber());
+        train.addHistory(station, context.getGameLogic().getPlayerManager().getTurnNumber());
+        train.setReplay(true);
 
         //Hides the current train but makes all moving trains visible
         TrainController trainController = new TrainController(context);

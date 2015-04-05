@@ -40,7 +40,7 @@ public class Game {
     public final int TOTAL_TURNS = 30;
     public final int MAX_POINTS = 10000;
 
-    private Game(ReplayManager rm) {
+    public Game() {
         //Creates players
         playerManager = new PlayerManager();
         playerManager.createPlayers(CONFIG_PLAYERS);
@@ -49,15 +49,9 @@ public class Game {
         resourceManager = new ResourceManager();
         goalManager = new GoalManager(resourceManager);
         
-        //Init replayManager
-        if (rm == null){
-        	replayManager = new ReplayManager(this);
-        }
-        else{
-        	replayManager = rm;
-        }
-        
 
+        replayManager = new ReplayManager();
+        
         map = new Map();
 
         state = GameState.NORMAL;
@@ -74,7 +68,7 @@ public class Game {
 
 	public static Game getInstance() {
         if (instance == null) {
-            instance = new Game(null);
+            instance = new Game();
             // initialisePlayers gives them a goal, and the GoalManager requires an instance of game to exist so this
             // method can't be called in the constructor
             
@@ -85,13 +79,7 @@ public class Game {
         return instance;
     }
 
-	public static Game newGameWithReplay(ReplayManager rm){
-		return new Game(rm);
-	}
 
-	public boolean isReplaying() {
-		return replayManager.isReplaying();
-	}
 
 
 	public void startReplay() {

@@ -21,12 +21,10 @@ import gameLogic.resource.Train;
 public class UseModifierRemoveAction extends Action {
 	
 	
-	Player currentPlayer;
 	Modifier modifier;
 
-	public UseModifierRemoveAction(Context context, long timestamp, Player p, Modifier m) {
+	public UseModifierRemoveAction(Context context, long timestamp, Modifier m) {
 		super(context, timestamp);
-		currentPlayer = p;
 		modifier = m;
 		// TODO Auto-generated constructor stub
 	}
@@ -39,7 +37,7 @@ public class UseModifierRemoveAction extends Action {
 		context.getGameLogic().getMap().removeConnection(c);
 		
 		//The modifiers is removed from the player's inventory as it has been used
-		currentPlayer.removeResource(modifier);
+		context.getGameLogic().getPlayerManager().getCurrentPlayer().removeResource(modifier);
 	}
 
 	@Override

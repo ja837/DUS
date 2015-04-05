@@ -15,7 +15,9 @@ public class Train extends Resource {
     private IPositionable position;
     private TrainActor actor;
     private int speed;
-    // Final destination should be set to null after firing the arrival event
+    private boolean replay = false;
+
+	// Final destination should be set to null after firing the arrival event
     private Station finalDestination;
 
     // Should NOT contain current position!
@@ -37,6 +39,15 @@ public class Train extends Resource {
     public String getName() {
         return name;
     }
+    
+    public boolean isReplay() {
+		return replay;
+	}
+
+	public void setReplay(boolean replay) {
+		this.replay = replay;
+	}
+
 
     public String getLeftImage() {
         return "trains/" + leftImage;
