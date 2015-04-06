@@ -67,7 +67,7 @@ public class TrainMoveController{
                     Station nextStation = train.getRoute().get(nextIndex);
 
                     //Checks whether the next connection is blocked, if so the train is paused, if not the train is unpaused.
-                    if (Game.getInstance().getMap().isConnectionBlocked(station, nextStation)) {
+                    if (context.getGameLogic().getMap().isConnectionBlocked(station, nextStation)) {
                         train.getActor().setPaused(true);
                         train.getActor().setRecentlyPaused(false);
                     } else {

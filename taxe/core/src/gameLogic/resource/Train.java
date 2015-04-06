@@ -16,6 +16,8 @@ public class Train extends Resource {
     private TrainActor actor;
     private int speed;
     private boolean replay = false;
+    private boolean deployed = false;
+
 
 	// Final destination should be set to null after firing the arrival event
     private Station finalDestination;
@@ -57,6 +59,13 @@ public class Train extends Resource {
 		this.replay = replay;
 	}
 
+	public boolean isDeployed() {
+		return deployed;
+	}
+
+	public void setDeployed(boolean deployed) {
+		this.deployed = deployed;
+	}
 
     public String getLeftImage() {
         return "trains/" + leftImage;

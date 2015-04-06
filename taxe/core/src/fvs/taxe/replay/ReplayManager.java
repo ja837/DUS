@@ -95,6 +95,10 @@ public class ReplayManager {
 		setReplayStartingTime(TimeUtils.millis());
 	}
 	
+	public void endReplay(){
+		this.replaying = false;
+	}
+	
 	/**
 	 * Prints all the recorded actions out into console. Just to check if recording has worked.
 	 */

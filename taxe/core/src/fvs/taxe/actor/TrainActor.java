@@ -50,7 +50,7 @@ public class TrainActor extends Image {
 
     @Override
     public void act(float delta) {
-        if ((Game.getInstance().getState() == GameState.ANIMATING) && (!this.paused)){
+        if ((context.getGameLogic().getState() == GameState.ANIMATING) && (!this.paused)){
             //This function moves the train actors along their routes.
             //It renders everything every 1/delta seconds
             super.act(delta);
@@ -61,7 +61,7 @@ public class TrainActor extends Image {
             if (collision != null) {
                 //If there is a collision then the user is informed, the two trains destroyed and the connection that they collided on is blocked for 5 turns.
                 context.getTopBarController().displayFlashMessage("Two trains collided.  They were both destroyed.", Color.RED, 2);
-                Game.getInstance().getMap().blockConnection(train.getLastStation(), train.getNextStation(), 5);
+                context.getGameLogic().getMap().blockConnection(train.getLastStation(), train.getNextStation(), 5);
                 collision.getActor().remove();
                 collision.getPlayer().removeResource(collision);
                 train.getPlayer().removeResource(train);
@@ -83,7 +83,7 @@ public class TrainActor extends Image {
             Station nextStation = train.getRoute().get(index + 1);
 
             // check if connection is blocked, if not, unpause
-            if (!Game.getInstance().getMap().isConnectionBlocked(station, nextStation)) {
+            if (!context.getGameLogic().getMap().isConnectionBlocked(station, nextStation)) {
                 this.paused = false;
                 this.recentlyPaused = true;
             }
@@ -138,7 +138,7 @@ public class TrainActor extends Image {
         Station next = train.getNextStation();
         if (train.getPosition().getX() == -1 && !paused) {
             //if this train is moving;
-            for (Player player : Game.getInstance().getPlayerManager().getAllPlayers()) {
+            for (Player player : context.getGameLogic().getPlayerManager().getAllPlayers()) {
                 for (Train otherTrain : player.getTrains()) {
                     //This checks every train that is currently present within the game
                     if (!otherTrain.equals(train)) {

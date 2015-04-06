@@ -53,7 +53,7 @@ public class PlayerManager {
                 dia.show(context.getStage());
         	}
         	else{
-        		Game.getInstance().getPlayerManager().turnOver(context);
+        		context.getGameLogic().getPlayerManager().turnOver(context);
         	}
             
             

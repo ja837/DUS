@@ -161,6 +161,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 						TrainActor trainActor = trainController.renderTrain(train);
 						trainController.setTrainsVisible(null, true);
 						train.setActor(trainActor);
+						train.setDeployed(true);
 
 						//Unsubscribes from the listener so that it does not call this code again when it is obviously not necessary, without this placing of trains would never end
 						StationController.unsubscribeStationClick(this);

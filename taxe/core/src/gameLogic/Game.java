@@ -63,6 +63,19 @@ public class Game {
             }
         });
     }
+    
+    public void printDebugInfo(){
+    	System.out.println("Turn" + playerManager.getTurnNumber());
+    	System.out.println("\n" + playerManager.getAllPlayers().get(0).toString() + "\n");
+    	for (Resource r : playerManager.getAllPlayers().get(0).getResources()){
+    		System.out.println(r.toString());
+    	}
+    	
+    	System.out.println("\n" + playerManager.getAllPlayers().get(1).toString() + "\n");
+    	for (Resource r : playerManager.getAllPlayers().get(1).getResources()){
+    		System.out.println(r.toString());
+    	}
+    }
 
     
 

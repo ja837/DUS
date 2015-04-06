@@ -3,6 +3,7 @@ package fvs.taxe.replay;
 import fvs.taxe.controller.Context;
 import gameLogic.player.Player;
 import gameLogic.resource.Resource;
+import gameLogic.resource.Train;
 
 public class GiveResourceAction extends Action {
 	
@@ -13,7 +14,13 @@ public class GiveResourceAction extends Action {
 	public GiveResourceAction(Context context, long timestamp, int p, Resource r) {
 		super(context, timestamp);
 		playerToGiveResourceTo = p;
-		resource = r;
+		
+		if (r instanceof Train){
+			resource = new Train((Train) r);
+		}else{
+			resource = r;
+		}
+		
 		// TODO Auto-generated constructor stub
 	}
 

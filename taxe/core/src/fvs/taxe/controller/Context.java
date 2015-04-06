@@ -16,20 +16,27 @@ public class Context {
     private Skin skin;
     private Game gameLogic;
     private Game replayingGame;
+   
+	private GameScreen gameScreen;
 
 	private RouteController routeController;
     private TopBarController topBarController;
     
 
-    public Context(Stage stage, Skin skin, TaxeGame taxeGame, Game gameLogic) {
+    public Context(Stage stage, Skin skin, TaxeGame taxeGame, Game gameLogic, GameScreen gameScreen) {
         this.stage = stage;
         this.skin = skin;
         this.taxeGame = taxeGame;
         this.gameLogic = gameLogic;
         this.replayingGame = new Game();
+        this.gameScreen = gameScreen;
     }
 
-    //Getters and setters: pretty self-explanatory
+    public GameScreen getGameScreen() {
+		return gameScreen;
+	}
+
+	//Getters and setters: pretty self-explanatory
     public Stage getStage() {
         return stage;
     }
@@ -53,6 +60,11 @@ public class Context {
         
     }
     
+    public Game getReplayingGame() {
+		return replayingGame;
+	}
+
+    
     public ReplayManager getReplayManager(){
     	return gameLogic.getReplayManager();
     }
@@ -71,6 +83,15 @@ public class Context {
 
     public void setTopBarController(TopBarController topBarController) {
         this.topBarController = topBarController;
+    }
+    
+    public void startReplay(){
+    	gameLogic.getReplayManager().startReplay();
+    }    
+    
+    public void endReplay(){
+    	gameLogic.getReplayManager().endReplay();
+    	gameScreen.show();
     }
     
 

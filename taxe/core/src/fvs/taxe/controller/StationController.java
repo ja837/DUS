@@ -84,7 +84,7 @@ public class StationController {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				//This routine finds all trains located at this station by iterating through every one and checking if the location equals the station location
-				if (Game.getInstance().getState() == GameState.NORMAL) {
+				if (context.getGameLogic().getState() == GameState.NORMAL) {
 					ArrayList<Train> trains = new ArrayList<Train>();
 					for (Player player : context.getGameLogic().getPlayerManager()
 												.getAllPlayers()) {
@@ -166,12 +166,12 @@ public class StationController {
 		List<Station> stations = context.getGameLogic().getMap().getStations();
 		ArrayList<StationHighlight> list = new ArrayList<StationHighlight>();
 		for (Station station : stations) {
-			if (Game.getInstance().getState() == GameState.PLACING_TRAIN ||
-					Game.getInstance().getState() == GameState.ROUTING) {
+			if (context.getGameLogic().getState() == GameState.PLACING_TRAIN ||
+					context.getGameLogic().getState() == GameState.ROUTING) {
 				int index = 0;
 				//Creates a new hashmap which stores the maximum radius of each station
 				HashMap<String, Integer> map = new HashMap<String, Integer>();
-				for (Goal goal : Game.getInstance().getPlayerManager().getCurrentPlayer()
+				for (Goal goal : context.getGameLogic().getPlayerManager().getCurrentPlayer()
 									 .getGoals()) {
 					if (!goal.getComplete()) {
 						if (goal.getOrigin().equals(station) ||

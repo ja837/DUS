@@ -21,6 +21,8 @@ public class PlaceTrainAction extends Action {
 
 	public PlaceTrainAction(Context context, long timestamp, Train t, Station s) {
 		super(context, timestamp);
+		
+		
 		train  = t;
 		station = s;
 		// TODO Auto-generated constructor stub
@@ -29,6 +31,20 @@ public class PlaceTrainAction extends Action {
 	@Override
 	public void play() {
 		System.out.println("Replaying an train placement action.");
+		
+		Player p = train.getPlayer();
+		int playernumber = p.getPlayerNumber();
+		
+		for (Resource r : context.getGameLogic().getPlayerManager().getAllPlayers().get(playernumber - 1).getResources()){
+			System.out.println(r.toString());
+			if (r instanceof Train){
+				Train t = (Train) r;
+				System.out.println(t.getName() + "vs" + train.getName() );
+				if (t.getName().equals(train.getName())){
+					train = t;
+				}
+			}
+		}
 
 		//This puts the train at the station that the user clicks and adds it to the trains visited history
         train.setPosition(station.getLocation());
@@ -40,6 +56,12 @@ public class PlaceTrainAction extends Action {
         TrainActor trainActor = trainController.renderTrain(train);
         trainController.setTrainsVisible(null, true);
         train.setActor(trainActor);
+        train.setDeployed(true);
+        train.setReplay(true);
+        
+        Player player = train.getPlayer();
+        
+        context.getGameLogic().getPlayerManager().getCurrentPlayer().removeResource(train);
 		
 	}
 

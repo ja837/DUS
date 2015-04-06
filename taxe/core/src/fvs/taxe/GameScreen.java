@@ -67,7 +67,7 @@ public class GameScreen extends ScreenAdapter {
 		gameLogic = newGame;
 
 
-		context = new Context(stage, skin, game, gameLogic);
+		context = new Context(stage, skin, game, gameLogic, this);
 		Gdx.input.setInputProcessor(stage);
 
 		//Draw background
@@ -137,11 +137,14 @@ public class GameScreen extends ScreenAdapter {
 
 
 
-
+					
 				}
 				else{
-					//context.getGameLogic().getReplayManager().printDebugInfo();
+					
+					
 				}
+				
+				context.getGameLogic().printDebugInfo();
 
 			}
 		});
@@ -256,7 +259,10 @@ public class GameScreen extends ScreenAdapter {
 		if (!context.getReplayManager().isReplaying()){
 			topBarController.addEndTurnButton();
 			topBarController.addReplayButton();
-		}		
+		}
+		else{
+			topBarController.addExitReplayButton();
+		}
 		goalController.showCurrentPlayerGoals();
 		resourceController.drawPlayerResources(context.getGameLogic().getPlayerManager().getCurrentPlayer());
 	}

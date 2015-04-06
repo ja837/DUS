@@ -135,16 +135,29 @@ public class TopBarController {
     
     public void addReplayButton(){
     	
-    	//This method adds an endTurn button to the topBar which allows the user to end their turn
+    	//This method adds a replay button to the topBar which allows the user to start a replay
         replayButton = new TextButton("Replay", context.getSkin());
         replayButton.setPosition(10.0f, TaxeGame.HEIGHT - 33.0f);
         replayButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //This sets the turn to be over in the backend
-                //context.getGameLogic().startReplay();  
                 hideButtonsForReplay();
-                context.getReplayManager().startReplay();
+                context.startReplay();
+            }
+        });
+        
+        context.getStage().addActor(replayButton);
+    }
+    
+    public void addExitReplayButton(){
+    	//This method adds an exit replay button to the topBar which allows the user stop the replay
+        replayButton = new TextButton("Exit Replay", context.getSkin());
+        replayButton.setPosition(10.0f, TaxeGame.HEIGHT - 33.0f);
+        replayButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                context.endReplay();
             }
         });
         
