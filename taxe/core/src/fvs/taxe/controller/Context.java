@@ -1,12 +1,22 @@
 package fvs.taxe.controller;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import fvs.taxe.GameScreen;
 import fvs.taxe.TaxeGame;
+import fvs.taxe.replay.GiveGoalAction;
+import fvs.taxe.replay.GiveResourceAction;
+import fvs.taxe.replay.PlaceObstacleAction;
 import fvs.taxe.replay.ReplayManager;
 import gameLogic.Game;
+import gameLogic.GameState;
+import gameLogic.goal.Goal;
+import gameLogic.listeners.TurnListener;
+import gameLogic.map.Connection;
+import gameLogic.player.Player;
+import gameLogic.resource.Resource;
 
 public class Context {
     //Context appears to be a class that allows different aspects of the system access parts that they otherwise logically shouldn't have access to.
@@ -63,6 +73,10 @@ public class Context {
     public Game getReplayingGame() {
 		return replayingGame;
 	}
+    
+    public Game getMainGame(){
+    	return gameLogic;
+    }
 
     
     public ReplayManager getReplayManager(){
@@ -87,6 +101,23 @@ public class Context {
     
     public void startReplay(){
     	gameLogic.getReplayManager().startReplay();
+    	TrainController controller = new TrainController(this);
+    	controller.setTrainsVisible(null, true);
+    	
+    	replayingGame.getPlayerManager().subscribeTurnChanged(new TurnListener() {
+			@Override
+			public void changed() {
+				//The game will not be set into the animating state for the first turn to prevent player 1 from gaining an inherent advantage by gaining an extra turn of movement.
+				if (replayingGame.getPlayerManager().getTurnNumber()!=1) {
+					gameLogic.setState(GameState.ANIMATING);
+					topBarController.displayFlashMessage("Time is passing...", Color.BLACK);
+				}
+
+				System.out.println("Replaying game info:\n");
+				replayingGame.printDebugInfo();
+
+			}
+		});
     }    
     
     public void endReplay(){

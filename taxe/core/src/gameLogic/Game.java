@@ -12,6 +12,7 @@ import gameLogic.player.Player;
 import gameLogic.player.PlayerManager;
 import gameLogic.resource.Resource;
 import gameLogic.resource.ResourceManager;
+import gameLogic.resource.Train;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +69,22 @@ public class Game {
     	System.out.println("Turn" + playerManager.getTurnNumber());
     	System.out.println("\n" + playerManager.getAllPlayers().get(0).toString() + "\n");
     	for (Resource r : playerManager.getAllPlayers().get(0).getResources()){
-    		System.out.println(r.toString());
+    		
+    		
     	}
     	
     	System.out.println("\n" + playerManager.getAllPlayers().get(1).toString() + "\n");
     	for (Resource r : playerManager.getAllPlayers().get(1).getResources()){
-    		System.out.println(r.toString());
+    		if (r instanceof Train){
+    			Train t = (Train) r;
+    			if (t.getActor() != null){
+    				System.out.println("Train visible = " + t.getActor().isVisible());
+    			}
+    			
+    		}
+    		else{
+    			System.out.println(r.toString());
+    		}
     	}
     }
 

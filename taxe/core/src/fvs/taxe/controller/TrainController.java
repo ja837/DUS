@@ -32,10 +32,13 @@ public class TrainController {
 
     // Sets all trains on the map visible or invisible except one that we are routing for
     public void setTrainsVisible(Train train, boolean visible) {
+    	
+    	
 
         for (Player player : context.getGameLogic().getPlayerManager().getAllPlayers()) {
             for (Resource resource : player.getResources()) {
                 if (resource instanceof Train) {
+                	
                     boolean trainAtStation = false;
                     for (Station station : context.getGameLogic().getMap().getStations()) {
                         if (station.getLocation() == ((Train) resource).getPosition()) {
@@ -52,5 +55,51 @@ public class TrainController {
                 }
             }
         }
+        
+        //Set replaying trains to invisible if not replaying and vice versa.
+        if (context.getReplayManager().isReplaying()){
+    		for (Player player : context.getMainGame().getPlayerManager().getAllPlayers()) {
+                for (Resource resource : player.getResources()) {
+                    if (resource instanceof Train) {
+                    	
+                        boolean trainAtStation = false;
+                        for (Station station : context.getGameLogic().getMap().getStations()) {
+                            if (station.getLocation() == ((Train) resource).getPosition()) {
+                                trainAtStation = true;
+                                break;
+                            }
+                        }
+                        
+                        if (((Train) resource).getActor() != null && resource != train && !trainAtStation) {
+                            ((Train) resource).getActor().setVisible(false);
+                        }
+                        
+                        
+                    }
+                }
+            }
+    	}
+    	else{
+    		for (Player player : context.getReplayingGame().getPlayerManager().getAllPlayers()) {
+                for (Resource resource : player.getResources()) {
+                    if (resource instanceof Train) {
+                    	
+                        boolean trainAtStation = false;
+                        for (Station station : context.getGameLogic().getMap().getStations()) {
+                            if (station.getLocation() == ((Train) resource).getPosition()) {
+                                trainAtStation = true;
+                                break;
+                            }
+                        }
+                        
+                        if (((Train) resource).getActor() != null && resource != train && !trainAtStation) {
+                            ((Train) resource).getActor().setVisible(false);
+                        }
+                        
+                        
+                    }
+                }
+            }
+    	}
     }
 }

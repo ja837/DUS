@@ -32,6 +32,18 @@ public class RouteTrainAction extends Action {
 	@Override
 	public void play() {
 		System.out.println("Replaying an train routing action.");
+		
+		Player p = train.getPlayer();
+		int playernumber = p.getPlayerNumber();
+		
+		for (Resource r : context.getGameLogic().getPlayerManager().getAllPlayers().get(playernumber - 1).getResources()){
+			if (r instanceof Train){
+				Train t = (Train) r;
+				if (t.getName().equals(train.getName())){
+					train = t;
+				}
+			}
+		}
 
 		train.setRoute(route);
 		train.setReplay(true);

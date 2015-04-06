@@ -36,10 +36,8 @@ public class PlaceTrainAction extends Action {
 		int playernumber = p.getPlayerNumber();
 		
 		for (Resource r : context.getGameLogic().getPlayerManager().getAllPlayers().get(playernumber - 1).getResources()){
-			System.out.println(r.toString());
 			if (r instanceof Train){
 				Train t = (Train) r;
-				System.out.println(t.getName() + "vs" + train.getName() );
 				if (t.getName().equals(train.getName())){
 					train = t;
 				}
@@ -59,7 +57,7 @@ public class PlaceTrainAction extends Action {
         train.setDeployed(true);
         train.setReplay(true);
         
-        Player player = train.getPlayer();
+        p = train.getPlayer();
         
         context.getGameLogic().getPlayerManager().getCurrentPlayer().removeResource(train);
 		

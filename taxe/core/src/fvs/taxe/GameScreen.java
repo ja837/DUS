@@ -134,17 +134,11 @@ public class GameScreen extends ScreenAdapter {
 						PlaceObstacleAction obstacleAction =  new PlaceObstacleAction(context, replayManager.getCurrentTimeStamp(), blockedConnection);                   
 						replayManager.addAction(obstacleAction);
 					}
-
-
-
-					
+			
 				}
-				else{
-					
-					
-				}
-				
-				context.getGameLogic().printDebugInfo();
+
+				System.out.println("Main game info:\n");
+				context.getMainGame().printDebugInfo();
 
 			}
 		});
