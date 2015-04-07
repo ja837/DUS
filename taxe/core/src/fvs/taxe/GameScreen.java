@@ -228,7 +228,8 @@ public class GameScreen extends ScreenAdapter {
 		}
 
 		//Causes all the actors to perform their actions (i.e trains to move)
-		stage.act(Gdx.graphics.getDeltaTime());
+
+		stage.act(delta);
 
 		stage.draw();
 

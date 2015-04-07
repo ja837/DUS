@@ -2,6 +2,7 @@ package fvs.taxe.controller;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
@@ -123,7 +124,8 @@ public class TrainMoveController{
             float duration = getDistance(current, next) / train.getSpeed();
 
             //This adds the action to the actor which makes it move from point A to point B in a certain amount of time, calculated using duration and the two station positions.
-            actions.addAction(moveTo(next.getX() - TrainActor.width / 2, next.getY() - TrainActor.height / 2, duration));
+            Action a = moveTo(next.getX() - TrainActor.width / 2, next.getY() - TrainActor.height / 2, duration);
+            actions.addAction(a);
             actions.addAction(perStationAction(station));
             current = next;
         }

@@ -29,6 +29,7 @@ public class TrainActor extends Image {
     private Context context;
     private boolean paused;
     private boolean recentlyPaused;
+    int count = 0;
 
     public TrainActor(Train train, Context context) {
         //The constructor initialises all the variables and gathers the relevant image for the actor based on the train it is acting for.
@@ -53,9 +54,24 @@ public class TrainActor extends Image {
     @Override
     public void act(float delta) {
         if ((context.getGameLogic().getState() == GameState.ANIMATING) && (!this.paused)){
+        	if (context.getReplayManager().isReplaying()){
+        		if (this.train.isReplay()){
+        			super.act(delta);
+        			count++;
+        			System.out.println(train.getName() + " new position = " + getX() + " " + getY() + " count = " + count);
+            	}
+        	}
+        	else{
+        		if (!this.train.isReplay()){
+        			super.act(delta);
+        			count++;
+        			System.out.println(train.getName() + " new position = " + getX() + " " + getY() + " count = " + count);
+        		}
+        	}
+        	
             //This function moves the train actors along their routes.
             //It renders everything every 1/delta seconds
-            super.act(delta);
+            
             updateBounds();
             updateFacingDirection();
 
@@ -94,7 +110,7 @@ public class TrainActor extends Image {
 
     private void updateBounds() {
         bounds.set(getX(), getY(), getWidth(), getHeight());
-        train.setPosition(new Position((int) getX(), (int) getY()));
+
     }
 
     public void updateFacingDirection() {

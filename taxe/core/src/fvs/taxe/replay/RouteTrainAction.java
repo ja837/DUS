@@ -36,8 +36,7 @@ public class RouteTrainAction extends Action {
 		Player p = train.getPlayer();
 		int playernumber = p.getPlayerNumber();
 		
-		for (Resource r : context.getGameLogic().getPlayerManager().getAllPlayers().get(playernumber - 1).getResources()){
-			System.out.println(r.toString());
+		for (Resource r : context.getReplayingGame().getPlayerManager().getAllPlayers().get(playernumber - 1).getResources()){
 			if (r instanceof Train){
 				Train t = (Train) r;
 				if (t.getName().equals(train.getName()) && t.isDeployed()){
