@@ -17,6 +17,7 @@ import gameLogic.listeners.TurnListener;
 import gameLogic.map.Connection;
 import gameLogic.player.Player;
 import gameLogic.resource.Resource;
+import gameLogic.resource.Train;
 
 public class Context {
     //Context appears to be a class that allows different aspects of the system access parts that they otherwise logically shouldn't have access to.
@@ -101,6 +102,25 @@ public class Context {
     
     public void startReplay(){
     	gameLogic.getReplayManager().startReplay();
+    	
+    	//Remove all the non replay actors
+    	for (Resource r : gameLogic.getPlayerManager().getAllPlayers().get(0).getResources()){
+    		if (r instanceof Train){
+    			Train t = (Train) r;
+    			if (t.getActor() != null){
+    				t.getActor().remove();
+    			}
+    		}
+    	}
+    	for (Resource r : gameLogic.getPlayerManager().getAllPlayers().get(1).getResources()){
+    		if (r instanceof Train){
+    			Train t = (Train) r;
+    			if (t.getActor() != null){
+    				t.getActor().remove();
+    			}
+    		}
+    	}
+    	
     	TrainController controller = new TrainController(this);
     	controller.setTrainsVisible(null, true);
     	
@@ -118,6 +138,9 @@ public class Context {
 
 			}
 		});
+    	
+    	
+    	
     }    
     
     public void endReplay(){
@@ -125,6 +148,24 @@ public class Context {
     	gameScreen.show();
     	TrainController controller = new TrainController(this);
     	controller.setTrainsVisible(null, true);
+    	
+    	//Add all the non replay actors back
+    	for (Resource r : gameLogic.getPlayerManager().getAllPlayers().get(0).getResources()){
+    		if (r instanceof Train){
+    			Train t = (Train) r;
+    			if (t.getActor() != null){
+    				getStage().addActor(t.getActor());
+    			}
+    		}
+    	}
+    	for (Resource r : gameLogic.getPlayerManager().getAllPlayers().get(1).getResources()){
+    		if (r instanceof Train){
+    			Train t = (Train) r;
+    			if (t.getActor() != null){
+    				getStage().addActor(t.getActor());
+    			}
+    		}
+    	}
     }
     
 

@@ -23,6 +23,7 @@ public class TopBarController {
     private Color controlsColor = Color.LIGHT_GRAY;
     private TextButton endTurnButton;
     private TextButton replayButton;
+    private TextButton endReplayButton;
     private Label flashMessage;
 
     public TopBarController(Context context) {
@@ -100,9 +101,9 @@ public class TopBarController {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 //This sets the turn to be over in the backend
-                context.getGameLogic().getPlayerManager().turnOver(context);
+                context.getMainGame().getPlayerManager().turnOver(context);
                 
-                //Record this acation in the replay manager.
+                //Record this action in the replay manager.
                 if (!context.getReplayManager().isReplaying()){               	
                     long timestamp = context.getGameLogic().getReplayManager().getCurrentTimeStamp();
                     EndTurnAction action = new EndTurnAction(context, timestamp);
@@ -129,8 +130,14 @@ public class TopBarController {
     }
     
     public void hideButtonsForReplay(){
-    	replayButton.remove();
-    	endTurnButton.remove();
+    	replayButton.setVisible(false);
+    	endTurnButton.setVisible(false);
+    }
+    
+    public void showButtonsAfterReplay(){
+    	replayButton.setVisible(true);
+    	endReplayButton.setVisible(false);
+    	endTurnButton.setVisible(true);
     }
     
     public void addReplayButton(){
@@ -151,16 +158,17 @@ public class TopBarController {
     
     public void addExitReplayButton(){
     	//This method adds an exit replay button to the topBar which allows the user stop the replay
-        replayButton = new TextButton("Exit Replay", context.getSkin());
-        replayButton.setPosition(10.0f, TaxeGame.HEIGHT - 33.0f);
-        replayButton.addListener(new ClickListener() {
+        endReplayButton = new TextButton("Exit Replay", context.getSkin());
+        endReplayButton.setPosition(10.0f, TaxeGame.HEIGHT - 33.0f);
+        endReplayButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+            	showButtonsAfterReplay();
                 context.endReplay();
             }
         });
         
-        context.getStage().addActor(replayButton);
+        context.getStage().addActor(endReplayButton);
+        
     }
 }

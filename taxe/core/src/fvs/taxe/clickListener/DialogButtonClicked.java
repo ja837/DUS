@@ -134,7 +134,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 			pixmap.dispose();
 
 			//Begins the placement of a train
-			Game.getInstance().setState(GameState.PLACING_TRAIN);
+			context.getGameLogic().setState(GameState.PLACING_TRAIN);
 
 			//Hides all trains currently on the map
 			TrainController trainController = new TrainController(context);
@@ -151,7 +151,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 					} else {
 						//This puts the train at the station that the user clicks and adds it to the trains visited history
 						train.setPosition(station.getLocation());
-						train.addHistory(station, Game.getInstance().getPlayerManager().getTurnNumber());
+						train.addHistory(station, context.getGameLogic().getPlayerManager().getTurnNumber());
 
 						//Resets the cursor
 						Gdx.input.setCursorImage(null, 0, 0);
@@ -165,7 +165,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 
 						//Unsubscribes from the listener so that it does not call this code again when it is obviously not necessary, without this placing of trains would never end
 						StationController.unsubscribeStationClick(this);
-						Game.getInstance().setState(GameState.NORMAL);
+						context.getGameLogic().setState(GameState.NORMAL);
 
 						if (!context.getReplayManager().isReplaying()){
 							//Record in replay manager                            

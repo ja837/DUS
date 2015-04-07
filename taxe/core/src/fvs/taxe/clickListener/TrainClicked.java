@@ -32,7 +32,7 @@ public class TrainClicked extends ClickListener {
     @Override
     public void clicked(InputEvent event, float x, float y) {
 
-        if (Game.getInstance().getState() == GameState.NORMAL) {
+        if (context.getGameLogic().getState() == GameState.NORMAL) {
 
             // current player can't be passed in as it changes so find out current player at this instant
             Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
@@ -107,7 +107,7 @@ public class TrainClicked extends ClickListener {
         //This hides the message currently in the topBar if one is being displayed
         if (displayingMessage) {
             displayingMessage = false;
-            if (Game.getInstance().getState() == GameState.NORMAL) {
+            if (context.getGameLogic().getState() == GameState.NORMAL) {
                 //If the game state is normal then the topBar is cleared by passing it an empty string to display for 0 seconds
                 context.getTopBarController().clearMessage();
             }
@@ -124,7 +124,7 @@ public class TrainClicked extends ClickListener {
             if (context.getGameLogic().getState() == GameState.NORMAL) {
 
                 // current player can't be passed in as it changes so find out current player at this instant
-                Player currentPlayer = Game.getInstance().getPlayerManager().getCurrentPlayer();
+                Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
 
                 if (!train.isOwnedBy(currentPlayer)) {
                     //If the train isn't owned by the current player then basic information is displayed about it

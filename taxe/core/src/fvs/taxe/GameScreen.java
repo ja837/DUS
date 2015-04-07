@@ -88,12 +88,12 @@ public class GameScreen extends ScreenAdapter {
 		context.setTopBarController(topBarController);
 
 		//Adds a listener that displays a flash message whenever the turn ends
-		gameLogic.getPlayerManager().subscribeTurnChanged(new TurnListener() {
+		context.getMainGame().getPlayerManager().subscribeTurnChanged(new TurnListener() {
 			@Override
 			public void changed() {
 				//The game will not be set into the animating state for the first turn to prevent player 1 from gaining an inherent advantage by gaining an extra turn of movement.
-				if (context.getGameLogic().getPlayerManager().getTurnNumber()!=1) {
-					gameLogic.setState(GameState.ANIMATING);
+				if (context.getMainGame().getPlayerManager().getTurnNumber()!=1) {
+					context.getMainGame().setState(GameState.ANIMATING);
 					topBarController.displayFlashMessage("Time is passing...", Color.BLACK);
 				}
 
@@ -134,7 +134,7 @@ public class GameScreen extends ScreenAdapter {
 						PlaceObstacleAction obstacleAction =  new PlaceObstacleAction(context, replayManager.getCurrentTimeStamp(), blockedConnection);                   
 						replayManager.addAction(obstacleAction);
 					}
-			
+
 				}
 
 				//System.out.println("Main game info:\n");
@@ -169,7 +169,7 @@ public class GameScreen extends ScreenAdapter {
 	// called every frame
 	@Override
 	public void render(float delta) {
-		
+
 		gameLogic = context.getGameLogic();
 
 		//Replay stuff if it is the right time to do it
@@ -177,12 +177,12 @@ public class GameScreen extends ScreenAdapter {
 
 			ReplayManager replayManager = context.getReplayManager(); 
 
-			long timeSinceReplayStarted = TimeUtils.millis() - replayManager.getReplayStartingTime();
 
 			if (replayManager.getTimeOfNextAction() != -1){
-				if (timeSinceReplayStarted > replayManager.getTimeOfNextAction()){
-					replayManager.playNextAction();
+				if (replayManager.getTimeSinceReplayStarted() > replayManager.getTimeOfNextAction()){
 					show();
+					replayManager.playNextAction();
+					
 
 				}
 			}
@@ -212,15 +212,20 @@ public class GameScreen extends ScreenAdapter {
 		if (gameLogic.getState() == GameState.ROUTING) {
 			routeController.drawRoute(Color.BLACK);
 
-		} else
+		} else{
 			//Draw train moving
 			if (gameLogic.getState() == GameState.ANIMATING) {
 				timeAnimated += delta;
+
 				if (timeAnimated >= ANIMATION_TIME) {
 					gameLogic.setState(GameState.NORMAL);
 					timeAnimated = 0;
 				}
+
+
 			}
+		}
+			
 
 		//Draw the number of trains at each station
 		if (gameLogic.getState() == GameState.NORMAL || gameLogic.getState() == GameState.PLACING_TRAIN) {

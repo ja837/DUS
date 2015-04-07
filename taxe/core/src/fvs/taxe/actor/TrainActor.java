@@ -55,17 +55,19 @@ public class TrainActor extends Image {
     public void act(float delta) {
         if ((context.getGameLogic().getState() == GameState.ANIMATING) && (!this.paused)){
         	if (context.getReplayManager().isReplaying()){
+        		System.out.println("Act is called on " + this.toString());
         		if (this.train.isReplay()){
         			super.act(delta);
         			count++;
-        			System.out.println(train.getName() + " new position = " + getX() + " " + getY() + " count = " + count);
+        			long time = context.getReplayManager().getTimeSinceReplayStarted();
+        			System.out.println(train.getName() + " new position = " + getX() + " " + getY() + " count = " + count +  " at " + time);
             	}
         	}
         	else{
         		if (!this.train.isReplay()){
         			super.act(delta);
         			count++;
-        			System.out.println(train.getName() + " new position = " + getX() + " " + getY() + " count = " + count);
+        			System.out.println(train.getName() + " new position = " + getX() + " " + getY() + " count = " + count +  " at " + context.getReplayManager().getCurrentTimeStamp());
         		}
         	}
         	

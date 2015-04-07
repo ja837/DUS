@@ -85,6 +85,10 @@ public class ReplayManager {
 	public long getReplayStartingTime() {
 		return replayStartingTime;
 	}
+	
+	public long getTimeSinceReplayStarted() {
+		return TimeUtils.millis() - replayStartingTime;
+	}
 
 	private void setReplayStartingTime(long replayStartingTime) {
 		this.replayStartingTime = replayStartingTime;

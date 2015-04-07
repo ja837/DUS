@@ -112,12 +112,6 @@ public class Game {
         return instance;
     }
 
-
-
-
-	public void startReplay() {
-		replayManager.startReplay();
-	}
 	
     public PlayerManager getPlayerManager() {
         return playerManager;
