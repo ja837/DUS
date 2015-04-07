@@ -53,9 +53,15 @@ public class TrainActor extends Image {
 
     @Override
     public void act(float delta) {
+    	System.out.println("Act is called on " + this.toString());
+    	System.out.println("Main game state = " + context.getMainGame().getState());
+    	System.out.println("Replay game state = " + context.getReplayingGame().getState());
+    	System.out.println("Game Logic = " + context.getGameLogic().getState());
+    	System.out.println("Actor paused = " + this.paused);
         if ((context.getGameLogic().getState() == GameState.ANIMATING) && (!this.paused)){
+        	//System.out.println("Act is called on " + this.toString());
         	if (context.getReplayManager().isReplaying()){
-        		System.out.println("Act is called on " + this.toString());
+        		
         		if (this.train.isReplay()){
         			super.act(delta);
         			count++;

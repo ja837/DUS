@@ -186,6 +186,9 @@ public class GameScreen extends ScreenAdapter {
 
 				}
 			}
+			else{
+				//System.out.println("End of replay");
+			}
 
 		}
 
@@ -222,6 +225,7 @@ public class GameScreen extends ScreenAdapter {
 					timeAnimated = 0;
 				}
 
+				stage.act(delta);
 
 			}
 		}
@@ -234,7 +238,7 @@ public class GameScreen extends ScreenAdapter {
 
 		//Causes all the actors to perform their actions (i.e trains to move)
 
-		stage.act(delta);
+		
 
 		stage.draw();
 

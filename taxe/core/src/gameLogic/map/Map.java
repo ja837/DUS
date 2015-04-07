@@ -218,15 +218,21 @@ public class Map {
             connection.setBlocked(turnsBlocked);
         }
     }
+    
+    public void resetAllConnections(){
+    	for (Connection connection : connections){
+    		connection.setBlocked(0);
+    	}
+    }
 
     public boolean isConnectionBlocked(Station station1, Station station2) {
         //Iterates through all the connections and finds the connection that links station1 and station2. Returns if this connection is blocked.
         for (Connection connection : connections) {
-            if (connection.getStation1() == station1)
-                if (connection.getStation2() == station2)
+            if (connection.getStation1().getName().equals(station1.getName()))
+                if (connection.getStation2().getName().equals(station2.getName()))
                     return connection.isBlocked();
-            if (connection.getStation1() == station2)
-                if (connection.getStation2() == station1)
+            if (connection.getStation1().getName().equals(station2.getName()))
+                if (connection.getStation2().getName().equals(station1.getName()))
                     return connection.isBlocked();
         }
 

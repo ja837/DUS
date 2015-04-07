@@ -103,6 +103,9 @@ public class Context {
     public void startReplay(){
     	gameLogic.getReplayManager().startReplay();
     	
+    	replayingGame.getMap().resetAllConnections();
+    	//gameLogic.getMap().resetAllConnections();
+    	
     	//Remove all the non replay actors
     	for (Resource r : gameLogic.getPlayerManager().getAllPlayers().get(0).getResources()){
     		if (r instanceof Train){

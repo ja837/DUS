@@ -14,9 +14,7 @@ public class EndTurnAction extends Action {
 	@Override
 	public void play() {
 		System.out.println("Replaying an end of turn action.");
-		context.endReplay();
 		context.getGameLogic().getPlayerManager().turnOver(context);
-		context.startReplay();
 	}
 
 	@Override
