@@ -137,8 +137,8 @@ public class GameScreen extends ScreenAdapter {
 			
 				}
 
-				System.out.println("Main game info:\n");
-				context.getMainGame().printDebugInfo();
+				//System.out.println("Main game info:\n");
+				//context.getMainGame().printDebugInfo();
 
 			}
 		});
@@ -184,8 +184,6 @@ public class GameScreen extends ScreenAdapter {
 					replayManager.playNextAction();
 					show();
 
-					//System.out.println("would play an action now " + replayManager.currentAction + " at " + timeSinceReplayStarted);
-					//replayManager.currentAction++;
 				}
 			}
 

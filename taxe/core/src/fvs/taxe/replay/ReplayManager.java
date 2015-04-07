@@ -78,6 +78,10 @@ public class ReplayManager {
 		return TimeUtils.millis() - gameStartingTime;
 	}
 	
+	/**
+	 * 
+	 * @return the time that the replay started at.
+	 */
 	public long getReplayStartingTime() {
 		return replayStartingTime;
 	}

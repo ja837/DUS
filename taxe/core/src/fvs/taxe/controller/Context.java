@@ -109,12 +109,12 @@ public class Context {
 			public void changed() {
 				//The game will not be set into the animating state for the first turn to prevent player 1 from gaining an inherent advantage by gaining an extra turn of movement.
 				if (replayingGame.getPlayerManager().getTurnNumber()!=1) {
-					gameLogic.setState(GameState.ANIMATING);
+					replayingGame.setState(GameState.ANIMATING);
 					topBarController.displayFlashMessage("Time is passing...", Color.BLACK);
 				}
 
-				System.out.println("Replaying game info:\n");
-				replayingGame.printDebugInfo();
+				//System.out.println("Replaying game info:\n");
+				//replayingGame.printDebugInfo();
 
 			}
 		});
@@ -123,6 +123,8 @@ public class Context {
     public void endReplay(){
     	gameLogic.getReplayManager().endReplay();
     	gameScreen.show();
+    	TrainController controller = new TrainController(this);
+    	controller.setTrainsVisible(null, true);
     }
     
 

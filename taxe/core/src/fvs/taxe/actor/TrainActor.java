@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+
 import fvs.taxe.controller.Context;
 import gameLogic.Game;
 import gameLogic.GameState;
 import gameLogic.player.Player;
 import gameLogic.map.IPositionable;
+import gameLogic.map.Position;
 import gameLogic.map.Station;
 import gameLogic.resource.Train;
 
@@ -92,6 +94,7 @@ public class TrainActor extends Image {
 
     private void updateBounds() {
         bounds.set(getX(), getY(), getWidth(), getHeight());
+        train.setPosition(new Position((int) getX(), (int) getY()));
     }
 
     public void updateFacingDirection() {

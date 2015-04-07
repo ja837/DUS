@@ -56,11 +56,7 @@ public class PlaceTrainAction extends Action {
         train.setActor(trainActor);
         train.setDeployed(true);
         train.setReplay(true);
-        
-        p = train.getPlayer();
-        
-        context.getGameLogic().getPlayerManager().getCurrentPlayer().removeResource(train);
-		
+
 	}
 
 	@Override
