@@ -42,7 +42,10 @@ public class GameScreen extends ScreenAdapter {
 	private StationController stationController;
 	private TopBarController topBarController;
 	private ResourceController resourceController;
+
 	private GoalController goalController;
+
+
 	private RouteController routeController;
 
 
@@ -301,5 +304,14 @@ public class GameScreen extends ScreenAdapter {
 		}
 
 	}
+	
+	public GoalController getGoalController() {
+		return goalController;
+	}
+	
+	public ResourceController getResourceController() {
+		return resourceController;
+	}
+
 
 }

@@ -13,7 +13,7 @@ public class GiveGoalAction extends Action {
 
 	public GiveGoalAction(Context context, long timestamp, int player, Goal g) {
 		super(context, timestamp);
-		playerNumber = player;
+		playerNumber = player - 1;
 		goal = g;
 		// TODO Auto-generated constructor stub
 	}
@@ -22,8 +22,10 @@ public class GiveGoalAction extends Action {
 	public void play() {
 		System.out.println("Replaying an goal allocation action.");
 		
-		Player playerToGiveGoalTo = context.getGameLogic().getPlayerManager().getAllPlayers().get(playerNumber - 1);
+		Player playerToGiveGoalTo = context.getGameLogic().getPlayerManager().getAllPlayers().get(playerNumber);
 		context.getGameLogic().getGoalManager().addGoalToPlayer(playerToGiveGoalTo, goal);
+		
+		context.getGameScreen().getGoalController().showCurrentPlayerGoals();
 		
 	}
 

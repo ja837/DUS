@@ -36,7 +36,13 @@ public class PlayerManager {
     public void turnOver(Context context) {
         //Swaps current player
         //This is for two players, if you wish to add more players you will need to increment current turn by 1 and then perform mod MaxPlayers on the result.
-        currentTurn = currentTurn == 1 ? 0 : 1;
+    	if (currentTurn == 1){
+    		currentTurn = 0;
+    	}
+    	else{
+    		currentTurn = 1;
+    	}
+        //currentTurn = currentTurn == 1 ? 0 : 1;
 
         //Calls turn listeners
         turnChanged();

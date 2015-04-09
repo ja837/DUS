@@ -27,6 +27,8 @@ public class DropGoalAction extends Action {
 		Player player = context.getGameLogic().getPlayerManager().getAllPlayers().get(playerDropping - 1);
 		player.removeGoal(goal);
 		
+		context.getGameScreen().getGoalController().showCurrentPlayerGoals();
+		
 	}
 
 	@Override

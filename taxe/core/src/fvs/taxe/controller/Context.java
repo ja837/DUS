@@ -127,12 +127,14 @@ public class Context {
     	TrainController controller = new TrainController(this);
     	controller.setTrainsVisible(null, true);
     	
+    	gameScreen.show();
+    	
     	replayingGame.getPlayerManager().subscribeTurnChanged(new TurnListener() {
 			@Override
 			public void changed() {
 				//The game will not be set into the animating state for the first turn to prevent player 1 from gaining an inherent advantage by gaining an extra turn of movement.
 				
-				getReplayingGame().getMap().decrementBlockedConnections();
+				replayingGame.getMap().decrementBlockedConnections();
 				
 				if (replayingGame.getPlayerManager().getTurnNumber()!=1) {
 					replayingGame.setState(GameState.ANIMATING);

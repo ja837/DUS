@@ -59,22 +59,8 @@ public class PlaceTrainAction extends Action {
         train.setDeployed(true);
         train.setReplay(true);
         
-       /* Train testTrain = new Train(train);
-        testTrain.setPosition(station.getLocation());
-        testTrain.addHistory(station, context.getGameLogic().getPlayerManager().getTurnNumber());
-        testTrain.setReplay(true);
-        //Hides the current train but makes all moving trains visible
-        TrainController trainController2 = new TrainController(context);
-        TrainActor trainActor2 = trainController.renderTrain(testTrain);
-        trainController2.setTrainsVisible(null, true);
-        testTrain.setActor(trainActor2);
-        testTrain.setDeployed(true);
-        testTrain.setReplay(true);
-        List<Station> list = new List<Station>();
-        testTrain.setRoute(new List<Station>(){station});
-        testTrain.setReplay(true);
-		TrainMoveController move = new TrainMoveController(context, train);
-        */
+        
+        context.getGameScreen().getResourceController().drawPlayerResources(context.getGameLogic().getPlayerManager().getCurrentPlayer());
 
 	}
 
