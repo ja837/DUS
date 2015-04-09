@@ -40,11 +40,16 @@ public class UseModifierPlaceAction extends Action {
 		//The modifiers is removed from the player's inventory as it has been used
 		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
 		
+		Modifier m = null;
+		
 		for (Resource r : currentPlayer.getResources()){
 			if (r instanceof Modifier){
-				currentPlayer.removeResource(r);
+				m = (Modifier) r;
+				
 			}
 		}
+		
+		currentPlayer.removeResource(m);
 	}
 
 	@Override

@@ -41,12 +41,16 @@ public class UseSkipAction extends Action {
 		//Removes the resource after it has been used
 		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
 		
+		Skip s = null;
+		
 		for (Resource r : currentPlayer.getResources()){
 			if (r instanceof Skip){
-				currentPlayer.removeResource(r);
+				s = (Skip) r;
+				
 			}
 		}
 		
+		currentPlayer.removeResource(s);
 	}
 
 	@Override

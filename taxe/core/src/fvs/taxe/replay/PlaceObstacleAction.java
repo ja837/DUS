@@ -37,7 +37,7 @@ public class PlaceObstacleAction extends Action {
 		
 		Connection c = context.getGameLogic().getMap().getConnection(connection.getStation1(), connection.getStation2());
 
-		//c.setBlocked(5);
+		c.setBlocked(5);
 		
 
 		

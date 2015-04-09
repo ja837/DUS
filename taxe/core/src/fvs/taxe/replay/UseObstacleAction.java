@@ -39,16 +39,19 @@ public class UseObstacleAction extends Action {
 		
 		Connection c = context.getGameLogic().getMap().getConnection(connection.getStation1(), connection.getStation2());
 
-		//c.setBlocked(5);
+		c.setBlocked(5);
 		
 		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
 		
+		Obstacle o = null;
+		
 		for (Resource r : currentPlayer.getResources()){
 			if (r instanceof Obstacle){
-				currentPlayer.removeResource(r);
+				o = (Obstacle) r;
 			}
 		}
 
+		currentPlayer.removeResource(o);
 		
 	}
 

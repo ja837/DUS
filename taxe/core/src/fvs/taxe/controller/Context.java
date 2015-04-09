@@ -131,6 +131,9 @@ public class Context {
 			@Override
 			public void changed() {
 				//The game will not be set into the animating state for the first turn to prevent player 1 from gaining an inherent advantage by gaining an extra turn of movement.
+				
+				getReplayingGame().getMap().decrementBlockedConnections();
+				
 				if (replayingGame.getPlayerManager().getTurnNumber()!=1) {
 					replayingGame.setState(GameState.ANIMATING);
 					topBarController.displayFlashMessage("Time is passing...", Color.BLACK);

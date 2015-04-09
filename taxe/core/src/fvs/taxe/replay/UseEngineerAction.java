@@ -39,11 +39,16 @@ public class UseEngineerAction extends Action {
 		engineer.use(context.getGameLogic().getMap().getConnection(engineer.getStation1(), engineer.getStation2()));
 		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
 		
+		Engineer e = null;
+		
 		for (Resource r : currentPlayer.getResources()){
 			if (r instanceof Engineer){
-				currentPlayer.removeResource(r);
+				e = (Engineer) r;
+				
 			}
 		}
+		
+		currentPlayer.removeResource(e);
 	}
 
 	@Override

@@ -204,7 +204,7 @@ public class GameScreen extends ScreenAdapter {
 
 		topBarController.drawBackground();
 
-		stationController.renderConnections(map.getConnections(), Color.GRAY);
+		stationController.renderConnections(gameLogic.getMap().getConnections(), Color.GRAY);
 		if (gameLogic.getState() == GameState.PLACING_TRAIN || gameLogic.getState() == GameState
 				.ROUTING) {
 			stationController.renderStationGoalHighlights();
@@ -225,12 +225,14 @@ public class GameScreen extends ScreenAdapter {
 					timeAnimated = 0;
 				}
 
-				stage.act(delta);
+				
 
 			}
 		}
 			
 
+		stage.act(delta);
+		
 		//Draw the number of trains at each station
 		if (gameLogic.getState() == GameState.NORMAL || gameLogic.getState() == GameState.PLACING_TRAIN) {
 			stationController.displayNumberOfTrainsAtStations();

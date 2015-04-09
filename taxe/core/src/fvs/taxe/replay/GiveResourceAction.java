@@ -2,7 +2,11 @@ package fvs.taxe.replay;
 
 import fvs.taxe.controller.Context;
 import gameLogic.player.Player;
+import gameLogic.resource.Engineer;
+import gameLogic.resource.Modifier;
+import gameLogic.resource.Obstacle;
 import gameLogic.resource.Resource;
+import gameLogic.resource.Skip;
 import gameLogic.resource.Train;
 
 public class GiveResourceAction extends Action {
@@ -17,8 +21,14 @@ public class GiveResourceAction extends Action {
 		
 		if (r instanceof Train){
 			resource = new Train((Train) r);
-		}else{
-			resource = r;
+		}else if (r instanceof Skip){
+			resource = new Skip();
+		}else if (r instanceof Engineer){
+			resource = new Engineer();
+		}else if (r instanceof Obstacle){
+			resource = new Obstacle();
+		}else if (r instanceof Modifier){
+			resource = new Modifier();
 		}
 		
 		// TODO Auto-generated constructor stub
