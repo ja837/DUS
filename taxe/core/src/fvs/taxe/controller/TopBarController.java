@@ -136,7 +136,7 @@ public class TopBarController {
     
     public void showButtonsAfterReplay(){
     	replayButton.setVisible(true);
-    	endReplayButton.setVisible(false);
+    	
     	endTurnButton.setVisible(true);
     }
     
@@ -158,13 +158,14 @@ public class TopBarController {
     
     public void addExitReplayButton(){
     	//This method adds an exit replay button to the topBar which allows the user stop the replay
-        endReplayButton = new TextButton("Exit Replay", context.getSkin());
+        endReplayButton = new TextButton("Exit", context.getSkin());
         endReplayButton.setPosition(10.0f, TaxeGame.HEIGHT - 33.0f);
         endReplayButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            	showButtonsAfterReplay();
+            	endReplayButton.setVisible(false);
                 context.endReplay();
+                //endReplayButton.remove();
             }
         });
         
