@@ -180,6 +180,13 @@ public class GameScreen extends ScreenAdapter {
 
 			ReplayManager replayManager = context.getReplayManager(); 
 
+			
+			if (replayManager.isSkipThinkingTime() && gameLogic.getState() == GameState.NORMAL){
+				if (replayManager.getTimeOfNextAction() != -1){
+					replayManager.playNextAction();
+				}
+				
+			}
 
 			if (replayManager.getTimeOfNextAction() != -1){
 				if (replayManager.getTimeSinceReplayStarted() > replayManager.getTimeOfNextAction()){
@@ -269,6 +276,7 @@ public class GameScreen extends ScreenAdapter {
 		}
 		else{
 			topBarController.addExitReplayButton();
+			topBarController.addSkipThinkingTimeButton();
 		}
 		goalController.showCurrentPlayerGoals();
 		resourceController.drawPlayerResources(context.getGameLogic().getPlayerManager().getCurrentPlayer());

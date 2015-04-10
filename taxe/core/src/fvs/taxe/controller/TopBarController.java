@@ -24,6 +24,7 @@ public class TopBarController {
     private TextButton endTurnButton;
     private TextButton replayButton;
     private TextButton endReplayButton;
+    private TextButton skipThinkingButton;
     private Label flashMessage;
 
     public TopBarController(Context context) {
@@ -94,6 +95,12 @@ public class TopBarController {
     }
 
     public void addEndTurnButton() {
+    	
+    	if (endTurnButton != null){
+    		endTurnButton.remove();
+    	}
+    	
+    	
         //This method adds an endTurn button to the topBar which allows the user to end their turn
         endTurnButton = new TextButton("End Turn", context.getSkin());
         endTurnButton.setPosition(TaxeGame.WIDTH - 100.0f, TaxeGame.HEIGHT - 33.0f);
@@ -129,27 +136,22 @@ public class TopBarController {
         context.getStage().addActor(endTurnButton);
     }
     
-    public void hideButtonsForReplay(){
-    	replayButton.setVisible(false);
-    	endTurnButton.setVisible(false);
-    }
-    
-    public void showButtonsAfterReplay(){
-    	replayButton.setVisible(true);
-    	
-    	endTurnButton.setVisible(true);
-    }
     
     public void addReplayButton(){
+    	
+    	if (replayButton != null){
+    		replayButton.remove();
+    	}
     	
     	//This method adds a replay button to the topBar which allows the user to start a replay
         replayButton = new TextButton("Replay", context.getSkin());
         replayButton.setPosition(10.0f, TaxeGame.HEIGHT - 33.0f);
         replayButton.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
-                hideButtonsForReplay();
+            public void clicked(InputEvent event, float x, float y) {          	
                 context.startReplay();
+                replayButton.remove();
+                endTurnButton.remove();
             }
         });
         
@@ -158,18 +160,53 @@ public class TopBarController {
     
     public void addExitReplayButton(){
     	//This method adds an exit replay button to the topBar which allows the user stop the replay
-        endReplayButton = new TextButton("Exit", context.getSkin());
+    	if (endReplayButton != null){
+    		endReplayButton.remove();
+    	}
+        endReplayButton = new TextButton("Exit Replay", context.getSkin());
         endReplayButton.setPosition(10.0f, TaxeGame.HEIGHT - 33.0f);
         endReplayButton.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
-            	endReplayButton.setVisible(false);
+            public void clicked(InputEvent event, float x, float y) {            	
                 context.endReplay();
-                //endReplayButton.remove();
+                endReplayButton.remove();
+                skipThinkingButton.remove();
             }
         });
         
         context.getStage().addActor(endReplayButton);
+        
+    }
+    
+    public void addSkipThinkingTimeButton(){
+    	//This method adds an exit replay button to the topBar which allows the user stop the replay
+    	if (skipThinkingButton != null){
+    		skipThinkingButton.remove();
+    	}
+    	skipThinkingButton = new TextButton("Skip Thinking Time", context.getSkin());
+    	if (!context.getReplayManager().isSkipThinkingTime()){
+    		skipThinkingButton.setColor(Color.RED);
+    	}else{
+    		skipThinkingButton.setColor(Color.GREEN);
+    	}
+    	
+    	skipThinkingButton.setPosition(100.0f, TaxeGame.HEIGHT - 33.0f);
+    	skipThinkingButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {    
+            	if (context.getReplayManager().isSkipThinkingTime()){
+            		context.getReplayManager().setSkipThinkingTime(false);
+            		skipThinkingButton.setColor(Color.RED);
+            	}
+            	else{
+            		context.getReplayManager().setSkipThinkingTime(true);
+            		skipThinkingButton.setColor(Color.GREEN);
+            	}
+                
+            }
+        });
+        
+        context.getStage().addActor(skipThinkingButton);
         
     }
 }

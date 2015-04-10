@@ -20,7 +20,8 @@ public class ReplayManager {
 	long replayStartingTime = -1;
 	float currentPlaybackSpeedMultiplier = 1;
     private boolean replaying = false;
-	
+    private boolean skipThinkingTime = false;
+
 	Game gameToBeReplayed;
 	
 	
@@ -101,10 +102,22 @@ public class ReplayManager {
 	public void startReplay() {
 		this.replaying = true;
 		setReplayStartingTime(TimeUtils.millis());
+		currentAction=0;
 	}
 	
 	public void endReplay(){
 		this.replaying = false;
+	}
+	
+	
+	public boolean isSkipThinkingTime() {
+		return skipThinkingTime;
+	}
+
+
+
+	public void setSkipThinkingTime(boolean skipThinkingTime) {
+		this.skipThinkingTime = skipThinkingTime;
 	}
 	
 	/**
