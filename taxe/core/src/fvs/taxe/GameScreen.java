@@ -181,20 +181,23 @@ public class GameScreen extends ScreenAdapter {
 			ReplayManager replayManager = context.getReplayManager(); 
 
 			
-			if (replayManager.isSkipThinkingTime() && gameLogic.getState() == GameState.NORMAL){
-				if (replayManager.getTimeOfNextAction() != -1){
-					replayManager.playNextAction();
+			if (replayManager.isSkipThinkingTime()){
+				if (gameLogic.getState() == GameState.NORMAL){
+					if (replayManager.getTimeOfNextAction() != -1){
+						replayManager.playNextAction();
+						
+					}
 				}
-				
-			}
-
-			if (replayManager.getTimeOfNextAction() != -1){
+								
+			}else if (replayManager.getTimeOfNextAction() != -1){
 				if (replayManager.getTimeSinceReplayStarted() > replayManager.getTimeOfNextAction()){
 					show();
 					replayManager.playNextAction();
 					
 
 				}
+				
+				replayManager.updateTimeSinceReplayStart(delta);
 			}
 			else{
 				//System.out.println("End of replay");
@@ -276,6 +279,8 @@ public class GameScreen extends ScreenAdapter {
 		}
 		else{
 			topBarController.addExitReplayButton();
+			topBarController.addPauseReplayButton();
+			topBarController.addRestartReplayButton();
 			topBarController.addSkipThinkingTimeButton();
 		}
 		goalController.showCurrentPlayerGoals();

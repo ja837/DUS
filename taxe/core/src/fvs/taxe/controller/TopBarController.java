@@ -23,7 +23,9 @@ public class TopBarController {
     private Color controlsColor = Color.LIGHT_GRAY;
     private TextButton endTurnButton;
     private TextButton replayButton;
-    private TextButton endReplayButton;
+    private TextButton restartReplayButton;
+    private TextButton pauseReplayButton;
+    private TextButton exitReplayButton;
     private TextButton skipThinkingButton;
     private Label flashMessage;
 
@@ -149,7 +151,7 @@ public class TopBarController {
         replayButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {          	
-                context.startReplay();
+                context.enterReplay();
                 replayButton.remove();
                 endTurnButton.remove();
             }
@@ -160,21 +162,59 @@ public class TopBarController {
     
     public void addExitReplayButton(){
     	//This method adds an exit replay button to the topBar which allows the user stop the replay
-    	if (endReplayButton != null){
-    		endReplayButton.remove();
+    	if (exitReplayButton != null){
+    		exitReplayButton.remove();
     	}
-        endReplayButton = new TextButton("Exit Replay", context.getSkin());
-        endReplayButton.setPosition(10.0f, TaxeGame.HEIGHT - 33.0f);
-        endReplayButton.addListener(new ClickListener() {
+        exitReplayButton = new TextButton("Exit Replay", context.getSkin());
+        exitReplayButton.setPosition(10.0f, TaxeGame.HEIGHT - 33.0f);
+        exitReplayButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {            	
-                context.endReplay();
-                endReplayButton.remove();
+                context.exitReplay();
+                exitReplayButton.remove();
                 skipThinkingButton.remove();
+                restartReplayButton.remove();
+                pauseReplayButton.remove();
             }
         });
         
-        context.getStage().addActor(endReplayButton);
+        context.getStage().addActor(exitReplayButton);
+        
+    }
+    
+    public void addRestartReplayButton(){
+    	//This method adds an exit replay button to the topBar which allows the user stop the replay
+    	if (restartReplayButton != null){
+    		restartReplayButton.remove();
+    	}
+    	restartReplayButton = new TextButton("Restart", context.getSkin());
+    	restartReplayButton.setPosition(100.0f, TaxeGame.HEIGHT - 33.0f);
+    	restartReplayButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {            	
+                context.restartReplay();
+            }
+        });
+        
+        context.getStage().addActor(restartReplayButton);
+        
+    }
+    
+    public void addPauseReplayButton(){
+    	//This method adds an exit replay button to the topBar which allows the user stop the replay
+    	if (pauseReplayButton != null){
+    		pauseReplayButton.remove();
+    	}
+    	pauseReplayButton = new TextButton("Pause", context.getSkin());
+    	pauseReplayButton.setPosition(200.0f, TaxeGame.HEIGHT - 33.0f);
+    	pauseReplayButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {            	
+                //context.restartReplay();
+            }
+        });
+        
+        context.getStage().addActor(pauseReplayButton);
         
     }
     
@@ -190,17 +230,21 @@ public class TopBarController {
     		skipThinkingButton.setColor(Color.GREEN);
     	}
     	
-    	skipThinkingButton.setPosition(100.0f, TaxeGame.HEIGHT - 33.0f);
+    	skipThinkingButton.setPosition(300.0f, TaxeGame.HEIGHT - 33.0f);
     	skipThinkingButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {    
             	if (context.getReplayManager().isSkipThinkingTime()){
             		context.getReplayManager().setSkipThinkingTime(false);
             		skipThinkingButton.setColor(Color.RED);
+            		
+            		//Set the time since the replay started to the last action that was played.
+            		context.getReplayManager().setTimeSinceReplayStarted(context.getReplayManager().getPreviousAction().getTimeStamp());
             	}
             	else{
             		context.getReplayManager().setSkipThinkingTime(true);
             		skipThinkingButton.setColor(Color.GREEN);
+            		
             	}
                 
             }

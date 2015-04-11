@@ -75,7 +75,7 @@ public class TrainActor extends Image {
         		if (!this.train.isReplay()){
         			super.act(delta);
         			count++;
-        			System.out.println(train.getName() + " new position = " + getX() + " " + getY() + " count = " + count +  " at " + context.getReplayManager().getCurrentTimeStamp());
+        			//System.out.println(train.getName() + " new position = " + getX() + " " + getY() + " count = " + count +  " at " + context.getReplayManager().getCurrentTimeStamp());
         		}
         	}
         	

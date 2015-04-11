@@ -100,11 +100,33 @@ public class Context {
         this.topBarController = topBarController;
     }
     
-    public void startReplay(){
-    	gameLogic.getReplayManager().startReplay();
+    public void enterReplay(){
     	
-    	replayingGame.getMap().resetAllConnections();
-    	//gameLogic.getMap().resetAllConnections();
+    	if (gameLogic.getReplayManager().getTimeSinceReplayStarted() > 0){
+    		//Replay has been started before
+    		gameLogic.getReplayManager().resumeReplay();
+    	}else{
+    		gameLogic.getReplayManager().startReplay();
+    		
+    		replayingGame.getPlayerManager().subscribeTurnChanged(new TurnListener() {
+    			@Override
+    			public void changed() {
+    				
+    				replayingGame.getMap().decrementBlockedConnections();
+    				
+    				if (replayingGame.getPlayerManager().getTurnNumber()!=1) {
+    					replayingGame.setState(GameState.ANIMATING);
+    					topBarController.displayFlashMessage("Time is passing...", Color.BLACK);
+    				}
+
+    				//System.out.println("Replaying game info:\n");
+    				//replayingGame.printDebugInfo();
+
+    			}
+    		});
+    	}
+    	
+    	
     	
     	//Remove all the non replay actors
     	for (Resource r : gameLogic.getPlayerManager().getAllPlayers().get(0).getResources()){
@@ -129,30 +151,10 @@ public class Context {
     	
     	gameScreen.show();
     	
-    	replayingGame.getPlayerManager().subscribeTurnChanged(new TurnListener() {
-			@Override
-			public void changed() {
-				//The game will not be set into the animating state for the first turn to prevent player 1 from gaining an inherent advantage by gaining an extra turn of movement.
-				
-				replayingGame.getMap().decrementBlockedConnections();
-				
-				if (replayingGame.getPlayerManager().getTurnNumber()!=1) {
-					replayingGame.setState(GameState.ANIMATING);
-					topBarController.displayFlashMessage("Time is passing...", Color.BLACK);
-				}
-
-				//System.out.println("Replaying game info:\n");
-				//replayingGame.printDebugInfo();
-
-			}
-		});
-    	
-    	
-    	
     }    
     
-    public void endReplay(){
-    	gameLogic.getReplayManager().endReplay();
+    public void exitReplay(){
+    	gameLogic.getReplayManager().pauseReplay();
     	gameScreen.show();
     	TrainController controller = new TrainController(this);
     	controller.setTrainsVisible(null, true);
@@ -174,6 +176,28 @@ public class Context {
     			}
     		}
     	}
+    }
+    
+    public void restartReplay(){
+    	replayingGame = new Game();
+    	gameLogic.getReplayManager().startReplay();
+    	
+    	replayingGame.getPlayerManager().subscribeTurnChanged(new TurnListener() {
+			@Override
+			public void changed() {
+				
+				replayingGame.getMap().decrementBlockedConnections();
+				
+				if (replayingGame.getPlayerManager().getTurnNumber()!=1) {
+					replayingGame.setState(GameState.ANIMATING);
+					topBarController.displayFlashMessage("Time is passing...", Color.BLACK);
+				}
+
+				//System.out.println("Replaying game info:\n");
+				//replayingGame.printDebugInfo();
+
+			}
+		});
     }
     
 

@@ -18,8 +18,10 @@ public class ReplayManager {
 	public int currentAction = -1;
 	long gameStartingTime = 0;
 	long replayStartingTime = -1;
+	long timeSinceReplayStarted = -1;;
 	float currentPlaybackSpeedMultiplier = 1;
     private boolean replaying = false;
+    private boolean paused = false;
     private boolean skipThinkingTime = false;
 
 	Game gameToBeReplayed;
@@ -64,6 +66,14 @@ public class ReplayManager {
 		return actionList;
 	}
 	
+	public Action getCurrentAction(){
+		return actionList.get(currentAction);
+	}
+	
+	public Action getPreviousAction(){
+		return actionList.get(currentAction - 1);
+	}
+	
 	public long getTimeOfNextAction(){
 		if (currentAction < actionList.size()){
 			return actionList.get(currentAction).getTimeStamp();
@@ -88,10 +98,16 @@ public class ReplayManager {
 	}
 	
 	public long getTimeSinceReplayStarted() {
-		return TimeUtils.millis() - replayStartingTime;
+		return timeSinceReplayStarted;
 	}
 
-	private void setReplayStartingTime(long replayStartingTime) {
+	public void setTimeSinceReplayStarted(long timeSinceReplayStarted) {
+		this.timeSinceReplayStarted = timeSinceReplayStarted;
+	}
+
+
+
+	public void setReplayStartingTime(long replayStartingTime) {
 		this.replayStartingTime = replayStartingTime;
 	}
 	
@@ -101,15 +117,42 @@ public class ReplayManager {
 	
 	public void startReplay() {
 		this.replaying = true;
+		restartReplay();
+		
+	}
+	
+	public void resumeReplay(){
+		this.replaying = true;
+	}
+	
+	public void restartReplay(){
 		setReplayStartingTime(TimeUtils.millis());
+		timeSinceReplayStarted = 0;
 		currentAction=0;
+		paused = false;
 	}
 	
 	public void endReplay(){
 		this.replaying = false;
 	}
 	
+	public void pauseReplay(){
+		this.replaying = false;
+		this.paused = true;
+	}
 	
+	
+	public void updateTimeSinceReplayStart(float delta){
+		timeSinceReplayStarted += delta * 1000; //delta is in seconds, we want milliseconds
+	}
+	
+	
+	public boolean isPaused() {
+		return paused;
+	}
+
+
+
 	public boolean isSkipThinkingTime() {
 		return skipThinkingTime;
 	}
