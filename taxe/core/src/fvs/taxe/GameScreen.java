@@ -283,8 +283,8 @@ public class GameScreen extends ScreenAdapter {
 		}
 		else{
 			topBarController.addExitReplayButton();
-			topBarController.addPauseReplayButton();
 			topBarController.addRestartReplayButton();
+			topBarController.addPauseReplayButton();			
 			topBarController.addSkipThinkingTimeButton();
 		}
 		goalController.showCurrentPlayerGoals();

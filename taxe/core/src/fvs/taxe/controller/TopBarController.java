@@ -166,6 +166,7 @@ public class TopBarController {
     		exitReplayButton.remove();
     	}
         exitReplayButton = new TextButton("Exit Replay", context.getSkin());
+        
         exitReplayButton.setPosition(10.0f, TaxeGame.HEIGHT - 33.0f);
         exitReplayButton.addListener(new ClickListener() {
             @Override
@@ -188,7 +189,8 @@ public class TopBarController {
     		restartReplayButton.remove();
     	}
     	restartReplayButton = new TextButton("Restart", context.getSkin());
-    	restartReplayButton.setPosition(100.0f, TaxeGame.HEIGHT - 33.0f);
+    	float x = 10f + exitReplayButton.getWidth() + 10f;
+    	restartReplayButton.setPosition(x, TaxeGame.HEIGHT - 33.0f);
     	restartReplayButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {            	
@@ -214,7 +216,8 @@ public class TopBarController {
     		pauseReplayButton.setText("Pause");
     	}
     	
-    	pauseReplayButton.setPosition(200.0f, TaxeGame.HEIGHT - 33.0f);
+    	float x = 10f + exitReplayButton.getWidth() + 10f + restartReplayButton.getWidth() + 10f;
+    	pauseReplayButton.setPosition(x, TaxeGame.HEIGHT - 33.0f);
     	pauseReplayButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -246,7 +249,8 @@ public class TopBarController {
     		skipThinkingButton.setColor(Color.GREEN);
     	}
     	
-    	skipThinkingButton.setPosition(300.0f, TaxeGame.HEIGHT - 33.0f);
+    	float x = 10f + exitReplayButton.getWidth() + 10f + restartReplayButton.getWidth() + 10f + pauseReplayButton.getWidth() + 10f;
+    	skipThinkingButton.setPosition(x, TaxeGame.HEIGHT - 33.0f);
     	skipThinkingButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {    
