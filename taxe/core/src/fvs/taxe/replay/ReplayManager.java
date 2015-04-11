@@ -123,6 +123,7 @@ public class ReplayManager {
 	
 	public void resumeReplay(){
 		this.replaying = true;
+		paused = false;
 	}
 	
 	public void restartReplay(){
@@ -137,8 +138,11 @@ public class ReplayManager {
 	}
 	
 	public void pauseReplay(){
-		this.replaying = false;
 		this.paused = true;
+	}
+	
+	public boolean atEndOfReplay(){
+		return !(currentAction < actionList.size());
 	}
 	
 	

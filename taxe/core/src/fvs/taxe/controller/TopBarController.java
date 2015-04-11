@@ -206,11 +206,27 @@ public class TopBarController {
     		pauseReplayButton.remove();
     	}
     	pauseReplayButton = new TextButton("Pause", context.getSkin());
+    	
+    	if (context.getReplayManager().isPaused()){
+    		pauseReplayButton.setText("Play");
+    	}
+    	else{
+    		pauseReplayButton.setText("Pause");
+    	}
+    	
     	pauseReplayButton.setPosition(200.0f, TaxeGame.HEIGHT - 33.0f);
     	pauseReplayButton.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {            	
-                //context.restartReplay();
+            public void clicked(InputEvent event, float x, float y) {
+            	if (context.getReplayManager().isPaused()){
+            		context.getReplayManager().resumeReplay();
+            		pauseReplayButton.setText("Pause");
+            	}
+            	else{
+            		context.getReplayManager().pauseReplay();
+            		pauseReplayButton.setText("Play");
+            	}
+                
             }
         });
         

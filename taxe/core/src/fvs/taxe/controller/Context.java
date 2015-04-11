@@ -155,6 +155,7 @@ public class Context {
     
     public void exitReplay(){
     	gameLogic.getReplayManager().pauseReplay();
+    	gameLogic.getReplayManager().endReplay();
     	gameScreen.show();
     	TrainController controller = new TrainController(this);
     	controller.setTrainsVisible(null, true);
@@ -179,6 +180,25 @@ public class Context {
     }
     
     public void restartReplay(){
+    	
+    	//Remove all the old replay actors
+    	for (Resource r : replayingGame.getPlayerManager().getAllPlayers().get(0).getResources()){
+    		if (r instanceof Train){
+    			Train t = (Train) r;
+    			if (t.getActor() != null){
+    				t.getActor().remove();
+    			}
+    		}
+    	}
+    	for (Resource r : replayingGame.getPlayerManager().getAllPlayers().get(1).getResources()){
+    		if (r instanceof Train){
+    			Train t = (Train) r;
+    			if (t.getActor() != null){
+    				t.getActor().remove();
+    			}
+    		}
+    	}
+    	
     	replayingGame = new Game();
     	gameLogic.getReplayManager().startReplay();
     	

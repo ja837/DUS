@@ -180,27 +180,29 @@ public class GameScreen extends ScreenAdapter {
 
 			ReplayManager replayManager = context.getReplayManager(); 
 
-			
-			if (replayManager.isSkipThinkingTime()){
-				if (gameLogic.getState() == GameState.NORMAL){
-					if (replayManager.getTimeOfNextAction() != -1){
-						replayManager.playNextAction();
-						
-					}
-				}
-								
-			}else if (replayManager.getTimeOfNextAction() != -1){
-				if (replayManager.getTimeSinceReplayStarted() > replayManager.getTimeOfNextAction()){
-					show();
-					replayManager.playNextAction();
-					
+			if (!replayManager.isPaused()){
 
+				if (replayManager.isSkipThinkingTime()){
+					if (gameLogic.getState() == GameState.NORMAL){
+						if (!replayManager.atEndOfReplay()){
+							replayManager.playNextAction();
+
+						}
+					}
+
+				}else if (!replayManager.atEndOfReplay()){
+					if (replayManager.getTimeSinceReplayStarted() > replayManager.getTimeOfNextAction()){
+						show();
+						replayManager.playNextAction();
+
+
+					}
+
+					replayManager.updateTimeSinceReplayStart(delta);
 				}
-				
-				replayManager.updateTimeSinceReplayStart(delta);
-			}
-			else{
-				//System.out.println("End of replay");
+				else{
+					//System.out.println("End of replay");
+				}
 			}
 
 		}
@@ -238,14 +240,14 @@ public class GameScreen extends ScreenAdapter {
 					timeAnimated = 0;
 				}
 
-				
+
 
 			}
 		}
-			
+
 
 		stage.act(delta);
-		
+
 		//Draw the number of trains at each station
 		if (gameLogic.getState() == GameState.NORMAL || gameLogic.getState() == GameState.PLACING_TRAIN) {
 			stationController.displayNumberOfTrainsAtStations();
@@ -253,7 +255,7 @@ public class GameScreen extends ScreenAdapter {
 
 		//Causes all the actors to perform their actions (i.e trains to move)
 
-		
+
 
 		stage.draw();
 
@@ -317,11 +319,11 @@ public class GameScreen extends ScreenAdapter {
 		}
 
 	}
-	
+
 	public GoalController getGoalController() {
 		return goalController;
 	}
-	
+
 	public ResourceController getResourceController() {
 		return resourceController;
 	}
