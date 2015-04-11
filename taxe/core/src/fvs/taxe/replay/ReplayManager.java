@@ -17,8 +17,11 @@ public class ReplayManager {
 	ArrayList<Action> actionList;
 	public int currentAction = -1;
 	long gameStartingTime = 0;
+	long timeSinceGameStarted = 0;
+	
 	long replayStartingTime = -1;
 	long timeSinceReplayStarted = -1;;
+	
 	float currentPlaybackSpeedMultiplier = 1;
     private boolean replaying = false;
     private boolean paused = false;
@@ -86,7 +89,7 @@ public class ReplayManager {
 	 * When recording an action we need to save the time it happened. This method returns the time elapsed after the game started
 	 */
 	public long getCurrentTimeStamp(){		
-		return TimeUtils.millis() - gameStartingTime;
+		return timeSinceGameStarted;
 	}
 	
 	/**
@@ -148,6 +151,10 @@ public class ReplayManager {
 	
 	public void updateTimeSinceReplayStart(float delta){
 		timeSinceReplayStarted += delta * 1000; //delta is in seconds, we want milliseconds
+	}
+	
+	public void updateTimeSinceGameStart(float delta){
+		timeSinceGameStarted += delta * 1000; //delta is in seconds, we want milliseconds
 	}
 	
 	

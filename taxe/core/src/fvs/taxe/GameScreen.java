@@ -205,6 +205,8 @@ public class GameScreen extends ScreenAdapter {
 				}
 			}
 
+		}else{
+			context.getReplayManager().updateTimeSinceGameStart(delta);
 		}
 
 
