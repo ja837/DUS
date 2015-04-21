@@ -38,7 +38,7 @@ public class Game {
     private final int CONFIG_PLAYERS = 2;
 
     //This
-    public final int TOTAL_TURNS = 30;
+    public static int TOTAL_TURNS = 30;
     public final int MAX_POINTS = 10000;
 
     public Game() {
@@ -156,4 +156,9 @@ public class Game {
             listener.changed(state);
         }
     }
+
+	public static void changeTurns(int n) {
+		TOTAL_TURNS = n;
+		
+	}
 }
