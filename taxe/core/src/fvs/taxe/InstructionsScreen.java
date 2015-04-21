@@ -37,7 +37,7 @@ public class InstructionsScreen extends ScreenAdapter {
         /**
          * button position
          */
-        backBounds = new Rectangle(TaxeGame.WIDTH/2 - 570, 550, 150, 50);
+        backBounds = new Rectangle(TaxeGame.WIDTH/2 - 500, 610, 150, 50);
         
         touchPoint = new Vector3();
         mapTexture = new Texture(Gdx.files.internal("instructions_screen.png"));
