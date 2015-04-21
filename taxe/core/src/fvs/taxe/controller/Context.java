@@ -146,6 +146,24 @@ public class Context {
     		}
     	}
     	
+    	//Add all the replay actors back
+    	for (Resource r : replayingGame.getPlayerManager().getAllPlayers().get(0).getResources()){
+    		if (r instanceof Train){
+    			Train t = (Train) r;
+    			if (t.getActor() != null){
+    				getStage().addActor(t.getActor());
+    			}
+    		}
+    	}
+    	for (Resource r : replayingGame.getPlayerManager().getAllPlayers().get(1).getResources()){
+    		if (r instanceof Train){
+    			Train t = (Train) r;
+    			if (t.getActor() != null){
+    				getStage().addActor(t.getActor());
+    			}
+    		}
+    	}
+    	
     	TrainController controller = new TrainController(this);
     	controller.setTrainsVisible(null, true);
     	
@@ -174,6 +192,24 @@ public class Context {
     			Train t = (Train) r;
     			if (t.getActor() != null){
     				getStage().addActor(t.getActor());
+    			}
+    		}
+    	}
+    	
+    	//Remove the replay actors
+    	for (Resource r : replayingGame.getPlayerManager().getAllPlayers().get(0).getResources()){
+    		if (r instanceof Train){
+    			Train t = (Train) r;
+    			if (t.getActor() != null){
+    				t.getActor().remove();
+    			}
+    		}
+    	}
+    	for (Resource r : replayingGame.getPlayerManager().getAllPlayers().get(1).getResources()){
+    		if (r instanceof Train){
+    			Train t = (Train) r;
+    			if (t.getActor() != null){
+    				t.getActor().remove();
     			}
     		}
     	}
