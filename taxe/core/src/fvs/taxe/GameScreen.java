@@ -74,7 +74,7 @@ public class GameScreen extends ScreenAdapter {
 		Gdx.input.setInputProcessor(stage);
 
 		//Draw background
-		mapTexture = new Texture(Gdx.files.internal("gamemap.png"));
+		mapTexture = new Texture(Gdx.files.internal("gamemap5.png"));
 		map = gameLogic.getMap();
 
 

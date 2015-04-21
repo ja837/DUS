@@ -37,7 +37,7 @@ public class TopBarController {
             public void changed(GameState state) {
                 switch (state) {
                     case ANIMATING:
-                        controlsColor = Color.GREEN;
+                        controlsColor = Color.LIGHT_GRAY;
                         break;
 
                     default:

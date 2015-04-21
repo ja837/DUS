@@ -35,7 +35,7 @@ public class ResourceController {
 
         game.batch.begin();
         game.fontSmall.setColor(Color.BLACK);
-        game.fontSmall.draw(game.batch, "Unplaced Resources:", 10.0f, (float) TaxeGame.HEIGHT - 250.0f);
+        game.fontSmall.draw(game.batch, "Unplaced Resources:", 10.0f, (float) TaxeGame.HEIGHT - 270.0f);
         game.batch.end();
     }
 
@@ -44,7 +44,7 @@ public class ResourceController {
         float top = (float) TaxeGame.HEIGHT;
         float x = 10.0f;
         //The value of y is set based on how much space the header texts and goals have taken up (assumed that 3 goals are always present for a consistent interface)
-        float y = top - 250.0f;
+        float y = top - 270.0f;
         y -= 50;
 
         //Clears the resource buttons so that the other player's resources are not displayed
@@ -64,6 +64,7 @@ public class ResourceController {
                     TextButton button = new TextButton(resource.toString(), context.getSkin());
                     button.setPosition(x, y);
                     button.addListener(listener);
+                    button.setColor(Color.RED);
                     resourceButtons.addActor(button);
                     y -= 30;
                 }
@@ -75,6 +76,7 @@ public class ResourceController {
                 TextButton button = new TextButton("Obstacle", context.getSkin());
                 button.setPosition(x, y);
                 button.addListener(listener);
+                button.setColor(Color.PURPLE);
                 resourceButtons.addActor(button);
 
                 y -= 30;
@@ -86,6 +88,7 @@ public class ResourceController {
                 TextButton button = new TextButton("Modifier", context.getSkin());
                 button.setPosition(x, y);
                 button.addListener(listener);
+                button.setColor(Color.BLUE);
                 resourceButtons.addActor(button);
 
                 y -= 30;
@@ -97,6 +100,7 @@ public class ResourceController {
                 TextButton button = new TextButton("Skip", context.getSkin());
                 button.setPosition(x, y);
                 button.addListener(listener);
+                button.setColor(Color.GREEN);
                 resourceButtons.addActor(button);
 
                 y -= 30;
@@ -108,6 +112,7 @@ public class ResourceController {
                 TextButton button = new TextButton("Engineer", context.getSkin());
                 button.setPosition(x, y);
                 button.addListener(listener);
+                button.setColor(Color.YELLOW);
                 resourceButtons.addActor(button);
 
                 y -= 30;

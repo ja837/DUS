@@ -79,15 +79,16 @@ public class GoalController {
 			//Necessary to check whether the goals are complete as completed goals are not removed from the player's list of goals, without this check complete goals would also be displayed.
 			if (!goal.getComplete()) {
 
-				y -= 40;
+				y -= 50;
 				TextButton button = new TextButton(
 						goal.baseGoalString() + "\n" + goal.bonusString(), context.getSkin());
 				button.getLabel().setAlignment(Align.left);
 				//The goal buttons are scaled so that they do not overlap nodes on the map, this was found to be necessary after changing the way goals were displayed
-				float scaleFactor = 0.8f;
+				float scaleFactor = 0.9f;
 				button.getLabel().setFontScale(scaleFactor, scaleFactor);
 				button.setWidth(scaleFactor * button.getWidth());
 				button.setHeight(scaleFactor * button.getHeight());
+				button.setColor(Color.TEAL);
 
 				//Adds the listener to the button so that it will inform the correct parts of the system
 				GoalClickListener listener = new GoalClickListener(context, goal);
