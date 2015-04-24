@@ -14,8 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**The instructions screen
  * 
- * @author Chris
- *
  */
 public class InstructionsScreen extends ScreenAdapter {
     TaxeGame game;

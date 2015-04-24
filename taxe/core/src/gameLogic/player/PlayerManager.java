@@ -32,6 +32,7 @@ public class PlayerManager {
     public List<Player> getAllPlayers() {
         return players;
     }
+    
 
     public void turnOver(Context context) {
         //Swaps current player

@@ -35,13 +35,23 @@ public class GoalController {
 		//This method draws the header for the goals, this is called at the beginning of every turn
 		TaxeGame game = context.getTaxeGame();
 		float top = (float) TaxeGame.HEIGHT;
+		float right = (float) TaxeGame.WIDTH;
+		float a = 10.0f;
+		float b = top - 10.0f - TopBarController.CONTROLS_HEIGHT;
 		float x = 10.0f;
-		float y = top - 10.0f - TopBarController.CONTROLS_HEIGHT;
+		float y = top - 30.0f - TopBarController.CONTROLS_HEIGHT;
+		float x1 = right - 145;
+		float y1 = top - 30.0f - TopBarController.CONTROLS_HEIGHT;
+		float y2 = top - 50.0f - TopBarController.CONTROLS_HEIGHT;
 		game.batch.begin();
 		game.fontSmall.setColor(Color.BLACK);
 		//Draws the player's name and their score
-		game.fontSmall.draw(game.batch, playerHeader(), x, y);
-		y -= 30;
+		game.fontSmall.draw(game.batch, "Player " + context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber() + "'s turn", a, b);
+		game.fontSmall.draw(game.batch, "SCORES", x1, b);
+		//y -= 10;
+		game.fontSmall.draw(game.batch, player1Header(), x1, y1);
+		game.fontSmall.draw(game.batch, player2Header(), x1, y2);
+		y -= 10;
 		//Draws "Goals:"
 		game.fontSmall.draw(game.batch, "Goals:", x, y);
 		game.batch.end();
@@ -105,16 +115,20 @@ public class GoalController {
 		context.getStage().addActor(goalButtons);
 	}
 
-	private String playerHeader() {
+	private String player1Header() {
 		//This method is used to draw the current player's name and their score
 		//It was necessary to apply a decimal format to the score as it is stored a double which by default is "0.0", however that is not intuitive for scoring as it should only be integer values.
 		DecimalFormat integer = new DecimalFormat("0");
-
-		return "Player " +
-		context.getGameLogic().getPlayerManager().getCurrentPlayer().getPlayerNumber() +
-		": " + integer.format(
-				context.getGameLogic().getPlayerManager().getCurrentPlayer().getScore());
-
-
+		//changed to display both player's scores on every turn
+		Player player1 = context.getGameLogic().getPlayerManager().getAllPlayers().get(0);
+		return player1.toString() + " : " + integer.format(player1.getScore());
+		
+	}
+	
+	private String player2Header() {
+		DecimalFormat integer = new DecimalFormat("0");
+		
+		Player player2 = context.getGameLogic().getPlayerManager().getAllPlayers().get(1);
+		return player2.toString() + " : " + integer.format(player2.getScore());
 	}
 }
