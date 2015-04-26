@@ -3,7 +3,6 @@ package fvs.taxe.replay;
 import fvs.taxe.controller.Context;
 import gameLogic.goal.Goal;
 import gameLogic.player.Player;
-import gameLogic.resource.Resource;
 
 public class GiveGoalAction extends Action {
 	

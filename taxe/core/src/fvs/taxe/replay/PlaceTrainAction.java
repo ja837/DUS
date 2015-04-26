@@ -2,15 +2,9 @@ package fvs.taxe.replay;
 
 
 
-import com.badlogic.gdx.Gdx;
-
 import fvs.taxe.actor.TrainActor;
 import fvs.taxe.controller.Context;
-import fvs.taxe.controller.StationController;
 import fvs.taxe.controller.TrainController;
-import fvs.taxe.controller.TrainMoveController;
-import gameLogic.Game;
-import gameLogic.GameState;
 import gameLogic.map.Station;
 import gameLogic.player.Player;
 import gameLogic.resource.Resource;

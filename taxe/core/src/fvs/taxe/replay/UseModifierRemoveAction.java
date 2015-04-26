@@ -1,23 +1,10 @@
 package fvs.taxe.replay;
 
-import java.util.List;
-
-import com.badlogic.gdx.Gdx;
-
-import fvs.taxe.actor.TrainActor;
 import fvs.taxe.controller.Context;
-import fvs.taxe.controller.StationController;
-import fvs.taxe.controller.TrainController;
-import fvs.taxe.controller.TrainMoveController;
-import gameLogic.Game;
-import gameLogic.GameState;
 import gameLogic.map.Connection;
-import gameLogic.map.Station;
 import gameLogic.player.Player;
 import gameLogic.resource.Modifier;
-import gameLogic.resource.Obstacle;
 import gameLogic.resource.Resource;
-import gameLogic.resource.Train;
 
 public class UseModifierRemoveAction extends Action {
 	
