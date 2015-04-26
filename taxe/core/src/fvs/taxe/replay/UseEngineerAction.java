@@ -28,7 +28,6 @@ public class UseEngineerAction extends Action {
 		super(context, timestamp);
 
 		this.engineer = engineer;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -39,8 +38,8 @@ public class UseEngineerAction extends Action {
 		engineer.use(context.getGameLogic().getMap().getConnection(engineer.getStation1(), engineer.getStation2()));
 		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
 		
+		//Find the resource in the play's inventory and remove it.
 		Engineer e = null;
-		
 		for (Resource r : currentPlayer.getResources()){
 			if (r instanceof Engineer){
 				e = (Engineer) r;
@@ -51,6 +50,9 @@ public class UseEngineerAction extends Action {
 		currentPlayer.removeResource(e);
 	}
 
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		

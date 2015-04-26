@@ -27,13 +27,13 @@ public class PlaceTrainAction extends Action {
 				
 		train = t;	
 		station = s;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void play() {
 		System.out.println("Replaying an train placement action.");
 		
+		//Find the player and then the train that is going to be placed.
 		Player p = train.getPlayer();
 		int playernumber = p.getPlayerNumber();
 		
@@ -59,11 +59,14 @@ public class PlaceTrainAction extends Action {
         train.setDeployed(true);
         train.setReplay(true);
         
-        
+        //Refresh displayed inventories
         context.getGameScreen().getResourceController().drawPlayerResources(context.getGameLogic().getPlayerManager().getCurrentPlayer());
 
 	}
 
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		

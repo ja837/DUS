@@ -37,10 +37,11 @@ public class UseObstacleAction extends Action {
 	public void play() {
 		System.out.println("Replaying an obstacle use action.");
 		
+		//Find the connection to block and block it
 		Connection c = context.getGameLogic().getMap().getConnection(connection.getStation1(), connection.getStation2());
-
 		c.setBlocked(5);
 		
+		//Find and remove the resource from the player
 		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
 		
 		Obstacle o = null;
@@ -55,6 +56,9 @@ public class UseObstacleAction extends Action {
 		
 	}
 
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		

@@ -35,14 +35,21 @@ public class PlaceObstacleAction extends Action {
 	public void play() {
 		System.out.println("Replaying an obstacle use action.");
 		
+		//Get the connection to be blocked from the replay map
 		Connection c = context.getGameLogic().getMap().getConnection(connection.getStation1(), connection.getStation2());
 
+		
+		//Block the connection
 		c.setBlocked(5);
 		
 
 		
 	}
 
+	
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		

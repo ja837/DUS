@@ -22,7 +22,6 @@ public class ReplayManager {
 	long replayStartingTime = -1;
 	long timeSinceReplayStarted = -1;;
 	
-	float currentPlaybackSpeedMultiplier = 1;
     private boolean replaying = false;
     private boolean paused = false;
     private boolean skipThinkingTime = false;
@@ -69,14 +68,26 @@ public class ReplayManager {
 		return actionList;
 	}
 	
+	/**
+	 * Gets the next unplayed action
+	 * @return
+	 */
 	public Action getCurrentAction(){
 		return actionList.get(currentAction);
 	}
 	
+	/**
+	 * Gets the last action that was replayed.
+	 * @return
+	 */
 	public Action getPreviousAction(){
 		return actionList.get(currentAction - 1);
 	}
 	
+	/**
+	 * Gets the timestamp of the next action
+	 * @return
+	 */
 	public long getTimeOfNextAction(){
 		if (currentAction < actionList.size()){
 			return actionList.get(currentAction).getTimeStamp();
@@ -100,35 +111,60 @@ public class ReplayManager {
 		return replayStartingTime;
 	}
 	
+	/**
+	 * Gets the time elapsed since the replay started in milliseconds.
+	 * @return
+	 */
 	public long getTimeSinceReplayStarted() {
 		return timeSinceReplayStarted;
 	}
 
+	/**
+	 * Sets the time elapsed since the replay started in milliseconds.
+	 * @param timeSinceReplayStarted
+	 */
 	public void setTimeSinceReplayStarted(long timeSinceReplayStarted) {
 		this.timeSinceReplayStarted = timeSinceReplayStarted;
 	}
 
 
-
+/**
+ * Sets the time stamp of when the replay was started.
+ * @param replayStartingTime
+ */
 	public void setReplayStartingTime(long replayStartingTime) {
 		this.replayStartingTime = replayStartingTime;
 	}
 	
+	/**
+	 * Returns true if currently in replaying mode.
+	 * @return
+	 */
 	public boolean isReplaying() {
 		return replaying;
 	}
 	
+	
+	/**
+	 * starts the replay from the beginning
+	 */
 	public void startReplay() {
 		this.replaying = true;
 		restartReplay();
 		
 	}
 	
+	/**
+	 * Resumes the replay from when it was last left off.
+	 */
 	public void resumeReplay(){
 		this.replaying = true;
 		paused = false;
 	}
 	
+	/**
+	 * restarts the replay from the beginning
+	 */
 	public void restartReplay(){
 		setReplayStartingTime(TimeUtils.millis());
 		timeSinceReplayStarted = 0;
@@ -136,40 +172,66 @@ public class ReplayManager {
 		paused = false;
 	}
 	
+	/**
+	 * stops the replay
+	 */
 	public void endReplay(){
 		this.replaying = false;
 	}
 	
+	/**
+	 * pauses the replay
+	 */
 	public void pauseReplay(){
 		this.paused = true;
 	}
 	
+	/**
+	 * Returns true if there are no more actions to replay. i.e. at the end of the replay
+	 * @return
+	 */
 	public boolean atEndOfReplay(){
 		return !(currentAction < actionList.size());
 	}
 	
-	
+	/**
+	 * updates the time since the replay was started
+	 * @param delta time since last frame in seconds
+	 */
 	public void updateTimeSinceReplayStart(float delta){
 		timeSinceReplayStarted += delta * 1000; //delta is in seconds, we want milliseconds
 	}
 	
+	/**
+	 * updates the time since the game was started
+	 * @param delta time since last frame in seconds
+	 */
 	public void updateTimeSinceGameStart(float delta){
 		timeSinceGameStarted += delta * 1000; //delta is in seconds, we want milliseconds
 	}
 	
-	
+	/**
+	 * returns true if replay is currently paused
+	 * @return
+	 */
 	public boolean isPaused() {
 		return paused;
 	}
 
 
-
+/**
+ * returns true if the system is currently skipping thinking time
+ * @return
+ */
 	public boolean isSkipThinkingTime() {
 		return skipThinkingTime;
 	}
 
 
-
+/**
+ * start or stop skipping thinking time
+ * @param skipThinkingTime
+ */
 	public void setSkipThinkingTime(boolean skipThinkingTime) {
 		this.skipThinkingTime = skipThinkingTime;
 	}

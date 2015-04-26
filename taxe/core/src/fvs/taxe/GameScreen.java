@@ -182,6 +182,7 @@ public class GameScreen extends ScreenAdapter {
 
 			if (!replayManager.isPaused()){
 
+				//Play the next action if we are skipping time, else wai tuntil the correct timestamp to play the next action
 				if (replayManager.isSkipThinkingTime()){
 					if (gameLogic.getState() == GameState.NORMAL){
 						if (!replayManager.atEndOfReplay()){
@@ -247,7 +248,7 @@ public class GameScreen extends ScreenAdapter {
 			}
 		}
 
-
+		//Moves all of the trains
 		stage.act(delta);
 
 		//Draw the number of trains at each station

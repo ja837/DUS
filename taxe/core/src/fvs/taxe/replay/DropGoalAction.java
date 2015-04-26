@@ -15,22 +15,25 @@ public class DropGoalAction extends Action {
 	public DropGoalAction(Context context, long timestamp, int p, Goal g) {
 		super(context, timestamp);
 		playerDropping = p;
-		
 		goal = g;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void play() {
 		System.out.println("Replaying an goal dropping action.");
 
+		//Drop the goal
 		Player player = context.getGameLogic().getPlayerManager().getAllPlayers().get(playerDropping - 1);
 		player.removeGoal(goal);
 		
+		//Refresh the goal display
 		context.getGameScreen().getGoalController().showCurrentPlayerGoals();
 		
 	}
 
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		

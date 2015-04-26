@@ -36,6 +36,7 @@ public class UseSkipAction extends Action {
 	public void play() {
 		System.out.println("Replaying an skip use action.");
 
+		//Skip the turn of the other player
 		context.getGameLogic().getPlayerManager().getAllPlayers().get(player).setSkip(true);
 		
 		//Removes the resource after it has been used
@@ -53,6 +54,9 @@ public class UseSkipAction extends Action {
 		currentPlayer.removeResource(s);
 	}
 
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		

@@ -28,7 +28,6 @@ public class UseModifierPlaceAction extends Action {
 		super(context, timestamp);
 
 		modifier = m;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -52,6 +51,9 @@ public class UseModifierPlaceAction extends Action {
 		currentPlayer.removeResource(m);
 	}
 
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		

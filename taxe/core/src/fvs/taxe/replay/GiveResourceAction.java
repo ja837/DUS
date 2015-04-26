@@ -30,19 +30,23 @@ public class GiveResourceAction extends Action {
 		}else if (r instanceof Modifier){
 			resource = new Modifier();
 		}
-		
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override
 	public void play() {
 		System.out.println("Replaying an resource allocation action.");
 		
+		//Get the player to add the resource to
 		Player player = context.getGameLogic().getPlayerManager().getAllPlayers().get(playerToGiveResourceTo - 1);
+		//Give the resource
 		context.getGameLogic().getResourceManager().addResourceToPlayer(player, resource);
 		
 	}
 
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		

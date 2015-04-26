@@ -52,6 +52,9 @@ public class UseModifierRemoveAction extends Action {
 		currentPlayer.removeResource(m);
 	}
 
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		
