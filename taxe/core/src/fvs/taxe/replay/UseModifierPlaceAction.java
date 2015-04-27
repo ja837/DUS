@@ -21,6 +21,7 @@ public class UseModifierPlaceAction extends Action {
 	public void play() {
 		System.out.println("Replaying an modifier use action.");
 
+		//Add the connection to the map
 		context.getGameLogic().getMap().addConnection(modifier.getStation1(), modifier.getStation2());
 		
 		//The modifiers is removed from the player's inventory as it has been used

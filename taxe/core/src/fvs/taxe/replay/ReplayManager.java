@@ -92,6 +92,7 @@ public class ReplayManager {
 		if (currentAction < actionList.size()){
 			return actionList.get(currentAction).getTimeStamp();
 		}
+		//This denotes the end of the replay
 		return -1;
 	}
 	

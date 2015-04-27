@@ -20,7 +20,8 @@ public class UseModifierRemoveAction extends Action {
 	@Override
 	public void play() {
 		System.out.println("Replaying an modifier use action.");
-
+		
+		//Find the connection and then remove it
 		Connection c = context.getGameLogic().getMap().getConnection(modifier.getStation1(),modifier.getStation2());
 		context.getGameLogic().getMap().removeConnection(c);
 		

@@ -31,6 +31,8 @@ public class DropResourceAction extends Action {
 	public DropResourceAction(Context context, long timestamp, int player, Resource r) {
 		super(context, timestamp);
 		playerDropping = player;
+		
+		//There are many types of resource, this code ensures we remove the right one when we replay
 		resource = r;
 		if (r instanceof Train){
 			train = (Train) r;

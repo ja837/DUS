@@ -19,6 +19,7 @@ public class GiveResourceAction extends Action {
 		super(context, timestamp);
 		playerToGiveResourceTo = p;
 		
+		//Add a new instance of the correct class, instead of the exact same instance of the resource that was used in the main game
 		if (r instanceof Train){
 			resource = new Train((Train) r);
 		}else if (r instanceof Skip){
