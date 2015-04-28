@@ -119,6 +119,7 @@ public class GoalController {
 		//This method is used to draw the current player's name and their score
 		//It was necessary to apply a decimal format to the score as it is stored a double which by default is "0.0", however that is not intuitive for scoring as it should only be integer values.
 		DecimalFormat integer = new DecimalFormat("0");
+		
 		//changed to display both player's scores on every turn
 		Player player1 = context.getGameLogic().getPlayerManager().getAllPlayers().get(0);
 		return player1.toString() + " : " + integer.format(player1.getScore());
@@ -126,6 +127,7 @@ public class GoalController {
 	}
 	
 	private String player2Header() {
+		//copied above for player two
 		DecimalFormat integer = new DecimalFormat("0");
 		
 		Player player2 = context.getGameLogic().getPlayerManager().getAllPlayers().get(1);

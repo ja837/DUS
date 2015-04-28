@@ -1,23 +1,9 @@
 package fvs.taxe.replay;
 
-import java.util.List;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.loaders.SkinLoader.SkinParameter;
-
-import fvs.taxe.actor.TrainActor;
 import fvs.taxe.controller.Context;
-import fvs.taxe.controller.StationController;
-import fvs.taxe.controller.TrainController;
-import fvs.taxe.controller.TrainMoveController;
-import gameLogic.Game;
-import gameLogic.GameState;
-import gameLogic.map.Station;
 import gameLogic.player.Player;
-import gameLogic.resource.Modifier;
 import gameLogic.resource.Resource;
 import gameLogic.resource.Skip;
-import gameLogic.resource.Train;
 
 public class UseSkipAction extends Action {
 	
@@ -36,6 +22,7 @@ public class UseSkipAction extends Action {
 	public void play() {
 		System.out.println("Replaying an skip use action.");
 
+		//Skip the turn of the other player
 		context.getGameLogic().getPlayerManager().getAllPlayers().get(player).setSkip(true);
 		
 		//Removes the resource after it has been used
@@ -53,6 +40,9 @@ public class UseSkipAction extends Action {
 		currentPlayer.removeResource(s);
 	}
 
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		

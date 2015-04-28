@@ -238,12 +238,12 @@ public class TopBarController {
     }
     
     public void addSkipThinkingTimeButton(){
-    	//This method adds an exit replay button to the topBar which allows the user stop the replay
+    	//This method adds a skip thinking time button to the topBar which allows the user stop the replay
     	if (skipThinkingButton != null){
     		skipThinkingButton.remove();
     	}
     	skipThinkingButton = new TextButton("Skip Thinking Time", context.getSkin());
-    	if (!context.getReplayManager().isSkipThinkingTime()){
+    	if (!context.getReplayManager().isSkipThinkingTime( )){
     		skipThinkingButton.setColor(Color.RED);
     	}else{
     		skipThinkingButton.setColor(Color.GREEN);

@@ -28,9 +28,11 @@ public class DropResourceAction extends Action {
 	int type = -1;
 	
 
-	public DropResourceAction(Context context, long timestamp, int p, Resource r) {
+	public DropResourceAction(Context context, long timestamp, int player, Resource r) {
 		super(context, timestamp);
-		playerDropping = p;
+		playerDropping = player;
+		
+		//There are many types of resource, this code ensures we remove the right one when we replay
 		resource = r;
 		if (r instanceof Train){
 			train = (Train) r;
@@ -57,6 +59,7 @@ public class DropResourceAction extends Action {
 
 		Player player = context.getGameLogic().getPlayerManager().getAllPlayers().get(playerDropping - 1);
 		
+		//Find the correct resource to drop
 		for (Resource r : context.getReplayingGame().getPlayerManager().getAllPlayers().get(playerDropping - 1).getResources()){
 			switch (type){
 			case tr:
@@ -93,11 +96,17 @@ public class DropResourceAction extends Action {
 			
 		}
 		
+		//Drop the resource
 		player.removeResource(resource);
 		
+		//Refresh the displayed inventories.
 		context.getGameScreen().getResourceController().drawPlayerResources(context.getGameLogic().getPlayerManager().getCurrentPlayer());
 	}
 
+	
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		

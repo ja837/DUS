@@ -1,24 +1,10 @@
 package fvs.taxe.replay;
 
-import java.util.List;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.loaders.SkinLoader.SkinParameter;
-
-import fvs.taxe.actor.TrainActor;
 import fvs.taxe.controller.Context;
-import fvs.taxe.controller.StationController;
-import fvs.taxe.controller.TrainController;
-import fvs.taxe.controller.TrainMoveController;
-import gameLogic.Game;
-import gameLogic.GameState;
 import gameLogic.map.Connection;
-import gameLogic.map.Station;
 import gameLogic.player.Player;
 import gameLogic.resource.Obstacle;
 import gameLogic.resource.Resource;
-import gameLogic.resource.Skip;
-import gameLogic.resource.Train;
 
 public class UseObstacleAction extends Action {
 	
@@ -37,10 +23,11 @@ public class UseObstacleAction extends Action {
 	public void play() {
 		System.out.println("Replaying an obstacle use action.");
 		
+		//Find the connection to block and block it
 		Connection c = context.getGameLogic().getMap().getConnection(connection.getStation1(), connection.getStation2());
-
 		c.setBlocked(5);
 		
+		//Find and remove the resource from the player
 		Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
 		
 		Obstacle o = null;
@@ -55,6 +42,9 @@ public class UseObstacleAction extends Action {
 		
 	}
 
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		

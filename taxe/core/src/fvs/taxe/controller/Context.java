@@ -61,6 +61,10 @@ public class Context {
         return taxeGame;
     }
 
+    /**
+     * Returns the game logic for the current displayed game, either replay game or the main game
+     * @return
+     */
     public Game getGameLogic() {
     	if (gameLogic.getReplayManager().isReplaying()){
     		return replayingGame;
@@ -100,6 +104,9 @@ public class Context {
         this.topBarController = topBarController;
     }
     
+    /**
+     * Switch to replay mode
+     */
     public void enterReplay(){
     	
     	if (gameLogic.getReplayManager().getTimeSinceReplayStarted() > 0){
@@ -171,6 +178,9 @@ public class Context {
     	
     }    
     
+    /**
+     * Return to main game
+     */
     public void exitReplay(){
     	gameLogic.getReplayManager().pauseReplay();
     	gameLogic.getReplayManager().endReplay();
@@ -215,6 +225,9 @@ public class Context {
     	}
     }
     
+    /**
+     * Restart the game from the beginning
+     */
     public void restartReplay(){
     	
     	//Remove all the old replay actors

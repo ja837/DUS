@@ -1,23 +1,10 @@
 package fvs.taxe.replay;
 
-import java.util.List;
-
-import com.badlogic.gdx.Gdx;
-
-import fvs.taxe.actor.TrainActor;
 import fvs.taxe.controller.Context;
-import fvs.taxe.controller.StationController;
-import fvs.taxe.controller.TrainController;
-import fvs.taxe.controller.TrainMoveController;
-import gameLogic.Game;
-import gameLogic.GameState;
 import gameLogic.map.Connection;
-import gameLogic.map.Station;
 import gameLogic.player.Player;
 import gameLogic.resource.Modifier;
-import gameLogic.resource.Obstacle;
 import gameLogic.resource.Resource;
-import gameLogic.resource.Train;
 
 public class UseModifierRemoveAction extends Action {
 	
@@ -33,7 +20,8 @@ public class UseModifierRemoveAction extends Action {
 	@Override
 	public void play() {
 		System.out.println("Replaying an modifier use action.");
-
+		
+		//Find the connection and then remove it
 		Connection c = context.getGameLogic().getMap().getConnection(modifier.getStation1(),modifier.getStation2());
 		context.getGameLogic().getMap().removeConnection(c);
 		
@@ -52,6 +40,9 @@ public class UseModifierRemoveAction extends Action {
 		currentPlayer.removeResource(m);
 	}
 
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		

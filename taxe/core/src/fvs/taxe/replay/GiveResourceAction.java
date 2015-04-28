@@ -19,6 +19,7 @@ public class GiveResourceAction extends Action {
 		super(context, timestamp);
 		playerToGiveResourceTo = p;
 		
+		//Add a new instance of the correct class, instead of the exact same instance of the resource that was used in the main game
 		if (r instanceof Train){
 			resource = new Train((Train) r);
 		}else if (r instanceof Skip){
@@ -30,19 +31,23 @@ public class GiveResourceAction extends Action {
 		}else if (r instanceof Modifier){
 			resource = new Modifier();
 		}
-		
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override
 	public void play() {
 		System.out.println("Replaying an resource allocation action.");
 		
+		//Get the player to add the resource to
 		Player player = context.getGameLogic().getPlayerManager().getAllPlayers().get(playerToGiveResourceTo - 1);
+		//Give the resource
 		context.getGameLogic().getResourceManager().addResourceToPlayer(player, resource);
 		
 	}
 
+	/**
+	 * First half to toString for an Action, second half is in Action.java
+	 */
 	@Override
 	public String toString() {
 		
