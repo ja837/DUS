@@ -35,11 +35,7 @@ public class ReplayTest {
     @Before
     public void setup() throws Exception {
     	
-    	//skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-    	File file = new File("./data/uiskin.json");
-    	FileHandle filehandle = new FileHandle(file);
-    	skin = new Skin(filehandle);
-    	
+    	//skin = new Skin(Gdx.files.internal("data/uiskin.json"));    	
     	taxeGame = new TaxeGame();
     	gameLogic = new Game();
     	gameScreen = new GameScreen(taxeGame);
