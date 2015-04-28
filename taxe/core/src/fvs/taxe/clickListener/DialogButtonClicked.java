@@ -722,5 +722,7 @@ public class DialogButtonClicked implements ResourceDialogClickListener {
 			context.getRouteController().begin(train);
 			break;
 		}
+		
 	}
+
 }

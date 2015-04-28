@@ -1,5 +1,6 @@
 package gameLogic;
 
+import fvs.taxe.SoundManager;
 import fvs.taxe.controller.Context;
 import fvs.taxe.replay.EndTurnAction;
 import fvs.taxe.replay.GiveResourceAction;
@@ -27,6 +28,7 @@ public class Game {
     private GoalManager goalManager;
     private ResourceManager resourceManager;
     private ReplayManager replayManager;
+    private SoundManager soundManager;
     private Map map;
     private GameState state;
 
@@ -50,7 +52,9 @@ public class Game {
         resourceManager = new ResourceManager();
         goalManager = new GoalManager(resourceManager);
         
-
+        soundManager = new SoundManager();
+        soundManager.playBGMusic();
+        
         replayManager = new ReplayManager();
         
         map = new Map();
@@ -133,6 +137,9 @@ public class Game {
 		this.replayManager = replayManager;
 	}
 
+    public SoundManager getSoundManager(){
+    	return soundManager;
+    }
     public Map getMap() {
         return map;
     }

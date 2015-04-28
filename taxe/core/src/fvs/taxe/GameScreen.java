@@ -5,8 +5,12 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import fvs.taxe.controller.*;
@@ -39,16 +43,16 @@ public class GameScreen extends ScreenAdapter {
 	private Tooltip tooltip;
 	private Context context;
 
+	private TextButton muteButton;
+	private Boolean isMuted = true;
+	
 	private StationController stationController;
 	private TopBarController topBarController;
 	private ResourceController resourceController;
 
 	private GoalController goalController;
 
-
 	private RouteController routeController;
-
-
 
 	public GameScreen(TaxeGame game) {
 		this.game = game;			
@@ -76,7 +80,6 @@ public class GameScreen extends ScreenAdapter {
 		//Draw background
 		mapTexture = new Texture(Gdx.files.internal("gamemap5.png"));
 		map = gameLogic.getMap();
-
 
 		tooltip = new Tooltip(skin);
 		stage.addActor(tooltip);
@@ -261,12 +264,13 @@ public class GameScreen extends ScreenAdapter {
 
 
 		stage.draw();
-
+		
+		
 		game.batch.begin();
 		//If statement checks whether the turn is above 30, if it is then display 30 anyway
 		game.fontSmall.draw(game.batch, "Turn " + ((gameLogic.getPlayerManager().getTurnNumber() + 1 < gameLogic.TOTAL_TURNS) ? gameLogic.getPlayerManager().getTurnNumber() + 1 : gameLogic.TOTAL_TURNS) + "/" + gameLogic.TOTAL_TURNS, (float) TaxeGame.WIDTH - 90.0f, 20.0f);
 		game.batch.end();
-
+		
 		resourceController.drawHeaderText();
 		goalController.drawHeaderText();
 	}
@@ -290,6 +294,8 @@ public class GameScreen extends ScreenAdapter {
 		}
 		goalController.showCurrentPlayerGoals();
 		resourceController.drawPlayerResources(context.getGameLogic().getPlayerManager().getCurrentPlayer());
+		addMuteButton();
+		
 	}
 
 
@@ -331,5 +337,37 @@ public class GameScreen extends ScreenAdapter {
 		return resourceController;
 	}
 
-
+	public void addMuteButton() {
+		if (muteButton != null){
+    		muteButton.remove();
+    	}
+		
+		muteButton = new TextButton("Mute", context.getSkin());
+		
+		if (isMuted){
+			muteButton.setColor(Color.RED);
+		}
+		else{
+			muteButton.setColor(Color.GREEN);
+		}
+		muteButton.setPosition(TaxeGame.WIDTH - 55, TaxeGame.HEIGHT - 150);
+		muteButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {    
+            	if (isMuted) {
+            		isMuted = false;
+            		context.getMainGame().getSoundManager().unmuteBGMusic();
+            		muteButton.setColor(Color.GREEN);
+            	}
+            	else{
+            		isMuted = true;
+            		context.getMainGame().getSoundManager().muteBGMusic();
+            		muteButton.setColor(Color.RED);
+            		
+            	}
+                
+            }
+        });
+		context.getStage().addActor(muteButton);
+	}
 }
