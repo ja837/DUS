@@ -63,6 +63,8 @@ public class GameScreen extends ScreenAdapter {
 		initialisePlayers();
 	}
 
+
+
 	private void ResetGameScreen(Game newGame){
 
 		stage = new Stage();
@@ -369,5 +371,15 @@ public class GameScreen extends ScreenAdapter {
             }
         });
 		context.getStage().addActor(muteButton);
+	}
+	
+	public Stage getStage() {
+		return stage;
+	}
+
+
+
+	public Skin getSkin() {
+		return skin;
 	}
 }
