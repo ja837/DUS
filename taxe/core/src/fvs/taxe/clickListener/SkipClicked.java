@@ -27,7 +27,7 @@ public class SkipClicked extends ClickListener {
 
     public void clicked(InputEvent event, float x, float y) {
         //When skip is clicked it checks whether the game is in the normal state
-        if (context.getGameLogic().getState() == GameState.NORMAL) {
+        if (context.getGameLogic().getState() == GameState.NORMAL && !context.getReplayManager().isReplaying()) {
 
             // current player can't be passed in as it changes so find out current player at this instant
             Player currentPlayer = context.getGameLogic().getPlayerManager().getCurrentPlayer();
