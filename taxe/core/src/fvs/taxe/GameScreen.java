@@ -352,7 +352,7 @@ public class GameScreen extends ScreenAdapter {
 		else{
 			muteButton.setColor(Color.GREEN);
 		}
-		muteButton.setPosition(TaxeGame.WIDTH - 55, TaxeGame.HEIGHT - 150);
+		muteButton.setPosition(TaxeGame.WIDTH - 90, TaxeGame.HEIGHT - 150);
 		muteButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {    
