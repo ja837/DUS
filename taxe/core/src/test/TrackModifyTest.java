@@ -1,30 +1,42 @@
 package test;
 
-import gameLogic.map.Connection;
+import gameLogic.map.Map;
 import gameLogic.map.Position;
-import gameLogic.map.Station;
-import gameLogic.resource.Engineer;
-import gameLogic.resource.Obstacle;
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
-public class TrackModifyTest extends TestCase {
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
-    public void testRemoveandAdd() throws Exception {
 
-        Station station1 = new Station("station1", new Position(6, 2));
-        Station station2 = new Station("station2", new Position(4, 2));
-        Connection connection = new Connection(station1, station2);
 
-        assertEquals(false, connection.isBlocked());
 
-        Obstacle obstacle = new Obstacle();
-        obstacle.use(connection);
+public class TrackModifyTest extends LibGdxTest{
+    private Map map;
 
-        assertEquals(true, connection.isBlocked());
+    @Before
+    public void mapSetup() throws Exception {
+        map = new Map();
+    }
+	
+	@Test
+    public void addRemoveConnectionTest() throws Exception {
+    	
+    	Map map = new Map();
+        String name1 = "station1";
+        String name2 = "station2";
 
-        Engineer engineer = new Engineer();
-        engineer.use(connection);
+        map.addStation(name1, new Position(9999, 9999));
+        map.addStation(name2, new Position(200, 200));
+        
+        map.addConnection(name1, name2);
+        
+        assertTrue("Connection addition failed", map.doesConnectionExist(name2, name1));
 
-        assertEquals(false, connection.isBlocked());
+        map.removeConnection(map.getConnection(map.getStationByName(name1),map.getStationByName(name2)));
+        
+        assertFalse("Connection remove failed", map.doesConnectionExist(name2, name1));
+
+
     }
 }
